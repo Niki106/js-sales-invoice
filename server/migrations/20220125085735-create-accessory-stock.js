@@ -13,7 +13,7 @@ module.exports = {
         defaultValue: '',
         type: Sequelize.STRING,
       },
-      color: {
+      category: {
         allowNull: false,
         defaultValue: '',
         type: Sequelize.STRING,

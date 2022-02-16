@@ -8,11 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      orderId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
       hasDeskTop: {
         allowNull: false,
         defaultValue: false,

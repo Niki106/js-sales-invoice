@@ -8,16 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      stockId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID,
-      },
-      orderId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID,
-      },
       unitPrice: {
         allowNull: false,
         defaultValue: 1000,

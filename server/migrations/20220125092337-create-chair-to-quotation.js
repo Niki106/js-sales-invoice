@@ -8,11 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      quotationId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
       unitPrice: {
         allowNull: false,
         defaultValue: 1000,

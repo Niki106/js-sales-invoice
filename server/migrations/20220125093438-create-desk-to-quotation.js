@@ -8,16 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      stockId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      quotationId: {
-        allowNull: false,
-        primaryKey: true,
-        type: Sequelize.UUID,
-      },
       hasDeskTop: {
         allowNull: false,
         defaultValue: false,

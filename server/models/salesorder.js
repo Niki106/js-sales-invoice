@@ -2,16 +2,12 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class SalesOrder extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
+      this.belongsTo(models.User, { as: 'Seller', foreignKey: 'sellerId' });
       this.belongsToMany(models.ChairStock, {
         through: 'ChairToOrder',
         foreignKey: 'orderId',
-        otherKey: 'stockId',
+        otherKey: 'stockId'
       });
       this.belongsToMany(models.DeskStock, {
         through: 'DeskToOrder',
@@ -47,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       surcharge: DataTypes.FLOAT,
       surchargeType: DataTypes.INTEGER,
       finished: DataTypes.BOOLEAN,
-      isPreorder: DataTypes.BOOLEAN,
+      isPreorder: DataTypes.BOOLEAN
     },
     {
       sequelize,
