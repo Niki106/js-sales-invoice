@@ -110,16 +110,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
-      sellerId: {
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-        references: {
-          key: 'id',
-          model: 'Users',
-        },
-        type: Sequelize.INTEGER,
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

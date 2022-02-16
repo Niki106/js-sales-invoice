@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       topThickness: DataTypes.FLOAT,
       topRoundedCorners: DataTypes.INTEGER,
       topHoleCount: DataTypes.INTEGER,
-      opHoleType: DataTypes.STRING,
+      topHoleType: DataTypes.STRING,
       topSketchURL: DataTypes.STRING,
       unitPrice: DataTypes.FLOAT,
       qty: DataTypes.INTEGER,
