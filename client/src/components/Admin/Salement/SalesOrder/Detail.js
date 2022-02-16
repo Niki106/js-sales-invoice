@@ -1093,7 +1093,8 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   Math.max(clientData.get('timeLine'), 0) *
                   (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
-                remark: clientData.get('remark'),
+                // remark: clientData.get('remark'),
+                remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
                   ...restProps,
