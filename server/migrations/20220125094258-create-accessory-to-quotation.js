@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('AccessoryToQuotations', {
+    await queryInterface.createTable('accessorytoquotations', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('AccessoryToQuotations');
+    await queryInterface.dropTable('accessorytoquotations');
   },
 };
