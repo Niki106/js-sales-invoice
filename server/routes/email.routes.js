@@ -14,13 +14,25 @@ function sendSchema(req, res, next) {
   const schema = Joi.object({
     email: Joi.string().required(),
     message: Joi.string().required(),
+    link: Joi.string()
   });
   validateRequest(req, next, schema);
 }
 
+router.get('/joe', (req, res) => {
+  res.send('Hi, Joe')
+})
+
 router.post('/send', authorize(), sendSchema, (req, res, next) => {
   let email = req.body.email;
   let message = req.body.message;
+  let link = req.body.link;
+  let salesman = req.user.firstName + ' ' + req.user.lastName;
+
+  console.log(email)
+  console.log(message)
+  console.log(link)
+  console.log(salesman)
 
   MailConfig.ViewOption(gmailTransport, hbs);
 
@@ -32,8 +44,11 @@ router.post('/send', authorize(), sendSchema, (req, res, next) => {
     template: 'invoice',
     context: {
       message: message,
+      link: link,
+      salesman: salesman
     },
   };
+
   gmailTransport.sendMail(HelperOptions, (error, info) => {
     if (error) {
       console.log(error);

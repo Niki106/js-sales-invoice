@@ -15,7 +15,7 @@ function admin() {
 
       // check user still exists
       if (!user || !user.isActive || user.type !== 'admin')
-        return res.status(401).json({ message: 'You are unauthorized!' });
+        return res.status(401).json({ message: 'You are unauthorizeddddd!' });
 
       // authorization successful
       req.user = user.get();
