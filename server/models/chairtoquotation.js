@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'ChairToQuotation',
+      tableName: 'chairtoquotations',
     }
   );
   return ChairToQuotation;

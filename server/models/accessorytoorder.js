@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'AccessoryToOrder',
+      tableName: 'accessorytoorders',
     }
   );
   return AccessoryToOrder;
