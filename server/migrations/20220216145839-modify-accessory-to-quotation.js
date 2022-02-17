@@ -6,7 +6,7 @@ module.exports = {
       'accessorytoquotations',
       'quotationId',
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'salesorders',
           key: 'id'
@@ -19,7 +19,7 @@ module.exports = {
       'accessorytoquotations', 
       'stockId', 
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'accessorystocks', 
           key: 'id'

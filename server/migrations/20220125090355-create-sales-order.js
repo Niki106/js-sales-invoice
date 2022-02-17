@@ -4,14 +4,14 @@ module.exports = {
     await queryInterface.createTable('SalesOrders', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
       },
-      name: {
+      invoiceNum: {
         allowNull: false,
-        defaultValue: '',
-        type: Sequelize.STRING,
+        defaultValue: 0,
+        type: Sequelize.INTEGER,
       },
       name: {
         allowNull: false,

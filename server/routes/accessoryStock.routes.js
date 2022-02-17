@@ -22,7 +22,7 @@ module.exports = router;
 function createSchema(req, res, next) {
   const schema = Joi.object({
     name: Joi.string().allow('').required(),
-    color: Joi.string().allow('').required(),
+    category: Joi.string().allow('').required(),
     remark: Joi.string().allow('').required(),
     thumbnailURL: Joi.string().empty(''),
     unitPrice: Joi.number().min(0).required(),

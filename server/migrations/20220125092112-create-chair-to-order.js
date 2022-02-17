@@ -4,9 +4,9 @@ module.exports = {
     await queryInterface.createTable('ChairToOrders', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
       },
       unitPrice: {
         allowNull: false,
@@ -51,6 +51,11 @@ module.exports = {
         type: Sequelize.STRING,
       },
       signURL: {
+        allowNull: false,
+        defaultValue: '',
+        type: Sequelize.STRING,
+      },
+      remark: {
         allowNull: false,
         defaultValue: '',
         type: Sequelize.STRING,

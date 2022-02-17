@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   ChairStock.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
       brand: DataTypes.STRING,
       model: DataTypes.STRING,
       frameColor: DataTypes.STRING,
