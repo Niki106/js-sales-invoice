@@ -2,7 +2,7 @@ let nodemailer = require('nodemailer');
 let environment = process.env;
 
 module.exports.GmailTransport = nodemailer.createTransport({
-  // service: environment.GMAIL_SERVICE_NAME,
+  service: environment.GMAIL_SERVICE_NAME,
   host: environment.GMAIL_SERVICE_HOST,
   secure: environment.GMAIL_SERVICE_SECURE,
   port: environment.GMAIL_SERVICE_PORT,
