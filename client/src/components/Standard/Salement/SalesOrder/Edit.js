@@ -26,7 +26,10 @@ const Edit = (props) => {
       }}
       initialCart={ChairStocks.map(({ ChairToOrder, ...restProps }) => ({
         productType: 'chair',
-        productDetail: restProps,
+        productDetail: {
+          ...restProps,
+          remark: ChairToOrder.remark,
+        },
         productPrice: ChairToOrder.unitPrice,
         productAmount: ChairToOrder.qty,
         productDeliveryOption: ChairToOrder.deliveryOption,
@@ -52,10 +55,14 @@ const Edit = (props) => {
         .concat(
           AccessoryStocks.map(({ AccessoryToOrder, ...restProps }) => ({
             productType: 'accessory',
-            productDetail: restProps,
+            productDetail: {
+              ...restProps,
+              remark: AccessoryToOrder.remark,
+            },
             productPrice: AccessoryToOrder.unitPrice,
             productAmount: AccessoryToOrder.qty,
             productDeliveryOption: AccessoryToOrder.deliveryOption,
+            productRemark: AccessoryToOrder.remark
           }))
         )}
       {...props}

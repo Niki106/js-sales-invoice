@@ -405,7 +405,10 @@ export default connect(mapStateToProps)((props) => {
   };
 
   const handleProductRemark = (e) => {
-
+    setProductRemark(e.target.value)
+    var product_detail = productDetail;
+    product_detail.remark = e.target.value;
+    setProductDetail(product_detail)
   }
 
   return (
@@ -746,8 +749,9 @@ export default connect(mapStateToProps)((props) => {
                               return;
                             }
                             setProductType('chair');
+                            chairStocks[index].remark = chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor;
                             setProductDetail(chairStocks[index]);
-                            setProductRemark(chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor)
+                            setProductRemark(chairStocks[index].remark)
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -1103,7 +1107,7 @@ export default connect(mapStateToProps)((props) => {
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
-                  remark: productRemark,
+                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1155,9 +1159,10 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   clientData.get('timeLine') *
                   (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
-                remark: clientData.get('remark'),
+                remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
+                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1437,7 +1442,7 @@ export default connect(mapStateToProps)((props) => {
                 name="remark"
                 value={ productRemark }
                 sx={{ width: 400, mx:"5px" }}
-                onChange={ (e) => setProductRemark(e.target.value) }
+                onChange={ handleProductRemark }
               />
             </Fragment> :
             <Fragment>
@@ -1446,7 +1451,7 @@ export default connect(mapStateToProps)((props) => {
                 name="remark"
                 value={ productRemark }
                 sx={{ width: 400, mx:"5px" }}
-                onChange={ (e) => setProductRemark(e.target.value) }
+                onChange={ handleProductRemark }
               />
             </Fragment>
           }
@@ -1537,7 +1542,6 @@ export default connect(mapStateToProps)((props) => {
                 productType,
                 productDetail,
                 productAmount,
-                productRemark,
                 productDeliveryOption: JSON.stringify(
                   [
                     'Delivery Included',
