@@ -150,6 +150,7 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setSuccess(true);
+        console.log(response.data)
         setOrder(response.data);
       })
       .catch(function (error) {
@@ -310,10 +311,8 @@ export default connect(mapStateToProps)((props) => {
                       item.withAdArmrest
                         ? 'With Adjustable Armrest'
                         : 'Without Adjustable Armrest'
-                    }\nFrameColor: ${item.frameColor}\nBack Color: ${
-                      item.backColor
-                    }\nSeat Color: ${item.seatColor}\nRemark: ${
-                      item.frameColor}, ${item.backColor}, ${item.seatColor
+                    }\nRemark: ${
+                      item.remark
                     }\nWith delivery and installation included`,
                     width: '55%',
                   },

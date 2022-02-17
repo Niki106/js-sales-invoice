@@ -270,6 +270,7 @@ export default connect(mapStateToProps)((props) => {
   const [productDetail, setProductDetail] = useState('');
   const [productPrice, setProductPrice] = useState(1000);
   const [productAmount, setProductAmount] = useState(0);
+  const [productRemark, setProductRemark] = useState('')
   const [cart, setCart] = useState(initialCart);
 
   const [paid, setPaid] = useState(initialClient.paid);
@@ -402,6 +403,10 @@ export default connect(mapStateToProps)((props) => {
     else if (cart.length === 0 && currentStep > 1 && step === 1) return true;
     else return false;
   };
+
+  const handleProductRemark = (e) => {
+
+  }
 
   return (
     <Box
@@ -742,6 +747,7 @@ export default connect(mapStateToProps)((props) => {
                             }
                             setProductType('chair');
                             setProductDetail(chairStocks[index]);
+                            setProductRemark(chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor)
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -987,6 +993,7 @@ export default connect(mapStateToProps)((props) => {
                             event.preventDefault();
                             setProductType('accessory');
                             setProductDetail(accessoryStocks[index]);
+                            setProductRemark(accessoryStocks[index].remark)
                             setProductPrice(accessoryStocks[index].unitPrice);
                             setProductAmount(1);
                             if (
@@ -1093,10 +1100,10 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   Math.max(clientData.get('timeLine'), 0) *
                   (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
-                // remark: clientData.get('remark'),
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
+                  remark: productRemark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1417,9 +1424,6 @@ export default connect(mapStateToProps)((props) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '1px solid #0000003b',
-              borderRadius: '4px',
-              width: '55%',
               my: '10px',
               mx: 'auto',
               p: '5px 3px',
@@ -1428,20 +1432,22 @@ export default connect(mapStateToProps)((props) => {
           {
             productType === "chair" ?
             <Fragment>
-              <Typography variant="span" sx={{ mx:"5px" }}>
-                {productDetail.frameColor}
-              </Typography>
-              <Typography variant="span" sx={{ mx:"5px" }}>
-                {productDetail.seatColor}
-              </Typography>
-              <Typography variant="span" sx={{ mx:"5px" }}>
-                {productDetail.backColor}
-              </Typography>
+              <TextField
+                label="Remark"
+                name="remark"
+                value={ productRemark }
+                sx={{ width: 400, mx:"5px" }}
+                onChange={ (e) => setProductRemark(e.target.value) }
+              />
             </Fragment> :
             <Fragment>
-              <Typography variant="span" sx={{ mx:"5px" }}>
-                {productDetail.remark}
-              </Typography>
+              <TextField
+                label="Remark"
+                name="remark"
+                value={ productRemark }
+                sx={{ width: 400, mx:"5px" }}
+                onChange={ (e) => setProductRemark(e.target.value) }
+              />
             </Fragment>
           }
           </Box>
@@ -1531,6 +1537,7 @@ export default connect(mapStateToProps)((props) => {
                 productType,
                 productDetail,
                 productAmount,
+                productRemark,
                 productDeliveryOption: JSON.stringify(
                   [
                     'Delivery Included',
