@@ -4,14 +4,14 @@ module.exports = {
     await queryInterface.createTable('Quotations', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
       },
-      name: {
+      quotationNum: {
         allowNull: false,
         defaultValue: '',
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       name: {
         allowNull: false,

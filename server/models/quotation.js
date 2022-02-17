@@ -3,6 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Quotation extends Model {
     static associate(models) {
+      this.belongsTo(models.User, { as: 'Seller', foreignKey: 'sellerId' });
       this.belongsToMany(models.ChairStock, {
         through: 'ChairToQuotation',
         foreignKey: 'quotationId',
@@ -22,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Quotation.init(
     {
-      name: DataTypes.STRING,
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+      quotationNum: DataTypes.INTEGER,
       name: DataTypes.STRING,
       district: DataTypes.STRING,
       street: DataTypes.STRING,

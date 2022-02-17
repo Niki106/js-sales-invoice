@@ -4,9 +4,9 @@ module.exports = {
     await queryInterface.createTable('AccessoryToOrders', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
       },
       unitPrice: {
         allowNull: false,
@@ -50,6 +50,11 @@ module.exports = {
         defaultValue: '',
         type: Sequelize.STRING,
       },
+      remark: {
+        allowNull: false,
+        defaultValue: '',
+        type: Sequelize.STRING,
+      },      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -6,7 +6,7 @@ module.exports = {
       'desktoorders',
       'orderId',
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'salesorders',
           key: 'id'
@@ -19,7 +19,7 @@ module.exports = {
       'desktoorders', 
       'stockId', 
       {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: 'deskstocks', 
           key: 'id'

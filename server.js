@@ -46,5 +46,5 @@ app.use('/', (req, res) => {
 app.use(errorHandler);
 
 // start server
-const port = 4001; //process.env.NODE_ENV === 'production' ? process.env.PORT || 80 : 4000;
+const port = 4000; //process.env.NODE_ENV === 'production' ? process.env.PORT || 80 : 4000;
 app.listen(port, () => console.log('Server listening on port ' + port));

@@ -4,9 +4,9 @@ module.exports = {
     await queryInterface.createTable('DeskToOrders', {
       id: {
         allowNull: false,
-        autoIncrement: true,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
       },
       hasDeskTop: {
         allowNull: false,
@@ -115,6 +115,11 @@ module.exports = {
         defaultValue: '',
         type: Sequelize.STRING,
       },
+      remark: {
+        allowNull: false,
+        defaultValue: '',
+        type: Sequelize.STRING,
+      },      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

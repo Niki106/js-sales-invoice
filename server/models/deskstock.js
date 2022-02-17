@@ -7,6 +7,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   DeskStock.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
       supplierCode: DataTypes.STRING,
       model: DataTypes.STRING,
       color: DataTypes.STRING,

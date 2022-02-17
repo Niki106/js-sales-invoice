@@ -12,8 +12,8 @@ module.exports = {
 
 async function getFeatures() {
   return await db.AccessoryStock.findAll({
-    attributes: ['color'],
-    group: ['color'],
+    attributes: ['category'],
+    group: ['category'],
   });
 }
 

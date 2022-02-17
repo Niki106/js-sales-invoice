@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   AccessoryToOrder.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
       unitPrice: DataTypes.FLOAT,
       qty: DataTypes.INTEGER,
       deliveryOption: DataTypes.STRING,
@@ -23,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       to: DataTypes.TIME,
       delivered: DataTypes.BOOLEAN,
       signURL: DataTypes.STRING,
+      remark: DataTypes.STRING
     },
     {
       sequelize,

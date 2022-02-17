@@ -23,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   SalesOrder.init(
     {
-      name: DataTypes.STRING,
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+      invoiceNum: DataTypes.INTEGER,
       name: DataTypes.STRING,
       district: DataTypes.STRING,
       street: DataTypes.STRING,
