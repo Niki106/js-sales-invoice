@@ -313,7 +313,7 @@ export default connect(mapStateToProps)((props) => {
                     }\nFrameColor: ${item.frameColor}\nBack Color: ${
                       item.backColor
                     }\nSeat Color: ${item.seatColor}\nRemark: ${
-                      item.remark
+                      item.frameColor}, ${item.backColor}, ${item.seatColor
                     }\nWith delivery and installation included`,
                     width: '55%',
                   },

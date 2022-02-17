@@ -13,6 +13,10 @@ import {
   IconButton,
   Paper,
   TextField,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select 
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -97,7 +101,7 @@ const Stock = connect(mapStateToProps)((props) => {
 
   const [features, setFeatures] = useState([]);
 
-  const [filterColor, setFilterColor] = useState(null);
+  const [filterCategory, setFilterCategory] = useState("");
 
   const handleEditClick = (index) => {
     if (index < stocks.length && index >= 0) {
@@ -111,10 +115,10 @@ const Stock = connect(mapStateToProps)((props) => {
           width: '48%',
         },
         {
-          name: 'color',
-          label: 'Color',
-          type: 'text',
-          defaultValue: stocks[index].color,
+          name: 'category',
+          label: 'Category',
+          type: 'select',
+          defaultValue: stocks[index].category,
           width: '48%',
         },
         {
@@ -298,7 +302,7 @@ const Stock = connect(mapStateToProps)((props) => {
     axios
       .post(`/accessoryStock/create`, {
         name: data.get('name'),
-        color: data.get('color'),
+        category: data.get('category'),
         remark: data.get('remark'),
         thumbnailURL,
         unitPrice: data.get('unitPrice'),
@@ -388,9 +392,9 @@ const Stock = connect(mapStateToProps)((props) => {
               width: '48%',
             },
             {
-              name: 'color',
-              label: 'Color',
-              type: 'text',
+              name: 'category',
+              label: 'Category',
+              type: 'select',
               width: '48%',
             },
             {
@@ -430,28 +434,23 @@ const Stock = connect(mapStateToProps)((props) => {
           justifyContent: 'space-around',
         }}
       >
-        {[
-          {
-            label: 'Color',
-            value: filterColor,
-            onChange: (event, value) => {
-              event.preventDefault();
-              setFilterColor(value);
-            },
-            options: features
-              .map((item) => item.color)
-              .filter((c, index, chars) => chars.indexOf(c) === index),
-          },
-        ].map(({ label, ...props }, index) => (
-          <Autocomplete
-            key={index}
-            sx={{ flexBasis: '200px', maxWidth: '200px' }}
-            renderInput={(params) => (
-              <TextField {...params} label={label} size="small" />
-            )}
-            {...props}
-          />
-        ))}
+        <FormControl
+          size="small"
+          sx={{ flexBasis: '200px', maxWidth: '200px' }}
+        >
+          <InputLabel id="category_filter">Category</InputLabel>
+          <Select
+            labelId="category_filter"
+            label="Category"
+            value={filterCategory}
+            onChange={setFilterCategory}
+          >
+            <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
+            <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+            <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
+            <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+          </Select>
+        </FormControl>
       </Paper>
       <DataGrid
         title="Accessory Stocks"
@@ -507,7 +506,7 @@ const Stock = connect(mapStateToProps)((props) => {
               ...restProps,
             })
           )
-          .filter((item) => !filterColor || item.color === filterColor)}
+          .filter((item) => !filterCategory || item.category === filterCategory)}
         columns={columns}
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
@@ -567,6 +566,25 @@ const Stock = connect(mapStateToProps)((props) => {
                     }
                     label={label}
                   />
+                );
+              } else if (type === 'select') {
+                return (
+                  <FormControl
+                    size="small"
+                    sx={{ flexBasis: width, minWidth: width }}
+                  >
+                    <InputLabel id="category_select">Category</InputLabel>
+                    <Select
+                      key={index}
+                      labelId="category_select"
+                      {...restParams}
+                    >
+                      <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
+                      <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+                      <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
+                      <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+                    </Select>
+                  </FormControl>
                 );
               } else return null;
             })}
