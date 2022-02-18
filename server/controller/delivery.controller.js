@@ -7,6 +7,7 @@ module.exports = {
   getChairDelivery,
   getAllDeskDelivery,
   getDeskDelivery,
+  getAllAccessoryDelivery,
   getAccessoryDelivery,
   generateDeliveryPDF,
   signDelivery,
@@ -199,6 +200,37 @@ async function getDeskDelivery(req, res, next) {
         };
       })
     );
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getAllAccessoryDelivery(req, res, next) {
+  try {
+    const result = await db.AccessoryToOrder.findAll({
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      include: [
+        {
+          model: db.SalesOrder,
+          include: [
+            {
+              model: db.User,
+              as: 'Seller',
+              attributes: ['id', 'firstName', 'lastName', 'prefix'],
+            },
+          ],
+        },
+        {
+          model: db.ChairStock,
+        },
+      ],
+      order: [['createdAt', 'DESC']],
+    });
+
+    const host = req.get('host');
+    const protocol = req.protocol;
+
+    res.json(result);
   } catch (err) {
     next(err);
   }
