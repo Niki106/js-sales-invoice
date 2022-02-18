@@ -16,6 +16,8 @@ router.get('/allDesk', authorize(), deliveryController.getAllDeskDelivery);
 router.get('/desk', authorize(), deliveryController.getDeskDelivery);
 router.put('/desk', admin(), deskUpdateSchema, deskToOrderController.update);
 router.get('/accessory', authorize(), deliveryController.getAccessoryDelivery);
+router.get('/allAccessory', authorize(), deliveryController.getAllAccessoryDelivery);
+// router.put('/accessory', admin(), accessoryUpdateSchema, accessoryToOrderController.update);
 router.post(
   '/generatePDF',
   authorize(),
@@ -48,6 +50,15 @@ function deskUpdateSchema(req, res, next) {
   });
   validateRequest(req, next, schema);
 }
+
+// function accessoryUpdateSchema(req, res, next) {
+//   const schema = Joi.object({
+//     ids: Joi.array().required(),
+//     akNum: Joi.string().required(),
+//     heworkNum: Joi.string().required(),
+//   });
+//   validateRequest(req, next, schema);
+// }
 
 function signSchema(req, res, next) {
   const schema = Joi.object({
