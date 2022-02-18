@@ -144,6 +144,8 @@ export default connect(mapStateToProps)((props) => {
 
   const [orderIndex, setOrderIndex] = useState(0);
 
+  const [paymentLink, setPaymentLink] = useState("")
+
   const chairDeliveries = useRef([]);
   const deskDeliveries = useRef([]);
   const accessoryDeliveries = useRef([]);
@@ -187,6 +189,7 @@ export default connect(mapStateToProps)((props) => {
       .post('email/send', {
         email: email,
         message: emailContent.current.value,
+        link: paymentLink
       })
       .then(() => {
         setEmailOpen(false);
@@ -594,6 +597,13 @@ export default connect(mapStateToProps)((props) => {
               multiline
               minRows={4}
               maxRows={10}
+            />
+
+            <TextField
+              label="Link"
+              type="text"
+              value={paymentLink}
+              onChange={(e) => setPaymentLink(e.target.value)}
             />
           </Stack>
         </DialogContent>

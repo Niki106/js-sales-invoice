@@ -242,6 +242,7 @@ const DataGrid = (props) => {
         selected.filter((item) => rows.map((row) => row.id).includes(item))
       );
     }
+    setPage(0)
   }, [rows, selected]);
 
   const handleRequestSort = (event, property) => {
