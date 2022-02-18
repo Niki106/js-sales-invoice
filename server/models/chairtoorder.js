@@ -8,7 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasMany(models.SalesOrder, {
+        foreignKey: 'id'
+      });
     }
   }
   ChairToOrder.init(
@@ -30,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       delivered: DataTypes.BOOLEAN,
       poNum: DataTypes.STRING,
       signURL: DataTypes.STRING,
-      remark: DataTypes.STRING
+      remark: { type: DataTypes.STRING, allowNull: true }
     },
     {
       sequelize,

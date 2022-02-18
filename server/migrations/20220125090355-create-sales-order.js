@@ -59,7 +59,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       remark: {
-        allowNull: false,
+        allowNull: true,
         defaultValue: '',
         type: Sequelize.STRING,
       },
@@ -81,7 +81,7 @@ module.exports = {
       dueDate: {
         type: Sequelize.DATEONLY,
       },
-      discout: {
+      discount: {
         allowNull: false,
         defaultValue: 0,
         type: Sequelize.FLOAT,

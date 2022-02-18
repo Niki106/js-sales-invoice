@@ -3,7 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.addColumn(
-      'quotaions',
+      'quotations',
       'sellerId',
       {
         type: Sequelize.UUID,
@@ -19,7 +19,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.removeColumn(
-      'quotaions',
+      'quotations',
       'sellerId'
     );
   }

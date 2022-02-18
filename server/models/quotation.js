@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       remark: DataTypes.STRING,
       paymentTerms: DataTypes.STRING,
       validTil: DataTypes.INTEGER,
-      discout: DataTypes.FLOAT,
+      discount: DataTypes.FLOAT,
       discountType: DataTypes.INTEGER,
       surcharge: DataTypes.FLOAT,
       surchargeType: DataTypes.INTEGER,
@@ -52,6 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Quotation',
+      tableName: 'quotations',
     }
   );
   return Quotation;
