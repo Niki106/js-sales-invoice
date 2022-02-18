@@ -78,6 +78,9 @@ function mapStateToProps(state) {
 
 const chairColumns = [
   {
+    id: 'add',
+  },
+  {
     id: 'thumbnail',
     sx: { width: 100 },
     nonSort: true,
@@ -142,12 +145,12 @@ const chairColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'add',
-  },
 ];
 
 const deskColumns = [
+  {
+    id: 'add',
+  },
   {
     id: 'thumbnail',
     sx: { width: 100 },
@@ -201,12 +204,12 @@ const deskColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'add',
-  },
 ];
 
 const accessoryColumns = [
+  {
+    id: 'add',
+  },
   {
     id: 'thumbnail',
     sx: { width: 100 },
@@ -243,9 +246,6 @@ const accessoryColumns = [
   {
     id: 'arrivalDate',
     label: 'Arrival',
-  },
-  {
-    id: 'add',
   },
 ];
 
