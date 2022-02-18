@@ -90,6 +90,7 @@ const Stock = connect(mapStateToProps)((props) => {
   const [formMode, setFormMode] = useState('create');
 
   const [stocks, setStocks] = useState([]);
+  const [initStocks, setInitStocks] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
   const [formProps, setFormProps] = useState([]);
 
@@ -101,7 +102,7 @@ const Stock = connect(mapStateToProps)((props) => {
 
   const [features, setFeatures] = useState([]);
 
-  const [filterCategory, setFilterCategory] = useState("");
+  const [filterCategory, setFilterCategory] = useState("All");
 
   const handleEditClick = (index) => {
     if (index < stocks.length && index >= 0) {
@@ -247,7 +248,7 @@ const Stock = connect(mapStateToProps)((props) => {
     axios
       .put(`/accessoryStock/${id}`, {
         name: data.get('name'),
-        color: data.get('color'),
+        category: data.get('category'),
         remark: data.get('remark'),
         thumbnailURL,
         unitPrice: data.get('unitPrice'),
@@ -356,6 +357,7 @@ const Stock = connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setStocks(response.data);
+        setInitStocks(response.data)
       })
       .catch(function (error) {
         // handle error
@@ -372,6 +374,16 @@ const Stock = connect(mapStateToProps)((props) => {
     getStocks(source.token);
     return () => source.cancel('Stock Component got unmounted');
   }, []);
+
+  const handleFilterCategory = (e) => {
+    var selected_category = e.target.value;
+    setFilterCategory(selected_category)
+    if (selected_category === "All") {
+      setStocks(initStocks)
+    } else {
+      setStocks(initStocks.filter((stock)=>stock.category === selected_category));
+    }
+  }
 
   return (
     <Box
@@ -443,8 +455,9 @@ const Stock = connect(mapStateToProps)((props) => {
             labelId="category_filter"
             label="Category"
             value={filterCategory}
-            onChange={setFilterCategory}
+            onChange={handleFilterCategory}
           >
+            <MenuItem value="All">All</MenuItem>
             <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
             <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
             <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
@@ -505,8 +518,7 @@ const Stock = connect(mapStateToProps)((props) => {
               arrivalDate: arrivalDate || 'No',
               ...restProps,
             })
-          )
-          .filter((item) => !filterCategory || item.category === filterCategory)}
+          )}
         columns={columns}
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}

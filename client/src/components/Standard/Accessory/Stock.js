@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { Autocomplete, Box, Paper, TextField } from '@mui/material';
+import { Autocomplete, Box, Paper, TextField, MenuItem, FormControl, Select, InputLabel,  } from '@mui/material';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -49,9 +49,10 @@ function mapStateToProps(state) {
 
 const Stock = connect(mapStateToProps)((props) => {
   const [stocks, setStocks] = useState([]);
+  const [initStocks, setInitStocks] = useState([]);
   const [features, setFeatures] = useState([]);
 
-  const [filterColor, setFilterColor] = useState(null);
+  const [filterCategory, setFilterCategory] = useState("All");
 
   const getFeatures = (cancelToken) => {
     axios
@@ -75,6 +76,7 @@ const Stock = connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setStocks(response.data);
+        setInitStocks(response.data)
       })
       .catch(function (error) {
         // handle error
@@ -91,6 +93,16 @@ const Stock = connect(mapStateToProps)((props) => {
     getStocks(source.token);
     return () => source.cancel('Stock Component got unmounted');
   }, []);
+
+  const handleFilterCategory = (e) => {
+    var selected_category = e.target.value;
+    setFilterCategory(selected_category)
+    if (selected_category === "All") {
+      setStocks(initStocks)
+    } else {
+      setStocks(initStocks.filter((stock)=>stock.category === selected_category));
+    }
+  }
 
   return (
     <Box
@@ -109,26 +121,24 @@ const Stock = connect(mapStateToProps)((props) => {
           justifyContent: 'space-around',
         }}
       >
-        {[
-          {
-            label: 'Color',
-            value: filterColor,
-            onChange: (event, value) => {
-              event.preventDefault();
-              setFilterColor(value);
-            },
-            options: features
-              .map((item) => item.color)
-              .filter((c, index, chars) => chars.indexOf(c) === index),
-          },
-        ].map(({ label, ...props }, index) => (
-          <Autocomplete
-            key={index}
-            sx={{ flexBasis: '200px', maxWidth: '200px' }}
-            renderInput={(params) => <TextField {...params} label={label} />}
-            {...props}
-          />
-        ))}
+        <FormControl
+          size="small"
+          sx={{ flexBasis: '200px', maxWidth: '200px' }}
+        >
+          <InputLabel id="category_filter">Category</InputLabel>
+          <Select
+            labelId="category_filter"
+            label="Category"
+            value={filterCategory}
+            onChange={handleFilterCategory}
+          >
+            <MenuItem value="All">All</MenuItem>
+            <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
+            <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+            <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
+            <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+          </Select>
+        </FormControl>
       </Paper>
       <DataGrid
         nonSelect={true}
@@ -178,8 +188,7 @@ const Stock = connect(mapStateToProps)((props) => {
               })(),
               ...restProps,
             })
-          )
-          .filter((item) => !filterColor || item.color === filterColor)}
+          )}
         columns={columns}
       />
     </Box>
