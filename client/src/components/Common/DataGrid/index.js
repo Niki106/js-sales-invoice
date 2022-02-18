@@ -403,7 +403,6 @@ const DataGrid = (props) => {
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
-          onWheel={(e) => console.log(e.deltaY)}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>

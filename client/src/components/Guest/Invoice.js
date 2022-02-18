@@ -312,7 +312,7 @@ export default connect(mapStateToProps)((props) => {
                         ? 'With Adjustable Armrest'
                         : 'Without Adjustable Armrest'
                     }\nRemark: ${
-                      item.remark
+                      item.ChairToOrder.remark
                     }\nWith delivery and installation included`,
                     width: '55%',
                   },
@@ -369,7 +369,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Color: ${item.color}\nRemark: ${item.remark}\nWith delivery and installation included`,
+                    content: `Accessory Name: ${item.name}\nAccessory Color: ${item.color}\nRemark: ${item.AccessoryToOrder.remark}\nWith delivery and installation included`,
                     width: '55%',
                   },
                   {
