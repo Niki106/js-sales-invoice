@@ -10,7 +10,7 @@ module.exports = {
       },
       quotationNum: {
         allowNull: false,
-        defaultValue: '',
+        defaultValue: 0,
         type: Sequelize.INTEGER,
       },
       name: {
@@ -73,7 +73,7 @@ module.exports = {
         defaultValue: 1,
         type: Sequelize.INTEGER,
       },
-      discout: {
+      discount: {
         allowNull: false,
         defaultValue: 0,
         type: Sequelize.FLOAT,

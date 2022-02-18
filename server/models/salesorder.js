@@ -39,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       email: DataTypes.STRING,
       timeLine: DataTypes.INTEGER,
-      remark: DataTypes.STRING,
+      remark: { type: DataTypes.STRING, allowNull: true },
       signURL: DataTypes.STRING,
       paid: DataTypes.BOOLEAN,
       paymentTerms: DataTypes.STRING,
       dueDate: DataTypes.DATEONLY,
-      discout: DataTypes.FLOAT,
+      discount: DataTypes.FLOAT,
       discountType: DataTypes.INTEGER,
       surcharge: DataTypes.FLOAT,
       surchargeType: DataTypes.INTEGER,
@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'SalesOrder',
+      tableName: 'salesorders',
     }
   );
   return SalesOrder;

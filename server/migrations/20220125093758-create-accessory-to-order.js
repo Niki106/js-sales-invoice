@@ -51,7 +51,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       remark: {
-        allowNull: false,
+        allowNull: true,
         defaultValue: '',
         type: Sequelize.STRING,
       },      

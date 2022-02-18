@@ -50,14 +50,14 @@ async function getChairDelivery(req, res, next) {
     const result = await db.ChairToOrder.findAll({
       attributes: [
         'id',
-        'proDeliveryDate',
+        'preDeliveryDate',
         'from',
         'to',
         'delivered',
         'signURL',
       ],
       where: {
-        proDeliveryDate: {
+        preDeliveryDate: {
           [Sequelize.Op.gte]: fromDate,
           [Sequelize.Op.lte]: toDate,
         },
@@ -146,14 +146,14 @@ async function getDeskDelivery(req, res, next) {
     const result = await db.DeskToOrder.findAll({
       attributes: [
         'id',
-        'proDeliveryDate',
+        'preDeliveryDate',
         'from',
         'to',
         'delivered',
         'signURL',
       ],
       where: {
-        proDeliveryDate: {
+        preDeliveryDate: {
           [Sequelize.Op.gte]: fromDate,
           [Sequelize.Op.lte]: toDate,
         },
@@ -211,14 +211,14 @@ async function getAccessoryDelivery(req, res, next) {
     const result = await db.AccessoryToOrder.findAll({
       attributes: [
         'id',
-        'proDeliveryDate',
+        'preDeliveryDate',
         'from',
         'to',
         'delivered',
         'signURL',
       ],
       where: {
-        proDeliveryDate: {
+        preDeliveryDate: {
           [Sequelize.Op.gte]: fromDate,
           [Sequelize.Op.lte]: toDate,
         },
@@ -347,7 +347,7 @@ async function _generateDeliveryPDF(type, id, host) {
 
   if (!deliveryInfo) throw 'Delivery was not found.';
 
-  const proDeliveryDate =
+  const preDeliveryDate =
     deliveryInfo.SalesOrder.timeLine % 7 === 0
       ? `Est ${deliveryInfo.SalesOrder.timeLine / 7} working week${
           deliveryInfo.SalesOrder.timeLine / 7 === 1 ? '' : 's'
@@ -373,7 +373,7 @@ async function _generateDeliveryPDF(type, id, host) {
 
   const delivery = {
     dueDate: deliveryInfo.SalesOrder.dueDate,
-    proDeliveryDate,
+    preDeliveryDate,
     sellerName: `${deliveryInfo.SalesOrder.Seller.firstName} ${deliveryInfo.SalesOrder.Seller.lastName}`,
     paymentTerms: deliveryInfo.SalesOrder.paymentTerms,
   };
