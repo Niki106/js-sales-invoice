@@ -278,6 +278,7 @@ export default connect(mapStateToProps)((props) => {
   const [chairStocks, setChairStocks] = useState([]);
   const [deskStocks, setDeskStocks] = useState([]);
   const [accessoryStocks, setAccessoryStocks] = useState([]);
+  const [initAccessoryStocks, setInitAccessoryStocks] = useState([]);
   const [stocksIndex, setStocksIndex] = useState(0);
 
   const [chairFeatures, setChairFeatures] = useState([]);
@@ -288,7 +289,7 @@ export default connect(mapStateToProps)((props) => {
   const [chairFilterModel, setChairFilterModel] = useState(null);
   const [deskFilterModel, setDeskFilterModel] = useState(null);
   const [deskFilterColor, setDeskFilterColor] = useState(null);
-  const [accessoryFilterColor, setAccessoryFilterColor] = useState(null);
+  const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
 
   const getChairFeatures = (cancelToken) => {
     axios
@@ -376,6 +377,7 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setAccessoryStocks(response.data);
+        setInitAccessoryStocks(response.data)
       })
       .catch(function (error) {
         // handle error
@@ -409,6 +411,16 @@ export default connect(mapStateToProps)((props) => {
     var product_detail = productDetail;
     product_detail.remark = e.target.value;
     setProductDetail(product_detail)
+  }
+
+  const handleAccessoryFilterCategory = (e) => {
+    var selected_category = e.target.value;
+    setAccessoryFilterCategory(selected_category)
+    if (selected_category === "All") {
+      setAccessoryStocks(initAccessoryStocks)
+    } else {
+      setAccessoryStocks(initAccessoryStocks.filter((stock)=>stock.category === selected_category));
+    }
   }
 
   return (
@@ -938,28 +950,24 @@ export default connect(mapStateToProps)((props) => {
                   justifyContent: 'space-around',
                 }}
               >
-                {[
-                  {
-                    label: 'Color',
-                    value: accessoryFilterColor,
-                    onChange: (event, value) => {
-                      event.preventDefault();
-                      setAccessoryFilterColor(value);
-                    },
-                    options: accessoryFeatures
-                      .map((item) => item.color)
-                      .filter((c, index, chars) => chars.indexOf(c) === index),
-                  },
-                ].map(({ label, ...props }, index) => (
-                  <Autocomplete
-                    key={index}
-                    sx={{ flexBasis: '200px', maxWidth: '200px' }}
-                    renderInput={(params) => (
-                      <TextField {...params} label={label} />
-                    )}
-                    {...props}
-                  />
-                ))}
+                <FormControl
+                  size="small"
+                  sx={{ flexBasis: '200px', maxWidth: '200px' }}
+                >
+                  <InputLabel id="category_filter">Category</InputLabel>
+                  <Select
+                    labelId="category_filter"
+                    label="Category"
+                    value={accessoryFilterCategory}
+                    onChange={handleAccessoryFilterCategory}
+                  >
+                    <MenuItem value="All">All</MenuItem>
+                    <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
+                    <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+                    <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
+                    <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+                  </Select>
+                </FormControl>
               </Paper>
               <DataGrid
                 nonSelect={true}
@@ -1042,11 +1050,6 @@ export default connect(mapStateToProps)((props) => {
                       })(),
                       ...restProps,
                     })
-                  )
-                  .filter(
-                    (item) =>
-                      !accessoryFilterColor ||
-                      item.color === accessoryFilterColor
                   )}
                 columns={accessoryColumns}
               />
