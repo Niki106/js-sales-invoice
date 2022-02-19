@@ -221,7 +221,7 @@ async function getAllAccessoryDelivery(req, res, next) {
           ],
         },
         {
-          model: db.ChairStock,
+          model: db.AccessoryStock,
         },
       ],
       order: [['createdAt', 'DESC']],
