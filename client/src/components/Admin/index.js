@@ -27,7 +27,7 @@ import {
   QuotationEdit,
   QuotationView,
 } from './Salement/Quotation';
-import { ChairDelivery, DeskDelivery } from './Delivery';
+import { ChairDelivery, DeskDelivery, AccessoryDelivery } from './Delivery';
 
 function mapStateToProps(state) {
   const { auth } = state;
@@ -83,6 +83,11 @@ const menuLists = [
         to: '/admin/delivery/desk',
         icon: <DeliveryDiningIcon />,
         label: 'Desk',
+      },
+      {
+        to: '/admin/delivery/accessory',
+        icon: <DeliveryDiningIcon />,
+        label: 'Accessory',
       },
     ],
   },
@@ -198,6 +203,11 @@ const Admin = (props) => {
               path={`${path}/delivery/desk`}
               exact
               component={DeskDelivery}
+            />
+            <Route
+              path={`${path}/delivery/accessory`}
+              exact
+              component={AccessoryDelivery}
             />
           </Switch>
         </Box>
