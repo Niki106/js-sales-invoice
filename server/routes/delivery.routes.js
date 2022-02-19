@@ -7,6 +7,7 @@ const authorize = require('server/middleware/authorize');
 const deliveryController = require('server/controller/delivery.controller');
 const chairToOrderController = require('server/controller/chairToOrder.controller');
 const deskToOrderController = require('server/controller/deskToOrder.controller');
+const accessoryToOrderController = require('server/controller/accessoryToOrder.controller');
 const validateRequest = require('server/middleware/validate-request');
 
 router.get('/allChair', authorize(), deliveryController.getAllChairDelivery);
@@ -17,7 +18,7 @@ router.get('/desk', authorize(), deliveryController.getDeskDelivery);
 router.put('/desk', admin(), deskUpdateSchema, deskToOrderController.update);
 router.get('/accessory', authorize(), deliveryController.getAccessoryDelivery);
 router.get('/allAccessory', authorize(), deliveryController.getAllAccessoryDelivery);
-// router.put('/accessory', admin(), accessoryUpdateSchema, accessoryToOrderController.update);
+router.put('/accessory', admin(), accessoryUpdateSchema, accessoryToOrderController.update);
 router.post(
   '/generatePDF',
   authorize(),
@@ -51,14 +52,13 @@ function deskUpdateSchema(req, res, next) {
   validateRequest(req, next, schema);
 }
 
-// function accessoryUpdateSchema(req, res, next) {
-//   const schema = Joi.object({
-//     ids: Joi.array().required(),
-//     akNum: Joi.string().required(),
-//     heworkNum: Joi.string().required(),
-//   });
-//   validateRequest(req, next, schema);
-// }
+function accessoryUpdateSchema(req, res, next) {
+  const schema = Joi.object({
+    ids: Joi.array().required(),
+    poNum: Joi.string().required(),
+  });
+  validateRequest(req, next, schema);
+}
 
 function signSchema(req, res, next) {
   const schema = Joi.object({

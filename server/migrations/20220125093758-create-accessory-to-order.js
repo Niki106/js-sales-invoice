@@ -45,6 +45,11 @@ module.exports = {
         defaultValue: false,
         type: Sequelize.BOOLEAN,
       },
+      poNum: {
+        allowNull: false,
+        defaultValue: false,
+        type: Sequelize.STRING,
+      },
       signURL: {
         allowNull: false,
         defaultValue: '',

@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.SalesOrder, {
-        foreignKey: 'id'
+      this.belongsTo(models.SalesOrder, {
+        foreignKey: 'orderId'
       });
       this.hasMany(models.AccessoryStock, {
         foreignKey: 'id'
@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       from: DataTypes.TIME,
       to: DataTypes.TIME,
       delivered: DataTypes.BOOLEAN,
+      poNum: DataTypes.STRING,
       signURL: DataTypes.STRING,
       remark: { type: DataTypes.STRING, allowNull: true }
     },
