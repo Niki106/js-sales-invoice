@@ -66,8 +66,8 @@ async function create(req, res, next) {
     const { products, ...restParams } = req.body;
     restParams.sellerId = req.user.id;
 
-    // const currentYear = new Date().getFullYear();
-    // if (!(await findSalesOrderByYear(currentYear))) restParams.invoiceNum = 1;
+    const currentYear = new Date().getFullYear();
+    restParams.invoiceNum = await getInvoiceNum(currentYear);
 
     const id = (await db.SalesOrder.create({ ...restParams })).id;
 
@@ -485,15 +485,19 @@ async function getSalesOrder(id) {
   return salesOrder;
 }
 
-async function findSalesOrderByYear(year) {
+async function getInvoiceNum(year) {
   const salesOrder = await db.SalesOrder.findOne({
+    attributes: [
+      [Sequelize.fn('MAX', Sequelize.col('invoiceNum')), 'max_inv']
+    ],
     where: {
       createdAt: {
         [Sequelize.Op.lt]: `${year + 1}-01-01`,
         [Sequelize.Op.gte]: `${year}-01-01`,
       },
     },
+    raw: true
   });
-  if (!salesOrder) return false;
-  return true;
+
+  return salesOrder.max_inv + 1;
 }
