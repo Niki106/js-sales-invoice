@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   header: {
-    fontFamily: 'Microsoft Yahei',
     width: '100%',
     fontSize: 8,
     lineHeight: 1.2,

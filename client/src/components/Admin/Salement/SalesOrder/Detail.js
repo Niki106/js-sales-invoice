@@ -630,7 +630,6 @@ export default connect(mapStateToProps)((props) => {
                       unitPrice={`${item.productPrice} HKD`}
                       amount={`Amount: ${item.productAmount}`}
                       deliveryOption={`${item.productDeliveryOption}`}
-                      deliveryOption={`${item.productDeliveryOption}`}
                     />
                   </ProductListItem>
                 ))}

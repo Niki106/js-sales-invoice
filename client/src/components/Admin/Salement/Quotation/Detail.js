@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -78,6 +78,9 @@ function mapStateToProps(state) {
 
 const chairColumns = [
   {
+    id: 'add',
+  },
+  {
     id: 'thumbnail',
     sx: { width: 100 },
     nonSort: true,
@@ -142,12 +145,12 @@ const chairColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'add',
-  },
 ];
 
 const deskColumns = [
+  {
+    id: 'add',
+  },
   {
     id: 'thumbnail',
     sx: { width: 100 },
@@ -201,12 +204,12 @@ const deskColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'add',
-  },
 ];
 
 const accessoryColumns = [
+  {
+    id: 'add',
+  },
   {
     id: 'thumbnail',
     sx: { width: 100 },
@@ -244,9 +247,6 @@ const accessoryColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'add',
-  },
 ];
 
 export default connect(mapStateToProps)((props) => {
@@ -270,11 +270,13 @@ export default connect(mapStateToProps)((props) => {
   const [productDetail, setProductDetail] = useState('');
   const [productPrice, setProductPrice] = useState(1000);
   const [productAmount, setProductAmount] = useState(0);
+  const [productRemark, setProductRemark] = useState('')
   const [cart, setCart] = useState(initialCart);
 
   const [chairStocks, setChairStocks] = useState([]);
   const [deskStocks, setDeskStocks] = useState([]);
   const [accessoryStocks, setAccessoryStocks] = useState([]);
+  const [initAccessoryStocks, setInitAccessoryStocks] = useState([]);
   const [stocksIndex, setStocksIndex] = useState(0);
 
   const [chairFeatures, setChairFeatures] = useState([]);
@@ -285,7 +287,7 @@ export default connect(mapStateToProps)((props) => {
   const [chairFilterModel, setChairFilterModel] = useState(null);
   const [deskFilterModel, setDeskFilterModel] = useState(null);
   const [deskFilterColor, setDeskFilterColor] = useState(null);
-  const [accessoryFilterColor, setAccessoryFilterColor] = useState(null);
+  const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
 
   const getChairFeatures = (cancelToken) => {
     axios
@@ -373,6 +375,7 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setAccessoryStocks(response.data);
+        setInitAccessoryStocks(response.data)
       })
       .catch(function (error) {
         // handle error
@@ -400,6 +403,23 @@ export default connect(mapStateToProps)((props) => {
     else if (cart.length === 0 && currentStep > 1 && step === 1) return true;
     else return false;
   };
+
+  const handleProductRemark = (e) => {
+    setProductRemark(e.target.value)
+    var product_detail = productDetail;
+    product_detail.remark = e.target.value;
+    setProductDetail(product_detail)
+  }
+
+  const handleAccessoryFilterCategory = (e) => {
+    var selected_category = e.target.value;
+    setAccessoryFilterCategory(selected_category)
+    if (selected_category === "All") {
+      setAccessoryStocks(initAccessoryStocks)
+    } else {
+      setAccessoryStocks(initAccessoryStocks.filter((stock)=>stock.category === selected_category));
+    }
+  }
 
   return (
     <Box
@@ -510,14 +530,6 @@ export default connect(mapStateToProps)((props) => {
               type: 'text',
               defaultValue: initialClient.unit,
               width: '30%',
-            },
-            {
-              name: 'remark',
-              label: 'Remark',
-              muliline: 'true',
-              type: 'text',
-              defaultValue: initialClient.remark,
-              width: '100%',
             },
           ].map(({ setValue, width, ...restProps }, index) =>
             restProps.label === 'Phone' ? (
@@ -746,7 +758,9 @@ export default connect(mapStateToProps)((props) => {
                               return;
                             }
                             setProductType('chair');
+                            chairStocks[index].remark = chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor;
                             setProductDetail(chairStocks[index]);
+                            setProductRemark(chairStocks[index].remark)
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -933,28 +947,24 @@ export default connect(mapStateToProps)((props) => {
                   justifyContent: 'space-around',
                 }}
               >
-                {[
-                  {
-                    label: 'Color',
-                    value: accessoryFilterColor,
-                    onChange: (event, value) => {
-                      event.preventDefault();
-                      setAccessoryFilterColor(value);
-                    },
-                    options: accessoryFeatures
-                      .map((item) => item.color)
-                      .filter((c, index, chars) => chars.indexOf(c) === index),
-                  },
-                ].map(({ label, ...props }, index) => (
-                  <Autocomplete
-                    key={index}
-                    sx={{ flexBasis: '200px', maxWidth: '200px' }}
-                    renderInput={(params) => (
-                      <TextField {...params} label={label} />
-                    )}
-                    {...props}
-                  />
-                ))}
+                <FormControl
+                  size="small"
+                  sx={{ flexBasis: '200px', maxWidth: '200px' }}
+                >
+                  <InputLabel id="category_filter">Category</InputLabel>
+                  <Select
+                    labelId="category_filter"
+                    label="Category"
+                    value={accessoryFilterCategory}
+                    onChange={handleAccessoryFilterCategory}
+                  >
+                    <MenuItem value="All">All</MenuItem>
+                    <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
+                    <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+                    <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
+                    <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+                  </Select>
+                </FormControl>
               </Paper>
               <DataGrid
                 nonSelect={true}
@@ -992,6 +1002,7 @@ export default connect(mapStateToProps)((props) => {
                             event.preventDefault();
                             setProductType('accessory');
                             setProductDetail(accessoryStocks[index]);
+                            setProductRemark(accessoryStocks[index].remark)
                             setProductPrice(accessoryStocks[index].unitPrice);
                             setProductAmount(1);
                             if (
@@ -1036,11 +1047,6 @@ export default connect(mapStateToProps)((props) => {
                       })(),
                       ...restProps,
                     })
-                  )
-                  .filter(
-                    (item) =>
-                      !accessoryFilterColor ||
-                      item.color === accessoryFilterColor
                   )}
                 columns={accessoryColumns}
               />
@@ -1098,9 +1104,10 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   Math.max(clientData.get('timeLine'), 0) *
                   (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
-                remark: clientData.get('remark'),
+                remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
+                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1159,9 +1166,10 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   clientData.get('timeLine') *
                   (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
-                remark: clientData.get('remark'),
+                remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
+                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1212,6 +1220,11 @@ export default connect(mapStateToProps)((props) => {
         >
           <Typography variant="h6" sx={{ flexBasis: '100%', minWidth: '100%' }}>
             Payment Details
+          </Typography>
+          <Typography variant="h7" sx={{ flexBasis: '100%', minWidth: '100%' }}>
+            Sub Total: {
+              cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0)
+            }
           </Typography>
           <TextField
             name="paymentTerms"
@@ -1373,7 +1386,6 @@ export default connect(mapStateToProps)((props) => {
             name="unitPrice"
             // inputProps={{ readOnly: true }}
             value={productPrice}
-            fullWidth
             sx={{ width: '200px' }}
             InputProps={{
               readOnly: true,
@@ -1403,7 +1415,7 @@ export default connect(mapStateToProps)((props) => {
             >
               <RemoveIcon />
             </IconButton>
-            <Typography variant="span" mx="10px">
+            <Typography variant="span" sx={{ ml:"10px" }}>
               {productAmount}
             </Typography>
             <IconButton
@@ -1414,6 +1426,38 @@ export default connect(mapStateToProps)((props) => {
             >
               <AddIcon />
             </IconButton>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              my: '10px',
+              mx: 'auto',
+              p: '5px 3px',
+            }}
+          >
+          {
+            productType === "chair" ?
+            <Fragment>
+              <TextField
+                label="Remark"
+                name="remark"
+                value={ productRemark }
+                sx={{ width: 400, mx:"5px" }}
+                onChange={ handleProductRemark }
+              />
+            </Fragment> :
+            <Fragment>
+              <TextField
+                label="Remark"
+                name="remark"
+                value={ productRemark }
+                sx={{ width: 400, mx:"5px" }}
+                onChange={ handleProductRemark }
+              />
+            </Fragment>
+          }
           </Box>
           <FormControlLabel
             sx={{ display: 'block' }}
