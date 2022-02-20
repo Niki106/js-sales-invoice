@@ -1557,7 +1557,7 @@ export default connect(mapStateToProps)((props) => {
                 productPrice: Boolean(data.get('hasDeskTop'))
                   ? Number(data.get('deskTotalPrice'))
                   : Number(data.get('deskLegPrice')),
-                hasDeskTop: Boolean(data.get('hasDeskTop')) || '',
+                hasDeskTop: Boolean(data.get('hasDeskTop')) || false,
                 topMaterial: data.get('topMaterial') || '',
                 topColor: data.get('topColor') || '',
                 topLength: data.get('topLength') || '',
