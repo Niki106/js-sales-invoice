@@ -368,7 +368,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Color: ${item.color}\nRemark: ${item.AccessoryToOrder.remark}\nWith delivery and installation included`,
+                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToOrder.remark}\nWith delivery and installation included`,
                     width: '55%',
                   },
                   {
