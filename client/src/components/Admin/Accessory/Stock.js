@@ -42,8 +42,8 @@ const columns = [
     label: 'Name',
   },
   {
-    id: 'color',
-    label: 'Color',
+    id: 'category',
+    label: 'Category',
   },
   {
     id: 'remark',

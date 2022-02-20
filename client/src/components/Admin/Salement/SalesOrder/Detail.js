@@ -220,8 +220,8 @@ const accessoryColumns = [
     label: 'Name',
   },
   {
-    id: 'color',
-    label: 'Color',
+    id: 'category',
+    label: 'Category',
   },
   {
     id: 'remark',
@@ -622,7 +622,7 @@ export default connect(mapStateToProps)((props) => {
                     )}
                     {item.productType === 'accessory' && (
                       <ProductListItemText
-                        primary={`Accessory: ${item.productDetail.color}`}
+                        primary={`Accessory: ${item.productDetail.category}`}
                         secondary={`${item.productDetail.remark}`}
                       />
                     )}

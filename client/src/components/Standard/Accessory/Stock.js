@@ -13,8 +13,8 @@ const columns = [
     nonSort: true,
   },
   {
-    id: 'color',
-    label: 'Color',
+    id: 'category',
+    label: 'Category',
   },
   {
     id: 'remark',
