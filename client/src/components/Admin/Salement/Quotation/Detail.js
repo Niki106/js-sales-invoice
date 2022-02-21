@@ -285,6 +285,7 @@ export default connect(mapStateToProps)((props) => {
 
   const [chairFilterBrand, setChairFilterBrand] = useState(null);
   const [chairFilterModel, setChairFilterModel] = useState(null);
+  const [deskFilterSupplier, setDeskFilterSupplier] = useState(null);
   const [deskFilterModel, setDeskFilterModel] = useState(null);
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
@@ -808,7 +809,19 @@ export default connect(mapStateToProps)((props) => {
                   justifyContent: 'space-around',
                 }}
               >
-                {[
+                {[ {
+                    label: 'Supplier',
+                    value: deskFilterSupplier,
+                    onChange: (event, value) => {
+                      event.preventDefault();
+                      setDeskFilterSupplier(value);
+                      setDeskFilterModel(null);
+                      setDeskFilterColor(null);
+                    },
+                    options: deskFeatures
+                      .map((item) => item.supplierCode)
+                      .filter((c, index, chars) => chars.indexOf(c) === index),
+                  },
                   {
                     label: 'Model',
                     value: deskFilterModel,
@@ -818,6 +831,10 @@ export default connect(mapStateToProps)((props) => {
                       setDeskFilterColor(null);
                     },
                     options: deskFeatures
+                      .filter(
+                        (item) =>
+                          !deskFilterSupplier || item.supplierCode === deskFilterSupplier
+                      )
                       .map((item) => item.model)
                       .filter((c, index, chars) => chars.indexOf(c) === index),
                   },
@@ -931,6 +948,7 @@ export default connect(mapStateToProps)((props) => {
                   )
                   .filter(
                     (item) =>
+                      (!deskFilterSupplier || item.supplierCode === deskFilterSupplier) &&
                       (!deskFilterModel || item.model === deskFilterModel) &&
                       (!deskFilterColor || item.color === deskFilterColor)
                   )}
