@@ -381,7 +381,7 @@ async function _delete(id) {
   }
   for (var index = 0; index < AccessoryStocks.length; index++) {
     if (!AccessoryStocks[index].AccessoryToOrder.preOrder) {
-      const stock = await deskStockController.getById(
+      const stock = await accessoryStockController.getById(
         AccessoryStocks[index].id
       );
       await stock.increment({
