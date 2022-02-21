@@ -5,8 +5,8 @@ const Create = (props) => {
   const [phone, setPhone] = useState('');
   return (
     <Detail
-      componentType="create"
-      initialClient={{
+      componentType = "create"
+      initialClient = {{
         phone,
         setPhone,
         paid: true,
@@ -14,7 +14,7 @@ const Create = (props) => {
         surchargeType: 1,
         dueDate: '',
       }}
-      initialCart={[]}
+      initialCart = {[]}
       {...props}
     />
   );

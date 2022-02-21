@@ -24,7 +24,7 @@ const Edit = (props) => {
         phone,
         setPhone,
       }}
-      initialCart={ChairStocks.map(({ ChairToOrder, ...restProps }) => ({
+      initialCart = {ChairStocks.map(({ ChairToOrder, ...restProps }) => ({
         productType: 'chair',
         productDetail: {
           ...restProps,

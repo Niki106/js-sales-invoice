@@ -261,6 +261,7 @@ export default connect(mapStateToProps)((props) => {
     'Select Products',
     'Input Payment Details',
   ];
+  
   const clientForm = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [addOpen, setAddOpen] = useState(false);
