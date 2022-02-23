@@ -189,6 +189,7 @@ async function update(req, res, next) {
     const { products, ...restParams } = req.body;
     Object.assign(salesOrder, restParams);
     await salesOrder.save();
+
     for (var index = 0; index < ChairStocks.length; index++) {
       if (!ChairStocks[index].ChairToOrder.preOrder) {
         const stock = await chairStockController.getById(ChairStocks[index].id);
@@ -197,6 +198,7 @@ async function update(req, res, next) {
       }
       await salesOrder.removeChairStock(ChairStocks[index]);
     }
+    
     for (var index = 0; index < DeskStocks.length; index++) {
       if (!DeskStocks[index].DeskToOrder.preOrder) {
         const stock = await deskStockController.getById(DeskStocks[index].id);
@@ -205,6 +207,7 @@ async function update(req, res, next) {
       }
       await salesOrder.removeDeskStock(DeskStocks[index].id);
     }
+    
     for (var index = 0; index < AccessoryStocks.length; index++) {
       if (!AccessoryStocks[index].AccessoryToOrder.preOrder) {
         const stock = await accessoryStockController.getById(
@@ -219,6 +222,7 @@ async function update(req, res, next) {
       }
       await salesOrder.removeAccessoryStock(AccessoryStocks[index].id);
     }
+    
     for (var index = 0; index < products.length; index++) {
       if (products[index].productType === 'chair') {
         const stock = await chairStockController.getById(
@@ -237,6 +241,7 @@ async function update(req, res, next) {
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
+          productRemark: remark,
           productType,
           ...restParams
         } = products[index];
@@ -246,6 +251,7 @@ async function update(req, res, next) {
             qty,
             deliveryOption,
             preOrder,
+            remark,
             ...restParams,
           },
         });
