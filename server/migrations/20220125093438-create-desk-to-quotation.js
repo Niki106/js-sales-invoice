@@ -78,6 +78,10 @@ module.exports = {
         defaultValue: 'Delivery Included',
         type: Sequelize.STRING,
       },
+      remark: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

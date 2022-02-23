@@ -486,7 +486,9 @@ async function getSalesOrder(id) {
       },
     ],
   });
+
   if (!salesOrder) throw 'ChairStock was not found.';
+  
   return salesOrder;
 }
 
