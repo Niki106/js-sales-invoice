@@ -71,11 +71,13 @@ async function create(req, res, next) {
         const stock = await chairStockController.getById(
           products[index].productId
         );
+
         await quotation.addChairStock(stock, {
           through: {
             unitPrice: products[index].productPrice,
             qty: products[index].productAmount,
             deliveryOption: products[index].productDeliveryOption,
+            remark: products[index].remark
           },
         });
       } else if (products[index].productType === 'desk') {
@@ -119,6 +121,7 @@ async function create(req, res, next) {
             unitPrice: products[index].productPrice,
             qty: products[index].productAmount,
             deliveryOption: products[index].productDeliveryOption,
+            remark: products[index].remark
           },
         });
       }
