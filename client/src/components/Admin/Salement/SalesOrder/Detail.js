@@ -1393,7 +1393,7 @@ export default connect(mapStateToProps)((props) => {
                   )
                 ),
                 productPrice: e.currentTarget.unitPrice.value,
-                productRemark
+                remark: productRemark
               })
             );
           },
