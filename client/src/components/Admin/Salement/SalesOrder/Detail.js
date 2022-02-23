@@ -409,9 +409,9 @@ export default connect(mapStateToProps)((props) => {
 
   const handleProductRemark = (e) => {
     setProductRemark(e.target.value)
-    var product_detail = productDetail;
-    product_detail.remark = e.target.value;
-    setProductDetail(product_detail)
+    // var product_detail = productDetail;
+    // product_detail.remark = e.target.value;
+    // setProductDetail(product_detail)
   }
 
   const handleAccessoryFilterCategory = (e) => {
@@ -605,7 +605,7 @@ export default connect(mapStateToProps)((props) => {
                   >
                     {item.productType === 'chair' && (
                       <ProductListItemText
-                        primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.productDetail.frameColor}, ${item.productDetail.backColor}, ${item.productDetail.seatColor}`}
+                        primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.productRemark}`}
                         secondary={`${
                           item.productDetail.withHeadrest ? 'Headrest, ' : ''
                         }${item.productDetail.withAdArmrest ? 'Armrest' : ''}`}
@@ -761,9 +761,13 @@ export default connect(mapStateToProps)((props) => {
                               return;
                             }
                             setProductType('chair');
-                            chairStocks[index].remark = chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor;
+                            // chairStocks[index].remark = chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor;
                             setProductDetail(chairStocks[index]);
-                            setProductRemark(chairStocks[index].remark)
+                            let frameColor = chairStocks[index].frameColor == "" ? "___" : chairStocks[index].frameColor;
+                            let seatColor = chairStocks[index].seatColor == "" ? "___" : chairStocks[index].seatColor;
+                            let backColor = chairStocks[index].backColor == "" ? "___" : chairStocks[index].backColor;
+                            let remark = "FrameColor:" + frameColor + ", SeatColor:" + seatColor + ", BackColor:" + backColor;
+                            setProductRemark(remark)
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -1391,6 +1395,7 @@ export default connect(mapStateToProps)((props) => {
                   )
                 ),
                 productPrice: e.currentTarget.unitPrice.value,
+                productRemark
               })
             );
           },

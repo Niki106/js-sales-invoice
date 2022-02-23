@@ -232,6 +232,7 @@ const DataGrid = (props) => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsLength, setRowsLength] = useState(rows.length)
 
   const prevRows = useRef();
 
@@ -242,7 +243,11 @@ const DataGrid = (props) => {
         selected.filter((item) => rows.map((row) => row.id).includes(item))
       );
     }
-    setPage(0)
+
+    if (rows.length !== rowsLength) {
+      setPage(0);
+      setRowsLength(rows.length)
+    }
   }, [rows, selected]);
 
   const handleRequestSort = (event, property) => {
