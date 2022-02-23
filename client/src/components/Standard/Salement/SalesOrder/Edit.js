@@ -28,8 +28,8 @@ const Edit = (props) => {
         productType: 'chair',
         productDetail: {
           ...restProps,
-          remark: ChairToOrder.remark,
         },
+        remark: ChairToOrder.remark,
         productPrice: ChairToOrder.unitPrice,
         productAmount: ChairToOrder.qty,
         productDeliveryOption: ChairToOrder.deliveryOption,
@@ -57,12 +57,11 @@ const Edit = (props) => {
             productType: 'accessory',
             productDetail: {
               ...restProps,
-              remark: AccessoryToOrder.remark,
             },
+            remark: AccessoryToOrder.remark,
             productPrice: AccessoryToOrder.unitPrice,
             productAmount: AccessoryToOrder.qty,
-            productDeliveryOption: AccessoryToOrder.deliveryOption,
-            productRemark: AccessoryToOrder.remark
+            productDeliveryOption: AccessoryToOrder.deliveryOption
           }))
         )}
       {...props}

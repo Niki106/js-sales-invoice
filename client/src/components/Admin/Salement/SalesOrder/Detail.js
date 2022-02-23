@@ -1452,17 +1452,13 @@ export default connect(mapStateToProps)((props) => {
               p: '5px 3px',
             }}
           >
-          {
-            <Fragment>
-              <TextField
-                label="Remark"
-                name="remark"
-                value={ productRemark }
-                sx={{ width: 400, mx:"5px" }}
-                onChange={ handleProductRemark }
-              />
-            </Fragment>
-          }
+            <TextField
+              label="Remark"
+              name="remark"
+              value={ productRemark }
+              sx={{ width: 400, mx:"5px" }}
+              onChange={ handleProductRemark }
+            />
           </Box>
           <FormControlLabel
             sx={{ display: 'block' }}

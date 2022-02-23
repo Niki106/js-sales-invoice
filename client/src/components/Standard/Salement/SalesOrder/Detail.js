@@ -410,9 +410,6 @@ export default connect(mapStateToProps)((props) => {
 
   const handleProductRemark = (e) => {
     setProductRemark(e.target.value)
-    var product_detail = productDetail;
-    product_detail.remark = e.target.value;
-    setProductDetail(product_detail)
   }
 
   const handleAccessoryFilterCategory = (e) => {
@@ -606,7 +603,7 @@ export default connect(mapStateToProps)((props) => {
                   >
                     {item.productType === 'chair' && (
                       <ProductListItemText
-                        primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.productDetail.frameColor}, ${item.productDetail.backColor}, ${item.productDetail.seatColor}`}
+                        primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.remark}`}
                         secondary={`${
                           item.productDetail.withHeadrest ? 'Headrest, ' : ''
                         }${item.productDetail.withAdArmrest ? 'Armrest' : ''}`}
@@ -625,7 +622,7 @@ export default connect(mapStateToProps)((props) => {
                     {item.productType === 'accessory' && (
                       <ProductListItemText
                         primary={`Accessory: ${item.productDetail.category}`}
-                        secondary={`${item.productDetail.remark}`}
+                        secondary={`${item.remark}`}
                       />
                     )}
                     <ProductPriceAmount
@@ -763,9 +760,12 @@ export default connect(mapStateToProps)((props) => {
                               return;
                             }
                             setProductType('chair');
-                            chairStocks[index].remark = chairStocks[index].frameColor + " " + chairStocks[index].seatColor + " " + chairStocks[index].backColor;
                             setProductDetail(chairStocks[index]);
-                            setProductRemark(chairStocks[index].remark)
+                            let frameColor = chairStocks[index].frameColor == "" ? "___" : chairStocks[index].frameColor;
+                            let seatColor = chairStocks[index].seatColor == "" ? "___" : chairStocks[index].seatColor;
+                            let backColor = chairStocks[index].backColor == "" ? "___" : chairStocks[index].backColor;
+                            let remark = "FrameColor:" + frameColor + ", SeatColor:" + seatColor + ", BackColor:" + backColor;
+                            setProductRemark(remark)
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -1129,7 +1129,6 @@ export default connect(mapStateToProps)((props) => {
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
-                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1184,7 +1183,6 @@ export default connect(mapStateToProps)((props) => {
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
-                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1393,6 +1391,7 @@ export default connect(mapStateToProps)((props) => {
                   )
                 ),
                 productPrice: e.currentTarget.unitPrice.value,
+                remark: productRemark
               })
             );
           },
@@ -1456,27 +1455,13 @@ export default connect(mapStateToProps)((props) => {
               p: '5px 3px',
             }}
           >
-          {
-            productType === "chair" ?
-            <Fragment>
-              <TextField
-                label="Remark"
-                name="remark"
-                value={ productRemark }
-                sx={{ width: 400, mx:"5px" }}
-                onChange={ handleProductRemark }
-              />
-            </Fragment> :
-            <Fragment>
-              <TextField
-                label="Remark"
-                name="remark"
-                value={ productRemark }
-                sx={{ width: 400, mx:"5px" }}
-                onChange={ handleProductRemark }
-              />
-            </Fragment>
-          }
+            <TextField
+              label="Remark"
+              name="remark"
+              value={ productRemark }
+              sx={{ width: 400, mx:"5px" }}
+              onChange={ handleProductRemark }
+            />
           </Box>
           <FormControlLabel
             sx={{ display: 'block' }}
