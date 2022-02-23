@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       unitPrice: DataTypes.FLOAT,
       qty: DataTypes.INTEGER,
       deliveryOption: DataTypes.STRING,
+      remark: DataTypes.STRING
     },
     {
       sequelize,

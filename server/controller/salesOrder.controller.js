@@ -241,17 +241,16 @@ async function update(req, res, next) {
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
-          productRemark: remark,
           productType,
           ...restParams
         } = products[index];
+
         await salesOrder.addChairStock(stock, {
           through: {
             unitPrice,
             qty,
             deliveryOption,
             preOrder,
-            remark,
             ...restParams,
           },
         });
@@ -487,7 +486,9 @@ async function getSalesOrder(id) {
       },
     ],
   });
+
   if (!salesOrder) throw 'ChairStock was not found.';
+  
   return salesOrder;
 }
 
