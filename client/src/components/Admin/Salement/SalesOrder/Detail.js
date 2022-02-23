@@ -1131,7 +1131,6 @@ export default connect(mapStateToProps)((props) => {
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
-                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
@@ -1186,7 +1185,6 @@ export default connect(mapStateToProps)((props) => {
                 remark: "",
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
-                  remark: productDetail.remark,
                   ...restProps,
                 })),
                 paymentTerms: paymentData.get('paymentTerms'),
