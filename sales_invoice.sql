@@ -50,7 +50,7 @@ INSERT INTO `accessorystocks` (`id`, `name`, `category`, `remark`, `thumbnailURL
 	('505b9753-203f-4840-a018-d422eae69db2', 'Balance Board ', 'Black', 'New Model', 'http://blueoceanblue.com:4000/uploads/stocks/1640600840097-360-rotation-balance-board-standing-desk-mat_20210304-01.jpg', 650, 0, 0, 0, NULL, NULL, '2021-12-27 10:08:09', '2021-12-27 10:27:20'),
 	('55044afa-7870-49dd-9d3f-c48254b17ac4', 'Add-on Legrest', '', '', '', 300, 0, 0, 0, NULL, NULL, '2021-12-28 06:21:04', '2021-12-28 06:21:04'),
 	('570e9e2a-547e-4439-86a4-c12f8bad6dc4', 'Modesty Panel', '', 'Put Size Here', 'http://blueoceanblue.com:4000/uploads/stocks/1640601853143-with modesty panel.JPG', 1200, 0, 0, 0, NULL, NULL, '2021-12-27 10:10:27', '2021-12-27 10:44:13'),
-	('86950b07-3868-4180-8e60-45d122710a96', 'Cable Tray', 'Black', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601171359-cdd10cbf-eb83-4059-92b5-9a2c2fd2157e.jpg', 330, 19, 39, 0, NULL, NULL, '2021-12-21 13:25:55', '2022-02-16 07:11:17'),
+	('86950b07-3868-4180-8e60-45d122710a96', 'Cable Tray', 'Black', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601171359-cdd10cbf-eb83-4059-92b5-9a2c2fd2157e.jpg', 330, 19, 36, -3, NULL, NULL, '2021-12-21 13:25:55', '2022-02-21 05:36:52'),
 	('92a62123-e484-4790-a43e-c22746ec06d1', 'Cable Tray', 'White', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601094167-Cable tray White.png', 330, 0, 0, 0, NULL, NULL, '2021-12-27 10:06:58', '2021-12-27 10:31:34'),
 	('99789fd7-0df5-4a52-8227-70d04e93d942', 'Electric Desk on Desk (Single Monitor)', 'WHITE', 'Height Range : 141-571mm (lower-tray included) Supports VESA Monitors only Gross Weight : 20kg Carrying Weight : (upper tray) 15kg ; (lower tray) 2kg', 'http://blueoceanblue.com:4000/uploads/stocks/1640666268652-E-Desk-on-Desk.jpg', 2900, 0, 0, 0, NULL, NULL, '2021-12-28 04:37:48', '2021-12-28 04:37:48'),
 	('9cd21849-4fc8-4337-9191-a84dcdaa3e03', 'Voyage Standing Desk Converter', '', 'Single Monitor version, Weight Capacity: 50kg', 'http://blueoceanblue.com:4000/uploads/stocks/1640603547921-JC-Desk-on-Desk.jpg', 2499, 0, 0, 0, NULL, NULL, '2021-12-27 11:12:28', '2021-12-27 11:12:28'),
@@ -92,11 +92,11 @@ CREATE TABLE IF NOT EXISTS `accessorytoorders` (
   PRIMARY KEY (`id`),
   KEY `accessorytoorders_orderId_foreign_idx` (`orderId`),
   KEY `accessorytoorders_stockId_foreign_idx` (`stockId`),
-  CONSTRAINT `accessorytoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `accessorytoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `accessorytoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `accessorystocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.accessorytoorders: ~18 rows (approximately)
+-- Dumping data for table sales_invoice.accessorytoorders: ~20 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoorders` DISABLE KEYS */;
 INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`) VALUES
 	('07550eff-8d56-457c-81a5-5b96db9765b6', 650, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', '', '2022-02-04 09:18:07', '2022-02-04 09:18:07', '4fc7d54a-ab6b-4e50-86df-ed7bd6d215b6', '2100665b-0f6c-447b-9db0-d95babeaeeba'),
@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `accessorytoquotations` (
   `unitPrice` float NOT NULL DEFAULT 1000,
   `qty` int(11) NOT NULL DEFAULT 1,
   `deliveryOption` varchar(255) NOT NULL DEFAULT 'Delivery Included',
+  `remark` varchar(255) DEFAULT 'Delivery Included',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `quotationId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
@@ -138,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `accessorytoquotations` (
 
 -- Dumping data for table sales_invoice.accessorytoquotations: ~2 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoquotations` DISABLE KEYS */;
-INSERT INTO `accessorytoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
-	('11dc0be7-4f7f-44c1-a38c-7a1f8b776ffb', 330, 1, '["Delivery and installation included"]', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '86950b07-3868-4180-8e60-45d122710a96'),
-	('4350ffb2-5688-42b6-8134-96015aac1bec', 1650, 1, '[]', '2022-02-19 10:02:06', '2022-02-19 10:02:06', '9a865d3f-f5bb-4274-a97c-fd988bd5f093', '9ea43207-89d9-4380-b623-74f6d1303858');
+INSERT INTO `accessorytoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
+	('11dc0be7-4f7f-44c1-a38c-7a1f8b776ffb', 330, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '86950b07-3868-4180-8e60-45d122710a96'),
+	('4350ffb2-5688-42b6-8134-96015aac1bec', 1650, 1, '[]', 'Delivery Included', '2022-02-19 10:02:06', '2022-02-19 10:02:06', '9a865d3f-f5bb-4274-a97c-fd988bd5f093', '9ea43207-89d9-4380-b623-74f6d1303858');
 /*!40000 ALTER TABLE `accessorytoquotations` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.chairstocks
@@ -609,11 +610,11 @@ CREATE TABLE IF NOT EXISTS `chairtoorders` (
   PRIMARY KEY (`id`),
   KEY `chairtoorders_orderId_foreign_idx` (`orderId`),
   KEY `chairtoorders_stockId_foreign_idx` (`stockId`),
-  CONSTRAINT `chairtoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `chairtoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `chairtoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.chairtoorders: ~65 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoorders: ~66 rows (approximately)
 /*!40000 ALTER TABLE `chairtoorders` DISABLE KEYS */;
 INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`) VALUES
 	('00e6582f-b9e9-448c-ab56-9f753d1a8cd3', 4600, 1, '["Delivery and installation included"]', 1, '2022-01-18', NULL, NULL, NULL, 0, '', '', '', '2022-01-11 08:41:42', '2022-01-18 05:17:56', 'de51c412-8892-41cd-a86e-17d38b287871', 'f1e3d04a-6c52-4e3f-b09c-2c035988e475'),
@@ -663,6 +664,7 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('a93af5ab-6ae5-429c-a4ee-49abe91c6721', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 05:19:49', '2022-02-16 05:19:49', '4fbadf51-0365-427b-8d4a-9052693d58a8', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
 	('ae79af06-59bf-4a59-ae8b-c27e19c7eedc', 6200, 1, '["Delivery and installation included"]', 1, '2022-01-18', NULL, NULL, NULL, 0, '', '', '', '2022-01-18 04:18:02', '2022-01-18 05:17:01', 'b68bbd26-1d6f-4511-be86-661b3f88e738', '073f2919-9eb8-430a-b749-65754fae40bd'),
 	('b04da0f2-f4f6-4d92-80e9-54c579015468', 3400, 1, '[]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-28 07:16:49', '2022-01-28 07:16:49', 'a7561af4-af35-47ee-bbfe-c730cebbf71b', '346cac99-b2ab-4e78-86f2-6dd31fe621f0'),
+	('b7217aa5-d423-4297-9537-b533a645faad', 36200, 1, '["Delivery Included","Remote Area Surcharge"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:N/A, SeatColor:___, BackColor:___', '2022-02-23 09:19:20', '2022-02-23 09:19:20', 'b31bffa6-e122-4a98-9eca-bbcd205c7a7f', '00a42064-3626-4e00-8e8b-b8d5b3085159'),
 	('b7f7f6ab-931a-49b9-8c44-fee598239a2c', 9700, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-15 05:57:52', '2022-02-15 05:57:52', 'cd688604-ee1e-4270-9f95-5f2d81169752', 'c48a5f0d-3932-4dc4-a384-36b5e1a5e1cf'),
 	('b81e13f8-5d93-42de-9693-daa8606d0911', 5300, 1, '[]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-19 07:42:04', '2022-02-19 07:42:04', 'e99a3837-3db4-4ba2-bdd2-c9900334c3f1', 'ab5be498-9452-4665-88cc-768b61cf00fe'),
 	('bb5092e5-d72a-446e-b6c9-6723cb34f662', 4499, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-12 09:34:03', '2022-02-12 09:34:03', '4f212805-2fed-469a-9398-826138c2d8a4', 'f4fb3fcc-2b21-4831-b1c2-365c5952b06d'),
@@ -689,6 +691,7 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
   `unitPrice` float NOT NULL DEFAULT 1000,
   `qty` int(11) NOT NULL DEFAULT 1,
   `deliveryOption` varchar(255) NOT NULL DEFAULT 'Delivery Included',
+  `remark` varchar(255) DEFAULT 'Delivery Included',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `quotationId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
@@ -702,12 +705,12 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
 
 -- Dumping data for table sales_invoice.chairtoquotations: ~4 rows (approximately)
 /*!40000 ALTER TABLE `chairtoquotations` DISABLE KEYS */;
-INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
-	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
-	('02053cd0-7333-45f1-9428-1d1c480dd266', 11200, 1, '["Delivery and installation included"]', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
-	('5a623af2-890e-4269-8523-c246d5a3cdb2', 36200, 1, '[]', '2022-02-20 19:22:49', '2022-02-20 19:22:49', '33027105-e642-4e48-9b79-663c99c047ae', '00a42064-3626-4e00-8e8b-b8d5b3085159'),
-	('aa1cbcee-5a2b-4f06-ae02-d5a8da38c78f', 8099, 1, '["Delivery and installation included"]', '2022-01-29 02:15:04', '2022-01-29 02:15:04', 'f5d4273e-8065-4af3-b548-7b19a304b3ba', '365a117d-e4a2-4c31-8602-b6dd795186ba'),
-	('d9d02d10-e48f-4757-8f26-e675ca6a2e40', 1899, 1, '["Delivery and installation included"]', '2022-01-24 05:27:41', '2022-01-24 05:27:41', '71906cd8-daec-45e4-9084-b2c05c539d26', '0fdf510c-4f53-443e-921b-f99bc08ec3a6');
+INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
+	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
+	('02053cd0-7333-45f1-9428-1d1c480dd266', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
+	('5a623af2-890e-4269-8523-c246d5a3cdb2', 36200, 1, '[]', 'Delivery Included', '2022-02-20 19:22:49', '2022-02-20 19:22:49', '33027105-e642-4e48-9b79-663c99c047ae', '00a42064-3626-4e00-8e8b-b8d5b3085159'),
+	('aa1cbcee-5a2b-4f06-ae02-d5a8da38c78f', 8099, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-29 02:15:04', '2022-01-29 02:15:04', 'f5d4273e-8065-4af3-b548-7b19a304b3ba', '365a117d-e4a2-4c31-8602-b6dd795186ba'),
+	('d9d02d10-e48f-4757-8f26-e675ca6a2e40', 1899, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-24 05:27:41', '2022-01-24 05:27:41', '71906cd8-daec-45e4-9084-b2c05c539d26', '0fdf510c-4f53-443e-921b-f99bc08ec3a6');
 /*!40000 ALTER TABLE `chairtoquotations` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.deskstocks
@@ -847,7 +850,7 @@ CREATE TABLE IF NOT EXISTS `desktoorders` (
   PRIMARY KEY (`id`),
   KEY `desktoorders_orderId_foreign_idx` (`orderId`),
   KEY `desktoorders_stockId_foreign_idx` (`stockId`),
-  CONSTRAINT `desktoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `desktoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `desktoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `deskstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -860,8 +863,6 @@ INSERT INTO `desktoorders` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topL
 	('66dd96d0-6fc6-4b7a-9ad5-20714d6a3188', 1, 'Red Oak', '', 1600, 600, 26, 4, 50, 1, 'Rectangular', 'http://blueoceanblue.com:4000/uploads/sketch/1645169698716.png', 12000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-18 07:34:58', '2022-02-18 07:34:58', 'ce0f2727-ca05-4a49-82db-3f011bc48102', 'fdd95cf6-dc38-4071-9253-e879222abcd4'),
 	('736218f8-a881-427d-be8f-ea706434e25e', 1, 'Melamine', 'M78', 1000, 550, 25, 4, 50, 1, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1643966265030.png', 5500, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-04 09:18:07', '2022-02-04 09:18:07', '4fc7d54a-ab6b-4e50-86df-ed7bd6d215b6', '7d0769ae-dd8d-423b-bf32-d5bf1bbc5ded'),
 	('7bc66e20-68c0-4757-9fe8-c4ea0310541a', 1, 'Laminate', 'dh314', 1100, 600, 25, 4, 50, 2, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641979880289.png', 6000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-01-12 09:32:04', '2022-01-12 09:32:04', '1b56d5a9-be7f-4280-b057-1480b1805fc8', 'aba99624-315d-4a8d-a836-8b149b5c4f0e'),
-	('8e671cad-1619-4357-9596-edc43a351a98', 0, '', '', 0, 0, 0, 0, 0, 0, '', '', 8500, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-20 18:53:05', '2022-02-20 18:53:05', '18355691-196e-46f9-89ee-ee0622344ddf', '0085f433-95b5-4605-a307-3347edf84352'),
-	('909dc7a8-5f13-43ef-ac07-a0968a76eec5', 0, '', '', 0, 0, 0, 0, 0, 0, '', '', 8500, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-20 19:02:30', '2022-02-20 19:02:30', '20ce8dca-8199-4725-9ba9-52871577e228', '0085f433-95b5-4605-a307-3347edf84352'),
 	('a4547824-f7e3-478d-8d28-9e271a2ab4d1', 1, 'Melamine', 'HW-M16', 1600, 800, 25, 0, 50, 2, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1644672892395.png', 4999, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-13 08:26:08', '2022-02-13 08:26:08', '062be3df-bb79-4126-b1b3-61fece49abc8', 'ef1a266e-bd6d-476b-9df7-6443a620bc50'),
 	('af07f4cf-5f43-4a70-930b-c578ee840131', 1, 'Laminate', 'DH101', 1550, 750, 25, 4, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1642588356704.png', 6400, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-01-19 11:15:43', '2022-01-19 11:15:43', '67a2374b-6533-41ea-aef7-806faac0f7f9', 'ef1a266e-bd6d-476b-9df7-6443a620bc50'),
 	('c9b78cac-85cb-48a6-9569-1644b9c6b3f6', 1, 'North American Walnut', 'Dark Brown', 1500, 750, 45, 0, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1644995477920.png', 13000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-02-16 07:11:18', '2022-02-16 07:11:18', '2345fd43-1b30-41b0-9e7f-ca44705f60a1', '2e9c1818-88b1-45ac-954d-df9a679663ce'),
@@ -885,6 +886,7 @@ CREATE TABLE IF NOT EXISTS `desktoquotations` (
   `unitPrice` float NOT NULL DEFAULT 1000,
   `qty` int(11) NOT NULL DEFAULT 1,
   `deliveryOption` varchar(255) NOT NULL DEFAULT 'Delivery Included',
+  `remark` varchar(255) DEFAULT 'Delivery Included',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `quotationId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
@@ -898,12 +900,12 @@ CREATE TABLE IF NOT EXISTS `desktoquotations` (
 
 -- Dumping data for table sales_invoice.desktoquotations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `desktoquotations` DISABLE KEYS */;
-INSERT INTO `desktoquotations` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topLength`, `topWidth`, `topThickness`, `topRoundedCorners`, `topCornerRadius`, `topHoleCount`, `topHoleType`, `topSketchURL`, `unitPrice`, `qty`, `deliveryOption`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
-	('163e4e45-f808-4d9d-885d-74b8c520f110', 1, 'Melamine', '', 1600, 750, 25, 2, 50, 2, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641875552495.png', 5500, 1, '["Delivery and installation included"]', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '953544d9-dc61-429e-b323-159e5aaef590'),
-	('176e7c1d-1216-429a-a93c-7715473ecab4', 1, 'Melamine', 'HW-M17', 1500, 850, 25, 2, 50, 1, 'Rectangular', 'http://blueoceanblue.com:4000/uploads/sketch/1644916939301.png', 4000, 2, '["Delivery and installation included"]', '2022-02-15 09:22:19', '2022-02-15 09:22:19', '6df1f5d1-57c7-43df-afdc-3f8e73c42865', '52d7d8e3-94ef-4624-9d1c-744755bf6fd6'),
-	('31ef5e1d-10d0-4929-ac5b-6e202c2a9d9f', 1, 'Melamine', 'HW-M83', 1500, 1500, 25, 2, 50, 1, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641876448440.png', 8500, 1, '["Delivery and installation included"]', '2022-01-11 04:47:28', '2022-01-11 04:47:28', 'a24a59bc-e33d-4184-b9a5-8371260b9461', '2605476d-b7c5-463d-9799-47cda0702d3f'),
-	('345b8fe3-6cb3-42dd-995b-b0a536092c79', 1, 'Melamine', 'HW-M83', 1000, 600, 25, 2, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641876448005.png', 5500, 1, '["Delivery and installation included"]', '2022-01-11 04:47:28', '2022-01-11 04:47:28', 'a24a59bc-e33d-4184-b9a5-8371260b9461', 'aa2b0a41-ef5f-41f7-a214-8ba6c43931c2'),
-	('96307e60-8a75-4626-aa07-fb56973fff6f', 1, 'Melamine', '', 700, 400, 25, 0, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1644392857314.png', 3850, 1, '["Delivery and installation included"]', '2022-02-19 10:02:06', '2022-02-19 10:02:06', '9a865d3f-f5bb-4274-a97c-fd988bd5f093', '044c483a-61b7-4f4b-af8c-53b0a02806a0');
+INSERT INTO `desktoquotations` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topLength`, `topWidth`, `topThickness`, `topRoundedCorners`, `topCornerRadius`, `topHoleCount`, `topHoleType`, `topSketchURL`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
+	('163e4e45-f808-4d9d-885d-74b8c520f110', 1, 'Melamine', '', 1600, 750, 25, 2, 50, 2, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641875552495.png', 5500, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '953544d9-dc61-429e-b323-159e5aaef590'),
+	('176e7c1d-1216-429a-a93c-7715473ecab4', 1, 'Melamine', 'HW-M17', 1500, 850, 25, 2, 50, 1, 'Rectangular', 'http://blueoceanblue.com:4000/uploads/sketch/1644916939301.png', 4000, 2, '["Delivery and installation included"]', 'Delivery Included', '2022-02-15 09:22:19', '2022-02-15 09:22:19', '6df1f5d1-57c7-43df-afdc-3f8e73c42865', '52d7d8e3-94ef-4624-9d1c-744755bf6fd6'),
+	('31ef5e1d-10d0-4929-ac5b-6e202c2a9d9f', 1, 'Melamine', 'HW-M83', 1500, 1500, 25, 2, 50, 1, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641876448440.png', 8500, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:47:28', '2022-01-11 04:47:28', 'a24a59bc-e33d-4184-b9a5-8371260b9461', '2605476d-b7c5-463d-9799-47cda0702d3f'),
+	('345b8fe3-6cb3-42dd-995b-b0a536092c79', 1, 'Melamine', 'HW-M83', 1000, 600, 25, 2, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1641876448005.png', 5500, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:47:28', '2022-01-11 04:47:28', 'a24a59bc-e33d-4184-b9a5-8371260b9461', 'aa2b0a41-ef5f-41f7-a214-8ba6c43931c2'),
+	('96307e60-8a75-4626-aa07-fb56973fff6f', 1, 'Melamine', '', 700, 400, 25, 0, 50, 0, 'Rounded', 'http://blueoceanblue.com:4000/uploads/sketch/1644392857314.png', 3850, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-02-19 10:02:06', '2022-02-19 10:02:06', '9a865d3f-f5bb-4274-a97c-fd988bd5f093', '044c483a-61b7-4f4b-af8c-53b0a02806a0');
 /*!40000 ALTER TABLE `desktoquotations` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.quotations
@@ -991,10 +993,8 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('071ad09d-7154-4cca-ba89-c0215f27427e', 36, 'Mrs Ng', '', '', '', '', '', '+852 9185 5919', '', 168, '', '', 1, '100% Credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-19 09:16:17', '2022-01-19 09:26:59', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('1006c661-ede2-4ba9-9124-046a998c5022', 58, 'Liu Ho Lim', '', 'Century Square, 1-13 D\'Aguilar Street', '', '17', '02', '+852 6832 094', '', 5, '', '', 1, '100% Credit Card', NULL, 5, 0, 0, 1, 0, 0, '2022-01-31 08:46:37', '2022-01-31 08:46:37', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('16911798-d356-41b6-a0b5-7cbcfe5356c5', 59, 'Mr. Ho', '', 'Tai Ying Building, Cosmopolitan Estates, Tai Koi Tsui, Kowloon ', '', '5', '7', '+852 9678 1773', '', 7, '', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-31 12:46:53', '2022-01-31 12:46:53', '47324cff-bc23-42e2-9911-19f8e07957cf'),
-	('18355691-196e-46f9-89ee-ee0622344ddf', 105, 'employees', 'sdf', 'Zhenxing', '', '', '', '+852 12', 'logos106@outlook.com', 0, '', '', 1, 'PayPal', NULL, 1, 1, 1, 1, 0, 0, '2022-02-20 18:53:05', '2022-02-20 18:53:05', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('1b56d5a9-be7f-4280-b057-1480b1805fc8', 24, 'Mr. Chu', 'Kowloon Tong', 'Parc Oasis 35 Tat Chee Ave', '5', '6', 'B', '+852 9838 2997', 'felixchu726@gmail.com', 28, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-12 09:31:20', '2022-01-12 09:31:20', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('1f946781-82a1-4ddd-8661-ac0f31897a63', 84, 'Ms. Petra ', '', 'Apartment 3A, Po Chi Court, 15 Ship Street, Wan Chai, HK', '', '', '', '+852 6608 9862', '', 7, '', '', 1, '100% Cash', NULL, 550, 1, 0, 1, 0, 0, '2022-02-15 05:54:05', '2022-02-15 06:43:56', '47324cff-bc23-42e2-9911-19f8e07957cf'),
-	('20ce8dca-8199-4725-9ba9-52871577e228', 106, 'employees', '', 'Zhenxing', '', '', '', '+852 12', 'logos106@outlook.com', 0, '', '', 1, 'PayPal', NULL, 1, 1, 0, 1, 0, 0, '2022-02-20 19:02:30', '2022-02-20 19:02:30', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('2183ef6e-247d-463c-817c-2889b17bd1c3', 54, 'Ms. Peng', 'Yuen Long', '143 Nam Hang Tsuen', '', '', '', '+852 6361 9631', '', 3, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-28 07:56:25', '2022-01-28 08:04:16', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('21f6dcd4-7411-4230-aa18-5412ea3af3c3', 48, 'Mr Wong', '', '', '', '', '', '+852 9091 6089', '', 1, '', '', 1, 'C/c', NULL, 10, 0, 0, 1, 0, 0, '2022-01-27 09:33:00', '2022-01-27 09:33:00', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('227a56bf-28ba-475d-a2e9-e9e614d5af4b', 94, 'Hang Lung (Administration) Limited - Ms. Joey Cheng', '', 'Standard Chartered Bank Building, 4 Des Voeux Road, Central, HK', '', '26', '', '+852 6899 4889', '', 7, 'For manager Mr. Chiu, office no. 28790339', '', 0, '100% Bank Transfer', '2022-02-18', 0, 1, 0, 1, 0, 0, '2022-02-16 07:36:12', '2022-02-16 07:37:58', '47324cff-bc23-42e2-9911-19f8e07957cf'),
@@ -1035,6 +1035,7 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('a1304714-d7cd-4faf-bb4c-9288b98618e2', 70, 'Ms. Chan', '', 'Tower 1, Stars By The Harbour, Hung Luen Road, Hung Hom', '', '26', 'C', '+852 9068 3869', '', 7, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 11:03:57', '2022-02-04 11:03:57', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('a7561af4-af35-47ee-bbfe-c730cebbf71b', 52, 'Mr. Hsieh', 'WarrenWoods', '23, Warren Street', '', '29', 'B', '+852 9735 9669', '', 3, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-28 07:16:49', '2022-01-28 07:16:49', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('ae01c830-fdb0-489c-97ab-2c7675a1c34c', 87, 'Mr Leung', '', '', '', '', '', '+852 6059 9439', '', 3, '', '', 1, 'C/C', NULL, 275, 1, 100, 1, 0, 0, '2022-02-15 09:02:44', '2022-02-15 09:02:44', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
+	('b31bffa6-e122-4a98-9eca-bbcd205c7a7f', 105, 'employees', '', '', '', '', '', '+852', '', 0, '', '', 1, 'PayPal', NULL, 0, 1, 0, 1, 0, 0, '2022-02-23 09:19:20', '2022-02-23 09:19:20', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('b68bbd26-1d6f-4511-be86-661b3f88e738', 33, 'Aya', 'Clearwater Bay', '223 Tai Hang Hau', '', '', '', '+852 9227 2075', '', 2, '', '', 1, '100% Bank transfer', '2022-01-19', 10, 0, 0, 1, 0, 0, '2022-01-18 04:18:02', '2022-01-18 05:16:24', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('b7a862dc-dd9c-4a1c-9843-270060d39363', 25, 'Mavis c/o JR Credit Limited', 'Tsim Sha Tsui', 'Mirror Tower, 61 Mody Road', '', '13', '03', '+852 6488 9111', '', 3, '', '', 1, '100% Bank transfer', '2022-01-13', 0, 1, 0, 1, 0, 0, '2022-01-12 13:19:16', '2022-01-17 10:45:59', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('bde17cbf-79d2-4c13-8753-3d277ef40751', 50, 'Arnaud Ichoua ', 'Mid-Levels', 'Haddon road 41c Conduit Road', '', '31', 'A', '+852 9869 0453', '', 1, '', '', 1, '100% Payme', '2022-01-27', 0, 1, 0, 1, 0, 0, '2022-01-27 12:59:44', '2022-01-28 10:32:36', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
