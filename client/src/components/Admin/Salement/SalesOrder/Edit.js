@@ -27,9 +27,9 @@ const Edit = (props) => {
       initialCart={ChairStocks.map(({ ChairToOrder, ...restProps }) => ({
         productType: 'chair',
         productDetail: {
-          ...restProps,
-          remark: ChairToOrder.remark,
+          ...restProps
         },
+        remark: ChairToOrder.remark,
         productPrice: ChairToOrder.unitPrice,
         productAmount: ChairToOrder.qty,
         productDeliveryOption: ChairToOrder.deliveryOption,
@@ -56,9 +56,9 @@ const Edit = (props) => {
           AccessoryStocks.map(({ AccessoryToOrder, ...restProps }) => ({
             productType: 'accessory',
             productDetail: {
-              ...restProps,
-              remark: AccessoryToOrder.remark,
+              ...restProps
             },
+            remark: AccessoryToOrder.remark,
             productPrice: AccessoryToOrder.unitPrice,
             productAmount: AccessoryToOrder.qty,
             productDeliveryOption: AccessoryToOrder.deliveryOption,
