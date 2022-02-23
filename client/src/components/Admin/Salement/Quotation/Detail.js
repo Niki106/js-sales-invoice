@@ -252,6 +252,7 @@ const accessoryColumns = [
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
   const { componentType, initialClient, initialCart } = props;
+  console.log(initialCart)
 
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHoleType, setTopHoleType] = useState('Rounded');

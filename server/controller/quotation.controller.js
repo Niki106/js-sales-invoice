@@ -161,6 +161,7 @@ async function update(req, res, next) {
             unitPrice: products[index].productPrice,
             qty: products[index].productAmount,
             deliveryOption: products[index].productDeliveryOption,
+            remark: products[index].remark
           },
         });
       } else if (products[index].productType === 'desk') {
@@ -203,6 +204,7 @@ async function update(req, res, next) {
             unitPrice: products[index].productPrice,
             qty: products[index].productAmount,
             deliveryOption: products[index].productDeliveryOption,
+            remark: products[index].remark
           },
         });
       }

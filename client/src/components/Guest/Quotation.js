@@ -316,10 +316,8 @@ export default connect(mapStateToProps)((props) => {
                       item.withAdArmrest
                         ? 'With Adjustable Armrest'
                         : 'Without Adjustable Armrest'
-                    }\nFrameColor: ${item.frameColor}\nBack Color: ${
-                      item.backColor
-                    }\nSeat Color: ${item.seatColor}\nRemark: ${
-                      item.remark
+                    }\nRemark: ${
+                      item.ChairToQuotation.remark
                     }\nWith delivery and installation included`,
                     width: '55%',
                   },
@@ -377,7 +375,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.remark}\nWith delivery and installation included`,
+                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\nWith delivery and installation included`,
                     width: '55%',
                   },
                   {
