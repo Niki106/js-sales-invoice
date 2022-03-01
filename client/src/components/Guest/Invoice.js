@@ -312,7 +312,9 @@ export default connect(mapStateToProps)((props) => {
                         : 'Without Adjustable Armrest'
                     }\nRemark: ${
                       item.ChairToOrder.remark
-                    }\nWith delivery and installation included`,
+                    }\n${
+                      JSON.parse(item.ChairToOrder.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
@@ -344,7 +346,9 @@ export default connect(mapStateToProps)((props) => {
                       item.DeskToOrder.hasDeskTop
                         ? `Table Top: ${item.DeskToOrder.topMaterial} ${item.DeskToOrder.topColor}\nTable Top Size: ${item.DeskToOrder.topLength}x${item.DeskToOrder.topWidth}x${item.DeskToOrder.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToOrder.topRoundedCorners}, Radius: R${item.DeskToOrder.topCornerRadius}\nHoles Required: ${item.DeskToOrder.topHoleCount}, Holes Shaped: ${item.DeskToOrder.topHoleType}`
                         : 'Without DeskTop'
-                    }\nWith delivery and installation included`,
+                    }\n${
+                      JSON.parse(item.DeskToOrder.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
@@ -368,7 +372,9 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToOrder.remark}\nWith delivery and installation included`,
+                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToOrder.remark}\n${
+                      JSON.parse(item.AccessoryToOrder.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
