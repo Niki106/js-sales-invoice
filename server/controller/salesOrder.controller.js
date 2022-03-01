@@ -176,7 +176,7 @@ async function create(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        await db.serviceToOrder.create({
+        await db.ServiceToOrder.create({
           id: products[index].id,
           description: protocol[index].description,
           price: protocol[index].price,
