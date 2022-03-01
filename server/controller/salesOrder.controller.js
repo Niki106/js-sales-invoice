@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const chairStockController = require('./chairStock.controller');
 const deskStockController = require('./deskStock.controller');
 const accessoryStockController = require('./accessoryStock.controller');
+const serviceController = require('./serviceToOrder.controller');
 const { drawDeskTop } = require('server/middleware/deskDrawing');
 
 module.exports = {
@@ -171,6 +172,22 @@ async function create(req, res, next) {
             ...restParams,
           },
         });
+      } else if (products[index].productType === 'misc') {
+        // const {
+        //   id,
+        //   description,
+        //   price
+        // } = products[index];
+
+        // await salesOrder.addAccessoryStock(stock, {
+        //   through: {
+        //     unitPrice,
+        //     qty,
+        //     deliveryOption,
+        //     preOrder,
+        //     ...restParams,
+        //   },
+        // });
       }
     }
     res.json({ message: 'New SalesOrder was created successfully.' });
