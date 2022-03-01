@@ -318,7 +318,9 @@ export default connect(mapStateToProps)((props) => {
                         : 'Without Adjustable Armrest'
                     }\nRemark: ${
                       item.ChairToQuotation.remark
-                    }\nWith delivery and installation included`,
+                    }\n${
+                      JSON.parse(item.ChairToQuotation.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
@@ -351,7 +353,9 @@ export default connect(mapStateToProps)((props) => {
                       item.DeskToQuotation.hasDeskTop
                         ? `Table Top: ${item.DeskToQuotation.topMaterial} ${item.DeskToQuotation.topColor}\nTable Top Size: ${item.DeskToQuotation.topLength}x${item.DeskToQuotation.topWidth}x${item.DeskToQuotation.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToQuotation.topRoundedCorners}, Radius: R${item.DeskToQuotation.topCornerRadius}\nHoles Required: ${item.DeskToQuotation.topHoleCount}, Holes Shaped: ${item.DeskToQuotation.topHoleType}`
                         : 'Without DeskTop'
-                    }\nWith delivery and installation included`,
+                    }\n${
+                      JSON.parse(item.DeskToQuotation.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
@@ -375,7 +379,9 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\nWith delivery and installation included`,
+                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\n${
+                      JSON.parse(item.AccessoryToQuotation.deliveryOption)
+                    }`,
                     width: '55%',
                   },
                   {
