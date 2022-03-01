@@ -49,8 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       surcharge: DataTypes.FLOAT,
       surchargeType: DataTypes.INTEGER,
       finished: DataTypes.BOOLEAN,
-      isPreorder: DataTypes.BOOLEAN,
-      misc: DataTypes.STRING
+      isPreorder: DataTypes.BOOLEAN
     },
     {
       sequelize,
