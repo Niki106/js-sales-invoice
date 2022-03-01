@@ -255,7 +255,7 @@ const accessoryColumns = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialClient, initialCart, ServiceSalesOrders } = props;
+  const { componentType, initialClient, initialCart, ServiceToOrders } = props;
 
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHoleType, setTopHoleType] = useState('Rounded');
@@ -297,7 +297,7 @@ export default connect(mapStateToProps)((props) => {
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
 
-  let initialServices = ServiceSalesOrders || []
+  let initialServices = ServiceToOrders || []
   const [services, setServices] = useState(initialServices);
 
   const getChairFeatures = (cancelToken) => {
@@ -433,7 +433,8 @@ export default connect(mapStateToProps)((props) => {
     const newService = {
       id: uuidv4(),
       description: '',
-      price: 0
+      price: 0,
+      productType: 'misc'
     }
     setServices([...services, newService])
   }
@@ -456,7 +457,7 @@ export default connect(mapStateToProps)((props) => {
   const onChangeServicePrice = (e, serviceId) => {
     const newServices = services.map(service => {
       if (service.id === serviceId) {
-          return Object.assign({}, service, { price: e.target.value })
+          return Object.assign({}, service, { price: parseFloat(e.target.value) })
       }
       return service
     })
@@ -1319,8 +1320,8 @@ export default connect(mapStateToProps)((props) => {
           </Typography>
           <Typography variant="h7" sx={{ flexBasis: '100%', minWidth: '100%' }}>
             Sub Total: {
-              parseInt(cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0)) + 
-              parseInt(services.reduce((p, c)=>p+c.price, 0))
+              cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0) + 
+              services.reduce((p, c)=>p+c.price, 0)
             }
           </Typography>
           <TextField
