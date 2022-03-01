@@ -9,6 +9,7 @@ const Edit = (props) => {
     ChairStocks,
     DeskStocks,
     AccessoryStocks,
+    ServiceSalesOrders,
     Seller,
     sellerId,
     ...client
