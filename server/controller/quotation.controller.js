@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const chairStockController = require('./chairStock.controller');
 const deskStockController = require('./deskStock.controller');
 const accessoryStockController = require('./accessoryStock.controller');
@@ -61,6 +63,9 @@ async function create(req, res, next) {
     const protocol = req.protocol;
     const { products, ...restParams } = req.body;
     restParams.sellerId = req.user.id;
+
+    const currentYear = new Date().getFullYear();
+    restParams.quotationNum = await getQuotationNum(currentYear);
 
     const id = (await db.Quotation.create({ ...restParams })).id;
 
@@ -269,4 +274,21 @@ async function getQuotation(id) {
   });
   if (!quotation) throw 'ChairStock was not found.';
   return quotation;
+}
+
+async function getQuotationNum(year) {
+  const quotation = await db.Quotation.findOne({
+    attributes: [
+      [Sequelize.fn('MAX', Sequelize.col('quotationNum')), 'max_inv']
+    ],
+    where: {
+      createdAt: {
+        [Sequelize.Op.lt]: `${year + 1}-01-01`,
+        [Sequelize.Op.gte]: `${year}-01-01`,
+      },
+    },
+    raw: true
+  });
+
+  return quotation.max_inv + 1;
 }

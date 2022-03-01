@@ -51,6 +51,10 @@ async function getAll(where) {
           },
         },
       },
+      {
+        model: db.ServiceToOrder,
+        attributes: ['id', 'description', 'price'],
+      },
     ],
   });
 }
@@ -170,6 +174,13 @@ async function create(req, res, next) {
             preOrder,
             ...restParams,
           },
+        });
+      } else if (products[index].productType === 'misc') {
+        await db.serviceToOrder.create({
+          id: products[index].id,
+          description: protocol[index].description,
+          price: protocol[index].price,
+          orderId: id
         });
       }
     }
@@ -322,6 +333,17 @@ async function update(req, res, next) {
             ...restParams,
           },
         });
+      } else if (products[index].productType === 'misc') {
+        db.ServiceToOrder.destroy({
+          orderId: id
+        });
+
+        db.ServiceToOrder.create({
+          id: products[index].id,
+          description: protocol[index].description,
+          price: protocol[index].price,
+          orderId: id
+        })
       }
     }
     res.json({ message: 'SalesOrder was updated successfully.' });
@@ -483,6 +505,10 @@ async function getSalesOrder(id) {
             exclude: ['createdAt', 'updatedAt'],
           },
         },
+      },
+      {
+        model: db.ServiceToOrder,
+        attributes: ['id', 'description', 'price'],
       },
     ],
   });
