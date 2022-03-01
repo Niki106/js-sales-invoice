@@ -28,7 +28,6 @@ import {
   Tabs,
   TextField,
   Typography,
-  TextareaAutosize
 } from '@mui/material';
 import { blue, pink, purple, red, yellow } from '@mui/material/colors';
 import {
@@ -1149,7 +1148,6 @@ export default connect(mapStateToProps)((props) => {
                   0
                 ),
                 surchargeType: paymentData.get('surchargeType'),
-                misc: paymentData.get('misc'),
               })
               .then(() => {
                 // handle success
@@ -1204,7 +1202,6 @@ export default connect(mapStateToProps)((props) => {
                   0
                 ),
                 surchargeType: paymentData.get('surchargeType'),
-                misc: paymentData.get('misc'),
               })
               .then(() => {
                 // handle success
@@ -1338,14 +1335,6 @@ export default connect(mapStateToProps)((props) => {
             <MenuItem value={0}>%</MenuItem>
             <MenuItem value={1}>HKD</MenuItem>
           </Select>
-          <TextField
-            sx={{ flexBasis: '100%', minWidth: '100%' }}
-            label="Misc"
-            name="misc"
-            multiline
-            rows={3}
-            defaultValue={initialClient.misc}
-          />
         </Paper>
         <Button
           sx={{ marginTop: '10px' }}
