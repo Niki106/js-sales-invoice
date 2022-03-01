@@ -10,7 +10,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        defaultValue: 1000,
+        defaultValue: 0,
         type: Sequelize.FLOAT,
       },
       description: {
@@ -25,7 +25,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-      },
+      }
     });
   },
   down: async (queryInterface, Sequelize) => {

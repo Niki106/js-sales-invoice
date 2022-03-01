@@ -708,7 +708,8 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
 INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
 	('02053cd0-7333-45f1-9428-1d1c480dd266', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:32:32', '2022-01-11 04:32:32', 'cb62282a-8cf9-45e5-ae4b-87d014ba381f', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
-	('5a623af2-890e-4269-8523-c246d5a3cdb2', 36200, 1, '[]', 'Delivery Included', '2022-02-20 19:22:49', '2022-02-20 19:22:49', '33027105-e642-4e48-9b79-663c99c047ae', '00a42064-3626-4e00-8e8b-b8d5b3085159'),
+	('5a623af2-890e-4269-8523-c246d5a3cdb2', 36200, 1, '[]', 'Delivery Included', '2022-02-20 19:22:49', '2022-02-20 19:22:49', NULL, '00a42064-3626-4e00-8e8b-b8d5b3085159'),
+	('6e0eb4cd-d4b6-4317-b32c-ceebd81e74ae', 36200, 1, '[]', 'FrameColor:N/A, SeatColor:___, BackColor:___', '2022-03-01 09:38:01', '2022-03-01 09:38:01', NULL, '00a42064-3626-4e00-8e8b-b8d5b3085159'),
 	('aa1cbcee-5a2b-4f06-ae02-d5a8da38c78f', 8099, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-29 02:15:04', '2022-01-29 02:15:04', 'f5d4273e-8065-4af3-b548-7b19a304b3ba', '365a117d-e4a2-4c31-8602-b6dd795186ba'),
 	('d9d02d10-e48f-4757-8f26-e675ca6a2e40', 1899, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-24 05:27:41', '2022-01-24 05:27:41', '71906cd8-daec-45e4-9084-b2c05c539d26', '0fdf510c-4f53-443e-921b-f99bc08ec3a6');
 /*!40000 ALTER TABLE `chairtoquotations` ENABLE KEYS */;
@@ -941,7 +942,6 @@ CREATE TABLE IF NOT EXISTS `quotations` (
 -- Dumping data for table sales_invoice.quotations: ~10 rows (approximately)
 /*!40000 ALTER TABLE `quotations` DISABLE KEYS */;
 INSERT INTO `quotations` (`id`, `quotationNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `paymentTerms`, `validTil`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
-	('33027105-e642-4e48-9b79-663c99c047ae', 0, 'employees', 'sdf', '', '', '', '', '+852 12', 'logos106@outlook.com', 0, '', 'PayPal', 1, 1, 1, 1, 1, 0, 0, '2022-02-20 19:22:49', '2022-02-20 19:22:49', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('34ab546f-71c7-41ca-adf9-e1c17fe21333', 12, 'Andy Leung', 'Kowloon', '22A, Morrison Plaza, 9 Morrison Hill Rd, Wanchai, Hong Kong', 'Building 19W', '12', '1201–1206', '+980 8968', 'andykleung@gmail.com', 28, '', '50% Upfront, 50% CBD', 2, 0, 1, 0, 1, 0, 0, '2021-12-28 08:17:27', '2021-12-28 08:17:27', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('6df1f5d1-57c7-43df-afdc-3f8e73c42865', 21, 'Mr. Chiu (Computer)', '', 'Concordia Lutheran School - 20 Cloud View Road, North Point, HK', '', '', '', '+852 2570 0331', '', 28, '92023924', '100% Cheque', 1, 0, 1, 0, 1, 0, 0, '2022-02-15 09:22:19', '2022-02-15 09:22:19', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('71906cd8-daec-45e4-9084-b2c05c539d26', 17, 'Jason Pang c/o The Neighbourhood Advice-Action Council', 'North Point', '', '', '', '', '+852 2527 4567', 'ado2@naac.org.hk', 42, '', '100% Bank transfer', 2, 10, 0, 0, 1, 0, 0, '2022-01-24 05:27:41', '2022-01-24 05:27:41', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
@@ -1114,6 +1114,8 @@ CREATE TABLE IF NOT EXISTS `servicetoorders` (
 
 -- Dumping data for table sales_invoice.servicetoorders: ~0 rows (approximately)
 /*!40000 ALTER TABLE `servicetoorders` DISABLE KEYS */;
+INSERT INTO `servicetoorders` (`id`, `price`, `description`, `orderId`) VALUES
+	('112', 1000, 'sdfsdf', '5159309d-fafe-47b8-adf0-358235b876e4');
 /*!40000 ALTER TABLE `servicetoorders` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.users
@@ -1133,7 +1135,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.users: ~0 rows (approximately)
+-- Dumping data for table sales_invoice.users: ~8 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `firstName`, `lastName`, `avatarURL`, `password`, `type`, `prefix`, `isActive`, `createdAt`, `updatedAt`) VALUES
 	('1f705193-ee86-4494-9002-2acfadd1af92', 'logos115@outlook.com', 'Naixu', 'Wang', '', '$2a$10$EVnGPr12OTv81mDT23VXoeXEdZv6CxaeM55b67Y051/mv7.fIQbmy', 'admin', 'lg', 1, '2022-02-18 20:04:34', '2022-02-18 20:04:34'),
