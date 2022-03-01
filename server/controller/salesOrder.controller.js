@@ -335,13 +335,15 @@ async function update(req, res, next) {
         });
       } else if (products[index].productType === 'misc') {
         db.ServiceToOrder.destroy({
-          orderId: id
+          where: {
+            orderId: id
+          }
         });
 
         db.ServiceToOrder.create({
           id: products[index].id,
-          description: protocol[index].description,
-          price: protocol[index].price,
+          description: products[index].description,
+          price: products[index].price,
           orderId: id
         })
       }
