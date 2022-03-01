@@ -65,6 +65,7 @@ const Edit = (props) => {
             productDeliveryOption: AccessoryToOrder.deliveryOption
           }))
         )}
+        initialServices = {ServiceToOrders}
       {...props}
     />
   ) : (

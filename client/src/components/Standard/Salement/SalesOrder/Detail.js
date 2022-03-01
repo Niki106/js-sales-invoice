@@ -255,7 +255,7 @@ const accessoryColumns = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialClient, initialCart, ServiceToOrders } = props;
+  const { componentType, initialClient, initialCart, initialServices } = props;
 
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHoleType, setTopHoleType] = useState('Rounded');
@@ -297,8 +297,8 @@ export default connect(mapStateToProps)((props) => {
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
 
-  let initialServices = ServiceToOrders || []
-  const [services, setServices] = useState(initialServices);
+  let initServices = initialServices ? initialServices.map(service=>Object.assign(service, {productType: 'misc'})) : []
+  const [services, setServices] = useState(initServices);
 
   const getChairFeatures = (cancelToken) => {
     axios
