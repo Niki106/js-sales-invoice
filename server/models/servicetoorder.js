@@ -1,14 +1,14 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Service extends Model {
+  class ServiceToOrder extends Model {
     static associate(models) {
       this.belongsTo(models.SalesOrder, {
         foreignKey: 'orderId'
       });
     }
   }
-  Service.init(
+  ServiceToOrder.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -25,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'servicetoorders',
     }
   );
-  return Service;
+  return ServiceToOrder;
 };

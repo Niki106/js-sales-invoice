@@ -10,13 +10,21 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        defaultValue: 1000,
+        defaultValue: 0,
         type: Sequelize.FLOAT,
       },
       description: {
         allowNull: false,
         defaultValue: '',
         type: Sequelize.STRING,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       }
     });
   },
