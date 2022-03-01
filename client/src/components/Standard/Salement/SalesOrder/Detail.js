@@ -28,12 +28,15 @@ import {
   Tabs,
   TextField,
   Typography,
+  Card,
+  Grid,
 } from '@mui/material';
 import { blue, pink, purple, red, yellow } from '@mui/material/colors';
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
   Remove as RemoveIcon,
+  Close as CloseIcon
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -48,6 +51,7 @@ import {
   ProductListItemText,
   ProductPriceAmount,
 } from '../ProductList';
+import { v4 as uuidv4 } from 'uuid';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -251,7 +255,7 @@ const accessoryColumns = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialClient, initialCart } = props;
+  const { componentType, initialClient, initialCart, ServiceSalesOrders } = props;
 
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHoleType, setTopHoleType] = useState('Rounded');
@@ -292,6 +296,9 @@ export default connect(mapStateToProps)((props) => {
   const [deskFilterModel, setDeskFilterModel] = useState(null);
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
+
+  let initialServices = ServiceSalesOrders || []
+  const [services, setServices] = useState(initialServices);
 
   const getChairFeatures = (cancelToken) => {
     axios
@@ -420,6 +427,40 @@ export default connect(mapStateToProps)((props) => {
     } else {
       setAccessoryStocks(initAccessoryStocks.filter((stock)=>stock.category === selected_category));
     }
+  }
+
+  const onAddService = () => {
+    const newService = {
+      id: uuidv4(),
+      description: '',
+      price: 0
+    }
+    setServices([...services, newService])
+  }
+
+  const onDeleteService = (serviceId) => {
+    const newServices = services.filter(service=>service.id !== serviceId)
+    setServices(newServices)
+  }
+
+  const onChangeServiceDes = (e, serviceId) => {
+    const newServices = services.map(service => {
+      if (service.id === serviceId) {
+          return Object.assign({}, service, { description: e.target.value })
+      }
+      return service
+    })
+    setServices(newServices)
+  }
+
+  const onChangeServicePrice = (e, serviceId) => {
+    const newServices = services.map(service => {
+      if (service.id === serviceId) {
+          return Object.assign({}, service, { price: e.target.value })
+      }
+      return service
+    })
+    setServices(newServices)
   }
 
   return (
@@ -649,6 +690,7 @@ export default connect(mapStateToProps)((props) => {
                 <Tab label="Chairs" />
                 <Tab label="Desks" />
                 <Tab label="Accessories" />
+                <Tab label="Miscs" />
               </Tabs>
             </Box>
             <TabPanel value={stocksIndex} index={0}>
@@ -1073,6 +1115,47 @@ export default connect(mapStateToProps)((props) => {
                 columns={accessoryColumns}
               />
             </TabPanel>
+            <TabPanel value={stocksIndex} index={3}>
+              <Box sx={{ m: 3 }}>
+                <Button 
+                  variant="contained" 
+                  sx={{ mb: 2 }}
+                  onClick={onAddService}
+                >
+                  + New Service
+                </Button>
+                <Grid container spacing={2}>
+                  { 
+                    services.map((service) =>  
+                      <Grid item xs={4} key={service.id}>
+                        <Card sx={{ px: 2, pb: 2 }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <IconButton aria-label="settings" size="small" onClick={()=>onDeleteService(service.id)}>
+                              <CloseIcon fontSize="small"/>
+                            </IconButton>
+                          </Box>
+                          <TextField
+                            label="Description"
+                            multiline
+                            rows={5}
+                            sx={{ flexBasis: '100%', minWidth: '100%' }}
+                            value={service.description}
+                            onChange={(e) => onChangeServiceDes(e, service.id)}
+                          />
+                          <TextField
+                            type="number"
+                            sx={{ flexBasis: '100%', minWidth: '100%' }}
+                            label="Price"
+                            value={service.price}
+                            onChange={(e) => onChangeServicePrice(e, service.id)}
+                          />
+                        </Card>  
+                      </Grid>
+                    )
+                  }
+                </Grid>
+              </Box>
+            </TabPanel>
           </Paper>
           <Button
             onClick={(e) => {
@@ -1130,7 +1213,7 @@ export default connect(mapStateToProps)((props) => {
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
                   ...restProps,
-                })),
+                })).concat(services),
                 paymentTerms: paymentData.get('paymentTerms'),
                 paid: Boolean(paymentData.get('paid')),
                 dueDate: paymentData.get('dueDate') || null,
@@ -1184,7 +1267,7 @@ export default connect(mapStateToProps)((props) => {
                 products: cart.map(({ productDetail, ...restProps }) => ({
                   productId: productDetail.id,
                   ...restProps,
-                })),
+                })).concat(services),
                 paymentTerms: paymentData.get('paymentTerms'),
                 paid: Boolean(paymentData.get('paid')),
                 dueDate: paymentData.get('dueDate') || null,
@@ -1236,7 +1319,8 @@ export default connect(mapStateToProps)((props) => {
           </Typography>
           <Typography variant="h7" sx={{ flexBasis: '100%', minWidth: '100%' }}>
             Sub Total: {
-              cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0)
+              parseInt(cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0)) + 
+              parseInt(services.reduce((p, c)=>p+c.price, 0))
             }
           </Typography>
           <TextField
