@@ -3,7 +3,6 @@ const Sequelize = require('sequelize');
 const chairStockController = require('./chairStock.controller');
 const deskStockController = require('./deskStock.controller');
 const accessoryStockController = require('./accessoryStock.controller');
-const serviceController = require('./serviceToOrder.controller');
 const { drawDeskTop } = require('server/middleware/deskDrawing');
 
 module.exports = {
@@ -52,14 +51,10 @@ async function getAll(where) {
           },
         },
       },
-      // {
-      //   model: db.ServiceToOrder,
-      //   through: {
-      //     attributes: {
-      //       exclude: [],
-      //     },
-      //   },
-      // },
+      {
+        model: db.ServiceToOrder,
+        attributes: ['id', 'description', 'price'],
+      },
     ],
   });
 }
@@ -181,21 +176,12 @@ async function create(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        // const {
-        //   id,
-        //   description,
-        //   price
-        // } = products[index];
-
-        // await salesOrder.addAccessoryStock(stock, {
-        //   through: {
-        //     unitPrice,
-        //     qty,
-        //     deliveryOption,
-        //     preOrder,
-        //     ...restParams,
-        //   },
-        // });
+        await db.serviceToOrder.create({
+          id: products[index].id,
+          description: protocol[index].description,
+          price: protocol[index].price,
+          orderId: id
+        });
       }
     }
     res.json({ message: 'New SalesOrder was created successfully.' });
@@ -347,6 +333,17 @@ async function update(req, res, next) {
             ...restParams,
           },
         });
+      } else if (products[index].productType === 'misc') {
+        db.ServiceToOrder.destroy({
+          orderId: id
+        });
+
+        db.ServiceToOrder.create({
+          id: products[index].id,
+          description: protocol[index].description,
+          price: protocol[index].price,
+          orderId: id
+        })
       }
     }
     res.json({ message: 'SalesOrder was updated successfully.' });
@@ -509,14 +506,10 @@ async function getSalesOrder(id) {
           },
         },
       },
-      // {
-      //   model: db.ServiceToOrder,
-      //   through: {
-      //     attributes: {
-      //       exclude: [],
-      //     },
-      //   },
-      // },
+      {
+        model: db.ServiceToOrder,
+        attributes: ['id', 'description', 'price'],
+      },
     ],
   });
 
