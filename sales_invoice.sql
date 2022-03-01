@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `accessorytoorders` (
   CONSTRAINT `accessorytoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `accessorystocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.accessorytoorders: ~20 rows (approximately)
+-- Dumping data for table sales_invoice.accessorytoorders: ~18 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoorders` DISABLE KEYS */;
 INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`) VALUES
 	('07550eff-8d56-457c-81a5-5b96db9765b6', 650, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', '', '2022-02-04 09:18:07', '2022-02-04 09:18:07', '4fc7d54a-ab6b-4e50-86df-ed7bd6d215b6', '2100665b-0f6c-447b-9db0-d95babeaeeba'),
@@ -703,7 +703,7 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
   CONSTRAINT `chairtoquotations_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.chairtoquotations: ~4 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoquotations: ~5 rows (approximately)
 /*!40000 ALTER TABLE `chairtoquotations` DISABLE KEYS */;
 INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
@@ -938,7 +938,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   CONSTRAINT `quotations_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.quotations: ~9 rows (approximately)
+-- Dumping data for table sales_invoice.quotations: ~10 rows (approximately)
 /*!40000 ALTER TABLE `quotations` DISABLE KEYS */;
 INSERT INTO `quotations` (`id`, `quotationNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `paymentTerms`, `validTil`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('33027105-e642-4e48-9b79-663c99c047ae', 0, 'employees', 'sdf', '', '', '', '', '+852 12', 'logos106@outlook.com', 0, '', 'PayPal', 1, 1, 1, 1, 1, 0, 0, '2022-02-20 19:22:49', '2022-02-20 19:22:49', '1f705193-ee86-4494-9002-2acfadd1af92'),
@@ -985,7 +985,7 @@ CREATE TABLE IF NOT EXISTS `salesorders` (
   CONSTRAINT `salesorders_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.salesorders: ~76 rows (approximately)
+-- Dumping data for table sales_invoice.salesorders: ~77 rows (approximately)
 /*!40000 ALTER TABLE `salesorders` DISABLE KEYS */;
 INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `signURL`, `paid`, `paymentTerms`, `dueDate`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('05a76891-4523-4075-a5d5-e95e2b546843', 95, 'Mr Randy', '', '', '', '', '', '+852 6746 9388', '', 112, '', '', 1, 'C/C', NULL, 0, 1, 0, 1, 0, 0, '2022-02-16 08:57:19', '2022-02-16 08:57:19', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
@@ -1074,7 +1074,7 @@ CREATE TABLE IF NOT EXISTS `sequelizemeta` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table sales_invoice.sequelizemeta: ~20 rows (approximately)
+-- Dumping data for table sales_invoice.sequelizemeta: ~22 rows (approximately)
 /*!40000 ALTER TABLE `sequelizemeta` DISABLE KEYS */;
 INSERT INTO `sequelizemeta` (`name`) VALUES
 	('20220125023238-create-user.js'),
@@ -1096,8 +1096,25 @@ INSERT INTO `sequelizemeta` (`name`) VALUES
 	('20220216145830-modify-chair-to-quotation.js'),
 	('20220216145839-modify-accessory-to-quotation.js'),
 	('20220216145851-modify-desk-to-quotation.js'),
-	('20220216145852-modify-quotation.js');
+	('20220216145852-modify-quotation.js'),
+	('20220216145899-create-service-to-order.js'),
+	('20220216145901-modify-service-to-order.js');
 /*!40000 ALTER TABLE `sequelizemeta` ENABLE KEYS */;
+
+-- Dumping structure for table sales_invoice.servicetoorders
+CREATE TABLE IF NOT EXISTS `servicetoorders` (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `price` float NOT NULL DEFAULT 1000,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `orderId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `servicetoorders_orderId_foreign_idx` (`orderId`),
+  CONSTRAINT `servicetoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table sales_invoice.servicetoorders: ~0 rows (approximately)
+/*!40000 ALTER TABLE `servicetoorders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `servicetoorders` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -1116,7 +1133,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.users: ~8 rows (approximately)
+-- Dumping data for table sales_invoice.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `firstName`, `lastName`, `avatarURL`, `password`, `type`, `prefix`, `isActive`, `createdAt`, `updatedAt`) VALUES
 	('1f705193-ee86-4494-9002-2acfadd1af92', 'logos115@outlook.com', 'Naixu', 'Wang', '', '$2a$10$EVnGPr12OTv81mDT23VXoeXEdZv6CxaeM55b67Y051/mv7.fIQbmy', 'admin', 'lg', 1, '2022-02-18 20:04:34', '2022-02-18 20:04:34'),

@@ -52,6 +52,14 @@ async function getAll(where) {
           },
         },
       },
+      // {
+      //   model: db.ServiceToOrder,
+      //   through: {
+      //     attributes: {
+      //       exclude: [],
+      //     },
+      //   },
+      // },
     ],
   });
 }
@@ -501,6 +509,14 @@ async function getSalesOrder(id) {
           },
         },
       },
+      // {
+      //   model: db.ServiceToOrder,
+      //   through: {
+      //     attributes: {
+      //       exclude: [],
+      //     },
+      //   },
+      // },
     ],
   });
 

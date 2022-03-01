@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const chairStockController = require('./chairStock.controller');
 const deskStockController = require('./deskStock.controller');
 const accessoryStockController = require('./accessoryStock.controller');
