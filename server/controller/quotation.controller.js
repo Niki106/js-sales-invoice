@@ -97,7 +97,7 @@ async function create(req, res, next) {
           const quotationNum = `Q-${
             quotation.Seller.prefix
           }${tmp.getFullYear()}${tmp.getMonth()}${tmp.getDate()}${(
-            '000' + quotation.id
+            '000' + quotation.quotationNum
           ).substr(-3)}`;
           restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
             quotationNum,
@@ -180,7 +180,7 @@ async function update(req, res, next) {
           const quotationNum = `Q-${
             quotation.Seller.prefix
           }${tmp.getFullYear()}${tmp.getMonth()}${tmp.getDate()}${(
-            '000' + quotation.id
+            '000' + quotation.quotationNum
           ).substr(-3)}`;
           restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
             quotationNum,
