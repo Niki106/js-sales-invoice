@@ -334,13 +334,13 @@ async function update(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        db.ServiceToOrder.destroy({
+        await db.ServiceToOrder.destroy({
           where: {
             orderId: id
           }
         });
 
-        db.ServiceToOrder.create({
+        await db.ServiceToOrder.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
