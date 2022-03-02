@@ -224,13 +224,13 @@ async function update(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        db.QuotationToOrder.destroy({
+        db.ServiceToQuotation.destroy({
           where: {
             quotationId: id
           }
         });
 
-        db.QuotationToOrder.create({
+        db.ServiceToQuotation.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
