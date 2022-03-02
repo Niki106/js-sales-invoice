@@ -409,7 +409,7 @@ export default connect(mapStateToProps)((props) => {
   const isStepFailed = (step) => {
     if (clientForm.current !== null && currentStep > 0 && step === 0)
       return !clientForm.current.checkValidity();
-    else if (cart.length === 0 && currentStep > 1 && step === 1) return true;
+    else if ((cart.length === 0 && services.length === 0) && currentStep > 1 && step === 1) return true;
     else return false;
   };
 
@@ -1167,11 +1167,11 @@ export default connect(mapStateToProps)((props) => {
             sx={{ float: 'right' }}
             onClick={(e) => {
               e.preventDefault();
-              if (cart.length === 0) {
+              if (cart.length === 0 && services.length === 0) {
                 Swal.fire({
                   icon: 'warning',
                   title: 'Warning',
-                  text: 'Products list cannot be empty',
+                  text: 'Products and services list cannot be empty',
                   allowOutsideClick: false,
                 });
                 return;
