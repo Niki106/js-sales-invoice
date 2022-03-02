@@ -9,6 +9,7 @@ const Edit = (props) => {
     ChairStocks,
     DeskStocks,
     AccessoryStocks,
+    ServiceToQuotations,
     Seller,
     sellerId,
     ...client
@@ -60,6 +61,7 @@ const Edit = (props) => {
             productDeliveryOption: AccessoryToQuotation.deliveryOption,
           }))
         )}
+      initialServices = {ServiceToQuotations}
       {...props}
     />
   ) : (
