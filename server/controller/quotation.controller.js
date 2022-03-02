@@ -224,18 +224,37 @@ async function update(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        db.ServiceToQuotation.destroy({
-          where: {
-            quotationId: id
-          }
-        });
+        // db.ServiceToQuotation.destroy({
+        //   where: {
+        //     quotationId: id
+        //   }
+        // });
 
-        db.ServiceToQuotation.create({
-          id: products[index].id,
-          description: products[index].description,
-          price: products[index].price,
-          quotationId: id
-        })
+        // db.ServiceToQuotation.create({
+        //   id: products[index].id,
+        //   description: products[index].description,
+        //   price: products[index].price,
+        //   quotationId: id
+        // })
+
+        db.sequelize.transaction().then(function (t) {
+          return db.ServiceToQuotation.destroy({
+            where: {
+              quotationId: id
+            }
+          }, {transaction: t}).then(function () {
+            return db.ServiceToQuotation.create({
+              id: products[index].id,
+              description: products[index].description,
+              price: products[index].price,
+              quotationId: id
+            }, {transaction: t});
+          }).then(function () {
+            return t.commit();
+          }).catch(function (err) {
+            return t.rollback();
+          });
+        });
       }
     }
     res.json({ message: 'Quotation was updated successfully.' });
