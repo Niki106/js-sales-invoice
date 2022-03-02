@@ -50,7 +50,7 @@ async function getAll(where) {
         },
       },
       {
-        model: db.QuotationToOrder,
+        model: db.ServiceToQuotation,
         attributes: ['id', 'description', 'price'],
       },
     ],
@@ -134,7 +134,7 @@ async function create(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        await db.QuotationToOrder.create({
+        await db.ServiceToQuotation.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
@@ -295,7 +295,7 @@ async function getQuotation(id) {
         },
       },
       {
-        model: db.QuotationToOrder,
+        model: db.ServiceToQuotation,
         attributes: ['id', 'description', 'price'],
       },
     ],
