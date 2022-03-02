@@ -128,6 +128,7 @@ export default connect(mapStateToProps)((props) => {
     ChairStocks: [],
     DeskStocks: [],
     AccessoryStocks: [],
+    ServiceToOrders: []
   });
   const { id } = useParams();
   useEffect(() => {
@@ -149,7 +150,6 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setSuccess(true);
-        console.log(response.data)
         setOrder(response.data);
       })
       .catch(function (error) {
@@ -392,13 +392,36 @@ export default connect(mapStateToProps)((props) => {
                   },
                 ],
               })),
+              ...order.ServiceToOrders.map((item) => ({
+                cells: [
+                  {
+                    content: '1',
+                    width: '15%',
+                  },
+                  {
+                    content: `Service: ${item.description}`,
+                    width: '55%',
+                  },
+                  {
+                    content: `${item.price}`,
+                    textAlign: 'right',
+                    width: '15%',
+                  },
+                  {
+                    content: `${item.price}`,
+                    textAlign: 'right',
+                    width: '15%',
+                  },
+                ],
+              })),
               ...Array(
                 Math.max(
                   0,
                   6 -
                     order.ChairStocks.length -
                     order.DeskStocks.length -
-                    order.AccessoryStocks.length
+                    order.AccessoryStocks.length -
+                    order.ServiceToOrders.length
                 )
               ).fill({
                 cells: [
@@ -437,7 +460,12 @@ export default connect(mapStateToProps)((props) => {
                               item.AccessoryToOrder.unitPrice *
                               item.AccessoryToOrder.qty
                           ).reduce((acc, cur) => acc + cur)
-                        : 0)
+                        : 0) +
+                      (order.ServiceToOrders.length
+                        ? order.ServiceToOrders.map(
+                            (item) => item.price
+                          ).reduce((acc, cur) => acc + cur)
+                        : 0) 
                     }`,
                     textAlign: 'right',
                     width: '15%',
@@ -560,6 +588,11 @@ export default connect(mapStateToProps)((props) => {
                             (item) =>
                               item.AccessoryToOrder.unitPrice *
                               item.AccessoryToOrder.qty
+                          ).reduce((acc, cur) => acc + cur)
+                        : 0) +
+                      (order.ServiceToOrders.length
+                        ? order.ServiceToOrders.map(
+                            (item) => item.price
                           ).reduce((acc, cur) => acc + cur)
                         : 0) -
                       (order.discountType

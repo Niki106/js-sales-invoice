@@ -128,6 +128,7 @@ export default connect(mapStateToProps)((props) => {
     ChairStocks: [],
     DeskStocks: [],
     AccessoryStocks: [],
+    ServiceToOrders: []
   });
   const { id } = useParams();
   useEffect(() => {
@@ -399,13 +400,36 @@ export default connect(mapStateToProps)((props) => {
                   },
                 ],
               })),
+              ...quotation.ServiceToOrders.map((item) => ({
+                cells: [
+                  {
+                    content: '1',
+                    width: '15%',
+                  },
+                  {
+                    content: `Service: ${item.description}`,
+                    width: '55%',
+                  },
+                  {
+                    content: `${item.price}`,
+                    textAlign: 'right',
+                    width: '15%',
+                  },
+                  {
+                    content: `${item.price}`,
+                    textAlign: 'right',
+                    width: '15%',
+                  },
+                ],
+              })),
               ...Array(
                 Math.max(
                   0,
                   6 -
                     quotation.ChairStocks.length -
                     quotation.DeskStocks.length -
-                    quotation.AccessoryStocks.length
+                    quotation.AccessoryStocks.length -
+                    quotation.ServiceToOrders.length
                 )
               ).fill({
                 cells: [
@@ -444,6 +468,11 @@ export default connect(mapStateToProps)((props) => {
                             (item) =>
                               item.AccessoryToQuotation.unitPrice *
                               item.AccessoryToQuotation.qty
+                          ).reduce((acc, cur) => acc + cur)
+                        : 0) +
+                      (quotation.ServiceToOrders.length
+                        ? quotation.ServiceToOrders.map(
+                            (item) => item.price
                           ).reduce((acc, cur) => acc + cur)
                         : 0)
                     }`,
@@ -569,6 +598,11 @@ export default connect(mapStateToProps)((props) => {
                             (item) =>
                               item.AccessoryToQuotation.unitPrice *
                               item.AccessoryToQuotation.qty
+                          ).reduce((acc, cur) => acc + cur)
+                        : 0) +
+                      (quotation.ServiceToOrders.length
+                        ? quotation.ServiceToOrders.map(
+                            (item) => item.price
                           ).reduce((acc, cur) => acc + cur)
                         : 0) -
                       (quotation.discountType
