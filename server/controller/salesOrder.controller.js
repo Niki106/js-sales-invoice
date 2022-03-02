@@ -233,6 +233,13 @@ async function update(req, res, next) {
       }
       await salesOrder.removeAccessoryStock(AccessoryStocks[index].id);
     }
+
+    // Delete services for this order
+    db.ServiceToOrder.destroy({
+      where: {
+        orderId: id
+      }
+    });
     
     for (var index = 0; index < products.length; index++) {
       if (products[index].productType === 'chair') {
@@ -334,12 +341,6 @@ async function update(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        await db.ServiceToOrder.destroy({
-          where: {
-            orderId: id
-          }
-        });
-
         await db.ServiceToOrder.create({
           id: products[index].id,
           description: products[index].description,

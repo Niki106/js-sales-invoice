@@ -167,6 +167,14 @@ async function update(req, res, next) {
     for (var index = 0; index < AccessoryStocks.length; index++) {
       await quotation.removeAccessoryStock(AccessoryStocks[index].id);
     }
+
+    // Delete services for this quotation
+    db.ServiceToQuotation.destroy({
+      where: {
+        quotationId: id
+      }
+    });
+    
     for (var index = 0; index < products.length; index++) {
       if (products[index].productType === 'chair') {
         const stock = await chairStockController.getById(
@@ -224,13 +232,7 @@ async function update(req, res, next) {
           },
         });
       } else if (products[index].productType === 'misc') {
-        await db.ServiceToQuotation.destroy({
-          where: {
-            quotationId: id
-          }
-        });
-
-        await db.ServiceToQuotation.create({
+        db.ServiceToQuotation.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
