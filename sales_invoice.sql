@@ -614,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `chairtoorders` (
   CONSTRAINT `chairtoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.chairtoorders: ~66 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoorders: ~75 rows (approximately)
 /*!40000 ALTER TABLE `chairtoorders` DISABLE KEYS */;
 INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`) VALUES
 	('00e6582f-b9e9-448c-ab56-9f753d1a8cd3', 4600, 1, '["Delivery and installation included"]', 1, '2022-01-18', NULL, NULL, NULL, 0, '', '', '', '2022-01-11 08:41:42', '2022-01-18 05:17:56', 'de51c412-8892-41cd-a86e-17d38b287871', 'f1e3d04a-6c52-4e3f-b09c-2c035988e475'),
@@ -624,12 +624,15 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('109a7236-317b-4d7f-ba27-ad150743eda6', 10399, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 07:37:58', '2022-02-16 07:37:58', '227a56bf-28ba-475d-a2e9-e9e614d5af4b', '3108a6d7-85b7-4b58-8f2f-789daf5db54e'),
 	('116c8e06-487d-4590-8c62-d8d5e89c8c3d', 11200, 1, '["Delivery and installation included"]', 1, '2022-01-21', NULL, NULL, NULL, 1, '', '', '', '2022-01-17 10:57:05', '2022-01-24 08:49:56', 'a0081a8f-c611-435b-80ef-c232e99b0f85', 'f13c3abe-229b-40e7-aa26-d0b21f85175f'),
 	('16168bc7-5034-49ef-ab87-dd47b77b8e9f', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-27 09:35:27', '2022-01-27 09:35:27', '21f6dcd4-7411-4230-aa18-5412ea3af3c3', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
+	('1b346d6f-4e0f-472f-9e07-03e62848f575', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:32:40', '2022-03-01 19:32:40', '234804c1-a975-4968-8a71-f47cf7c51089', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('1ec33aa5-a3fb-46a3-8d5e-c6b3e2eb0474', 6200, 1, '["Delivery and installation included"]', 1, '2022-01-27', NULL, NULL, NULL, 0, '', '', '', '2022-01-25 10:23:12', '2022-01-25 13:26:43', 'e98bbb0a-bf36-4ba0-9141-0e108e105982', '073f2919-9eb8-430a-b749-65754fae40bd'),
 	('1f306ca8-7dc8-41a3-9e17-37cb914053ee', 3900, 1, '[]', 0, '2022-01-13', NULL, NULL, NULL, 0, '', '', '', '2022-01-12 11:55:17', '2022-01-18 05:18:23', '56191ceb-e7d1-4bad-970a-7e7731920505', '34b4c779-6ff9-4cbf-b132-e580c8e56ca3'),
 	('24036d3e-4c03-4266-aa22-1356a935f9c3', 3500, 1, '["Delivery and installation included","Stairs Surcharge"]', 0, '2022-01-21', NULL, NULL, NULL, 0, '', '', '', '2022-01-21 05:47:43', '2022-01-21 05:48:56', '85f4e08b-be4d-4cad-8fe4-d922643a6600', '3d6bf909-0356-414b-858f-508503388576'),
 	('37f5e0ea-9add-4b95-a702-7d087a078358', 8500, 1, '["Delivery and installation included"]', 1, '2022-02-09', NULL, NULL, NULL, 1, '', '', '', '2022-02-04 11:07:51', '2022-02-10 04:38:04', '64b289c3-57ab-448e-94a4-d841201729b0', '325d8278-b0a9-4ae4-b323-0cd65974c32b'),
+	('393d4b48-a3a3-4dbd-b067-ccee5ee07124', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:36:38', '2022-03-01 19:36:38', '696b3202-e093-47d8-9430-951459b1383e', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('3a1fc40d-fa52-4e12-a796-5807be379904', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-19 06:48:38', '2022-02-19 06:48:38', '99c75019-8421-4a8c-9dc1-664631d7496c', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
 	('3b7a0b07-1c31-45ff-a9a2-a5f06e706a37', 4600, 4, '["Delivery and installation included"]', 1, '2022-01-12', '2022-01-12', NULL, NULL, 0, '', '', '', '2022-01-05 02:44:38', '2022-01-11 04:23:06', 'e28812e3-4c11-4d48-8852-88044b5edf5b', 'f1e3d04a-6c52-4e3f-b09c-2c035988e475'),
+	('4052eb51-706e-4b37-8b3e-7524459da433', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:27:13', '2022-03-01 19:27:13', 'cc0f0b51-8b84-46f9-a207-17baff92174b', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('41d10470-7086-4d4f-bb6b-c2a599b7f99b', 2450, 1, '["Delivery and installation included","Stairs Surcharge"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-17 10:08:45', '2022-01-17 10:08:45', '2a7a9a81-3b87-4e88-ac77-f9e0d74fcc8e', '62dc3c25-d150-4e45-81b2-daa7240e1e72'),
 	('455b19eb-c132-4b3f-8a3c-042c4d515782', 10300, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-19 11:15:29', '2022-01-19 11:15:29', '35417c21-f9dd-4ddf-8e03-300620145054', 'bada541b-404c-4e32-8478-fc6705fa8a8b'),
 	('458b7837-68b5-4ed2-a09a-f67b8e0d20b3', 13000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-27 09:37:52', '2022-01-27 09:37:52', '7961bbcf-be95-4358-b518-cb2f22f93103', '7b8683d8-cab3-4df4-8756-f264be8d8522'),
@@ -639,8 +642,11 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('4e823ae8-d0cd-41ec-bc5e-fd2b52e7ffda', 4900, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-17 07:11:01', '2022-02-17 07:11:01', 'e99cb6e4-3331-4075-a04d-3b56c4877054', '3f8ebab2-1b29-4836-8d92-3530c8153f75'),
 	('5197bf53-5bb2-4d63-843f-8fee86f31359', 3900, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-14 05:43:27', '2022-02-14 05:43:27', 'f189e777-6d9a-423b-bebf-0657cdc2e5b1', '172ca256-391c-45c8-96ab-9eba3f423cf4'),
 	('527129eb-d833-40c0-bb3e-84196364bc1e', 6500, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-12 12:52:32', '2022-02-12 12:52:32', 'd1b47dfe-5cf2-4891-a7fa-fc9de53e7956', '1ddee145-a68a-48c2-8007-fd6d6ec6339f'),
+	('553711a9-611e-4a20-a5bb-4bb3df1aba97', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:35:08', '2022-03-01 19:35:08', '97805abd-4d9f-48c7-86e3-e20148924622', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('5869bdd2-3031-4645-a1cd-ac5f93226537', 3899, 1, '["Delivery and installation included"]', 0, '2022-01-17', NULL, NULL, NULL, 0, '', '', '', '2022-01-15 07:23:58', '2022-01-18 05:19:15', '7b8ecaa9-0488-4220-acf0-351d3767920b', 'b4bd60d4-7922-49ac-b047-02f70218c505'),
+	('5c188bfa-c3b8-42d2-81fb-fbf9986412f0', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:38:23', '2022-03-01 19:38:23', '08124615-a12c-40c0-bc2f-cbf704f269fc', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('5edcdb59-cc53-4252-9c14-7ca466ceef3c', 9000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-19 09:29:31', '2022-01-19 09:29:31', '071ad09d-7154-4cca-ba89-c0215f27427e', '03a1d2e9-254e-488f-a288-0701daa1e6c7'),
+	('6093f26f-938f-4851-b9b9-22affb3a4795', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 20:12:57', '2022-03-01 20:12:57', 'af81ca69-171e-43e7-8899-e9c161ccc7bc', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('65095c57-ec53-4922-b151-71ffb3bc9373', 3900, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 05:58:36', '2022-02-16 05:58:36', 'dab9f3ab-9c5b-4f9f-851f-e1b83d0e2972', '172ca256-391c-45c8-96ab-9eba3f423cf4'),
 	('6a776b01-c153-4e0c-83e3-41cbac54d117', 4900, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-17 08:59:09', '2022-02-17 08:59:09', 'e56fda1a-ea98-4437-9a6e-a704cfc57431', '40bc07ed-638c-4104-8588-cf1f36114433'),
 	('6ef79296-0324-4df5-b2b4-e3cc7e871cd1', 4900, 1, '["Delivery and installation included"]', 0, '2022-02-06', NULL, NULL, NULL, 1, '', '', '', '2022-02-04 11:03:57', '2022-02-10 04:38:20', 'a1304714-d7cd-4faf-bb4c-9288b98618e2', 'c697b0f3-7ceb-4f86-9a88-667e6ed16bb4'),
@@ -653,12 +659,15 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('7fce504b-4c69-4892-861d-ec2247d22805', 4300, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-31 12:46:53', '2022-01-31 12:46:53', '16911798-d356-41b6-a0b5-7cbcfe5356c5', 'a8c1d27f-477e-4bdc-8f53-6d9d690e0434'),
 	('83bcc508-cc76-42fc-ab9e-9432eabef82e', 999, 1, '[]', 1, '2022-01-31', NULL, NULL, NULL, 1, '', '', '', '2022-01-31 04:05:19', '2022-01-31 04:55:38', '6b34758e-bde0-4b4f-98c1-08d9018f8e3c', '1d0bd051-1be6-405d-a75d-b8c5608b8ef9'),
 	('83c74ba1-7990-464e-a059-85a8745f7fcf', 5500, 1, '[]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-19 10:04:54', '2022-02-19 10:04:54', '53861b56-bd50-4da2-bdf9-c045d8f42519', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
+	('84bda415-9ced-4531-ac5c-0fa8e4f2917e', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:35:42', '2022-03-01 19:35:42', '3217fb4b-c682-4cf8-a16e-24f8b94e03ae', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
+	('88c31f86-98e6-421a-8684-8c960ed35bb0', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:37:03', '2022-03-01 19:37:03', '06cba264-3aa1-4efd-b1fc-625a91a1b035', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('8da26473-2592-4105-8875-f8b95568a0ad', 4600, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-25 08:48:16', '2022-01-25 08:48:16', '88001442-56ec-44fa-ad79-f67ebed8fa7d', 'f1e3d04a-6c52-4e3f-b09c-2c035988e475'),
 	('8ef70ffa-de25-46f1-a2b6-18ec0c1f0c8e', 3400, 1, '[]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-28 08:04:16', '2022-01-28 08:04:16', '2183ef6e-247d-463c-817c-2889b17bd1c3', 'b5549844-a3b1-47d2-8195-c572edb16ce7'),
 	('967d64bb-82f5-4c4d-88fd-bb81800c64cb', 3900, 1, '["Delivery and installation included"]', 0, '2022-01-19', NULL, NULL, NULL, 0, '', '', '', '2022-01-12 13:19:16', '2022-01-18 05:19:47', 'b7a862dc-dd9c-4a1c-9843-270060d39363', '34b4c779-6ff9-4cbf-b132-e580c8e56ca3'),
 	('96ff89c6-345e-45f0-a9ff-48cd1d69f56a', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-15 09:02:44', '2022-02-15 09:02:44', 'ae01c830-fdb0-489c-97ab-2c7675a1c34c', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
 	('a0136bd6-5dc8-40e8-be8b-7a46fbc0882c', 4499, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-09 08:23:20', '2022-02-09 08:23:20', '261d994b-d494-4fc4-95d1-989f6bf9c1a5', 'f2ff509a-bef0-4cf2-b3f9-7f70a12c28dc'),
 	('a1467c62-4a56-4a09-9cb5-e16d50ae2cb0', 8099, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-31 14:05:17', '2022-01-31 14:05:17', '8e5b3b7c-c61b-46af-84bd-472ebbd4f646', '365a117d-e4a2-4c31-8602-b6dd795186ba'),
+	('a4b7783d-2573-40cc-857a-3917d84f4790', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:31:44', '2022-03-01 19:31:44', '4d827b5a-191d-4766-992d-49a38ed67c34', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de'),
 	('a50b3d2b-8b58-43fb-a6b7-ddd207a8d060', 13799, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 08:57:19', '2022-02-16 08:57:19', '05a76891-4523-4075-a5d5-e95e2b546843', 'e2d9148a-f0de-4e1a-83f6-2e6cda76471b'),
 	('a527cca7-caf4-4437-b2b7-bdc0efb6e18d', 8099, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-27 09:35:27', '2022-01-27 09:35:27', '21f6dcd4-7411-4230-aa18-5412ea3af3c3', '50b94c58-6795-42ac-aa16-65585ff6ed21'),
 	('a93af5ab-6ae5-429c-a4ee-49abe91c6721', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 05:19:49', '2022-02-16 05:19:49', '4fbadf51-0365-427b-8d4a-9052693d58a8', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
@@ -682,7 +691,8 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('f9d54552-a423-4fb8-9875-6c94b625ad46', 5500, 1, '["Delivery and installation included"]', 0, '2022-02-05', NULL, NULL, NULL, 0, '', '', '', '2022-01-31 08:46:37', '2022-01-31 09:34:23', '1006c661-ede2-4ba9-9124-046a998c5022', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
 	('facd482c-7a13-4828-bfd7-eb46e5b04db9', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-15 06:43:56', '2022-02-15 06:43:56', '1f946781-82a1-4ddd-8661-ac0f31897a63', '6973a8d7-c395-4aeb-bba2-9a40745902ad'),
 	('faf992a5-d1e4-4673-84d0-edd2463f3803', 11500, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-28 08:04:41', '2022-01-28 08:04:41', 'dc447f6f-7343-45c7-89f4-a7b105dc80f7', '1f03a2d4-c24e-4809-a5c7-bf87c349b387'),
-	('fb1d43df-1789-4119-a80c-3f415ed56378', 11200, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-28 10:33:44', '2022-01-28 10:33:44', 'ca060d73-c6d0-4e5f-a8a3-2d93a802775f', 'f13c3abe-229b-40e7-aa26-d0b21f85175f');
+	('fb1d43df-1789-4119-a80c-3f415ed56378', 11200, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-28 10:33:44', '2022-01-28 10:33:44', 'ca060d73-c6d0-4e5f-a8a3-2d93a802775f', 'f13c3abe-229b-40e7-aa26-d0b21f85175f'),
+	('ff0ab958-ae90-4c83-913d-09f7dcb3ef30', 10000, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Clay #435, BackColor:Clay #435', '2022-03-01 19:26:14', '2022-03-01 19:26:14', '1f9c2edd-5727-4097-94ba-64a7dd2402f7', '013da5f2-f1ed-4d27-8fba-1e24fb9a70de');
 /*!40000 ALTER TABLE `chairtoorders` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.chairtoquotations
@@ -703,7 +713,7 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
   CONSTRAINT `chairtoquotations_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.chairtoquotations: ~5 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoquotations: ~6 rows (approximately)
 /*!40000 ALTER TABLE `chairtoquotations` DISABLE KEYS */;
 INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', 'Delivery Included', '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
@@ -939,7 +949,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   CONSTRAINT `quotations_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.quotations: ~10 rows (approximately)
+-- Dumping data for table sales_invoice.quotations: ~9 rows (approximately)
 /*!40000 ALTER TABLE `quotations` DISABLE KEYS */;
 INSERT INTO `quotations` (`id`, `quotationNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `paymentTerms`, `validTil`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('34ab546f-71c7-41ca-adf9-e1c17fe21333', 12, 'Andy Leung', 'Kowloon', '22A, Morrison Plaza, 9 Morrison Hill Rd, Wanchai, Hong Kong', 'Building 19W', '12', '1201–1206', '+980 8968', 'andykleung@gmail.com', 28, '', '50% Upfront, 50% CBD', 2, 0, 1, 0, 1, 0, 0, '2021-12-28 08:17:27', '2021-12-28 08:17:27', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
@@ -985,27 +995,33 @@ CREATE TABLE IF NOT EXISTS `salesorders` (
   CONSTRAINT `salesorders_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.salesorders: ~77 rows (approximately)
+-- Dumping data for table sales_invoice.salesorders: ~87 rows (approximately)
 /*!40000 ALTER TABLE `salesorders` DISABLE KEYS */;
 INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `signURL`, `paid`, `paymentTerms`, `dueDate`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('05a76891-4523-4075-a5d5-e95e2b546843', 95, 'Mr Randy', '', '', '', '', '', '+852 6746 9388', '', 112, '', '', 1, 'C/C', NULL, 0, 1, 0, 1, 0, 0, '2022-02-16 08:57:19', '2022-02-16 08:57:19', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('062be3df-bb79-4126-b1b3-61fece49abc8', 82, 'Mr. Zhu', 'Tai Kok Tsui', 'Tower 2, One SilverSea, 18 Hoi Fai Road', '', '18', 'A', '+852', '', 28, '', '', 1, '100% Bank transfer', NULL, 0, 1, 0, 1, 0, 0, '2022-02-12 13:34:51', '2022-02-13 08:26:08', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
+	('06cba264-3aa1-4efd-b1fc-625a91a1b035', 113, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:37:03', '2022-03-01 19:37:03', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('071ad09d-7154-4cca-ba89-c0215f27427e', 36, 'Mrs Ng', '', '', '', '', '', '+852 9185 5919', '', 168, '', '', 1, '100% Credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-19 09:16:17', '2022-01-19 09:26:59', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
+	('08124615-a12c-40c0-bc2f-cbf704f269fc', 114, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:38:23', '2022-03-01 19:38:23', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('1006c661-ede2-4ba9-9124-046a998c5022', 58, 'Liu Ho Lim', '', 'Century Square, 1-13 D\'Aguilar Street', '', '17', '02', '+852 6832 094', '', 5, '', '', 1, '100% Credit Card', NULL, 5, 0, 0, 1, 0, 0, '2022-01-31 08:46:37', '2022-01-31 08:46:37', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('16911798-d356-41b6-a0b5-7cbcfe5356c5', 59, 'Mr. Ho', '', 'Tai Ying Building, Cosmopolitan Estates, Tai Koi Tsui, Kowloon ', '', '5', '7', '+852 9678 1773', '', 7, '', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-31 12:46:53', '2022-01-31 12:46:53', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('1b56d5a9-be7f-4280-b057-1480b1805fc8', 24, 'Mr. Chu', 'Kowloon Tong', 'Parc Oasis 35 Tat Chee Ave', '5', '6', 'B', '+852 9838 2997', 'felixchu726@gmail.com', 28, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-12 09:31:20', '2022-01-12 09:31:20', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('1f946781-82a1-4ddd-8661-ac0f31897a63', 84, 'Ms. Petra ', '', 'Apartment 3A, Po Chi Court, 15 Ship Street, Wan Chai, HK', '', '', '', '+852 6608 9862', '', 7, '', '', 1, '100% Cash', NULL, 550, 1, 0, 1, 0, 0, '2022-02-15 05:54:05', '2022-02-15 06:43:56', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('1f9c2edd-5727-4097-94ba-64a7dd2402f7', 106, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:26:14', '2022-03-01 19:26:14', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('2183ef6e-247d-463c-817c-2889b17bd1c3', 54, 'Ms. Peng', 'Yuen Long', '143 Nam Hang Tsuen', '', '', '', '+852 6361 9631', '', 3, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-28 07:56:25', '2022-01-28 08:04:16', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('21f6dcd4-7411-4230-aa18-5412ea3af3c3', 48, 'Mr Wong', '', '', '', '', '', '+852 9091 6089', '', 1, '', '', 1, 'C/c', NULL, 10, 0, 0, 1, 0, 0, '2022-01-27 09:33:00', '2022-01-27 09:33:00', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('227a56bf-28ba-475d-a2e9-e9e614d5af4b', 94, 'Hang Lung (Administration) Limited - Ms. Joey Cheng', '', 'Standard Chartered Bank Building, 4 Des Voeux Road, Central, HK', '', '26', '', '+852 6899 4889', '', 7, 'For manager Mr. Chiu, office no. 28790339', '', 0, '100% Bank Transfer', '2022-02-18', 0, 1, 0, 1, 0, 0, '2022-02-16 07:36:12', '2022-02-16 07:37:58', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('2345fd43-1b30-41b0-9e7f-ca44705f60a1', 93, 'Tony c/o Bazaar Ltd', 'Quarry Bay', '53A Pan Hoi Street, Kam Hoi Mansion', '', '1', '', '+852 5542 5585', '', 28, '', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-16 07:09:45', '2022-02-16 07:09:45', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
+	('234804c1-a975-4968-8a71-f47cf7c51089', 109, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:32:40', '2022-03-01 19:32:40', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('26162033-88a3-47f2-a9f9-d0712e76f4be', 63, 'Mr. Stephen Hao', '', 'The Noven, 88 Third Street, Sai Ying Pun', '', '12', 'G', '+852 6513 6594', '', 7, '', '', 1, '100% credit card', NULL, 565, 1, 0, 1, 0, 0, '2022-02-04 04:23:23', '2022-02-04 04:25:23', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('261d994b-d494-4fc4-95d1-989f6bf9c1a5', 74, 'Mr. Yau', 'Hung Hom', '11 Hok Yuen Streer', 'Kaiser Estate (Phase 3)', '5', 'M-7', '+852 9254 8471', '', 15, '', '', 1, '100% credit card ', NULL, 5, 0, 0, 1, 0, 0, '2022-02-09 08:11:25', '2022-02-09 08:23:20', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('2826adc0-64b1-4bb6-8aea-0bc89a78202b', 66, 'Mr. Chan Ka Lok', '', 'Tak Chak House, Hau Tak Estate, Tseung Kwan O, N.T.', '', '', '3812', '+852 9719 0920', '', 28, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 08:20:42', '2022-02-04 08:25:01', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('2a7a9a81-3b87-4e88-ac77-f9e0d74fcc8e', 31, 'H FONG', 'Kowloon', 'Joy Garden, 3 Alnwick Road, Kowloon Tong', '2', '7B', '', '+852 6769 6709', 'h.y1997@yahoo.com.hk', 35, '要白底灰面,並要上一層樓梯', '', 1, 'Bank Transfer', NULL, 0, 1, 100, 1, 0, 0, '2022-01-17 10:08:44', '2022-01-17 10:08:44', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('2c0cbccd-3e1e-4a65-a650-fed0c7484562', 88, 'Ms. Angela Man', '', 'Two IFC, 8 Finance Street, Cental', '', '76', '', '+852 9021 2021', '', 28, 'Delivery to: Eva Court, 36 Macdonnell Road, Mid levels. Contact: Sam 55089480', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-15 14:56:01', '2022-02-16 11:06:41', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('2c1fce07-95ad-4006-badb-f00cdcdf841e', 65, 'Mr. Lok', '', 'Sun Yuen Long Centre, Yuen Long, N.T', '3', '13', 'H', '+852 9468 3863', '', 7, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 07:59:45', '2022-02-04 07:59:45', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('3217fb4b-c682-4cf8-a16e-24f8b94e03ae', 111, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:35:41', '2022-03-01 19:35:41', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('35417c21-f9dd-4ddf-8e03-300620145054', 34, 'Mr. Kwok', '', 'Solaria, 16 Fo Chun Road, Tai Po', '7', '6', 'A', '+852 6295 1710', '', 84, '6月初才送貨', '', 1, '100% credit card', NULL, 300, 1, 0, 1, 0, 0, '2022-01-18 08:20:25', '2022-01-19 11:15:29', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('4d827b5a-191d-4766-992d-49a38ed67c34', 108, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:31:44', '2022-03-01 19:31:44', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('4f212805-2fed-469a-9398-826138c2d8a4', 78, 'Ms. Lam', '', '28 Shu Kuk Street, Odeon Building', '', '6', 'D', '+852 5409 7130', '', 14, 'sat & sun', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-12 09:33:10', '2022-02-12 09:34:03', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('4f6cae59-cc05-4247-a667-60d8a43d8f5a', 101, 'Ms. Andrey', '', 'Apartment 16, Fontana Gardens, Tai Hang Road, Causeway Bay, HK', 'C', '11', '', '+852 9302 6302', '', 84, 'One in stock, One is pre-order', '', 1, '100% credit card', '2022-02-19', 1400, 1, 0, 1, 0, 0, '2022-02-18 10:12:09', '2022-02-18 10:53:01', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('4fbadf51-0365-427b-8d4a-9052693d58a8', 91, 'Ms Andrey', 'Tai Hang', 'Fontana Gardens, Tai Hang Rd', 'C', '11', '16', '+852', '', 1, '', '', 1, '100% CASH', NULL, 10, 0, 0, 1, 0, 0, '2022-02-16 05:19:49', '2022-02-16 05:19:49', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
@@ -1020,6 +1036,7 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('6475d8f7-3b29-417e-89ee-d347b1588d9d', 71, 'Mr. Arnaud Leroi', '', 'Larvotto Tower 5 Apartment 23B, Ap Lei Chau, Praya Road', '', '23', 'B', '+852 6288 3734', '', 28, '', '', 1, '100% Bank Transfer', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 13:21:39', '2022-02-04 13:21:39', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('64b289c3-57ab-448e-94a4-d841201729b0', 69, 'Ms. Yu', '', '102 Austin Road, Jordan, KLN', '', '10', '1003', '+852 2362 5411', '', 7, '66339488', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 11:01:15', '2022-02-04 11:01:15', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('67a2374b-6533-41ea-aef7-806faac0f7f9', 35, 'Mr. Kwok', '', 'Solaria, 16 Fo Chun Road, Tai Po', '7', '6', 'A', '+852 6295 1710', '', 28, '6月初才送貨', '', 1, '100% credit card', NULL, 10, 0, 0, 1, 0, 0, '2022-01-18 08:49:55', '2022-01-19 11:15:43', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('696b3202-e093-47d8-9430-951459b1383e', 112, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:36:38', '2022-03-01 19:36:38', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('6b34758e-bde0-4b4f-98c1-08d9018f8e3c', 56, 'Mr. Terence Man', '', '', '', '', '', '+852 5327 3878', '', 0, '', '', 1, '100% Credit Card', NULL, 100, 1, 0, 1, 0, 0, '2022-01-31 04:05:19', '2022-01-31 04:05:19', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('6fb5bf88-bb53-4e9d-8026-1a4bdfbe39cb', 45, 'Mr Yeung', '', '', '', '', '', '+852 9409 3305', '', 5, '', '', 1, 'card', NULL, 599, 1, 0, 1, 0, 0, '2022-01-26 07:35:09', '2022-01-26 07:35:09', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('7961bbcf-be95-4358-b518-cb2f22f93103', 49, 'Mr Fung', '', '', '', '', '', '+852', '', 1, '', '', 1, 'C/c', NULL, 0, 1, 0, 1, 0, 0, '2022-01-27 09:37:52', '2022-01-27 09:37:52', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
@@ -1030,11 +1047,13 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('88001442-56ec-44fa-ad79-f67ebed8fa7d', 43, 'Mr. Tsang', '', 'Tower 2, Sorrento, Tsim Sha Tsui, KLN', '', '62', 'A', '+852 9837 2740', '', 28, '3月頭才送', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-25 08:34:29', '2022-01-25 08:48:16', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('8e5b3b7c-c61b-46af-84bd-472ebbd4f646', 60, 'Crystal Ng ', '', 'Hong Kong Sanatorium & Hospital', '', '', '', '+852 3156 8772', '', 7, '', '', 0, '100% by Check Net 30 Days', '2022-03-09', 0, 1, 0, 1, 0, 0, '2022-01-31 13:57:27', '2022-01-31 14:05:17', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('96338565-52e1-4127-8919-9fd2a434a56e', 79, 'Ms. Leung', '', 'Tanner Garden, North Point, HK', '5', '12', 'G', '+852 9317 5340', '', 7, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-12 10:12:36', '2022-02-12 10:12:36', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('97805abd-4d9f-48c7-86e3-e20148924622', 110, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:35:08', '2022-03-01 19:35:08', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('99c75019-8421-4a8c-9dc1-664631d7496c', 102, 'Miss Ng ', 'mid levels', '11 May Road', '', '33', 'B', '+852 9028 7387', '', 3, '', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-19 06:48:38', '2022-02-19 06:48:38', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('a0081a8f-c611-435b-80ef-c232e99b0f85', 32, 'Mr. Cheuk', 'Hong Kong', 'Gloucester Tower, the Lankmark, central', '', '38', '', '+852 9447 5379', '', 3, '', '', 1, 'Bank Transfer ($10000 deposit paid, balance due Jan 18, 2022)', '2022-01-17', 0, 1, 0, 1, 0, 0, '2022-01-17 10:56:05', '2022-01-18 05:16:26', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('a1304714-d7cd-4faf-bb4c-9288b98618e2', 70, 'Ms. Chan', '', 'Tower 1, Stars By The Harbour, Hung Luen Road, Hung Hom', '', '26', 'C', '+852 9068 3869', '', 7, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-02-04 11:03:57', '2022-02-04 11:03:57', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('a7561af4-af35-47ee-bbfe-c730cebbf71b', 52, 'Mr. Hsieh', 'WarrenWoods', '23, Warren Street', '', '29', 'B', '+852 9735 9669', '', 3, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-28 07:16:49', '2022-01-28 07:16:49', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('ae01c830-fdb0-489c-97ab-2c7675a1c34c', 87, 'Mr Leung', '', '', '', '', '', '+852 6059 9439', '', 3, '', '', 1, 'C/C', NULL, 275, 1, 100, 1, 0, 0, '2022-02-15 09:02:44', '2022-02-15 09:02:44', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
+	('af81ca69-171e-43e7-8899-e9c161ccc7bc', 115, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:39:10', '2022-03-01 19:39:10', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('b31bffa6-e122-4a98-9eca-bbcd205c7a7f', 105, 'employees', '', '', '', '', '', '+852', '', 0, '', '', 1, 'PayPal', NULL, 0, 1, 0, 1, 0, 0, '2022-02-23 09:19:20', '2022-02-23 09:19:20', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('b68bbd26-1d6f-4511-be86-661b3f88e738', 33, 'Aya', 'Clearwater Bay', '223 Tai Hang Hau', '', '', '', '+852 9227 2075', '', 2, '', '', 1, '100% Bank transfer', '2022-01-19', 10, 0, 0, 1, 0, 0, '2022-01-18 04:18:02', '2022-01-18 05:16:24', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('b7a862dc-dd9c-4a1c-9843-270060d39363', 25, 'Mavis c/o JR Credit Limited', 'Tsim Sha Tsui', 'Mirror Tower, 61 Mody Road', '', '13', '03', '+852 6488 9111', '', 3, '', '', 1, '100% Bank transfer', '2022-01-13', 0, 1, 0, 1, 0, 0, '2022-01-12 13:19:16', '2022-01-17 10:45:59', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
@@ -1042,6 +1061,7 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('c5917a05-c80c-4adf-9ab7-b02e4ac872a4', 76, 'Mr. Cheung', '', 'Repulse Bay Road No.3', '', '23', 'B', '+852 9744 5344', 'turnkeyinteriorslimited@gmail.com', 28, 'Turnkey Interiors Ltd.', '', 1, '100% Bank Transfer', NULL, 0, 1, 0, 1, 0, 0, '2022-02-09 09:12:09', '2022-02-09 09:12:09', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('c645c062-0ab0-4a99-8e45-c2b4ba12cd7a', 2, 'Andy Leung', 'Wanchai', '22A, Morrison Plaza, 9 Morrison Hill Rd, Wanchai, Hong Kong', '', '', '', '+980 8968', 'andykleung@gmail.com', 28, '', '', 1, '100% Credit Card', NULL, 500, 1, 300, 1, 0, 0, '2021-12-20 13:36:29', '2021-12-20 13:36:29', 'e98936a8-0c72-46cb-bf25-be0ba3bde750'),
 	('ca060d73-c6d0-4e5f-a8a3-2d93a802775f', 55, 'Mr. Derek To', '', 'Sorrento, Tower 3, 1 Austin Road West, Kowloon', '', '47', 'D', '+852 6129 4195', '', 21, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-01-28 10:08:09', '2022-01-28 10:33:44', '47324cff-bc23-42e2-9911-19f8e07957cf'),
+	('cc0f0b51-8b84-46f9-a207-17baff92174b', 107, 'David Song', '', '', '', '', '', '+852', 'ming.lau801@gmail.com', 0, '', '', 1, 'paypal', NULL, 12, 1, 12, 1, 0, 0, '2022-03-01 19:27:13', '2022-03-01 19:27:13', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('cd688604-ee1e-4270-9f95-5f2d81169752', 85, 'Ms. Andrey', '', 'Apartment 16, Fontana Gardens, Tai Hang Road, Causeway Bay, HK', 'C', '11', '', '+852 9302 6302', '', 7, '', '', 1, '100% Cash', NULL, 0, 1, 0, 1, 0, 0, '2022-02-15 05:57:52', '2022-02-15 05:57:52', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('ce0f2727-ca05-4a49-82db-3f011bc48102', 100, 'Mr. Sonic', '', '13 Belcher\'s Street, Kennedy Town ', 'A', '24', '01', '+852 9507 8797', '', 28, '', '', 1, '100% credit card', NULL, 765, 1, 0, 1, 0, 0, '2022-02-18 07:27:36', '2022-02-18 07:32:57', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('d1b47dfe-5cf2-4891-a7fa-fc9de53e7956', 81, 'Mr. Tim Wong', '', 'Tower 3, The Long Beach, 8 Hoi Fai Road, Tai Kok Tsui, Kowloon', '', '37', 'D', '+852 9105 6906', '', 7, '', '', 1, '100% Bank Transfer', '2022-02-12', 0, 1, 0, 1, 0, 0, '2022-02-12 12:51:51', '2022-02-12 13:55:38', '47324cff-bc23-42e2-9911-19f8e07957cf'),
@@ -1098,25 +1118,47 @@ INSERT INTO `sequelizemeta` (`name`) VALUES
 	('20220216145851-modify-desk-to-quotation.js'),
 	('20220216145852-modify-quotation.js'),
 	('20220216145899-create-service-to-order.js'),
-	('20220216145901-modify-service-to-order.js');
+	('20220216145901-modify-service-to-order.js'),
+	('20220216146899-create-service-to-quotation.js'),
+	('20220216146901-modify-service-to-quotation.js');
 /*!40000 ALTER TABLE `sequelizemeta` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.servicetoorders
 CREATE TABLE IF NOT EXISTS `servicetoorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `price` float NOT NULL DEFAULT 1000,
+  `price` float NOT NULL DEFAULT 0,
   `description` varchar(255) NOT NULL DEFAULT '',
-  `orderId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `orderId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `servicetoorders_orderId_foreign_idx` (`orderId`),
   CONSTRAINT `servicetoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice.servicetoorders: ~0 rows (approximately)
+-- Dumping data for table sales_invoice.servicetoorders: ~2 rows (approximately)
 /*!40000 ALTER TABLE `servicetoorders` DISABLE KEYS */;
-INSERT INTO `servicetoorders` (`id`, `price`, `description`, `orderId`) VALUES
-	('112', 1000, 'sdfsdf', '5159309d-fafe-47b8-adf0-358235b876e4');
+INSERT INTO `servicetoorders` (`id`, `price`, `description`, `orderId`, `createdAt`, `updatedAt`) VALUES
+	('4d29c5f0-5c6e-45f7-8b28-8fa6703d0f8a', 2123.11, 'aaaddddddddddd', 'af81ca69-171e-43e7-8899-e9c161ccc7bc', '2022-03-01 20:12:57', '2022-03-01 20:12:57'),
+	('753bb780-f8f2-4e0d-af17-c8d5759d005d', 2121.11, 'qaddddddddddddddddz', 'af81ca69-171e-43e7-8899-e9c161ccc7bc', '2022-03-01 20:12:57', '2022-03-01 20:12:57');
 /*!40000 ALTER TABLE `servicetoorders` ENABLE KEYS */;
+
+-- Dumping structure for table sales_invoice.servicetoquotations
+CREATE TABLE IF NOT EXISTS `servicetoquotations` (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `price` float NOT NULL DEFAULT 0,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `quotationId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `servicetoquotations_quotationId_foreign_idx` (`quotationId`),
+  CONSTRAINT `servicetoquotations_quotationId_foreign_idx` FOREIGN KEY (`quotationId`) REFERENCES `quotations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table sales_invoice.servicetoquotations: ~0 rows (approximately)
+/*!40000 ALTER TABLE `servicetoquotations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `servicetoquotations` ENABLE KEYS */;
 
 -- Dumping structure for table sales_invoice.users
 CREATE TABLE IF NOT EXISTS `users` (
