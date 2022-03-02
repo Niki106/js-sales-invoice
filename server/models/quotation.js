@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   class Quotation extends Model {
     static associate(models) {
       this.belongsTo(models.User, { as: 'Seller', foreignKey: 'sellerId' });
+      this.hasMany(models.QuotationToOrder, {
+        foreignKey: 'quotationId'
+      });
       this.belongsToMany(models.ChairStock, {
         through: 'ChairToQuotation',
         foreignKey: 'quotationId',

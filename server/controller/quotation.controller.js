@@ -49,6 +49,10 @@ async function getAll(where) {
           },
         },
       },
+      {
+        model: db.QuotationToOrder,
+        attributes: ['id', 'description', 'price'],
+      },
     ],
   });
 }
@@ -128,6 +132,13 @@ async function create(req, res, next) {
             deliveryOption: products[index].productDeliveryOption,
             remark: products[index].remark
           },
+        });
+      } else if (products[index].productType === 'misc') {
+        await db.QuotationToOrder.create({
+          id: products[index].id,
+          description: products[index].description,
+          price: products[index].price,
+          quotationId: id
         });
       }
     }
@@ -212,6 +223,19 @@ async function update(req, res, next) {
             remark: products[index].remark
           },
         });
+      } else if (products[index].productType === 'misc') {
+        db.QuotationToOrder.destroy({
+          where: {
+            quotationId: id
+          }
+        });
+
+        db.QuotationToOrder.create({
+          id: products[index].id,
+          description: products[index].description,
+          price: products[index].price,
+          quotationId: id
+        })
       }
     }
     res.json({ message: 'Quotation was updated successfully.' });
@@ -269,6 +293,10 @@ async function getQuotation(id) {
             exclude: ['createdAt', 'updatedAt'],
           },
         },
+      },
+      {
+        model: db.QuotationToOrder,
+        attributes: ['id', 'description', 'price'],
       },
     ],
   });
