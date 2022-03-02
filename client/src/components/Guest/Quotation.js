@@ -128,7 +128,7 @@ export default connect(mapStateToProps)((props) => {
     ChairStocks: [],
     DeskStocks: [],
     AccessoryStocks: [],
-    ServiceToOrders: []
+    ServiceToQuotations: []
   });
   const { id } = useParams();
   useEffect(() => {
@@ -400,7 +400,7 @@ export default connect(mapStateToProps)((props) => {
                   },
                 ],
               })),
-              ...quotation.ServiceToOrders.map((item) => ({
+              ...quotation.ServiceToQuotations.map((item) => ({
                 cells: [
                   {
                     content: '1',
@@ -429,7 +429,7 @@ export default connect(mapStateToProps)((props) => {
                     quotation.ChairStocks.length -
                     quotation.DeskStocks.length -
                     quotation.AccessoryStocks.length -
-                    quotation.ServiceToOrders.length
+                    quotation.ServiceToQuotations.length
                 )
               ).fill({
                 cells: [
@@ -470,8 +470,8 @@ export default connect(mapStateToProps)((props) => {
                               item.AccessoryToQuotation.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (quotation.ServiceToOrders.length
-                        ? quotation.ServiceToOrders.map(
+                      (quotation.ServiceToQuotations.length
+                        ? quotation.ServiceToQuotations.map(
                             (item) => item.price
                           ).reduce((acc, cur) => acc + cur)
                         : 0)
@@ -600,8 +600,8 @@ export default connect(mapStateToProps)((props) => {
                               item.AccessoryToQuotation.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (quotation.ServiceToOrders.length
-                        ? quotation.ServiceToOrders.map(
+                      (quotation.ServiceToQuotations.length
+                        ? quotation.ServiceToQuotations.map(
                             (item) => item.price
                           ).reduce((acc, cur) => acc + cur)
                         : 0) -
