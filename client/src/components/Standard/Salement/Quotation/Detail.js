@@ -258,7 +258,9 @@ export default connect(mapStateToProps)((props) => {
   const { componentType, initialClient, initialCart, initialServices } = props;
 
   const [topHoleCount, setTopHoleCount] = useState(0);
+  const [topHolePosition, setTopHolePosition] = useState('Left');
   const [topHoleType, setTopHoleType] = useState('Rounded');
+  
 
   const steps = [
     'Input Client Info',
@@ -1700,6 +1702,7 @@ export default connect(mapStateToProps)((props) => {
                   'Maple',
                   'Bamboo',
                   'Melamine with glass top',
+                  'Toppal Plyedge'
                 ],
                 width: '65%',
               },
@@ -1760,6 +1763,10 @@ export default connect(mapStateToProps)((props) => {
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHoleCount(e.target.value);
+                  if (e.target.value == 2)
+                    setTopHolePosition('Left + Right')
+                  else if (e.target.value == 3)
+                    setTopHolePosition('Left + Right + Center')
                 },
                 options: [0, 1, 2, 3],
                 width: '48%',
@@ -1780,8 +1787,8 @@ export default connect(mapStateToProps)((props) => {
                 name: 'topHolePosition',
                 label: 'Hole Position',
                 type: 'select',
-                defaultValue: 'Left',
-                options: ['Left', 'Right', 'Center'],
+                value: topHolePosition,
+                options: ['Left', 'Right', 'Center', 'Left + Right', 'Left + Right + Center'],
                 disabled: topHoleCount !== 1 || topHoleType !== 'Rounded',
                 width: '48%',
               },
