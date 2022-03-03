@@ -1317,7 +1317,7 @@ export default connect(mapStateToProps)((props) => {
           </Typography>
           <Typography variant="h7" sx={{ flexBasis: '100%', minWidth: '100%' }}>
             Sub Total: {
-              cart.reduce((p, c)=>p+c.productAmount*c.productDetail.unitPrice, 0) + 
+              cart.reduce((p, c)=>p+c.productAmount*parseFloat(c.productPrice), 0) +
               services.reduce((p, c)=>p+c.price, 0)
             }
           </Typography>
