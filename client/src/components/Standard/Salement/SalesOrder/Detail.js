@@ -1657,7 +1657,7 @@ export default connect(mapStateToProps)((props) => {
                 topWidth: data.get('topWidth') || 0,
                 topThickness: data.get('topThickness') || 0,
                 topRoundedCorners: data.get('topRoundedCorners') || 0,
-                topCornerRadius: data.get('topCornerRadius') || 0,
+                topCornerRadius: data.get('topCornerRadius') || 50,
                 topHoleCount: data.get('topHoleCount') || 0,
                 topHoleType: data.get('topHoleType') || '',
                 topHolePosition: topHolePosiiton || '',
