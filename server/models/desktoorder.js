@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       topRoundedCorners: DataTypes.INTEGER,
       topHoleCount: DataTypes.INTEGER,
       topHoleType: DataTypes.STRING,
+      topHolePosition: DataTypes.STRING,
       topSketchURL: DataTypes.STRING,
       unitPrice: DataTypes.FLOAT,
       qty: DataTypes.INTEGER,

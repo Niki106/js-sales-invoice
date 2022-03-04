@@ -1656,7 +1656,7 @@ export default connect(mapStateToProps)((props) => {
                 topHoleCount: data.get('topHoleCount') || 0,
                 topHoleType: data.get('topHoleType') || '',
                 topHolePosition: data.get('topHolePosition') || '',
-                topRemark: data.get('topRemark') || '',
+                remark: data.get('remark') || '',
                 topSketchURL: topSketchURL,
               })
             );
@@ -1768,9 +1768,9 @@ export default connect(mapStateToProps)((props) => {
                   e.preventDefault();
                   setTopHoleCount(e.target.value);
                   if (e.target.value == 2)
-                    setTopHolePosition('Left + Right')
+                    setTopHolePosition('Left_Right')
                   else if (e.target.value == 3)
-                    setTopHolePosition('Left + Right + Center')
+                    setTopHolePosition('Left_Right_Center')
                 },
                 options: [0, 1, 2, 3],
                 width: '48%',
@@ -1792,12 +1792,16 @@ export default connect(mapStateToProps)((props) => {
                 label: 'Hole Position',
                 type: 'select',
                 value: topHolePosition,
-                options: ['Left', 'Right', 'Center', 'Left + Right', 'Left + Right + Center'],
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopHolePosition(e.target.value);
+                },
+                options: ['Left', 'Right', 'Center', 'Left_Right', 'Left_Right_Center'],
                 disabled: topHoleCount !== 1 || topHoleType !== 'Rounded',
                 width: '48%',
               },
               {
-                name: 'topRemark',
+                name: 'remark',
                 label: 'Remark',
                 type: 'text',
                 width: '100%',

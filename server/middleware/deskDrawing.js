@@ -25,9 +25,11 @@ function drawDeskTop(params) {
       topHoleCount === '1' && topHoleType === 'Rounded'
         ? `${topHolePosition.toLowerCase()}-`
         : '';
+        
     PImage.decodePNGFromStream(
-      fs.createReadStream(
-        `server/images/sketch/${topRoundedCorners}-RCorner/${topHoleType}Hole/${topHoleCount}-${topHolePosition}hole.png`
+      fs.createReadStream( topHoleCount == 1 ?
+        `server/images/sketch/${topRoundedCorners}-RCorner/${topHoleType}Hole/${topHoleCount}-${topHolePosition}hole.png` :
+        `server/images/sketch/${topRoundedCorners}-RCorner/${topHoleType}Hole/${topHoleCount}-hole.png` 
       )
     ).then((img) => {
       const fnt = PImage.registerFont(
