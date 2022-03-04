@@ -25,7 +25,7 @@ function drawDeskTop(params) {
       topHoleCount === '1' && topHoleType === 'Rounded'
         ? `${topHolePosition.toLowerCase()}-`
         : '';
-        
+
     PImage.decodePNGFromStream(
       fs.createReadStream( topHoleCount == 1 ?
         `server/images/sketch/${topRoundedCorners}-RCorner/${topHoleType}Hole/${topHoleCount}-${topHolePosition}hole.png` :
