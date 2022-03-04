@@ -58,6 +58,11 @@ module.exports = {
         defaultValue: 'Rounded',
         type: Sequelize.STRING,
       },
+      topHolePosition: {
+        allowNull: false,
+        defaultValue: 'Left',
+        type: Sequelize.STRING,
+      },
       topSketchURL: {
         allowNull: false,
         defaultValue: '',

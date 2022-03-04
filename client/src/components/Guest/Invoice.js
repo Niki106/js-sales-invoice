@@ -344,7 +344,7 @@ export default connect(mapStateToProps)((props) => {
                       item.feetSize
                     }\nBeam Size: ${item.beamSize}\n${
                       item.DeskToOrder.hasDeskTop
-                        ? `Table Top: ${item.DeskToOrder.topMaterial} ${item.DeskToOrder.topColor}\nTable Top Size: ${item.DeskToOrder.topLength}x${item.DeskToOrder.topWidth}x${item.DeskToOrder.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToOrder.topRoundedCorners}, Radius: R${item.DeskToOrder.topCornerRadius}\nHoles Required: ${item.DeskToOrder.topHoleCount}, Holes Shaped: ${item.DeskToOrder.topHoleType}`
+                        ? `Table Top: ${item.DeskToOrder.topMaterial} ${item.DeskToOrder.topColor}\nTable Top Size: ${item.DeskToOrder.topLength}x${item.DeskToOrder.topWidth}x${item.DeskToOrder.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToOrder.topRoundedCorners}, Radius: R${item.DeskToOrder.topCornerRadius}\nHoles Required: ${item.DeskToOrder.topHoleCount}, Hole Position: ${item.DeskToOrder.topHolePosition}, Holes Shaped: ${item.DeskToOrder.topHoleType}, \nRemark: ${item.DeskToOrder.remark}`
                         : 'Without DeskTop'
                     }\n${
                       JSON.parse(item.DeskToOrder.deliveryOption)

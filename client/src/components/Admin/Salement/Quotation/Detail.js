@@ -1658,7 +1658,7 @@ export default connect(mapStateToProps)((props) => {
                 topHoleCount: data.get('topHoleCount') || 0,
                 topHoleType: data.get('topHoleType') || '',
                 topHolePosition: data.get('topHolePosition') || '',
-                topRemark: data.get('topRemark') || '',
+                remark: data.get('remark') || '',
                 topSketchURL: topSketchURL,
               })
             );
@@ -1794,12 +1794,16 @@ export default connect(mapStateToProps)((props) => {
                 label: 'Hole Position',
                 type: 'select',
                 value: topHolePosition,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopHolePosition(e.target.value);
+                },
                 options: ['Left', 'Right', 'Center', 'Left + Right', 'Left + Right + Center'],
                 disabled: topHoleCount !== 1 || topHoleType !== 'Rounded',
                 width: '48%',
               },
               {
-                name: 'topRemark',
+                name: 'remarks',
                 label: 'Remark',
                 type: 'text',
                 width: '100%',
