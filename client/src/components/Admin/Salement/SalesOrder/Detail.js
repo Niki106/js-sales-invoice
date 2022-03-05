@@ -1155,7 +1155,7 @@ export default connect(mapStateToProps)((props) => {
                 </Grid>
               </Box>
             </TabPanel>
-          </Paper>topHoleCount
+          </Paper>
           <Button
             onClick={(e) => {
               e.preventDefault();
