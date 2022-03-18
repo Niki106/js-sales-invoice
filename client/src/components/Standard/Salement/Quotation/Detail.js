@@ -52,6 +52,7 @@ import {
   ProductPriceAmount,
 } from '../ProductList';
 import { v4 as uuidv4 } from 'uuid';
+import CheckableMultiSelect from 'components/Common/MultiSelect';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -98,6 +99,18 @@ const chairColumns = [
     label: 'Model',
   },
   {
+    id: 'unitPrice',
+    label: 'Price',
+  },
+  {
+    id: 'balance',
+    label: 'Balance',
+  },
+  {
+    id: 'qty',
+    label: 'QTY',
+  },
+  {
     id: 'frameColor',
     label: 'Frame Color',
   },
@@ -130,18 +143,6 @@ const chairColumns = [
     label: 'Special Remark',
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
-  },
-  {
-    id: 'balance',
-    label: 'Balance',
-  },
-  {
-    id: 'qty',
-    label: 'QTY',
-  },
-  {
     id: 'shipmentDate',
     label: 'Shipment',
   },
@@ -150,6 +151,19 @@ const chairColumns = [
     label: 'Arrival',
   },
 ];
+
+const hideChairColumns = [
+  'Frame Color',
+  'Back Color',
+  'Seat Color',
+  'Back Material',
+  'Seat Material',
+  'Headrest',
+  'Adjustable Armrests',
+  'Special Remark',
+  'Shipment',
+  'Arrival'
+]
 
 const deskColumns = [
   {
@@ -167,6 +181,18 @@ const deskColumns = [
   {
     id: 'model',
     label: 'Model',
+  },
+  {
+    id: 'unitPrice',
+    label: 'Price',
+  },
+  {
+    id: 'balance',
+    label: 'Balance',
+  },
+  {
+    id: 'qty',
+    label: 'QTY',
   },
   {
     id: 'color',
@@ -189,18 +215,6 @@ const deskColumns = [
     label: 'Special Remark',
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
-  },
-  {
-    id: 'balance',
-    label: 'Balance',
-  },
-  {
-    id: 'qty',
-    label: 'QTY',
-  },
-  {
     id: 'shipmentDate',
     label: 'Shipment',
   },
@@ -208,6 +222,16 @@ const deskColumns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
+];
+
+const hideDeskColumns = [
+  'Color',
+  'Arm Size',
+  'Feet Size',
+  'Beam Size',
+  'Special Remark',
+  'Shipment',
+  'Arrival'
 ];
 
 const accessoryColumns = [
@@ -298,6 +322,9 @@ export default connect(mapStateToProps)((props) => {
 
   let initServices = initialServices ? initialServices.map(service=>Object.assign(service, {productType: 'misc'})) : []
   const [services, setServices] = useState(initServices);
+
+  const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
+  const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
 
   const getChairFeatures = (cancelToken) => {
     axios
@@ -461,6 +488,14 @@ export default connect(mapStateToProps)((props) => {
       return service
     })
     setServices(newServices)
+  }
+
+  const onHideChairColumnChanged = (values) => {
+    setSelectedHideChairColumns(values)
+  }
+
+  const onHideDeskColumnChanged = (values) => {
+    setSelectedHideDeskColumns(values)
   }
 
   return (
@@ -741,6 +776,11 @@ export default connect(mapStateToProps)((props) => {
                   />
                 ))}
               </Paper>
+              <CheckableMultiSelect 
+                options={hideChairColumns}
+                onChange={onHideChairColumnChanged}
+                selected={selectedHideChairColumns} 
+              />
               <DataGrid
                 nonSelect={true}
                 title="Chair Stocks"
@@ -841,7 +881,16 @@ export default connect(mapStateToProps)((props) => {
                       (!chairFilterBrand || item.brand === chairFilterBrand) &&
                       (!chairFilterModel || item.model === chairFilterModel)
                   )}
-                columns={chairColumns}
+                  columns={
+                    chairColumns.map((column, i) => {
+                      if (i > 6) {
+                        if (selectedHideChairColumns.find(hideColumn=>hideColumn === column.label)) 
+                          return column
+                      } else {
+                        return column
+                      }
+                    }).filter(column=>column !== undefined)
+                  }
               />
             </TabPanel>
             <TabPanel value={stocksIndex} index={1}>
@@ -909,6 +958,11 @@ export default connect(mapStateToProps)((props) => {
                   />
                 ))}
               </Paper>
+              <CheckableMultiSelect 
+                options={hideDeskColumns}
+                onChange={onHideDeskColumnChanged}
+                selected={selectedHideDeskColumns} 
+              />
               <DataGrid
                 nonSelect={true}
                 title="Desk Leg Stocks"
@@ -942,22 +996,6 @@ export default connect(mapStateToProps)((props) => {
                       add: (
                         <IconButton
                           onClick={(event) => {
-                            event.preventDefault();
-                            if (
-                              cart.find(
-                                (item) =>
-                                  item.productType === 'desk' &&
-                                  item.productDetail.id === deskStocks[index].id
-                              )
-                            ) {
-                              Swal.fire({
-                                icon: 'warning',
-                                title: 'Warning',
-                                text: 'This product is already added.',
-                                allowOutsideClick: false,
-                              });
-                              return;
-                            }
 
                             setProductType('desk');
                             setProductDetail(deskStocks[index]);
@@ -997,7 +1035,16 @@ export default connect(mapStateToProps)((props) => {
                       (!deskFilterModel || item.model === deskFilterModel) &&
                       (!deskFilterColor || item.color === deskFilterColor)
                   )}
-                columns={deskColumns}
+                  columns={
+                    deskColumns.map((column, i) => {
+                      if (i > 6) {
+                        if (selectedHideDeskColumns.find(hideColumn=>hideColumn === column.label)) 
+                          return column
+                      } else {
+                        return column
+                      }
+                    }).filter(column=>column !== undefined)
+                  }
               />
             </TabPanel>
             <TabPanel value={stocksIndex} index={2}>
@@ -1026,6 +1073,7 @@ export default connect(mapStateToProps)((props) => {
                     <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
                     <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
                     <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+                    <MenuItem value="Cabinet">Cabinet</MenuItem>
                   </Select>
                 </FormControl>
               </Paper>
@@ -1591,6 +1639,24 @@ export default connect(mapStateToProps)((props) => {
           component: 'form',
           onSubmit: async (e) => {
             e.preventDefault();
+
+            if (
+              cart.find(
+                (item) =>
+                  item.productType === 'desk' &&
+                  item.productDetail.id === productDetail.id
+              ) && !hasDeskTop
+            ) {
+              setDeskAddOpen(false);
+              Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: 'This product is already added.',
+                allowOutsideClick: false,
+              })
+              return;
+            }
+
             const data = new FormData(e.currentTarget);
             let topSketchURL = '';
             if (data.get('topSketchImg') && data.get('topSketchImg').name) {
@@ -1606,23 +1672,6 @@ export default connect(mapStateToProps)((props) => {
               } catch (err) {}
             }
             setDeskAddOpen(false);
-            if (
-              cart.find(
-                (item) =>
-                  item.productType === 'desk' &&
-                  item.productDetail.id === productDetail.id
-              )
-            ) {
-              Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'This product is already added.',
-                allowOutsideClick: false,
-              }).then(() => {
-                setDeskAddOpen(true);
-              });
-              return;
-            }
             setCart(
               cart.concat({
                 productType,

@@ -380,7 +380,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\n${
+                    content: `${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\n${
                       JSON.parse(item.AccessoryToQuotation.deliveryOption)
                     }`,
                     width: '55%',
@@ -407,7 +407,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Service: ${item.description}`,
+                    content: `${item.description}`,
                     width: '55%',
                   },
                   {
@@ -719,13 +719,15 @@ export default connect(mapStateToProps)((props) => {
             <View key={index} style={{ flexDirection: 'row', margin: '5px 0' }}>
               <View
                 style={{
-                  width: 12,
-                  height: 12,
-                  margin: '2px 5px 0 0',
-                  border: '2px solid #888888',
-                  borderRadius: 2,
+                  width: 2,
+                  fontSize: 10,
+                  lineHeight: 1.2,
+                  margin: '0 10px 0 0',
+                  color: '#888888',
                 }}
-              />
+              >
+                <Text>•</Text>
+              </View>
               <View
                 style={{
                   flexGrow: 1,

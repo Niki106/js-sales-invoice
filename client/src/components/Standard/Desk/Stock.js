@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 import DataGrid from 'components/Common/DataGrid';
+import CheckableMultiSelect from 'components/Common/MultiSelect';
 
 const columns = [
   {
@@ -20,6 +21,18 @@ const columns = [
   {
     id: 'model',
     label: 'Model',
+  },
+  {
+    id: 'unitPrice',
+    label: 'Price',
+  },
+  {
+    id: 'balance',
+    label: 'Balance',
+  },
+  {
+    id: 'qty',
+    label: 'QTY',
   },
   {
     id: 'color',
@@ -38,20 +51,8 @@ const columns = [
     label: 'Beam Size',
   },
   {
-    id: 'balance',
-    label: 'Balance',
-  },
-  {
     id: 'remark',
     label: 'Special Remark',
-  },
-  {
-    id: 'unitPrice',
-    label: 'Price',
-  },
-  {
-    id: 'qty',
-    label: 'QTY',
   },
   {
     id: 'shipmentDate',
@@ -61,10 +62,16 @@ const columns = [
     id: 'arrivalDate',
     label: 'Arrival',
   },
-  {
-    id: 'edit',
-    nonSort: true,
-  },
+];
+
+const hideColumns = [
+  'Color',
+  'Arm Size',
+  'Feet Size',
+  'Beam Size',
+  'Special Remark',
+  'Shipment',
+  'Arrival'
 ];
 
 function mapStateToProps(state) {
@@ -79,6 +86,8 @@ const Stock = connect(mapStateToProps)((props) => {
   const [filterSupplier, setFilterSupplier] = useState(null);
   const [filterModel, setFilterModel] = useState(null);
   const [filterColor, setFilterColor] = useState(null);
+
+  const [selectedHideColumns, setSelectedHideColumns] = useState([])
 
   const getFeatures = (cancelToken) => {
     axios
@@ -111,6 +120,10 @@ const Stock = connect(mapStateToProps)((props) => {
         // always executed
       });
   };
+
+  const onHideColumnChanged = (values) => {
+    setSelectedHideColumns(values)
+  }
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -191,6 +204,11 @@ const Stock = connect(mapStateToProps)((props) => {
           />
         ))}
       </Paper>
+      <CheckableMultiSelect 
+        options={hideColumns}
+        onChange={onHideColumnChanged}
+        selected={selectedHideColumns} 
+      />
       <DataGrid
         nonSelect={true}
         title="Desk Leg Stocks"
@@ -255,7 +273,16 @@ const Stock = connect(mapStateToProps)((props) => {
               (!filterModel || item.model === filterModel) &&
               (!filterColor || item.color === filterColor)
           )}
-        columns={columns}
+          columns={
+            columns.map((column, i) => {
+              if (i > 5) {
+                if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
+                  return column
+              } else {
+                return column
+              }
+            }).filter(column=>column !== undefined)
+          }
       />
     </Box>
   );

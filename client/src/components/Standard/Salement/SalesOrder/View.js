@@ -41,6 +41,7 @@ import {
   ProductListItemText,
   ProductPriceAmount,
 } from '../ProductList';
+import CheckableMultiSelect from 'components/Common/MultiSelect';
 
 const columns = [
   {
@@ -52,16 +53,16 @@ const columns = [
     label: 'Client',
   },
   {
-    id: 'clientAddress',
-    label: 'Address',
-  },
-  {
     id: 'seller',
     label: 'Seller',
   },
   {
     id: 'orderDate',
     label: 'Order',
+  },
+  {
+    id: 'clientAddress',
+    label: 'Address',
   },
   {
     id: 'timeLine',
@@ -92,12 +93,6 @@ const columns = [
     label: 'Paid',
   },
   {
-    id: 'invoicePDF',
-    nonSort: true,
-    label: 'Invoice',
-    align: 'center',
-  },
-  {
     id: 'emailIcon',
     nonSort: true,
     label: 'Con',
@@ -123,6 +118,19 @@ const columns = [
   },
 ];
 
+const hideColumns = [
+  'Address',
+  'TimeLine',
+  'PreOrder',
+  'Remark',
+  'Discount',
+  'SurCharge',
+  'Products',
+  'Paid',
+  'Con',
+  'tact'
+];
+
 function mapStateToProps(state) {
   const { auth } = state;
   return { auth };
@@ -144,6 +152,8 @@ export default connect(mapStateToProps)((props) => {
 
   const [orderIndex, setOrderIndex] = useState(0);
   const [paymentLink, setPaymentLink] = useState("")
+
+  const [selectedHideColumns, setSelectedHideColumns] = useState([])
 
   const chairDeliveries = useRef([]);
   const deskDeliveries = useRef([]);
@@ -298,6 +308,10 @@ export default connect(mapStateToProps)((props) => {
       });
   };
 
+  const onHideColumnChanged = (values) => {
+    setSelectedHideColumns(values)
+  }
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     getOrders(source.token);
@@ -319,12 +333,20 @@ export default connect(mapStateToProps)((props) => {
       >
         New Order
       </Button>
+      <div>
+        <CheckableMultiSelect 
+          options={hideColumns}
+          onChange={onHideColumnChanged}
+          selected={selectedHideColumns} 
+        />
+      </div>
       <DataGrid
         title="Sales Orders"
         rows={orders.map(
           (
             {
               id,
+              invoiceNum, 
               district,
               street,
               block,
@@ -426,14 +448,13 @@ export default connect(mapStateToProps)((props) => {
                 }}
               />
             ),
-            invoicePDF: (
-              <IconButton
-                component={RouterLink}
+            invoiceNum: (
+              <RouterLink
                 to={`/invoice/${id}`}
                 target="_blank"
               >
-                <PictureAsPdfIcon />
-              </IconButton>
+                {invoiceNum}
+              </RouterLink>
             ),
             emailIcon: (
               <IconButton
@@ -519,7 +540,16 @@ export default connect(mapStateToProps)((props) => {
             ...restProps,
           })
         )}
-        columns={columns}
+        columns={
+          columns.map((column, i) => {
+            if (i > 3 && i < 14) {
+              if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
+                return column
+            } else {
+              return column
+            }
+          }).filter(column=>column !== undefined)
+        }
         onRemoveClick={handleRemoveClick}
         onBulkRemoveClick={handleBulkRemoveClick}
         onFilterClick={handleFilterClick}
@@ -881,7 +911,7 @@ export default connect(mapStateToProps)((props) => {
                       <TextField
                         name="estDeliveryDate"
                         type="date"
-                        label="Est. Delivery Date"
+                        label="Est Delivery Date"
                         defaultValue={item.AccessoryToOrder.estDeliveryDate}
                         InputLabelProps={{ shrink: true }}
                         sx={{

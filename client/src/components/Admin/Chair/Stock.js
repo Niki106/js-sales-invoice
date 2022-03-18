@@ -26,6 +26,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 import DataGrid from 'components/Common/DataGrid';
+import CheckableMultiSelect from 'components/Common/MultiSelect';
 
 const columns = [
   {
@@ -40,6 +41,18 @@ const columns = [
   {
     id: 'model',
     label: 'Model',
+  },
+  {
+    id: 'unitPrice',
+    label: 'Price',
+  },
+  {
+    id: 'balance',
+    label: 'Balance',
+  },
+  {
+    id: 'qty',
+    label: 'QTY',
   },
   {
     id: 'frameColor',
@@ -74,18 +87,6 @@ const columns = [
     label: 'Special Remark',
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
-  },
-  {
-    id: 'balance',
-    label: 'Balance',
-  },
-  {
-    id: 'qty',
-    label: 'QTY',
-  },
-  {
     id: 'shipmentDate',
     label: 'Shipment',
   },
@@ -101,6 +102,19 @@ const columns = [
     id: 'delete',
     nonSort: true,
   },
+];
+
+const hideColumns = [
+  'Frame Color',
+  'Back Color',
+  'Seat Color',
+  'Back Material',
+  'Seat Material',
+  'Headrest',
+  'Adjustable Armrests',
+  'Special Remark',
+  'Shipment',
+  'Arrival'
 ];
 
 function mapStateToProps(state) {
@@ -127,6 +141,8 @@ const Stock = connect(mapStateToProps)((props) => {
 
   const [filterBrand, setFilterBrand] = useState(null);
   const [filterModel, setFilterModel] = useState(null);
+
+  const [selectedHideColumns, setSelectedHideColumns] = useState([])
 
   const handleEditClick = (index) => {
     if (index < stocks.length && index >= 0) {
@@ -446,6 +462,10 @@ const Stock = connect(mapStateToProps)((props) => {
       });
   };
 
+  const onHideColumnChanged = (values) => {
+    setSelectedHideColumns(values)
+  }
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     getFeatures(source.token);
@@ -624,6 +644,11 @@ const Stock = connect(mapStateToProps)((props) => {
           />
         ))}
       </Paper>
+      <CheckableMultiSelect 
+        options={hideColumns}
+        onChange={onHideColumnChanged}
+        selected={selectedHideColumns} 
+      />
       <DataGrid
         title="Chair Stocks"
         rows={stocks
@@ -692,7 +717,16 @@ const Stock = connect(mapStateToProps)((props) => {
               (!filterBrand || item.brand === filterBrand) &&
               (!filterModel || item.model === filterModel)
           )}
-        columns={columns}
+        columns={
+          columns.map((column, i) => {
+            if (i > 5 && i < 16) {
+              if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
+                return column
+            } else {
+              return column
+            }
+          }).filter(column=>column !== undefined)
+        }
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
         onBulkRemoveClick={handleBulkRemoveClick}

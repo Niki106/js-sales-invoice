@@ -242,14 +242,14 @@ export default connect(mapStateToProps)((props) => {
             name: SalesOrder.name,
             phone: SalesOrder.phone,
             email: SalesOrder.email,
-            brand: ChairStock.brand,
-            model: ChairStock.model,
-            frameColor: ChairStock.frameColor,
-            backColor: ChairStock.backColor,
-            seatColor: ChairStock.seatColor,
-            withHeadrest: ChairStock.withHeadrest ? 'Yes' : 'No',
-            withAdArmrest: ChairStock.withAdArmrest ? 'Yes' : 'No',
-            remark: ChairStock.reamrk,
+            brand: ChairStock === null ? '' : ChairStock.brand,
+            model: ChairStock === null ? '' : ChairStock.model,
+            frameColor: ChairStock === null ? '' : ChairStock.frameColor,
+            backColor: ChairStock === null ? '' : ChairStock.backColor,
+            seatColor: ChairStock === null ? '' : ChairStock.seatColor,
+            withHeadrest: ChairStock === null ? 'No' : ChairStock.withHeadrest ? 'Yes' : 'No',
+            withAdArmrest: ChairStock === null ? 'No' : ChairStock.withAdArmrest ? 'Yes' : 'No',
+            remark: ChairStock === null ? '' : ChairStock.reamrk,
             deliveryPDF: (
               <Button
                 variant="contained"
