@@ -37,6 +37,9 @@ async function getAll(where) {
         },
       },
       {
+        model: db.DeskToOrder
+      },
+      {
         model: db.DeskStock,
         through: {
           attributes: {
@@ -123,6 +126,7 @@ async function create(req, res, next) {
         }
 
         const {
+          productId: stockId,
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
@@ -137,43 +141,7 @@ async function create(req, res, next) {
             invoiceNum,
             ...restParams,
           })}`;
-        }
-        
-        let sql =`INSERT INTO desktoorders (id, hasDesktop, topMaterial, topColor, topLength, topwidth, topThickness, topRoundedCorners, topCornerRadius, topHoleCount, topHoleType, topHolePosition, topSketchUrl, unitPrice, qty, deliveryOption, preOrder, delivered, akNum, heworkNum, signUrl, remark, createdAt, updatedAt, orderId, stockId) `
-        sql += `VALUES (:id, :hasTop, :topMat, :topColor, :topLen, :topWidth, :topThick, :topCorners, :topRad, :topHoleCount, :topHoleType, :topHolePosition, :topSketchUrl, :unitPrice, :qty, :deliveryOption, :preOrder, :delivered, :akNum, :heworkNum, :signUrl, :remark, :createdAt, :updatedAt, :orderId, :stockId)`
-        const replacement = {
-          replacements: {
-            id: uuid(),
-            hasTop: restParams.hasDeskTop,
-            unitPrice: unitPrice,
-            qty: qty,
-            preOrder: preOrder,
-            deliveryOption: deliveryOption,
-            topMat: restParams.topMaterial,
-            topColor: restParams.topColor,
-            topLen: restParams.topLength,
-            topWidth: restParams.topWidth,
-            topThick: restParams.topThickness,
-            topCorners: restParams.topRoundedCorners,
-            topRad: restParams.topCornerRadius,
-            topHoleCount: restParams.topHoleCount,
-            topHoleType: restParams.topHoleType,
-            topHolePosition: restParams.topHolePosition,
-            topSketchUrl: restParams.topSketchURL,
-            delivered: restParams.hasOwnProperty('delivered') ? restParams.delivered : 0,
-            akNum: restParams.hasOwnProperty('akNum') ? restParams.akNum : '',
-            heworkNum: restParams.hasOwnProperty('heworkNum') ? restParams.heworkNum : '',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            signUrl: restParams.hasOwnProperty('signUrl') ? restParams.signUrl : '',
-            remark: restParams.hasOwnProperty('remark') ? restParams.remark : '',
-            orderId: id,
-            stockId: restParams.productId,
-          },
-          type: db.Sequelize.QueryTypes.INSERT
-        }
-        await db.sequelize.query(sql, replacement)
-        
+        }                
         // await salesOrder.addDeskStock(stock, {
         //   through: {
         //     unitPrice,
@@ -183,15 +151,15 @@ async function create(req, res, next) {
         //     ...restParams,
         //   },
         // });
-        // await salesOrder.addDeskToOrder(stock, {
-        //   through: {
-        //     unitPrice,
-        //     qty,
-        //     deliveryOption,
-        //     preOrder,
-        //     ...restParams,
-        //   },
-        // });
+        const join1 = await db.DeskToOrder.create({
+          unitPrice,
+          qty,
+          deliveryOption,
+          preOrder,
+          stockId: stockId,
+          ...restParams,
+        })
+        await salesOrder.addDeskToOrder(join1);
       } else if (products[index].productType === 'accessory') {
         const stock = await accessoryStockController.getById(
           products[index].productId
@@ -542,14 +510,14 @@ async function getSalesOrder(id) {
       {
         model: db.DeskToOrder
       },
-      // {
-      //   model: db.DeskStock,
-      //   through: {
-      //     attributes: {
-      //       exclude: ['createdAt', 'updatedAt'],
-      //     },
-      //   },
-      // },
+      {
+        model: db.DeskStock,
+        through: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+        },
+      },
       {
         model: db.AccessoryStock,
         through: {

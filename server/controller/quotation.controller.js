@@ -34,6 +34,9 @@ async function getAll(where) {
         },
       },
       {
+        model: db.DeskToOrder
+      },
+      {
         model: db.DeskStock,
         through: {
           attributes: {
@@ -287,6 +290,9 @@ async function getQuotation(id) {
             exclude: ['createdAt', 'updatedAt'],
           },
         },
+      },
+      {
+        model: db.DeskToOrder
       },
       {
         model: db.AccessoryStock,
