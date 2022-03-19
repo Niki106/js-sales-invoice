@@ -41,6 +41,7 @@ import {
   ProductListItemText,
   ProductPriceAmount,
 } from '../ProductList';
+import CheckableMultiSelect from 'components/Common/MultiSelect';
 
 const columns = [
   {
@@ -52,16 +53,16 @@ const columns = [
     label: 'Client',
   },
   {
-    id: 'clientAddress',
-    label: 'Address',
-  },
-  {
     id: 'seller',
     label: 'Seller',
   },
   {
     id: 'quotationDate',
     label: 'Quotation',
+  },
+  {
+    id: 'clientAddress',
+    label: 'Address',
   },
   {
     id: 'timeLine',
@@ -88,12 +89,6 @@ const columns = [
     label: 'Paid',
   },
   {
-    id: 'quotationPDF',
-    nonSort: true,
-    label: 'Quotation',
-    align: 'center',
-  },
-  {
     id: 'emailIcon',
     nonSort: true,
     label: 'Con',
@@ -118,6 +113,17 @@ const columns = [
     sx: { maxWidth: 45, width: 45 },
   },
 ];
+const hideColumns = [
+  'Address',
+  'TimeLine',
+  'Remark',
+  'Discount',
+  'SurC harge',
+  'Products',
+  'Paid',
+  'Con',
+  'tact'
+];
 
 function mapStateToProps(state) {
   const { auth } = state;
@@ -139,6 +145,8 @@ export default connect(mapStateToProps)((props) => {
   const [filterAnchor, setFilterAnchor] = useState(null);
 
   const [quotationIndex, setquotationIndex] = useState(0);
+
+  const [selectedHideColumns, setSelectedHideColumns] = useState([])
 
   const handleFilterClick = (e) => {
     e.preventDefault();
@@ -293,6 +301,10 @@ export default connect(mapStateToProps)((props) => {
       });
   };
 
+  const onHideColumnChanged = (values) => {
+    setSelectedHideColumns(values)
+  }
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     getQuotations(source.token);
@@ -314,12 +326,20 @@ export default connect(mapStateToProps)((props) => {
       >
         New Quotation
       </Button>
+      <div>
+        <CheckableMultiSelect 
+          options={hideColumns}
+          onChange={onHideColumnChanged}
+          selected={selectedHideColumns} 
+        />
+      </div>
       <DataGrid
         title="Sales quotations"
         rows={quotations.map(
           (
             {
               id,
+              quotationNum,
               district,
               street,
               block,
@@ -406,14 +426,13 @@ export default connect(mapStateToProps)((props) => {
                 }}
               />
             ),
-            quotationPDF: (
-              <IconButton
-                component={Link}
+            quotationNum: (
+              <RouterLink
                 to={`/quotation/${id}`}
                 target="_blank"
               >
-                <PictureAsPdfIcon />
-              </IconButton>
+                { quotationNum }
+              </RouterLink>
             ),
             emailIcon: (
               <IconButton
@@ -499,7 +518,16 @@ export default connect(mapStateToProps)((props) => {
             ...restProps,
           })
         )}
-        columns={columns}
+        columns={
+          columns.map((column, i) => {
+            if (i > 3 && i < 13) {
+              if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
+                return column
+            } else {
+              return column
+            }
+          }).filter(column=>column !== undefined)
+        }
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
         onBulkRemoveClick={handleBulkRemoveClick}

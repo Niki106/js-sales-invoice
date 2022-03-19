@@ -372,7 +372,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Accessory Name: ${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToOrder.remark}\n${
+                    content: `${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToOrder.remark}\n${
                       JSON.parse(item.AccessoryToOrder.deliveryOption)
                     }`,
                     width: '55%',
@@ -399,7 +399,7 @@ export default connect(mapStateToProps)((props) => {
                     width: '15%',
                   },
                   {
-                    content: `Service: ${item.description}`,
+                    content: `${item.description}`,
                     width: '55%',
                   },
                   {

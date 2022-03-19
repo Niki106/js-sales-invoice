@@ -46,10 +46,6 @@ const columns = [
     label: 'Category',
   },
   {
-    id: 'remark',
-    label: 'Special Remark',
-  },
-  {
     id: 'unitPrice',
     label: 'Price',
   },
@@ -60,6 +56,10 @@ const columns = [
   {
     id: 'qty',
     label: 'QTY',
+  },
+  {
+    id: 'remark',
+    label: 'Special Remark',
   },
   {
     id: 'shipmentDate',
@@ -462,6 +462,7 @@ const Stock = connect(mapStateToProps)((props) => {
             <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
             <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
             <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
+            <MenuItem value="Cabinet">Cabinet</MenuItem>
           </Select>
         </FormControl>
       </Paper>
