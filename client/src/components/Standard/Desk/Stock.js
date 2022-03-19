@@ -21,6 +21,7 @@ const columns = [
   {
     id: 'model',
     label: 'Model',
+    hidden: true
   },
   {
     id: 'unitPrice',
