@@ -21,6 +21,7 @@ function drawDeskTop(params) {
       topHoleType,
       topHolePosition,
     } = params;
+
     var topHolePosition =
       topHoleCount === '1' && topHoleType === 'Rounded'
         ? `${topHolePosition.toLowerCase()}-`
