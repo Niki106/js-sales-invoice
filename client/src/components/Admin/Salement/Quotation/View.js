@@ -680,7 +680,7 @@ export default connect(mapStateToProps)((props) => {
               quotations[quotationIndex].AccessoryStocks.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Accessory: ${item.color}`}
+                    primary={`Accessory: ${item.category}`}
                     secondary={`${item.remark}`}
                   />
                   <ProductPriceAmount

@@ -298,6 +298,7 @@ export default connect(mapStateToProps)((props) => {
       .get('/salesOrder', { cancelToken })
       .then((response) => {
         // handle success
+        console.log(response.data)
         setOrders(response.data);
       })
       .catch(function (error) {
@@ -862,7 +863,7 @@ export default connect(mapStateToProps)((props) => {
               orders[orderIndex].AccessoryStocks.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Accessory: ${item.color}`}
+                    primary={`Accessory: ${item.category}`}
                     secondary={`${item.remark}`}
                   />
                   <ProductPriceAmount

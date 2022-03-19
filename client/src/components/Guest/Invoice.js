@@ -149,6 +149,7 @@ export default connect(mapStateToProps)((props) => {
       .get(`/salesOrder/${id}`, { cancelToken })
       .then((response) => {
         // handle success
+        console.log(response.data)
         setSuccess(true);
         setOrder(response.data);
       })

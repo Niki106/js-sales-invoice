@@ -154,6 +154,7 @@ export default connect(mapStateToProps)((props) => {
       .get(`/quotation/${id}`, { cancelToken })
       .then((response) => {
         // handle success
+        console.log(response.data)
         setSuccess(true);
         setQuotation(response.data);
       })
@@ -352,7 +353,7 @@ export default connect(mapStateToProps)((props) => {
                       item.feetSize
                     }\nBeam Size: ${item.beamSize}\n${
                       item.DeskToQuotation.hasDeskTop
-                        ? `Table Top: ${item.DeskToQuotation.topMaterial} ${item.DeskToQuotation.topColor}\nTable Top Size: ${item.DeskToQuotation.topLength}x${item.DeskToQuotation.topWidth}x${item.DeskToQuotation.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToQuotation.topRoundedCorners}, Radius: R${item.DeskToQuotation.topCornerRadius}\nHoles Required: ${item.DeskToQuotation.topHoleCount}, Holes Shaped: ${item.DeskToQuotation.topHoleType}`
+                        ? `Table Top: ${item.DeskToQuotation.topMaterial} ${item.DeskToQuotation.topColor}\nTable Top Size: ${item.DeskToQuotation.topLength}x${item.DeskToQuotation.topWidth}x${item.DeskToQuotation.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToQuotation.topRoundedCorners}, Radius: R${item.DeskToQuotation.topCornerRadius}\nHoles Required: ${item.DeskToQuotation.topHoleCount}, Holes Shaped: ${item.DeskToQuotation.topHoleType}, \nRemark: ${item.DeskToQuotation.remark}`
                         : 'Without DeskTop'
                     }\n${
                       JSON.parse(item.DeskToQuotation.deliveryOption)

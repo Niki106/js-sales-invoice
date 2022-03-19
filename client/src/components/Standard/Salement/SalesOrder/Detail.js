@@ -282,7 +282,7 @@ export default connect(mapStateToProps)((props) => {
   const { componentType, initialClient, initialCart, initialServices } = props;
 
   const [topHoleCount, setTopHoleCount] = useState(0);
-  const [topHolePosiiton, setTopHolePosition] = useState('Left');
+  const [topHolePosition, setTopHolePosition] = useState('Left');
   const [topHoleType, setTopHoleType] = useState('Rounded');
 
   const steps = [
@@ -1706,7 +1706,7 @@ export default connect(mapStateToProps)((props) => {
                 topCornerRadius: data.get('topCornerRadius') || 50,
                 topHoleCount: data.get('topHoleCount') || 0,
                 topHoleType: data.get('topHoleType') || '',
-                topHolePosition: topHolePosiiton || '',
+                topHolePosition: topHolePosition || '',
                 remark: data.get('remark') || '',
                 topSketchURL: topSketchURL,
               })
@@ -1818,10 +1818,12 @@ export default connect(mapStateToProps)((props) => {
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHoleCount(e.target.value);
-                  if (e.target.value == 2)
+                  if (e.target.value == 1)
+                    setTopHolePosition('Left')
+                  else if (e.target.value == 2)
                     setTopHolePosition('Left_Right')
                   else if (e.target.value == 3)
-                    setTopHolePosition('Left_Right_Center')  
+                    setTopHolePosition('Left_Right_Center')
                 },
                 options: [0, 1, 2, 3],
                 width: '48%',
@@ -1842,12 +1844,12 @@ export default connect(mapStateToProps)((props) => {
                 name: 'topHolePosition',
                 label: 'Hole Position',
                 type: 'select',
-                value: topHolePosiiton,
+                value: topHolePosition,
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHolePosition(e.target.value);
                 },
-                options: ['Left', 'Right', 'Center', 'Left_Right', 'Left_Right_Center'],
+                options: topHoleCount === 1 ? ['Left', 'Right', 'Center'] : ['Left', 'Right', 'Center', 'Left_Right', 'Left_Right_Center'],
                 disabled: topHoleCount !== 1 || topHoleType !== 'Rounded',
                 width: '48%',
               },
