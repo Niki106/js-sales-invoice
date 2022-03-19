@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
       marginTop: 30,
       marginRight: 20,
-      width: 400,
+      width: '40%',
       float: "right"
     },
     indeterminateColor: {
