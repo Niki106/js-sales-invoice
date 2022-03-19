@@ -1618,7 +1618,8 @@ export default connect(mapStateToProps)((props) => {
               cart.find(
                 (item) =>
                   item.productType === 'desk' &&
-                  item.productDetail.id === productDetail.id
+                  item.productDetail.id === productDetail.id &&
+                  item.productDetail.hasDeskTop === productDetail.hasDeskTop
               )
             ) {
               Swal.fire({
