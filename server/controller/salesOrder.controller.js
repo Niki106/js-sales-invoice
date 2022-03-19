@@ -531,13 +531,16 @@ async function getSalesOrder(id) {
         },
       },
       {
-        model: db.DeskStock,
-        through: {
-          attributes: {
-            exclude: ['createdAt', 'updatedAt'],
-          },
-        },
+        model: db.DeskToOrder
       },
+      // {
+      //   model: db.DeskStock,
+      //   through: {
+      //     attributes: {
+      //       exclude: ['createdAt', 'updatedAt'],
+      //     },
+      //   },
+      // },
       {
         model: db.AccessoryStock,
         through: {
