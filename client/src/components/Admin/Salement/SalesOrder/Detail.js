@@ -1655,7 +1655,7 @@ export default connect(mapStateToProps)((props) => {
               Swal.fire({
                 icon: 'warning',
                 title: 'Warning',
-                text: 'This product is already added.',
+                text: 'This productdd is already added.',
                 allowOutsideClick: false,
               })
               return;

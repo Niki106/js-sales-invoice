@@ -139,42 +139,51 @@ async function create(req, res, next) {
           })}`;
         }
         
-        let sql =`INSERT INTO desktoorders (id, hasDesktop, topMaterial, topColor, topLength, topwidth, topThickness, topRoundedCorners, topCornerRadius, topHoleCount, topHoleType, topHolePosition, topSketchUrl, unitPrice, qty, deliveryOption, preOrder, preDeliveryDate, delivered, akNum, heworkNum, signUrl, remark, createdAt, updatedAt, orderId, stockId) `
-        sql += `VALUES (:id, :hasTop, :topMat, :topColor, :topLen, :topWidth, :topThick, :topCorners, :topRad, :topHoleCount, :topHoleType, :topHolePosition, :topSketchUrl, :unitPrice, :qty, :deliveryOption, :preOrder, :preDeliveryDate, :delivered, :akNum, :heworkNum, :signUrl, :remark, :createdAt, :updatedAt, :orderId, :stockId)`
+        let sql =`INSERT INTO desktoorders (id, hasDesktop, topMaterial, topColor, topLength, topwidth, topThickness, topRoundedCorners, topCornerRadius, topHoleCount, topHoleType, topHolePosition, topSketchUrl, unitPrice, qty, deliveryOption, preOrder, delivered, akNum, heworkNum, signUrl, remark, createdAt, updatedAt, orderId, stockId) `
+        sql += `VALUES (:id, :hasTop, :topMat, :topColor, :topLen, :topWidth, :topThick, :topCorners, :topRad, :topHoleCount, :topHoleType, :topHolePosition, :topSketchUrl, :unitPrice, :qty, :deliveryOption, :preOrder, :delivered, :akNum, :heworkNum, :signUrl, :remark, :createdAt, :updatedAt, :orderId, :stockId)`
         const replacement = {
           replacements: {
             id: uuid(),
-            hasTop: true,
-            topMat: "sdf",
-            topColor: "sdf",
-            topLen: 0.0,
-            topWidth: 0.1,
-            topThick: 0.1,
-            topCorners: 1,
-            topRad: 0.5,
-            topHoleCount: 1,
-            topHoleType: "sdf",
-            topHolePosition: "sdf",
-            topSketchUrl: "sdf",
-            unitPrice: 22.0,
-            qty: 1,
-            deliveryOption: "",
-            preOrder: 0,
-            preDeliveryDate: "",
-            delivered: 1,
-            akNum: "1",
-            heworkNum: "3",
+            hasTop: restParams.hasDeskTop,
+            topMat: restParams.topMaterial,
+            topColor: restParams.topColor,
+            topLen: restParams.topLength,
+            topWidth: restParams.topWidth,
+            topThick: restParams.topThickness,
+            topCorners: restParams.topRoundedCorners,
+            topRad: restParams.topCornerRadius,
+            topHoleCount: restParams.topHoleCount,
+            topHoleType: restParams.topHoleType,
+            topHolePosition: restParams.topHolePosition,
+            topSketchUrl: restParams.topSketchURL,
+            unitPrice: unitPrice,
+            qty: qty,
+            deliveryOption: deliveryOption,
+            preOrder: preOrder,
+            delivered: restParams.hasOwnProperty('delivered') ? restParams.delivered : 0,
+            akNum: restParams.hasOwnProperty('akNum') ? restParams.akNum : '',
+            heworkNum: restParams.hasOwnProperty('heworkNum') ? restParams.heworkNum : '',
             createdAt: new Date(),
             updatedAt: new Date(),
-            signUrl: 'dd',
+            signUrl: restParams.hasOwnProperty('signUrl') ? restParams.signUrl : '',
+            remark: restParams.hasOwnProperty('remark') ? restParams.remark : '',
             orderId: id,
             stockId: restParams.productId,
-            remark: 'sdfsdf'
           },
           type: db.Sequelize.QueryTypes.INSERT
         }
         await db.sequelize.query(sql, replacement)
+        
         // await salesOrder.addDeskStock(stock, {
+        //   through: {
+        //     unitPrice,
+        //     qty,
+        //     deliveryOption,
+        //     preOrder,
+        //     ...restParams,
+        //   },
+        // });
+        // await salesOrder.addDeskToOrder(stock, {
         //   through: {
         //     unitPrice,
         //     qty,
