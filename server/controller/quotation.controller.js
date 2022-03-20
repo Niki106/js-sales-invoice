@@ -116,14 +116,22 @@ async function create(req, res, next) {
             ...restParams,
           })}`;
         }
-        await quotation.addDeskStock(stock, {
-          through: {
-            unitPrice,
-            qty,
-            deliveryOption,
-            ...restParams,
-          },
-        });
+        // await quotation.addDeskStock(stock, {
+        //   through: {
+        //     unitPrice,
+        //     qty,
+        //     deliveryOption,
+        //     ...restParams,
+        //   },
+        // });
+        const join2 = await db.DeskToQuoatation.create({
+          unitPrice,
+          qty,
+          deliveryOption,
+          stockId: stockId,
+          ...restParams,
+        })
+        await salesOrder.addDeskToOrder(join2);
       } else if (products[index].productType === 'accessory') {
         const stock = await accessoryStockController.getById(
           products[index].productId
@@ -214,14 +222,21 @@ async function update(req, res, next) {
             ...restParams,
           })}`;
         }
-        await quotation.addDeskStock(stock, {
-          through: {
-            unitPrice,
-            qty,
-            deliveryOption,
-            ...restParams,
-          },
-        });
+        // await quotation.addDeskStock(stock, {
+        //   through: {
+        //     unitPrice,
+        //     qty,
+        //     deliveryOption,
+        //     ...restParams,
+        //   },
+        // });
+        const join2 = await db.DeskToQuoatation.create({
+          unitPrice,
+          qty,
+          deliveryOption,
+          stockId: stockId,
+          ...restParams,
+        })
       } else if (products[index].productType === 'accessory') {
         const stock = await accessoryStockController.getById(
           products[index].productId
