@@ -1646,6 +1646,8 @@ export default connect(mapStateToProps)((props) => {
                 (item) =>
                   item.productType === 'desk' &&
                   item.productDetail.id === productDetail.id
+                  // item.productDetail.id === productDetail.id &&
+                  // !item.hasDeskTop
               )
             ) {
               setDeskAddOpen(false);

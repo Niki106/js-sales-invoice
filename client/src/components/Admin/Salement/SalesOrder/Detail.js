@@ -326,6 +326,8 @@ export default connect(mapStateToProps)((props) => {
   const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
   const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
 
+  console.log("cart::", cart)
+
   const getChairFeatures = (cancelToken) => {
     axios
       .get('/chairStock/features', { cancelToken })
@@ -1650,6 +1652,8 @@ export default connect(mapStateToProps)((props) => {
                 (item) =>
                   item.productType === 'desk' &&
                   item.productDetail.id === productDetail.id
+                  // item.productDetail.id === productDetail.id &&
+                  // !item.hasDeskTop
               ) 
             ) {
               setDeskAddOpen(false);
