@@ -1647,11 +1647,12 @@ export default connect(mapStateToProps)((props) => {
             e.preventDefault();
 
             if (
+              !hasDeskTop &&
               cart.find(
                 (item) =>
                   item.productType === 'desk' &&
                   item.productDetail.id === productDetail.id
-              ) && !hasDeskTop
+              ) 
             ) {
               setDeskAddOpen(false);
               Swal.fire({

@@ -649,16 +649,26 @@ export default connect(mapStateToProps)((props) => {
                 </ProductListItem>
               ))}
             {quotationIndex < quotations.length &&
-              quotations[quotationIndex].DeskStocks.map((item, index) => (
+              quotations[quotationIndex].DeskToQuotations.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Desk: ${item.supplierCode}, ${item.model}, ${item.color}, ${item.armSize}, ${item.feetSize}, ${item.beamSize}`}
+                    primary={`Desk: 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).supplierCode}, 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).model}, 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).color}, 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).armSize}, 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).feetSize}, 
+                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).beamSize}`}
                     secondary={
-                      item.DeskToQuotation.hasDeskTop ? (
+                      item.hasDeskTop ? (
                         <span>
-                          {`${item.DeskToQuotation.topMaterial}, ${item.DeskToQuotation.topColor}, ${item.DeskToQuotation.topLength}x${item.DeskToQuotation.topWidth}x${item.DeskToQuotation.topThickness}, ${item.DeskToQuotation.topRoundedCorners}-R${item.DeskToQuotation.topCornerRadius}, ${item.DeskToQuotation.topHoleCount}-${item.DeskToQuotation.topHoleType} `}
+                          {`${item.topMaterial}, 
+                            ${item.topColor}, 
+                            ${item.topLength}x${item.topWidth}x${item.topThickness}, 
+                            ${item.topRoundedCorners}-R${item.topCornerRadius}, 
+                            ${item.topHoleCount}-${item.topHoleType} `}
                           <a
-                            href={item.DeskToQuotation.topSketchURL}
+                            href={item.topSketchURL}
                             target="_blank"
                           >
                             Sketch
@@ -670,9 +680,9 @@ export default connect(mapStateToProps)((props) => {
                     }
                   />
                   <ProductPriceAmount
-                    unitPrice={`${item.DeskToQuotation.unitPrice} HKD`}
-                    amount={`Amount: ${item.DeskToQuotation.qty}`}
-                    deliveryOption={`${item.DeskToQuotation.deliveryOption}`}
+                    unitPrice={`${item.unitPrice} HKD`}
+                    amount={`Amount: ${item.qty}`}
+                    deliveryOption={`${item.deliveryOption}`}
                   />
                 </ProductListItem>
               ))}
@@ -680,7 +690,7 @@ export default connect(mapStateToProps)((props) => {
               quotations[quotationIndex].AccessoryStocks.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Accessory: ${item.category}`}
+                    primary={`Accessory: ${item.name}`}
                     secondary={`${item.remark}`}
                   />
                   <ProductPriceAmount

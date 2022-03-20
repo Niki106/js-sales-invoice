@@ -752,16 +752,26 @@ export default connect(mapStateToProps)((props) => {
                 </ProductListItem>
               ))}
             {orderIndex < orders.length &&
-              orders[orderIndex].DeskStocks.map((item, index) => (
+              orders[orderIndex].DeskToOrders.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Desk: ${item.supplierCode}, ${item.model}, ${item.color}, ${item.armSize}, ${item.feetSize}, ${item.beamSize}`}
+                    primary={`Desk: 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).supplierCode}, 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).model}, 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).color}, 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).armSize}, 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).feetSize}, 
+                      ${orders[orderIndex].DeskStocks.find(stock=> stock.id===item.stockId).beamSize}`}
                     secondary={
-                      item.DeskToOrder.hasDeskTop ? (
+                      item.hasDeskTop ? (
                         <span>
-                          {`${item.DeskToOrder.topMaterial}, ${item.DeskToOrder.topColor}, ${item.DeskToOrder.topLength}x${item.DeskToOrder.topWidth}x${item.DeskToOrder.topThickness}, ${item.DeskToOrder.topRoundedCorners}-R${item.DeskToOrder.topCornerRadius}, ${item.DeskToOrder.topHoleCount}-${item.DeskToOrder.topHoleType} `}
+                          {`${item.topMaterial}, 
+                            ${item.topColor}, 
+                            ${item.topLength}x${item.topWidth}x${item.topThickness}, 
+                            ${item.topRoundedCorners}-R${item.topCornerRadius}, 
+                            ${item.topHoleCount}-${item.topHoleType} `}
                           <a
-                            href={item.DeskToOrder.topSketchURL}
+                            href={item.topSketchURL}
                             target="_blank"
                           >
                             Sketch
@@ -773,16 +783,16 @@ export default connect(mapStateToProps)((props) => {
                     }
                   />
                   <ProductPriceAmount
-                    unitPrice={`${item.DeskToOrder.unitPrice} HKD`}
-                    amount={`Amount: ${item.DeskToOrder.qty}`}
-                    deliveryOption={`${item.DeskToOrder.deliveryOption}`}
+                    unitPrice={`${item.unitPrice} HKD`}
+                    amount={`Amount: ${item.qty}`}
+                    deliveryOption={`${item.deliveryOption}`}
                   />
                   <Button
                     variant="contained"
                     sx={{ mt: '5px' }}
                     component={RouterLink}
                     target="_blank"
-                    to={`/deliveryPDF/desk/${item.DeskToOrder.id}`}
+                    to={`/deliveryPDF/desk/${item.id}`}
                   >
                     Delivery Note
                   </Button>
@@ -803,13 +813,13 @@ export default connect(mapStateToProps)((props) => {
                       <input
                         name="id"
                         type="hidden"
-                        value={item.DeskToOrder.id}
+                        value={item.id}
                       />
                       <TextField
                         name="proDeliveryDate"
                         type="date"
                         label="Proposed Delivery Date"
-                        defaultValue={item.DeskToOrder.proDeliveryDate}
+                        defaultValue={item.proDeliveryDate}
                         InputLabelProps={{ shrink: true }}
                         sx={{
                           flexBasis: '100%',
@@ -820,7 +830,7 @@ export default connect(mapStateToProps)((props) => {
                         name="estDeliveryDate"
                         type="date"
                         label="Est. Delivery Date"
-                        defaultValue={item.DeskToOrder.estDeliveryDate}
+                        defaultValue={item.estDeliveryDate}
                         InputLabelProps={{ shrink: true }}
                         sx={{
                           flexBasis: '100%',
@@ -831,7 +841,7 @@ export default connect(mapStateToProps)((props) => {
                         name="from"
                         type="time"
                         label="From"
-                        defaultValue={item.DeskToOrder.from}
+                        defaultValue={item.from}
                         InputLabelProps={{ shrink: true }}
                         sx={{ flexBasis: '48%', my: '5px' }}
                       />
@@ -839,7 +849,7 @@ export default connect(mapStateToProps)((props) => {
                         name="to"
                         type="time"
                         label="To"
-                        defaultValue={item.DeskToOrder.to}
+                        defaultValue={item.to}
                         InputLabelProps={{ shrink: true }}
                         sx={{ flexBasis: '48%', my: '5px' }}
                       />
@@ -848,7 +858,7 @@ export default connect(mapStateToProps)((props) => {
                         control={
                           <Checkbox
                             name="delivered"
-                            defaultChecked={item.DeskToOrder.delivered}
+                            defaultChecked={item.delivered}
                           />
                         }
                         label="Delivered"
@@ -861,7 +871,7 @@ export default connect(mapStateToProps)((props) => {
               orders[orderIndex].AccessoryStocks.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Accessory: ${item.category}`}
+                    primary={`Accessory: ${item.name}`}
                     secondary={`${item.remark}`}
                   />
                   <ProductPriceAmount
