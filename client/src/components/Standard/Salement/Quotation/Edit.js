@@ -8,7 +8,7 @@ const Edit = (props) => {
   const {
     ChairStocks,
     DeskStocks,
-    DeskToOrders,
+    DeskToQuotations,
     AccessoryStocks,
     ServiceToQuotations,
     Seller,
@@ -35,14 +35,14 @@ const Edit = (props) => {
         productDeliveryOption: ChairToQuotation.deliveryOption,
       }))
         .concat(
-          DeskToOrders.map((DeskToOrder) => {
+          DeskToQuotations.map((DeskToQuotation) => {
             const {
               stockId,
               unitPrice,
               qty,
               deliveryOption,
               ...deskTopProps
-            } = DeskToOrder;
+            } = DeskToQuotation;
 
             const stock = DeskStocks.find(function(val) {
               return val.id == stockId

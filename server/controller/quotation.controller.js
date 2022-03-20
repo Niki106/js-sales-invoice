@@ -34,7 +34,7 @@ async function getAll(where) {
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToQuotation
       },
       {
         model: db.DeskStock,
@@ -292,7 +292,7 @@ async function getQuotation(id) {
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToQuotation
       },
       {
         model: db.AccessoryStock,
