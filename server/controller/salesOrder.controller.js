@@ -301,6 +301,7 @@ async function update(req, res, next) {
         }
 
         const {
+          productId: stockId,
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
@@ -316,15 +317,6 @@ async function update(req, res, next) {
             ...restParams,
           })}`;
         }
-        // await salesOrder.addDeskStock(stock, {
-        //   through: {
-        //     unitPrice,
-        //     qty,
-        //     deliveryOption,
-        //     preOrder,
-        //     ...restParams,
-        //   },
-        // });
         const join1 = await db.DeskToOrder.create({
           unitPrice,
           qty,
