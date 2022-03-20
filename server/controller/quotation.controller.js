@@ -224,6 +224,7 @@ async function update(req, res, next) {
             ...restParams,
           })}`;
         }
+
         const join1 = await db.DeskToQuotation.create({
           unitPrice,
           qty,
