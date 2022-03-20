@@ -237,8 +237,8 @@ export default connect(mapStateToProps)((props) => {
             name: SalesOrder.name,
             phone: SalesOrder.phone,
             email: SalesOrder.email,
-            category: AccessoryStock.category,
-            remark: AccessoryStock.reamrk,
+            category: AccessoryStock === null ? "" : AccessoryStock.category,
+            remark: AccessoryStock === null ? "" : AccessoryStock.reamrk,
             deliveryPDF: (
               <Button
                 variant="contained"

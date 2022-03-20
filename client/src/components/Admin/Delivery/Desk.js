@@ -242,18 +242,18 @@ export default connect(mapStateToProps)((props) => {
             district: SalesOrder.district,
             name: SalesOrder.name,
             phone: SalesOrder.phone,
-            model: DeskStock.model,
-            color: DeskStock.color,
-            color: DeskStock.color,
-            armSize: DeskStock.armSize,
-            feetSize: DeskStock.feetSize,
-            beamSize: DeskStock.beamSize,
+            model: DeskStock === null ? "" : DeskStock.model,
+            color: DeskStock === null ? "" : DeskStock.color,
+            color: DeskStock === null ? "" : DeskStock.color,
+            armSize: DeskStock === null ? "" : DeskStock.armSize,
+            feetSize: DeskStock === null ? "" : DeskStock.feetSize,
+            beamSize: DeskStock === null ? "" : DeskStock.beamSize,
             deskTop: `${
               restProps.hasDeskTop
                 ? `${restProps.topMaterial}, ${restProps.topColor}, ${restProps.topLength}x${restProps.topWidth}x${restProps.topThickness}, ${restProps.topRoundedCorners}-R${restProps.topCornerRadius}, ${restProps.topHoleCount}-${restProps.topHoleType}`
                 : 'Without DeskTop'
             }`,
-            remark: DeskStock.reamrk,
+            remark: DeskStock === null ? "" : DeskStock.reamrk,
             deliveryPDF: (
               <Button
                 variant="contained"
