@@ -128,7 +128,8 @@ export default connect(mapStateToProps)((props) => {
     ChairStocks: [],
     DeskStocks: [],
     AccessoryStocks: [],
-    ServiceToQuotations: []
+    ServiceToQuotations: [],
+    DeskToQuotations:[]
   });
   const { id } = useParams();
   useEffect(() => {
@@ -340,34 +341,37 @@ export default connect(mapStateToProps)((props) => {
                   },
                 ],
               })),
-              ...quotation.DeskStocks.map((item) => ({
+              ...quotation.DeskToQuotations.map((item) => ({
                 cells: [
                   {
-                    content: `${item.DeskToQuotation.qty}`,
+                    content: `${item.qty}`,
                     width: '15%',
                   },
                   {
-                    content: `Desk Model: ${item.model}\nColor of Legs: ${
-                      item.color
-                    }\nArmSize: ${item.armSize}\nFeetSize: ${
-                      item.feetSize
-                    }\nBeam Size: ${item.beamSize}\n${
-                      item.DeskToQuotation.hasDeskTop
-                        ? `Table Top: ${item.DeskToQuotation.topMaterial} ${item.DeskToQuotation.topColor}\nTable Top Size: ${item.DeskToQuotation.topLength}x${item.DeskToQuotation.topWidth}x${item.DeskToQuotation.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToQuotation.topRoundedCorners}, Radius: R${item.DeskToQuotation.topCornerRadius}\nHoles Required: ${item.DeskToQuotation.topHoleCount}, Holes Shaped: ${item.DeskToQuotation.topHoleType}, \nRemark: ${item.DeskToQuotation.remark}`
+                    content: 
+                    `Desk Model: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).model}
+                    Color of Legs: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).color}
+                    ArmSize: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).armSize}
+                    FeetSize: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).feetSize}
+                    Beam Size: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).beamSize}
+                    ${
+                      item.hasDeskTop
+                        ? `Table Top: ${item.topMaterial} ${item.topColor}\nTable Top Size: ${item.topLength}x${item.topWidth}x${item.topThickness}\nTable Top Color:\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}, \nRemark: ${item.remark}`
                         : 'Without DeskTop'
-                    }\n${
-                      JSON.parse(item.DeskToQuotation.deliveryOption)
+                    }
+                    ${
+                      JSON.parse(item.deliveryOption)
                     }`,
                     width: '55%',
                   },
                   {
-                    content: `${item.DeskToQuotation.unitPrice}`,
+                    content: `${item.unitPrice}`,
                     textAlign: 'right',
                     width: '15%',
                   },
                   {
                     content: `${
-                      item.DeskToQuotation.unitPrice * item.DeskToQuotation.qty
+                      item.unitPrice * item.qty
                     }`,
                     textAlign: 'right',
                     width: '15%',

@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.ServiceToQuotation, {
         foreignKey: 'quotationId'
       });
+      this.hasMany(models.DeskToQuotation, {
+        foreignKey: 'quotationId'
+      });
       this.belongsToMany(models.ChairStock, {
         through: 'ChairToQuotation',
         foreignKey: 'quotationId',

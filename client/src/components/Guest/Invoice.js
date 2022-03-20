@@ -128,7 +128,8 @@ export default connect(mapStateToProps)((props) => {
     ChairStocks: [],
     DeskStocks: [],
     AccessoryStocks: [],
-    ServiceToOrders: []
+    ServiceToOrders: [],
+    DeskToOrders:[]
   });
   const { id } = useParams();
   useEffect(() => {
@@ -149,7 +150,6 @@ export default connect(mapStateToProps)((props) => {
       .get(`/salesOrder/${id}`, { cancelToken })
       .then((response) => {
         // handle success
-        console.log(response.data)
         setSuccess(true);
         setOrder(response.data);
       })
@@ -332,34 +332,37 @@ export default connect(mapStateToProps)((props) => {
                   },
                 ],
               })),
-              ...order.DeskStocks.map((item) => ({
+              ...order.DeskToOrders.map((item) => ({
                 cells: [
                   {
-                    content: `${item.DeskToOrder.qty}`,
+                    content: `${item.qty}`,
                     width: '15%',
                   },
                   {
-                    content: `Desk Model: ${item.model}\nColor of Legs: ${
-                      item.color
-                    }\nArmSize: ${item.armSize}\nFeetSize: ${
-                      item.feetSize
-                    }\nBeam Size: ${item.beamSize}\n${
-                      item.DeskToOrder.hasDeskTop
-                        ? `Table Top: ${item.DeskToOrder.topMaterial} ${item.DeskToOrder.topColor}\nTable Top Size: ${item.DeskToOrder.topLength}x${item.DeskToOrder.topWidth}x${item.DeskToOrder.topThickness}\nTable Top Color:\nRounded Corners: ${item.DeskToOrder.topRoundedCorners}, Radius: R${item.DeskToOrder.topCornerRadius}\nHoles Required: ${item.DeskToOrder.topHoleCount}, Hole Position: ${item.DeskToOrder.topHolePosition}, Holes Shaped: ${item.DeskToOrder.topHoleType}, \nRemark: ${item.DeskToOrder.remark}`
+                    content: 
+                    `Desk Model: ${order.DeskStocks.find(stock=>stock.id === item.stockId).model}
+                    Color of Legs: ${order.DeskStocks.find(stock=>stock.id === item.stockId).color}
+                    ArmSize: ${order.DeskStocks.find(stock=>stock.id === item.stockId).armSize}
+                    FeetSize: ${order.DeskStocks.find(stock=>stock.id === item.stockId).feetSize}
+                    Beam Size: ${order.DeskStocks.find(stock=>stock.id === item.stockId).beamSize}
+                    ${
+                      item.hasDeskTop
+                        ? `Table Top: ${item.topMaterial} ${item.topColor}\nTable Top Size: ${item.topLength}x${item.topWidth}x${item.topThickness}\nTable Top Color:\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}, \nRemark: ${item.remark}`
                         : 'Without DeskTop'
-                    }\n${
-                      JSON.parse(item.DeskToOrder.deliveryOption)
+                    }
+                    ${
+                      JSON.parse(item.deliveryOption)
                     }`,
                     width: '55%',
                   },
                   {
-                    content: `${item.DeskToOrder.unitPrice}`,
+                    content: `${item.unitPrice}`,
                     textAlign: 'right',
                     width: '15%',
                   },
                   {
                     content: `${
-                      item.DeskToOrder.unitPrice * item.DeskToOrder.qty
+                      item.unitPrice * item.qty
                     }`,
                     textAlign: 'right',
                     width: '15%',

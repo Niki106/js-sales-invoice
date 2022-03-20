@@ -34,7 +34,7 @@ async function getAll(where) {
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToQuotation
       },
       {
         model: db.DeskStock,
@@ -97,6 +97,7 @@ async function create(req, res, next) {
           products[index].productId
         );
         const {
+          productId: stockId,
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
@@ -116,14 +117,22 @@ async function create(req, res, next) {
             ...restParams,
           })}`;
         }
-        await quotation.addDeskStock(stock, {
-          through: {
-            unitPrice,
-            qty,
-            deliveryOption,
-            ...restParams,
-          },
-        });
+        // await quotation.addDeskStock(stock, {
+        //   through: {
+        //     unitPrice,
+        //     qty,
+        //     deliveryOption,
+        //     ...restParams,
+        //   },
+        // });
+        const join1 = await db.DeskToQuotation.create({
+          unitPrice,
+          qty,
+          deliveryOption,
+          stockId: stockId,
+          ...restParams,
+        })
+        await quotation.addDeskToQuotation(join1);
       } else if (products[index].productType === 'accessory') {
         const stock = await accessoryStockController.getById(
           products[index].productId
@@ -196,6 +205,7 @@ async function update(req, res, next) {
           products[index].productId
         );
         const {
+          productId: stockId,
           productPrice: unitPrice,
           productAmount: qty,
           productDeliveryOption: deliveryOption,
@@ -214,14 +224,14 @@ async function update(req, res, next) {
             ...restParams,
           })}`;
         }
-        await quotation.addDeskStock(stock, {
-          through: {
-            unitPrice,
-            qty,
-            deliveryOption,
-            ...restParams,
-          },
-        });
+        const join1 = await db.DeskToQuotation.create({
+          unitPrice,
+          qty,
+          deliveryOption,
+          stockId: stockId,
+          ...restParams,
+        })
+        await quotation.addDeskToQuotation(join1);
       } else if (products[index].productType === 'accessory') {
         const stock = await accessoryStockController.getById(
           products[index].productId
@@ -292,7 +302,7 @@ async function getQuotation(id) {
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToQuotation
       },
       {
         model: db.AccessoryStock,
