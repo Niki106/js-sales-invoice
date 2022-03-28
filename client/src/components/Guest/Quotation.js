@@ -465,11 +465,11 @@ export default connect(mapStateToProps)((props) => {
                               item.ChairToQuotation.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (quotation.DeskStocks.length
-                        ? quotation.DeskStocks.map(
+                      (quotation.DeskToQuotations.length
+                        ? quotation.DeskToQuotations.map(
                             (item) =>
-                              item.DeskToQuotation.unitPrice *
-                              item.DeskToQuotation.qty
+                              item.unitPrice *
+                              item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (quotation.AccessoryStocks.length
@@ -595,11 +595,11 @@ export default connect(mapStateToProps)((props) => {
                               item.ChairToQuotation.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (quotation.DeskStocks.length
-                        ? quotation.DeskStocks.map(
+                      (quotation.DeskToQuotations.length
+                        ? quotation.DeskToQuotations.map(
                             (item) =>
-                              item.DeskToQuotation.unitPrice *
-                              item.DeskToQuotation.qty
+                              item.unitPrice *
+                              item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (quotation.AccessoryStocks.length

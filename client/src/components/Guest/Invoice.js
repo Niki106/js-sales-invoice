@@ -457,10 +457,10 @@ export default connect(mapStateToProps)((props) => {
                               item.ChairToOrder.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (order.DeskStocks.length
-                        ? order.DeskStocks.map(
+                      (order.DeskToOrders.length
+                        ? order.DeskToOrders.map(
                             (item) =>
-                              item.DeskToOrder.unitPrice * item.DeskToOrder.qty
+                              item.unitPrice * item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (order.AccessoryStocks.length
@@ -586,10 +586,10 @@ export default connect(mapStateToProps)((props) => {
                               item.ChairToOrder.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
-                      (order.DeskStocks.length
-                        ? order.DeskStocks.map(
+                      (order.DeskToOrders.length
+                        ? order.DeskToOrders.map(
                             (item) =>
-                              item.DeskToOrder.unitPrice * item.DeskToOrder.qty
+                              item.unitPrice * item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (order.AccessoryStocks.length
