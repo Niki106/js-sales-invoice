@@ -1651,9 +1651,8 @@ export default connect(mapStateToProps)((props) => {
               cart.find(
                 (item) =>
                   item.productType === 'desk' &&
-                  item.productDetail.id === productDetail.id
-                  // item.productDetail.id === productDetail.id &&
-                  // !item.hasDeskTop
+                  item.productDetail.id === productDetail.id &&
+                  !item.hasDeskTop
               ) 
             ) {
               setDeskAddOpen(false);

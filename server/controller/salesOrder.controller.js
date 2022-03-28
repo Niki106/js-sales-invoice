@@ -75,7 +75,8 @@ async function create(req, res, next) {
     restParams.sellerId = req.user.id;
 
     const currentYear = new Date().getFullYear();
-    restParams.invoiceNum = await getInvoiceNum(currentYear);
+    const orderInvoiceNum = await getInvoiceNum(currentYear);
+    restParams.invoiceNum = orderInvoiceNum
 
     const id = (await db.SalesOrder.create({ ...restParams })).id;
 
@@ -134,9 +135,13 @@ async function create(req, res, next) {
           ...restParams
         } = products[index];
         if (restParams.hasDeskTop && !restParams.topSketchURL) {
+          // const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
+          //   salesOrder.createdAt
+          // ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
           const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
             salesOrder.createdAt
-          ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
+          ).getFullYear()}-${orderInvoiceNum}`;
+          console.log("create:--", invoiceNum)
           restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
             invoiceNum,
             ...restParams,
@@ -210,6 +215,7 @@ async function update(req, res, next) {
     const protocol = req.protocol;
     const id = req.params.id;
     const salesOrder = await getSalesOrder(id);
+    const orderInvoiceNum = salesOrder.invoiceNum;
     const { ChairStocks, DeskStocks, AccessoryStocks } = salesOrder;
     const { products, ...restParams } = req.body;
     Object.assign(salesOrder, restParams);
@@ -309,9 +315,12 @@ async function update(req, res, next) {
           ...restParams
         } = products[index];
         if (restParams.hasDeskTop && !restParams.topSketchURL) {
+          // const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
+          //   salesOrder.createdAt
+          // ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
           const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
             salesOrder.createdAt
-          ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
+          ).getFullYear()}-${orderInvoiceNum}`;
           restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
             invoiceNum,
             ...restParams,

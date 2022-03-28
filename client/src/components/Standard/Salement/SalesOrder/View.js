@@ -26,6 +26,7 @@ import {
   Email as EmailIcon,
   PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
+  Receipt as ReceiptIcon
 } from '@mui/icons-material';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import { useTheme } from '@mui/material/styles';
@@ -93,6 +94,12 @@ const columns = [
     label: 'Paid',
   },
   {
+    id: 'receiptIcon',
+    nonSort: true,
+    label: 'Receipt',
+    sx: { maxWidth: 75, width: 45 },
+  },
+  {
     id: 'emailIcon',
     nonSort: true,
     label: 'Con',
@@ -127,6 +134,7 @@ const hideColumns = [
   'SurCharge',
   'Products',
   'Paid',
+  'Receipt',
   'Con',
   'tact'
 ];
@@ -456,6 +464,15 @@ export default connect(mapStateToProps)((props) => {
                 {invoiceNum}
               </RouterLink>
             ),
+            receiptIcon: paid && (
+              <IconButton
+                component={RouterLink}
+                to={`/receipt/${id}`}
+                target="_blank"
+              >
+                <ReceiptIcon />
+              </IconButton>
+            ),
             emailIcon: (
               <IconButton
                 onClick={() => {
@@ -542,7 +559,7 @@ export default connect(mapStateToProps)((props) => {
         )}
         columns={
           columns.map((column, i) => {
-            if (i > 3 && i < 14) {
+            if (i > 3 && i < 15) {
               if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                 return column
             } else {

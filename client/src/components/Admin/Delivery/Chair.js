@@ -121,8 +121,9 @@ export default connect(mapStateToProps)((props) => {
     axios
       .get('/delivery/allChair', props)
       .then((response) => {
-        // handle success
-        setDeliveries(response.data);
+        // handle 
+        const deliveries = response.data.filter(item => item.SalesOrder.paid===true)
+        setDeliveries(deliveries);
       })
       .catch(function (error) {
         // handle error

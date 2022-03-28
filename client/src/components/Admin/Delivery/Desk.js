@@ -136,7 +136,8 @@ export default connect(mapStateToProps)((props) => {
       .get('/delivery/allDesk', props)
       .then((response) => {
         // handle success
-        setDeliveries(response.data);
+        const deliveries = response.data.filter(item => item.SalesOrder.paid===true)
+        setDeliveries(deliveries);
       })
       .catch(function (error) {
         // handle error

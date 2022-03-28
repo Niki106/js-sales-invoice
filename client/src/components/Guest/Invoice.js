@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     borderBottom: '0.5px solid #808080',
     flexDirection: 'row',
     minHeight: 15,
+    fontFamily: 'Microsoft Yahei',
   },
   tableColumn: {
     flex: 1,
@@ -151,6 +152,7 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setSuccess(true);
+        console.log(response.data)
         setOrder(response.data);
       })
       .catch(function (error) {
@@ -347,7 +349,10 @@ export default connect(mapStateToProps)((props) => {
                     Beam Size: ${order.DeskStocks.find(stock=>stock.id === item.stockId).beamSize}
                     ${
                       item.hasDeskTop
-                        ? `Table Top: ${item.topMaterial} ${item.topColor}\nTable Top Size: ${item.topLength}x${item.topWidth}x${item.topThickness}\nTable Top Color:\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}, \nRemark: ${item.remark}`
+                        ? `Table Top: ${item.topMaterial} 
+                          Table Top Size: ${item.topLength}x${item.topWidth}x${item.topThickness}
+                          Table Top Color: ${item.topColor} ${item.topRoundedCorners === 0 ? '' : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`} ${item.topHoleCount === 0 ? '' : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`} 
+                          Remark: ${item.remark}`
                         : 'Without DeskTop'
                     }
                     ${

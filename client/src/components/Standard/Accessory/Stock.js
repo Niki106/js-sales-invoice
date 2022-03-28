@@ -13,6 +13,10 @@ const columns = [
     nonSort: true,
   },
   {
+    id: 'name',
+    label: 'Name',
+  },
+  {
     id: 'category',
     label: 'Category',
   },

@@ -116,8 +116,8 @@ export default connect(mapStateToProps)((props) => {
       .get('/delivery/allAccessory', props)
       .then((response) => {
         // handle success
-        console.log(response.data)
-        setDeliveries(response.data);
+        const deliveries = response.data.filter(item => item.SalesOrder.paid===true)
+        setDeliveries(deliveries);
       })
       .catch(function (error) {
         // handle error
