@@ -26,13 +26,14 @@ import {
   Email as EmailIcon,
   PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
-} from '@mui/icons-material';
-import MuiPhoneNumber from 'material-ui-phone-number';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import QRCode from 'react-qr-code';
+  DriveFolderUpload as DriveFolderUploadIcon,
+} from "@mui/icons-material";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import axios from "axios";
+import Swal from "sweetalert2";
+import QRCode from "react-qr-code";
 
 import DataGrid from 'components/Common/DataGrid';
 import {
@@ -103,7 +104,13 @@ const columns = [
     sx: { maxWidth: 45, width: 45, paddingLeft: 0 },
   },
   {
-    id: 'edit',
+    id: "toInvoice",
+    nonSort: true,
+    label: "To Invoice",
+    sx: { maxWidth: 45 },
+  },
+  {
+    id: "edit",
     nonSort: true,
     sx: { maxWidth: 45, width: 45 },
   },
@@ -283,6 +290,113 @@ export default connect(mapStateToProps)((props) => {
           });
       }
     });
+  };
+
+  const handleToInvoiceClick = (index) => {
+    if (index < quotations.length && index >= 0) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This action will convert current Quotation to Invoice.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Convert!",
+        cancelButtonText: "No, Cancel.",
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const quotation = quotations[index];
+          const cart = quotation.ChairStocks.map(
+            ({ ChairToQuotation, ...restProps }) => ({
+              productType: "chair",
+              productDetail: restProps,
+              remark: ChairToQuotation.remark,
+              productPrice: ChairToQuotation.unitPrice,
+              productAmount: ChairToQuotation.qty,
+              productDeliveryOption: ChairToQuotation.deliveryOption,
+            })
+          )
+            .concat(
+              quotation.DeskToQuotations.map((DeskToQuotation) => {
+                const {
+                  stockId,
+                  unitPrice,
+                  qty,
+                  deliveryOption,
+                  ...deskTopProps
+                } = DeskToQuotation;
+
+                const stock = quotation.DeskStocks.find(function (val) {
+                  return val.id === stockId;
+                });
+
+                return {
+                  productType: "desk",
+                  productDetail: stock,
+                  productPrice: unitPrice,
+                  productAmount: qty,
+                  productDeliveryOption: deliveryOption,
+                  ...deskTopProps,
+                };
+              })
+            )
+            .concat(
+              quotation.AccessoryStocks.map(
+                ({ AccessoryToQuotation, ...restProps }) => ({
+                  productType: "accessory",
+                  productDetail: restProps,
+                  remark: AccessoryToQuotation.remark,
+                  productPrice: AccessoryToQuotation.unitPrice,
+                  productAmount: AccessoryToQuotation.qty,
+                  productDeliveryOption: AccessoryToQuotation.deliveryOption,
+                })
+              )
+            );
+          axios
+            .post(`/salesOrder/create`, {
+              name: quotation.name,
+              phone: quotation.phone,
+              email: quotation.email,
+              district: quotation.district,
+              street: quotation.street,
+              block: quotation.block,
+              floor: quotation.floor,
+              unit: quotation.unit,
+              timeLine: quotation.timeLine,
+              remark: quotation.remark,
+              products: cart
+                .map(({ productDetail, ...restProps }) => ({
+                  productId: productDetail.id,
+                  ...restProps,
+                }))
+                .concat(quotation.ServiceToQuotations),
+              paymentTerms: quotation.paymentTerms,
+              paid: false,
+              dueDate: null,
+              discount: quotation.discount,
+              discountType: quotation.discountType,
+              surcharge: quotation.surcharge,
+              surchargeType: quotation.surchargeType,
+            })
+            .then(() => {
+              // handle success
+              props.history.push("/user/order");
+            })
+            .catch(function (error) {
+              // handle error
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response.data.message,
+                allowOutsideClick: false,
+              }).then(() => {});
+              console.log(error);
+            })
+            .then(function () {
+              // always executed
+            });
+        }
+      });
+    }
   };
 
   const getQuotations = (cancelToken) => {
@@ -492,6 +606,16 @@ export default connect(mapStateToProps)((props) => {
                 }}
               >
                 <WhatsAppIcon />
+              </IconButton>
+            ),
+            toInvoice: (
+              <IconButton
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleToInvoiceClick(index);
+                }}
+              >
+                <DriveFolderUploadIcon />
               </IconButton>
             ),
             edit: (

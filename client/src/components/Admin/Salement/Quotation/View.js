@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import ReactDOMServer from 'react-dom/server';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import ReactDOMServer from "react-dom/server";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   Badge,
   Box,
@@ -16,8 +16,8 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
-import { blue, pink, red, yellow } from '@mui/material/colors';
+} from "@mui/material";
+import { blue, pink, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Deck as DeckIcon,
@@ -26,103 +26,110 @@ import {
   Email as EmailIcon,
   PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
-} from '@mui/icons-material';
-import MuiPhoneNumber from 'material-ui-phone-number';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import QRCode from 'react-qr-code';
+  DriveFolderUpload as DriveFolderUploadIcon,
+} from "@mui/icons-material";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import axios from "axios";
+import Swal from "sweetalert2";
+import QRCode from "react-qr-code";
 
-import DataGrid from 'components/Common/DataGrid';
+import DataGrid from "components/Common/DataGrid";
 import {
   ProductList,
   ProductListItem,
   ProductListItemText,
   ProductPriceAmount,
-} from '../ProductList';
-import CheckableMultiSelect from 'components/Common/MultiSelect';
+} from "../ProductList";
+import CheckableMultiSelect from "components/Common/MultiSelect";
 
 const columns = [
   {
-    id: 'quotationNum',
-    label: 'Quotation',
+    id: "quotationNum",
+    label: "Quotation",
   },
   {
-    id: 'name',
-    label: 'Client',
+    id: "name",
+    label: "Client",
   },
   {
-    id: 'seller',
-    label: 'Seller',
+    id: "seller",
+    label: "Seller",
   },
   {
-    id: 'quotationDate',
-    label: 'Quotation',
+    id: "quotationDate",
+    label: "Quotation",
   },
   {
-    id: 'clientAddress',
-    label: 'Address',
+    id: "clientAddress",
+    label: "Address",
   },
   {
-    id: 'timeLine',
-    label: 'TimeLine',
+    id: "timeLine",
+    label: "TimeLine",
   },
   {
-    id: 'remark',
-    label: 'Remark',
+    id: "remark",
+    label: "Remark",
   },
   {
-    id: 'discount',
-    label: 'Discount',
+    id: "discount",
+    label: "Discount",
   },
   {
-    id: 'surcharge',
-    label: 'SurCharge',
+    id: "surcharge",
+    label: "SurCharge",
   },
   {
-    id: 'products',
-    label: 'Products',
+    id: "products",
+    label: "Products",
   },
   {
-    id: 'paid',
-    label: 'Paid',
+    id: "paid",
+    label: "Paid",
   },
   {
-    id: 'emailIcon',
+    id: "emailIcon",
     nonSort: true,
-    label: 'Con',
-    align: 'right',
+    label: "Con",
+    align: "right",
     sx: { maxWidth: 45, width: 45 },
   },
   {
-    id: 'whatsappIcon',
+    id: "whatsappIcon",
     nonSort: true,
-    label: 'tact',
-    align: 'left',
+    label: "tact",
+    align: "left",
     sx: { maxWidth: 45, width: 45, paddingLeft: 0 },
   },
   {
-    id: 'edit',
+    id: "toInvoice",
+    nonSort: true,
+    label: "To Invoice",
+    sx: { maxWidth: 45 },
+  },
+  {
+    id: "edit",
     nonSort: true,
     sx: { maxWidth: 45, width: 45 },
   },
   {
     nonSort: true,
-    id: 'delete',
+    id: "delete",
     sx: { maxWidth: 45, width: 45 },
   },
 ];
 const hideColumns = [
-  'Address',
-  'TimeLine',
-  'Remark',
-  'Discount',
-  'SurC harge',
-  'Products',
-  'Paid',
-  'Con',
-  'tact'
+  "Address",
+  "TimeLine",
+  "Remark",
+  "Discount",
+  "SurC harge",
+  "Products",
+  "Paid",
+  "Con",
+  "tact",
 ];
 
 function mapStateToProps(state) {
@@ -134,9 +141,9 @@ export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
 
   const [quotations, setquotations] = useState([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [whatsAppOpen, setWhatsAppOpen] = useState(false);
   const [emailOpen, setEmailOpen] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -146,7 +153,7 @@ export default connect(mapStateToProps)((props) => {
 
   const [quotationIndex, setquotationIndex] = useState(0);
 
-  const [selectedHideColumns, setSelectedHideColumns] = useState([])
+  const [selectedHideColumns, setSelectedHideColumns] = useState([]);
 
   const handleFilterClick = (e) => {
     e.preventDefault();
@@ -157,7 +164,7 @@ export default connect(mapStateToProps)((props) => {
   const handleWhatsAppSend = (event) => {
     event.preventDefault();
     axios
-      .post('whatsapp/send', {
+      .post("whatsapp/send", {
         phone: phone,
         message: whatsAppMessage.current.value,
       })
@@ -168,8 +175,8 @@ export default connect(mapStateToProps)((props) => {
         // handle error
         setWhatsAppOpen(false);
         Swal.fire({
-          icon: 'error',
-          title: 'Error',
+          icon: "error",
+          title: "Error",
           text: error.response.data.message,
           allowOutsideClick: false,
         }).then(() => {
@@ -184,7 +191,7 @@ export default connect(mapStateToProps)((props) => {
   const handleEmailSend = (event) => {
     event.preventDefault();
     axios
-      .post('email/send', {
+      .post("email/send", {
         email: email,
         message: emailContent.current.value,
       })
@@ -195,8 +202,8 @@ export default connect(mapStateToProps)((props) => {
         // handle error
         setEmailOpen(false);
         Swal.fire({
-          icon: 'error',
-          title: 'Error',
+          icon: "error",
+          title: "Error",
           text: error.response.data.message,
           allowOutsideClick: false,
         }).then(() => {
@@ -216,12 +223,12 @@ export default connect(mapStateToProps)((props) => {
   const handleRemoveClick = (index) => {
     if (index < quotations.length && index >= 0) {
       Swal.fire({
-        title: 'Are you sure?',
-        text: 'This action will remove current Quotation permanently.',
-        icon: 'question',
+        title: "Are you sure?",
+        text: "This action will remove current Quotation permanently.",
+        icon: "question",
         showCancelButton: true,
-        confirmButtonText: 'Yes, Remove!',
-        cancelButtonText: 'No, Keep It.',
+        confirmButtonText: "Yes, Remove!",
+        cancelButtonText: "No, Keep It.",
         allowOutsideClick: false,
       }).then((result) => {
         if (result.isConfirmed) {
@@ -234,8 +241,8 @@ export default connect(mapStateToProps)((props) => {
             .catch(function (error) {
               // handle error
               Swal.fire({
-                icon: 'error',
-                title: 'Error',
+                icon: "error",
+                title: "Error",
                 text: error.response.data.message,
                 allowOutsideClick: false,
               });
@@ -251,17 +258,17 @@ export default connect(mapStateToProps)((props) => {
 
   const handleBulkRemoveClick = (selected) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'This action will remove selected Quotations permanently.',
-      icon: 'question',
+      title: "Are you sure?",
+      text: "This action will remove selected Quotations permanently.",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Yes, Remove!',
-      cancelButtonText: 'No, Keep Them.',
+      confirmButtonText: "Yes, Remove!",
+      cancelButtonText: "No, Keep Them.",
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete('/quotation', {
+          .delete("/quotation", {
             data: { ids: selected },
           })
           .then((response) => {
@@ -271,8 +278,8 @@ export default connect(mapStateToProps)((props) => {
           .catch(function (error) {
             // handle error
             Swal.fire({
-              icon: 'error',
-              title: 'Error',
+              icon: "error",
+              title: "Error",
               text: error.response.data.message,
               allowOutsideClick: false,
             });
@@ -285,9 +292,116 @@ export default connect(mapStateToProps)((props) => {
     });
   };
 
+  const handleToInvoiceClick = (index) => {
+    if (index < quotations.length && index >= 0) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This action will convert current Quotation to Invoice.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, Convert!",
+        cancelButtonText: "No, Cancel.",
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const quotation = quotations[index];
+          const cart = quotation.ChairStocks.map(
+            ({ ChairToQuotation, ...restProps }) => ({
+              productType: "chair",
+              productDetail: restProps,
+              remark: ChairToQuotation.remark,
+              productPrice: ChairToQuotation.unitPrice,
+              productAmount: ChairToQuotation.qty,
+              productDeliveryOption: ChairToQuotation.deliveryOption,
+            })
+          )
+            .concat(
+              quotation.DeskToQuotations.map((DeskToQuotation) => {
+                const {
+                  stockId,
+                  unitPrice,
+                  qty,
+                  deliveryOption,
+                  ...deskTopProps
+                } = DeskToQuotation;
+
+                const stock = quotation.DeskStocks.find(function (val) {
+                  return val.id === stockId;
+                });
+
+                return {
+                  productType: "desk",
+                  productDetail: stock,
+                  productPrice: unitPrice,
+                  productAmount: qty,
+                  productDeliveryOption: deliveryOption,
+                  ...deskTopProps,
+                };
+              })
+            )
+            .concat(
+              quotation.AccessoryStocks.map(
+                ({ AccessoryToQuotation, ...restProps }) => ({
+                  productType: "accessory",
+                  productDetail: restProps,
+                  remark: AccessoryToQuotation.remark,
+                  productPrice: AccessoryToQuotation.unitPrice,
+                  productAmount: AccessoryToQuotation.qty,
+                  productDeliveryOption: AccessoryToQuotation.deliveryOption,
+                })
+              )
+            );
+          axios
+            .post(`/salesOrder/create`, {
+              name: quotation.name,
+              phone: quotation.phone,
+              email: quotation.email,
+              district: quotation.district,
+              street: quotation.street,
+              block: quotation.block,
+              floor: quotation.floor,
+              unit: quotation.unit,
+              timeLine: quotation.timeLine,
+              remark: quotation.remark,
+              products: cart
+                .map(({ productDetail, ...restProps }) => ({
+                  productId: productDetail.id,
+                  ...restProps,
+                }))
+                .concat(quotation.ServiceToQuotations),
+              paymentTerms: quotation.paymentTerms,
+              paid: false,
+              dueDate: null,
+              discount: quotation.discount,
+              discountType: quotation.discountType,
+              surcharge: quotation.surcharge,
+              surchargeType: quotation.surchargeType,
+            })
+            .then(() => {
+              // handle success
+              props.history.push("/admin/order");
+            })
+            .catch(function (error) {
+              // handle error
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: error.response.data.message,
+                allowOutsideClick: false,
+              }).then(() => {});
+              console.log(error);
+            })
+            .then(function () {
+              // always executed
+            });
+        }
+      });
+    }
+  };
+
   const getQuotations = (cancelToken) => {
     axios
-      .get('/quotation', { cancelToken })
+      .get("/quotation", { cancelToken })
       .then((response) => {
         // handle success
         setquotations(response.data);
@@ -302,21 +416,21 @@ export default connect(mapStateToProps)((props) => {
   };
 
   const onHideColumnChanged = (values) => {
-    setSelectedHideColumns(values)
-  }
+    setSelectedHideColumns(values);
+  };
 
   useEffect(() => {
     const source = axios.CancelToken.source();
     getQuotations(source.token);
-    return () => source.cancel('Brand Component got unmounted');
+    return () => source.cancel("Brand Component got unmounted");
   }, []);
 
   return (
     <Box
       sx={{
-        height: '100%',
-        overflow: 'auto',
-        padding: '10px 20px',
+        height: "100%",
+        overflow: "auto",
+        padding: "10px 20px",
       }}
     >
       <Button
@@ -327,10 +441,10 @@ export default connect(mapStateToProps)((props) => {
         New Quotation
       </Button>
       <div>
-        <CheckableMultiSelect 
+        <CheckableMultiSelect
           options={hideColumns}
           onChange={onHideColumnChanged}
-          selected={selectedHideColumns} 
+          selected={selectedHideColumns}
         />
       </div>
       <DataGrid
@@ -362,24 +476,24 @@ export default connect(mapStateToProps)((props) => {
           ) => ({
             id,
             index,
-            seller: (Seller.firstName || '').concat(' ', Seller.lastName || ''),
+            seller: (Seller.firstName || "").concat(" ", Seller.lastName || ""),
             timeLine:
               timeLine % 7 !== 0
-                ? `${timeLine} day${timeLine === 1 ? '' : 's'}`
-                : `${timeLine / 7} week${timeLine / 7 === 1 ? '' : 's'}`,
+                ? `${timeLine} day${timeLine === 1 ? "" : "s"}`
+                : `${timeLine / 7} week${timeLine / 7 === 1 ? "" : "s"}`,
             quotationDate: (() => {
               const createdTime = new Date(createdAt);
               createdTime.setMinutes(
                 createdTime.getMinutes() - createdTime.getTimezoneOffset()
               );
-              return createdTime.toISOString().split('T')[0];
+              return createdTime.toISOString().split("T")[0];
             })(),
-            discount: `${discount}${discountType ? ' HKD' : '%'}`,
-            surcharge: `${surcharge}${surchargeType ? ' HKD' : '%'}`,
-            clientAddress: [district, street, block, floor, unit].join(', '),
+            discount: `${discount}${discountType ? " HKD" : "%"}`,
+            surcharge: `${surcharge}${surchargeType ? " HKD" : "%"}`,
+            clientAddress: [district, street, block, floor, unit].join(", "),
             products: (
               <IconButton
-                sx={{ my: '5px' }}
+                sx={{ my: "5px" }}
                 onClick={(event) => {
                   event.preventDefault();
                   setquotationIndex(index);
@@ -414,8 +528,8 @@ export default connect(mapStateToProps)((props) => {
                     .catch(function (error) {
                       // handle error
                       Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
+                        icon: "error",
+                        title: "Error",
                         text: error.response.data.message,
                         allowOutsideClick: false,
                       });
@@ -427,11 +541,8 @@ export default connect(mapStateToProps)((props) => {
               />
             ),
             quotationNum: (
-              <RouterLink
-                to={`/quotation/${id}`}
-                target="_blank"
-              >
-                { quotationNum }
+              <RouterLink to={`/quotation/${id}`} target="_blank">
+                {quotationNum}
               </RouterLink>
             ),
             emailIcon: (
@@ -449,7 +560,7 @@ export default connect(mapStateToProps)((props) => {
               <IconButton
                 onClick={() => {
                   axios
-                    .get('whatsapp/checkauth')
+                    .get("whatsapp/checkauth")
                     .then(() => {
                       setName(restProps.name);
                       setPhone(restProps.phone);
@@ -458,12 +569,12 @@ export default connect(mapStateToProps)((props) => {
                     .catch(function (error) {
                       // handle error
                       axios
-                        .get('whatsapp/getqr')
+                        .get("whatsapp/getqr")
                         .then((response) => {
                           Swal.fire({
-                            icon: 'info',
+                            icon: "info",
                             title:
-                              'Please signin with this QRCode and Click the button again.',
+                              "Please signin with this QRCode and Click the button again.",
                             html: ReactDOMServer.renderToStaticMarkup(
                               <QRCode
                                 value={`${response.data.qrcode}`}
@@ -476,9 +587,9 @@ export default connect(mapStateToProps)((props) => {
                         .catch(function (qrerror) {
                           // handle error
                           Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Unable to use WhatsApp Messaging.',
+                            icon: "error",
+                            title: "Error",
+                            text: "Unable to use WhatsApp Messaging.",
                             allowOutsideClick: false,
                           });
                         })
@@ -494,11 +605,21 @@ export default connect(mapStateToProps)((props) => {
                 <WhatsAppIcon />
               </IconButton>
             ),
+            toInvoice: (
+              <IconButton
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleToInvoiceClick(index);
+                }}
+              >
+                <DriveFolderUploadIcon />
+              </IconButton>
+            ),
             edit: (
               <IconButton
                 component={RouterLink}
                 to={{
-                  pathname: '/admin/quotation/edit',
+                  pathname: "/admin/quotation/edit",
                   state: { quotation: quotations[index] },
                 }}
               >
@@ -518,16 +639,20 @@ export default connect(mapStateToProps)((props) => {
             ...restProps,
           })
         )}
-        columns={
-          columns.map((column, i) => {
+        columns={columns
+          .map((column, i) => {
             if (i > 3 && i < 13) {
-              if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
-                return column
+              if (
+                selectedHideColumns.find(
+                  (hideColumn) => hideColumn === column.label
+                )
+              )
+                return column;
             } else {
-              return column
+              return column;
             }
-          }).filter(column=>column !== undefined)
-        }
+          })
+          .filter((column) => column !== undefined)}
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
         onBulkRemoveClick={handleBulkRemoveClick}
@@ -535,7 +660,7 @@ export default connect(mapStateToProps)((props) => {
       />
       <Dialog
         fullWidth
-        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
+        fullScreen={useMediaQuery(theme.breakpoints.down("sm"))}
         maxWidth="sm"
         open={whatsAppOpen}
       >
@@ -545,8 +670,8 @@ export default connect(mapStateToProps)((props) => {
             <MuiPhoneNumber
               variant="outlined"
               label="Phone Number"
-              onlyCountries={['hk']}
-              defaultCountry={'hk'}
+              onlyCountries={["hk"]}
+              defaultCountry={"hk"}
               value={phone}
               InputProps={{
                 readOnly: true,
@@ -581,7 +706,7 @@ export default connect(mapStateToProps)((props) => {
       </Dialog>
       <Dialog
         fullWidth
-        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
+        fullScreen={useMediaQuery(theme.breakpoints.down("sm"))}
         maxWidth="sm"
         open={emailOpen}
       >
@@ -637,8 +762,8 @@ export default connect(mapStateToProps)((props) => {
                 <ProductListItem key={index}>
                   <ProductListItemText
                     primary={`Chair: ${item.brand}, ${item.model}, ${item.frameColor}, ${item.backColor}, ${item.seatColor}`}
-                    secondary={`${item.withHeadrest ? 'Headrest, ' : ''}${
-                      item.withAdArmrest ? 'Armrest' : ''
+                    secondary={`${item.withHeadrest ? "Headrest, " : ""}${
+                      item.withAdArmrest ? "Armrest" : ""
                     }`}
                   />
                   <ProductPriceAmount
@@ -652,30 +777,51 @@ export default connect(mapStateToProps)((props) => {
               quotations[quotationIndex].DeskToQuotations.map((item, index) => (
                 <ProductListItem key={index}>
                   <ProductListItemText
-                    primary={`Desk: 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).supplierCode}, 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).model}, 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).color}, 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).armSize}, 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).feetSize}, 
-                      ${quotations[quotationIndex].DeskStocks.find(stock=> stock.id===item.stockId).beamSize}`}
+                    primary={`Desk:
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).supplierCode
+                      },
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).model
+                      },
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).color
+                      },
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).armSize
+                      },
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).feetSize
+                      },
+                      ${
+                        quotations[quotationIndex].DeskStocks.find(
+                          (stock) => stock.id === item.stockId
+                        ).beamSize
+                      }`}
                     secondary={
                       item.hasDeskTop ? (
                         <span>
-                          {`${item.topMaterial}, 
-                            ${item.topColor}, 
-                            ${item.topLength}x${item.topWidth}x${item.topThickness}, 
-                            ${item.topRoundedCorners}-R${item.topCornerRadius}, 
+                          {`${item.topMaterial},
+                            ${item.topColor},
+                            ${item.topLength}x${item.topWidth}x${item.topThickness},
+                            ${item.topRoundedCorners}-R${item.topCornerRadius},
                             ${item.topHoleCount}-${item.topHoleType} `}
-                          <a
-                            href={item.topSketchURL}
-                            target="_blank"
-                          >
+                          <a href={item.topSketchURL} target="_blank">
                             Sketch
                           </a>
                         </span>
                       ) : (
-                        'Without DeskTop'
+                        "Without DeskTop"
                       )
                     }
                   />
