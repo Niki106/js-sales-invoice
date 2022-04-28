@@ -148,9 +148,10 @@ export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
 
   const [orders, setOrders] = useState([]);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [initOrders, setInitOrders] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [whatsAppOpen, setWhatsAppOpen] = useState(false);
   const [emailOpen, setEmailOpen] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -159,9 +160,13 @@ export default connect(mapStateToProps)((props) => {
   const [filterAnchor, setFilterAnchor] = useState(null);
 
   const [orderIndex, setOrderIndex] = useState(0);
-  const [paymentLink, setPaymentLink] = useState("")
 
-  const [selectedHideColumns, setSelectedHideColumns] = useState([])
+  const [paymentLink, setPaymentLink] = useState("");
+
+  const [selectedHideColumns, setSelectedHideColumns] = useState([]);
+
+  const [searchInvoiceNumber, setSearchInvoiceNumber] = useState("");
+  const [searchPhoneNumber, setSearchPhoneNumber] = useState("");
 
   const chairDeliveries = useRef([]);
   const deskDeliveries = useRef([]);
@@ -306,6 +311,7 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setOrders(response.data);
+        setInitOrders(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -317,8 +323,21 @@ export default connect(mapStateToProps)((props) => {
   };
 
   const onHideColumnChanged = (values) => {
-    setSelectedHideColumns(values)
-  }
+    setSelectedHideColumns(values);
+  };
+
+  const onKeyPressed = (e) => {
+    if (e.key === "Enter") {
+      const searchedOrders = initOrders
+        .filter((order) =>
+          order.invoiceNum
+            .toLowerCase()
+            .includes(searchInvoiceNumber.toLowerCase())
+        )
+        .filter((order) => order.phone.includes(searchPhoneNumber));
+      setOrders(searchedOrders);
+    }
+  };
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -341,6 +360,30 @@ export default connect(mapStateToProps)((props) => {
       >
         New Order
       </Button>
+      <Paper
+        sx={{
+          marginTop: "10px",
+          padding: "5px 10px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+        }}
+      >
+        <TextField
+          label="Invoice Number"
+          variant="outlined"
+          onKeyPress={onKeyPressed}
+          value={searchInvoiceNumber}
+          onChange={(e) => setSearchInvoiceNumber(e.target.value)}
+        />
+        <TextField
+          label="Phone Number"
+          variant="outlined"
+          onKeyPress={onKeyPressed}
+          value={searchPhoneNumber}
+          onChange={(e) => setSearchPhoneNumber(e.target.value)}
+        />
+      </Paper>
       <div>
         <CheckableMultiSelect 
           options={hideColumns}
