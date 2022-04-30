@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef, useState, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import {
   Autocomplete,
   Box,
@@ -30,29 +30,30 @@ import {
   Typography,
   Card,
   Grid,
-} from '@mui/material';
-import { blue, pink, purple, red, yellow } from '@mui/material/colors';
+} from "@mui/material";
+import { blue, pink, purple, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
   Remove as RemoveIcon,
-  Close as CloseIcon
-} from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import MuiPhoneNumber from 'material-ui-phone-number';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+  Close as CloseIcon,
+  Edit as EditIcon,
+} from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import MuiPhoneNumber from "material-ui-phone-number";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-import DataGrid from 'components/Common/DataGrid';
+import DataGrid from "components/Common/DataGrid";
 import {
   ProductList,
   ProductListItem,
   ProductListItemText,
   ProductPriceAmount,
-} from '../ProductList';
-import { v4 as uuidv4 } from 'uuid';
-import CheckableMultiSelect from 'components/Common/MultiSelect';
+} from "../ProductList";
+import { v4 as uuidv4 } from "uuid";
+import CheckableMultiSelect from "components/Common/MultiSelect";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -65,7 +66,7 @@ const TabPanel = (props) => {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: '0 10px 10px 10px' }}>{children}</Box>}
+      {value === index && <Box sx={{ p: "0 10px 10px 10px" }}>{children}</Box>}
     </div>
   );
 };
@@ -83,223 +84,253 @@ function mapStateToProps(state) {
 
 const chairColumns = [
   {
-    id: 'add',
+    id: "add",
   },
   {
-    id: 'thumbnail',
+    id: "thumbnail",
     sx: { width: 100 },
     nonSort: true,
   },
   {
-    id: 'brand',
-    label: 'Brand',
+    id: "brand",
+    label: "Brand",
   },
   {
-    id: 'model',
-    label: 'Model',
+    id: "model",
+    label: "Model",
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
+    id: "unitPrice",
+    label: "Price",
   },
   {
-    id: 'balance',
-    label: 'Balance',
+    id: "balance",
+    label: "Balance",
   },
   {
-    id: 'qty',
-    label: 'QTY',
+    id: "qty",
+    label: "QTY",
   },
   {
-    id: 'frameColor',
-    label: 'Frame Color',
+    id: "frameColor",
+    label: "Frame Color",
   },
   {
-    id: 'backColor',
-    label: 'Back Color',
+    id: "backColor",
+    label: "Back Color",
   },
   {
-    id: 'seatColor',
-    label: 'Seat Color',
+    id: "seatColor",
+    label: "Seat Color",
   },
   {
-    id: 'backMaterial',
-    label: 'Back Material',
+    id: "backMaterial",
+    label: "Back Material",
   },
   {
-    id: 'seatMaterial',
-    label: 'Seat Material',
+    id: "seatMaterial",
+    label: "Seat Material",
   },
   {
-    id: 'withHeadrest',
-    label: 'Headrest',
+    id: "withHeadrest",
+    label: "Headrest",
   },
   {
-    id: 'withAdArmrest',
-    label: 'Adjustable Armrests',
+    id: "withAdArmrest",
+    label: "Adjustable Armrests",
   },
   {
-    id: 'remark',
-    label: 'Special Remark',
+    id: "remark",
+    label: "Special Remark",
   },
   {
-    id: 'shipmentDate',
-    label: 'Shipment',
+    id: "shipmentDate",
+    label: "Shipment",
   },
   {
-    id: 'arrivalDate',
-    label: 'Arrival',
+    id: "arrivalDate",
+    label: "Arrival",
   },
 ];
 
 const hideChairColumns = [
-  'Frame Color',
-  'Back Color',
-  'Seat Color',
-  'Back Material',
-  'Seat Material',
-  'Headrest',
-  'Adjustable Armrests',
-  'Special Remark',
-  'Shipment',
-  'Arrival'
-]
+  "Frame Color",
+  "Back Color",
+  "Seat Color",
+  "Back Material",
+  "Seat Material",
+  "Headrest",
+  "Adjustable Armrests",
+  "Special Remark",
+  "Shipment",
+  "Arrival",
+];
 
 const deskColumns = [
   {
-    id: 'add',
+    id: "add",
   },
   {
-    id: 'thumbnail',
+    id: "thumbnail",
     sx: { width: 100 },
     nonSort: true,
   },
   {
-    id: 'supplierCode',
-    label: 'Supplier',
+    id: "supplierCode",
+    label: "Supplier",
   },
   {
-    id: 'model',
-    label: 'Model',
+    id: "model",
+    label: "Model",
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
+    id: "unitPrice",
+    label: "Price",
   },
   {
-    id: 'balance',
-    label: 'Balance',
+    id: "balance",
+    label: "Balance",
   },
   {
-    id: 'qty',
-    label: 'QTY',
+    id: "qty",
+    label: "QTY",
   },
   {
-    id: 'color',
-    label: 'Color',
+    id: "color",
+    label: "Color",
   },
   {
-    id: 'armSize',
-    label: 'Arm Size',
+    id: "armSize",
+    label: "Arm Size",
   },
   {
-    id: 'feetSize',
-    label: 'Feet Size',
+    id: "feetSize",
+    label: "Feet Size",
   },
   {
-    id: 'beamSize',
-    label: 'Beam Size',
+    id: "beamSize",
+    label: "Beam Size",
   },
   {
-    id: 'remark',
-    label: 'Special Remark',
+    id: "remark",
+    label: "Special Remark",
   },
   {
-    id: 'shipmentDate',
-    label: 'Shipment',
+    id: "shipmentDate",
+    label: "Shipment",
   },
   {
-    id: 'arrivalDate',
-    label: 'Arrival',
+    id: "arrivalDate",
+    label: "Arrival",
   },
 ];
 
 const hideDeskColumns = [
-  'Color',
-  'Arm Size',
-  'Feet Size',
-  'Beam Size',
-  'Special Remark',
-  'Shipment',
-  'Arrival'
+  "Color",
+  "Arm Size",
+  "Feet Size",
+  "Beam Size",
+  "Special Remark",
+  "Shipment",
+  "Arrival",
 ];
 
 const accessoryColumns = [
   {
-    id: 'add',
+    id: "add",
   },
   {
-    id: 'thumbnail',
+    id: "thumbnail",
     sx: { width: 100 },
     nonSort: true,
   },
   {
-    id: 'name',
-    label: 'Name',
+    id: "name",
+    label: "Name",
   },
   {
-    id: 'category',
-    label: 'Category',
+    id: "category",
+    label: "Category",
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
+    id: "unitPrice",
+    label: "Price",
   },
   {
-    id: 'balance',
-    label: 'Balance',
+    id: "balance",
+    label: "Balance",
   },
   {
-    id: 'qty',
-    label: 'QTY',
+    id: "qty",
+    label: "QTY",
   },
   {
-    id: 'remark',
-    label: 'Special Remark',
+    id: "remark",
+    label: "Special Remark",
   },
   {
-    id: 'shipmentDate',
-    label: 'Shipment',
+    id: "shipmentDate",
+    label: "Shipment",
   },
   {
-    id: 'arrivalDate',
-    label: 'Arrival',
+    id: "arrivalDate",
+    label: "Arrival",
   },
+];
+
+const materialOptions = [
+  "Melamine",
+  "Laminate",
+  "North American Walnut",
+  "South American Walnut",
+  "Red Oak",
+  "Maple",
+  "Bamboo",
+  "Melamine with glass top",
+  "Toppal Plyedge",
 ];
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
   const { componentType, initialClient, initialCart, initialServices } = props;
   const [topHoleCount, setTopHoleCount] = useState(0);
-  const [topHolePosition, setTopHolePosition] = useState('Left');
-  const [topHoleType, setTopHoleType] = useState('Rounded');
+  const [topHolePosition, setTopHolePosition] = useState("Left");
+  const [topHoleType, setTopHoleType] = useState("Rounded");
+  const [topMaterial, setTopMaterial] = useState("Melamine");
+  const [topColor, setTopColor] = useState("");
+  const [topLength, setTopLength] = useState(700);
+  const [topWidth, setTopWidth] = useState(400);
+  const [topThickness, setTopThickness] = useState(25);
+  const [topRoundedCorners, setTopRoundedCorners] = useState(0);
+  const [topCornerRadius, setTopCornerRadius] = useState(50);
+  const [sketchUrl, setSketchUrl] = useState("");
 
   const steps = [
-    'Input Client Info',
-    'Select Products',
-    'Input Payment Details',
+    "Input Client Info",
+    "Select Products",
+    "Input Payment Details",
   ];
   const clientForm = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
+
   const [addOpen, setAddOpen] = useState(false);
   const [deskAddOpen, setDeskAddOpen] = useState(false);
+
   const [hasDeskTop, setHasDeskTop] = useState(false);
-  const [productType, setProductType] = useState('chair');
-  const [productDetail, setProductDetail] = useState('');
+
+  const [productType, setProductType] = useState("chair");
+  const [productDetail, setProductDetail] = useState("");
   const [productPrice, setProductPrice] = useState(1000);
   const [productAmount, setProductAmount] = useState(0);
-  const [productRemark, setProductRemark] = useState('')
+  const [productRemark, setProductRemark] = useState("");
+
+  const [deliveryChecked0, setDeliveryChecked0] = useState(false);
+  const [deliveryChecked1, setDeliveryChecked1] = useState(false);
+  const [deliveryChecked2, setDeliveryChecked2] = useState(false);
+  const [deliveryChecked3, setDeliveryChecked3] = useState(false);
+
   const [cart, setCart] = useState(initialCart);
+  const [cartItemStatus, setCartItemStatus] = useState("add");
 
   const [paid, setPaid] = useState(initialClient.paid);
 
@@ -320,17 +351,19 @@ export default connect(mapStateToProps)((props) => {
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
 
-  let initServices = initialServices ? initialServices.map(service=>Object.assign(service, {productType: 'misc'})) : []
+  let initServices = initialServices
+    ? initialServices.map((service) =>
+        Object.assign(service, { productType: "misc" })
+      )
+    : [];
   const [services, setServices] = useState(initServices);
 
   const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
   const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
 
-  console.log("cart::", cart)
-
   const getChairFeatures = (cancelToken) => {
     axios
-      .get('/chairStock/features', { cancelToken })
+      .get("/chairStock/features", { cancelToken })
       .then((response) => {
         // handle success
         setChairFeatures(response.data);
@@ -346,7 +379,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getDeskFeatures = (cancelToken) => {
     axios
-      .get('/deskStock/features', { cancelToken })
+      .get("/deskStock/features", { cancelToken })
       .then((response) => {
         // handle success
         setDeskFeatures(response.data);
@@ -362,7 +395,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getAccessoryFeatures = (cancelToken) => {
     axios
-      .get('/accessoryStock/features', { cancelToken })
+      .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
         setAccessoryFeatures(response.data);
@@ -378,7 +411,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getChairStocks = (cancelToken) => {
     axios
-      .get('/chairStock', { cancelToken })
+      .get("/chairStock", { cancelToken })
       .then((response) => {
         // handle success
         setChairStocks(response.data);
@@ -394,7 +427,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getDeskStocks = (cancelToken) => {
     axios
-      .get('/deskStock', { cancelToken })
+      .get("/deskStock", { cancelToken })
       .then((response) => {
         // handle success
         setDeskStocks(response.data);
@@ -410,11 +443,11 @@ export default connect(mapStateToProps)((props) => {
 
   const getAccessoryStocks = (cancelToken) => {
     axios
-      .get('/accessoryStock', { cancelToken })
+      .get("/accessoryStock", { cancelToken })
       .then((response) => {
         // handle success
         setAccessoryStocks(response.data);
-        setInitAccessoryStocks(response.data)
+        setInitAccessoryStocks(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -433,88 +466,137 @@ export default connect(mapStateToProps)((props) => {
     getChairStocks(source.token);
     getDeskStocks(source.token);
     getAccessoryStocks(source.token);
-    return () => source.cancel('Stock Component got unmounted');
+    return () => source.cancel("Stock Component got unmounted");
   }, []);
 
   const isStepFailed = (step) => {
     if (clientForm.current !== null && currentStep > 0 && step === 0)
       return !clientForm.current.checkValidity();
-    else if ((cart.length === 0 && services.length === 0) && currentStep > 1 && step === 1) return true;
+    else if (
+      cart.length === 0 &&
+      services.length === 0 &&
+      currentStep > 1 &&
+      step === 1
+    )
+      return true;
     else return false;
   };
 
   const handleProductRemark = (e) => {
-    setProductRemark(e.target.value)
-  }
+    setProductRemark(e.target.value);
+  };
 
   const handleAccessoryFilterCategory = (e) => {
     var selected_category = e.target.value;
-    setAccessoryFilterCategory(selected_category)
+    setAccessoryFilterCategory(selected_category);
     if (selected_category === "All") {
-      setAccessoryStocks(initAccessoryStocks)
+      setAccessoryStocks(initAccessoryStocks);
     } else {
-      setAccessoryStocks(initAccessoryStocks.filter((stock)=>stock.category === selected_category));
+      setAccessoryStocks(
+        initAccessoryStocks.filter(
+          (stock) => stock.category === selected_category
+        )
+      );
     }
-  }
+  };
 
   const onAddService = () => {
     const newService = {
       id: uuidv4(),
-      description: '',
+      description: "",
       price: 0,
-      productType: 'misc'
-    }
-    setServices([...services, newService])
-  }
+      productType: "misc",
+    };
+    setServices([...services, newService]);
+  };
 
   const onDeleteService = (serviceId) => {
-    const newServices = services.filter(service=>service.id !== serviceId)
-    setServices(newServices)
-  }
+    const newServices = services.filter((service) => service.id !== serviceId);
+    setServices(newServices);
+  };
 
   const onChangeServiceDes = (e, serviceId) => {
-    const newServices = services.map(service => {
+    const newServices = services.map((service) => {
       if (service.id === serviceId) {
-          return Object.assign({}, service, { description: e.target.value })
+        return Object.assign({}, service, { description: e.target.value });
       }
-      return service
-    })
-    setServices(newServices)
-  }
+      return service;
+    });
+    setServices(newServices);
+  };
 
   const onChangeServicePrice = (e, serviceId) => {
-    const newServices = services.map(service => {
+    const newServices = services.map((service) => {
       if (service.id === serviceId) {
-          return Object.assign({}, service, { price: parseFloat(e.target.value) })
+        return Object.assign({}, service, {
+          price: parseFloat(e.target.value),
+        });
       }
-      return service
-    })
-    setServices(newServices)
-  }
+      return service;
+    });
+    setServices(newServices);
+  };
 
   const onHideChairColumnChanged = (values) => {
-    setSelectedHideChairColumns(values)
-  }
+    setSelectedHideChairColumns(values);
+  };
 
   const onHideDeskColumnChanged = (values) => {
-    setSelectedHideDeskColumns(values)
-  }
+    setSelectedHideDeskColumns(values);
+  };
+
+  const onEditCartProduct = (item) => {
+    setCartItemStatus("edit");
+    setProductType(item.productType);
+    setProductDetail(item.productDetail);
+    setProductRemark(item.remark);
+    setProductPrice(item.productPrice);
+    setProductAmount(item.productAmount);
+    const deliveryOptions = JSON.parse(item.productDeliveryOption);
+
+    if (deliveryOptions.includes("Delivery Included"))
+      setDeliveryChecked0(true);
+    if (deliveryOptions.includes("Delivery and installation included"))
+      setDeliveryChecked1(true);
+    if (deliveryOptions.includes("Remote Area Surcharge"))
+      setDeliveryChecked2(true);
+    if (deliveryOptions.includes("Stairs Surcharge")) setDeliveryChecked3(true);
+
+    if (item.productType === "chair" || item.productType === "accessory") {
+      setAddOpen(true);
+    } else if (item.productType === "desk") {
+      setHasDeskTop(item.hasDeskTop);
+      setTopColor(item.topColor);
+      setTopCornerRadius(item.topCornerRadius);
+      setTopHoleCount(item.topHoleCount);
+      setTopHolePosition(item.topHolePosition);
+      setTopHoleType(item.topHoleType);
+      setTopLength(item.topLength);
+      setTopMaterial(item.topMaterial);
+      setTopRoundedCorners(item.topRoundedCorners);
+      setTopThickness(item.topThickness);
+      setTopWidth(item.topWidth);
+      setSketchUrl(item.topSketchURL);
+
+      setDeskAddOpen(true);
+    }
+  };
 
   return (
     <Box
       sx={{
-        height: '100%',
-        overflow: 'auto',
-        padding: '20px 20px 10px 20px',
+        height: "100%",
+        overflow: "auto",
+        padding: "20px 20px 10px 20px",
       }}
     >
-      <Stepper activeStep={currentStep} sx={{ flexWrap: 'wrap' }}>
+      <Stepper activeStep={currentStep} sx={{ flexWrap: "wrap" }}>
         {steps.map((label, index) => {
           const labelProps = {};
           if (isStepFailed(index)) {
             labelProps.optional = (
               <Typography variant="caption" color="error">
-                {['Invalid Input', 'Products cannot be empty'][index]}
+                {["Invalid Input", "Products cannot be empty"][index]}
               </Typography>
             );
 
@@ -522,14 +604,14 @@ export default connect(mapStateToProps)((props) => {
           }
 
           return (
-            <Step key={label} sx={{ my: '10px' }}>
+            <Step key={label} sx={{ my: "10px" }}>
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
       <Box
-        sx={{ mx: 'auto', mt: '50px' }}
+        sx={{ mx: "auto", mt: "50px" }}
         ref={clientForm}
         hidden={currentStep !== 0}
         component="form"
@@ -542,81 +624,81 @@ export default connect(mapStateToProps)((props) => {
       >
         <Paper
           sx={{
-            p: '10px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
+            p: "10px",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
           }}
         >
-          <Typography variant="h6" sx={{ flexBasis: '100%', minWidth: '100%' }}>
+          <Typography variant="h6" sx={{ flexBasis: "100%", minWidth: "100%" }}>
             Client Info
           </Typography>
           {[
             {
-              name: 'name',
-              label: 'Name',
-              type: 'text',
+              name: "name",
+              label: "Name",
+              type: "text",
               defaultValue: initialClient.name,
-              width: '100%',
+              width: "100%",
               required: true,
             },
             {
-              name: 'phone',
-              label: 'Phone',
-              type: 'text',
+              name: "phone",
+              label: "Phone",
+              type: "text",
               value: initialClient.phone,
               onChange: initialClient.setPhone,
-              width: '48%',
+              width: "48%",
             },
             {
-              name: 'email',
-              label: 'Email',
-              type: 'email',
+              name: "email",
+              label: "Email",
+              type: "email",
               defaultValue: initialClient.email,
-              width: '48%',
+              width: "48%",
             },
             {
-              name: 'district',
-              label: 'District',
-              type: 'text',
+              name: "district",
+              label: "District",
+              type: "text",
               defaultValue: initialClient.district,
-              width: '55%',
+              width: "55%",
             },
             {
-              name: 'street',
-              label: 'Street',
-              type: 'text',
+              name: "street",
+              label: "Street",
+              type: "text",
               defaultValue: initialClient.street,
-              width: '40%',
+              width: "40%",
             },
             {
-              name: 'block',
-              label: 'Block',
-              type: 'text',
+              name: "block",
+              label: "Block",
+              type: "text",
               defaultValue: initialClient.block,
-              width: '30%',
+              width: "30%",
             },
             {
-              name: 'floor',
-              label: 'Floor',
-              type: 'text',
+              name: "floor",
+              label: "Floor",
+              type: "text",
               defaultValue: initialClient.floor,
-              width: '30%',
+              width: "30%",
             },
             {
-              name: 'unit',
-              label: 'Unit',
-              type: 'text',
+              name: "unit",
+              label: "Unit",
+              type: "text",
               defaultValue: initialClient.unit,
-              width: '30%',
+              width: "30%",
             },
           ].map(({ setValue, width, ...restProps }, index) =>
-            restProps.label === 'Phone' ? (
+            restProps.label === "Phone" ? (
               <MuiPhoneNumber
                 key={index}
                 variant="outlined"
-                onlyCountries={['hk']}
-                defaultCountry={'hk'}
+                onlyCountries={["hk"]}
+                defaultCountry={"hk"}
                 sx={{ flexBasis: width, minWidth: width }}
                 margin="dense"
                 size="small"
@@ -631,7 +713,7 @@ export default connect(mapStateToProps)((props) => {
             )
           )}
           <TextField
-            sx={{ flexBasis: ['100%', '30%'], minWidth: ['100%', '30%'] }}
+            sx={{ flexBasis: ["100%", "30%"], minWidth: ["100%", "30%"] }}
             name="timeLine"
             label="TimeLine"
             type="number"
@@ -643,16 +725,16 @@ export default connect(mapStateToProps)((props) => {
             name="timeLineFormat"
             defaultValue="day"
             sx={{
-              flexBasis: ['100%', '70%'],
-              minWidth: ['100%', '70%'],
-              justifyContent: 'flex-end',
+              flexBasis: ["100%", "70%"],
+              minWidth: ["100%", "70%"],
+              justifyContent: "flex-end",
             }}
           >
             <FormControlLabel value="day" control={<Radio />} label="Days" />
             <FormControlLabel value="week" control={<Radio />} label="Weeks" />
           </RadioGroup>
         </Paper>
-        <Button type="submit" sx={{ marginTop: '10px', float: 'right' }}>
+        <Button type="submit" sx={{ marginTop: "10px", float: "right" }}>
           Next
         </Button>
       </Box>
@@ -660,44 +742,55 @@ export default connect(mapStateToProps)((props) => {
         <>
           {cart.length > 0 && (
             <Paper>
-              <ProductList sx={{ px: '10px' }}>
+              <ProductList sx={{ px: "10px" }}>
                 {cart.map((item, index) => (
                   <ProductListItem
                     key={index}
                     secondaryAction={
-                      <IconButton
-                        onClick={(event) => {
-                          event.preventDefault();
-                          setCart(
-                            cart.filter(
-                              (product, productIndex) => productIndex !== index
-                            )
-                          );
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                      <Fragment>
+                        <IconButton
+                          onClick={(event) => {
+                            event.preventDefault();
+                            onEditCartProduct(item);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setCart(
+                              cart.filter(
+                                (product, productIndex) =>
+                                  productIndex !== index
+                              )
+                            );
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Fragment>
                     }
                   >
-                    {item.productType === 'chair' && (
+                    {item.productType === "chair" && (
                       <ProductListItemText
                         primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.remark}`}
                         secondary={`${
-                          item.productDetail.withHeadrest ? 'Headrest, ' : ''
-                        }${item.productDetail.withAdArmrest ? 'Armrest' : ''}`}
+                          item.productDetail.withHeadrest ? "Headrest, " : ""
+                        }${item.productDetail.withAdArmrest ? "Armrest" : ""}`}
                       />
                     )}
-                    {item.productType === 'desk' && (
+                    {item.productType === "desk" && (
                       <ProductListItemText
                         primary={`Desk: ${item.productDetail.supplierCode}, ${item.productDetail.model}, ${item.productDetail.color}, ${item.productDetail.armSize}, ${item.productDetail.feetSize}, ${item.productDetail.beamSize}`}
                         secondary={
                           item.hasDeskTop
                             ? `${item.topMaterial}, ${item.topColor}, ${item.topLength}x${item.topWidth}x${item.topThickness}, ${item.topRoundedCorners}-R${item.topCornerRadius}, ${item.topHoleCount}-${item.topHoleType}`
-                            : 'Without DeskTop'
+                            : "Without DeskTop"
                         }
                       />
                     )}
-                    {item.productType === 'accessory' && (
+                    {item.productType === "accessory" && (
                       <ProductListItemText
                         primary={`Accessory: ${item.productDetail.category}`}
                         secondary={`${item.remark}`}
@@ -713,8 +806,8 @@ export default connect(mapStateToProps)((props) => {
               </ProductList>
             </Paper>
           )}
-          <Paper sx={{ my: '10px' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Paper sx={{ my: "10px" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={stocksIndex}
                 onChange={(event, value) => {
@@ -732,16 +825,16 @@ export default connect(mapStateToProps)((props) => {
             <TabPanel value={stocksIndex} index={0}>
               <Paper
                 sx={{
-                  marginTop: '10px',
-                  padding: '5px 10px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-around',
+                  marginTop: "10px",
+                  padding: "5px 10px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-around",
                 }}
               >
                 {[
                   {
-                    label: 'Brand',
+                    label: "Brand",
                     value: chairFilterBrand,
                     onChange: (event, value) => {
                       event.preventDefault();
@@ -753,7 +846,7 @@ export default connect(mapStateToProps)((props) => {
                       .filter((c, index, chars) => chars.indexOf(c) === index),
                   },
                   {
-                    label: 'Model',
+                    label: "Model",
                     value: chairFilterModel,
                     onChange: (event, value) => {
                       event.preventDefault();
@@ -770,7 +863,7 @@ export default connect(mapStateToProps)((props) => {
                 ].map(({ label, ...props }, index) => (
                   <Autocomplete
                     key={index}
-                    sx={{ flexBasis: '200px', maxWidth: '200px' }}
+                    sx={{ flexBasis: "200px", maxWidth: "200px" }}
                     renderInput={(params) => (
                       <TextField {...params} label={label} />
                     )}
@@ -778,10 +871,10 @@ export default connect(mapStateToProps)((props) => {
                   />
                 ))}
               </Paper>
-              <CheckableMultiSelect 
+              <CheckableMultiSelect
                 options={hideChairColumns}
                 onChange={onHideChairColumnChanged}
-                selected={selectedHideChairColumns} 
+                selected={selectedHideChairColumns}
               />
               <DataGrid
                 nonSelect={true}
@@ -816,12 +909,12 @@ export default connect(mapStateToProps)((props) => {
                             alt=""
                             width="80px"
                             src={thumbnailURL}
-                            style={{ marginTop: '5px' }}
+                            style={{ marginTop: "5px" }}
                           />
                         </a>
                       ),
-                      withHeadrest: withHeadrest ? 'Yes' : 'No',
-                      withAdArmrest: withAdArmrest ? 'Yes' : 'No',
+                      withHeadrest: withHeadrest ? "Yes" : "No",
+                      withAdArmrest: withAdArmrest ? "Yes" : "No",
                       add: (
                         <IconButton
                           onClick={(event) => {
@@ -829,26 +922,41 @@ export default connect(mapStateToProps)((props) => {
                             if (
                               cart.find(
                                 (item) =>
-                                  item.productType === 'chair' &&
+                                  item.productType === "chair" &&
                                   item.productDetail.id ===
                                     chairStocks[index].id
                               )
                             ) {
                               Swal.fire({
-                                icon: 'warning',
-                                title: 'Warning',
-                                text: 'This product is already added.',
+                                icon: "warning",
+                                title: "Warning",
+                                text: "This product is already added.",
                                 allowOutsideClick: false,
                               });
                               return;
                             }
-                            setProductType('chair');
+                            setProductType("chair");
                             setProductDetail(chairStocks[index]);
-                            let frameColor = chairStocks[index].frameColor == "" ? "___" : chairStocks[index].frameColor;
-                            let seatColor = chairStocks[index].seatColor == "" ? "___" : chairStocks[index].seatColor;
-                            let backColor = chairStocks[index].backColor == "" ? "___" : chairStocks[index].backColor;
-                            let remark = "FrameColor:" + frameColor + ", SeatColor:" + seatColor + ", BackColor:" + backColor;
-                            setProductRemark(remark)
+                            let frameColor =
+                              chairStocks[index].frameColor == ""
+                                ? "___"
+                                : chairStocks[index].frameColor;
+                            let seatColor =
+                              chairStocks[index].seatColor == ""
+                                ? "___"
+                                : chairStocks[index].seatColor;
+                            let backColor =
+                              chairStocks[index].backColor == ""
+                                ? "___"
+                                : chairStocks[index].backColor;
+                            let remark =
+                              "FrameColor:" +
+                              frameColor +
+                              ", SeatColor:" +
+                              seatColor +
+                              ", BackColor:" +
+                              backColor;
+                            setProductRemark(remark);
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
@@ -858,22 +966,22 @@ export default connect(mapStateToProps)((props) => {
                         </IconButton>
                       ),
                       shipmentDate: (() => {
-                        if (shipmentDate === null) return 'No';
+                        if (shipmentDate === null) return "No";
                         const createdTime = new Date(shipmentDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
                             createdTime.getTimezoneOffset()
                         );
-                        return createdTime.toISOString().split('T')[0];
+                        return createdTime.toISOString().split("T")[0];
                       })(),
                       arrivalDate: (() => {
-                        if (arrivalDate === null) return 'No';
+                        if (arrivalDate === null) return "No";
                         const createdTime = new Date(arrivalDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
                             createdTime.getTimezoneOffset()
                         );
-                        return createdTime.toISOString().split('T')[0];
+                        return createdTime.toISOString().split("T")[0];
                       })(),
                       ...restProps,
                     })
@@ -883,30 +991,35 @@ export default connect(mapStateToProps)((props) => {
                       (!chairFilterBrand || item.brand === chairFilterBrand) &&
                       (!chairFilterModel || item.model === chairFilterModel)
                   )}
-                  columns={
-                    chairColumns.map((column, i) => {
-                      if (i > 6) {
-                        if (selectedHideChairColumns.find(hideColumn=>hideColumn === column.label)) 
-                          return column
-                      } else {
-                        return column
-                      }
-                    }).filter(column=>column !== undefined)
-                  }
+                columns={chairColumns
+                  .map((column, i) => {
+                    if (i > 6) {
+                      if (
+                        selectedHideChairColumns.find(
+                          (hideColumn) => hideColumn === column.label
+                        )
+                      )
+                        return column;
+                    } else {
+                      return column;
+                    }
+                  })
+                  .filter((column) => column !== undefined)}
               />
             </TabPanel>
             <TabPanel value={stocksIndex} index={1}>
               <Paper
                 sx={{
-                  marginTop: '10px',
-                  padding: '5px 10px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-around',
+                  marginTop: "10px",
+                  padding: "5px 10px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-around",
                 }}
               >
-                {[{
-                    label: 'Supplier',
+                {[
+                  {
+                    label: "Supplier",
                     value: deskFilterSupplier,
                     onChange: (event, value) => {
                       event.preventDefault();
@@ -919,7 +1032,7 @@ export default connect(mapStateToProps)((props) => {
                       .filter((c, index, chars) => chars.indexOf(c) === index),
                   },
                   {
-                    label: 'Model',
+                    label: "Model",
                     value: deskFilterModel,
                     onChange: (event, value) => {
                       event.preventDefault();
@@ -929,13 +1042,14 @@ export default connect(mapStateToProps)((props) => {
                     options: deskFeatures
                       .filter(
                         (item) =>
-                          !deskFilterSupplier || item.supplierCode === deskFilterSupplier
+                          !deskFilterSupplier ||
+                          item.supplierCode === deskFilterSupplier
                       )
                       .map((item) => item.model)
                       .filter((c, index, chars) => chars.indexOf(c) === index),
                   },
                   {
-                    label: 'Color',
+                    label: "Color",
                     value: deskFilterColor,
                     onChange: (event, value) => {
                       event.preventDefault();
@@ -952,7 +1066,7 @@ export default connect(mapStateToProps)((props) => {
                 ].map(({ label, ...props }, index) => (
                   <Autocomplete
                     key={index}
-                    sx={{ flexBasis: '200px', maxWidth: '200px' }}
+                    sx={{ flexBasis: "200px", maxWidth: "200px" }}
                     renderInput={(params) => (
                       <TextField {...params} label={label} />
                     )}
@@ -960,10 +1074,10 @@ export default connect(mapStateToProps)((props) => {
                   />
                 ))}
               </Paper>
-              <CheckableMultiSelect 
+              <CheckableMultiSelect
                 options={hideDeskColumns}
                 onChange={onHideDeskColumnChanged}
-                selected={selectedHideDeskColumns} 
+                selected={selectedHideDeskColumns}
               />
               <DataGrid
                 nonSelect={true}
@@ -991,15 +1105,14 @@ export default connect(mapStateToProps)((props) => {
                             alt=""
                             width="80px"
                             src={thumbnailURL}
-                            style={{ marginTop: '5px' }}
+                            style={{ marginTop: "5px" }}
                           />
                         </a>
                       ),
                       add: (
                         <IconButton
                           onClick={(event) => {
-
-                            setProductType('desk');
+                            setProductType("desk");
                             setProductDetail(deskStocks[index]);
                             setProductPrice(deskStocks[index].unitPrice);
                             setProductAmount(1);
@@ -1011,57 +1124,62 @@ export default connect(mapStateToProps)((props) => {
                         </IconButton>
                       ),
                       shipmentDate: (() => {
-                        if (shipmentDate === null) return 'No';
+                        if (shipmentDate === null) return "No";
                         const createdTime = new Date(shipmentDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
                             createdTime.getTimezoneOffset()
                         );
-                        return createdTime.toISOString().split('T')[0];
+                        return createdTime.toISOString().split("T")[0];
                       })(),
                       arrivalDate: (() => {
-                        if (arrivalDate === null) return 'No';
+                        if (arrivalDate === null) return "No";
                         const createdTime = new Date(arrivalDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
                             createdTime.getTimezoneOffset()
                         );
-                        return createdTime.toISOString().split('T')[0];
+                        return createdTime.toISOString().split("T")[0];
                       })(),
                       ...restProps,
                     })
                   )
                   .filter(
                     (item) =>
-                      (!deskFilterSupplier || item.supplierCode === deskFilterSupplier) &&
+                      (!deskFilterSupplier ||
+                        item.supplierCode === deskFilterSupplier) &&
                       (!deskFilterModel || item.model === deskFilterModel) &&
                       (!deskFilterColor || item.color === deskFilterColor)
                   )}
-                  columns={
-                    deskColumns.map((column, i) => {
-                      if (i > 6) {
-                        if (selectedHideDeskColumns.find(hideColumn=>hideColumn === column.label)) 
-                          return column
-                      } else {
-                        return column
-                      }
-                    }).filter(column=>column !== undefined)
-                  }
+                columns={deskColumns
+                  .map((column, i) => {
+                    if (i > 6) {
+                      if (
+                        selectedHideDeskColumns.find(
+                          (hideColumn) => hideColumn === column.label
+                        )
+                      )
+                        return column;
+                    } else {
+                      return column;
+                    }
+                  })
+                  .filter((column) => column !== undefined)}
               />
             </TabPanel>
             <TabPanel value={stocksIndex} index={2}>
               <Paper
                 sx={{
-                  marginTop: '10px',
-                  padding: '5px 10px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  justifyContent: 'space-around',
+                  marginTop: "10px",
+                  padding: "5px 10px",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-around",
                 }}
               >
                 <FormControl
                   size="small"
-                  sx={{ flexBasis: '200px', maxWidth: '200px' }}
+                  sx={{ flexBasis: "200px", maxWidth: "200px" }}
                 >
                   <InputLabel id="category_filter">Category</InputLabel>
                   <Select
@@ -1071,8 +1189,12 @@ export default connect(mapStateToProps)((props) => {
                     onChange={handleAccessoryFilterCategory}
                   >
                     <MenuItem value="All">All</MenuItem>
-                    <MenuItem value="Desk Accessories">Desk Accessories</MenuItem>
-                    <MenuItem value="Chair Accessories">Chair Accessories</MenuItem>
+                    <MenuItem value="Desk Accessories">
+                      Desk Accessories
+                    </MenuItem>
+                    <MenuItem value="Chair Accessories">
+                      Chair Accessories
+                    </MenuItem>
                     <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
                     <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
                     <MenuItem value="Cabinet">Cabinet</MenuItem>
@@ -1082,126 +1204,129 @@ export default connect(mapStateToProps)((props) => {
               <DataGrid
                 nonSelect={true}
                 title="Accessory Stocks"
-                rows={accessoryStocks
-                  .map(
-                    (
-                      { thumbnailURL, shipmentDate, arrivalDate, ...restProps },
-                      index
-                    ) => ({
-                      thumbnail: (
-                        <a
-                          href="/"
-                          onClick={(e) => {
-                            e.preventDefault();
+                rows={accessoryStocks.map(
+                  (
+                    { thumbnailURL, shipmentDate, arrivalDate, ...restProps },
+                    index
+                  ) => ({
+                    thumbnail: (
+                      <a
+                        href="/"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          Swal.fire({
+                            html: `<img alt="" width="400px" src="${thumbnailURL}" />`,
+                            showCloseButton: true,
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                          });
+                        }}
+                      >
+                        <img
+                          alt=""
+                          width="80px"
+                          src={thumbnailURL}
+                          style={{ marginTop: "5px" }}
+                        />
+                      </a>
+                    ),
+                    add: (
+                      <IconButton
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setProductType("accessory");
+                          setProductDetail(accessoryStocks[index]);
+                          setProductRemark(accessoryStocks[index].remark);
+                          setProductPrice(accessoryStocks[index].unitPrice);
+                          setProductAmount(1);
+                          if (
+                            cart.find(
+                              (item) =>
+                                item.productType === "accessory" &&
+                                item.productDetail.id ===
+                                  accessoryStocks[index].id
+                            )
+                          ) {
                             Swal.fire({
-                              html: `<img alt="" width="400px" src="${thumbnailURL}" />`,
-                              showCloseButton: true,
-                              showConfirmButton: false,
+                              icon: "warning",
+                              title: "Warning",
+                              text: "This product is already added.",
                               allowOutsideClick: false,
                             });
-                          }}
-                        >
-                          <img
-                            alt=""
-                            width="80px"
-                            src={thumbnailURL}
-                            style={{ marginTop: '5px' }}
-                          />
-                        </a>
-                      ),
-                      add: (
-                        <IconButton
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setProductType('accessory');
-                            setProductDetail(accessoryStocks[index]);
-                            setProductRemark(accessoryStocks[index].remark)
-                            setProductPrice(accessoryStocks[index].unitPrice);
-                            setProductAmount(1);
-                            if (
-                              cart.find(
-                                (item) =>
-                                  item.productType === 'accessory' &&
-                                  item.productDetail.id ===
-                                    accessoryStocks[index].id
-                              )
-                            ) {
-                              Swal.fire({
-                                icon: 'warning',
-                                title: 'Warning',
-                                text: 'This product is already added.',
-                                allowOutsideClick: false,
-                              });
-                              return;
-                            }
-                            setAddOpen(true);
-                          }}
-                        >
-                          <AddIcon />
-                        </IconButton>
-                      ),
-                      shipmentDate: (() => {
-                        if (shipmentDate === null) return 'No';
-                        const createdTime = new Date(shipmentDate);
-                        createdTime.setMinutes(
-                          createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
-                        );
-                        return createdTime.toISOString().split('T')[0];
-                      })(),
-                      arrivalDate: (() => {
-                        if (arrivalDate === null) return 'No';
-                        const createdTime = new Date(arrivalDate);
-                        createdTime.setMinutes(
-                          createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
-                        );
-                        return createdTime.toISOString().split('T')[0];
-                      })(),
-                      ...restProps,
-                    })
-                  )}
+                            return;
+                          }
+                          setAddOpen(true);
+                        }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    ),
+                    shipmentDate: (() => {
+                      if (shipmentDate === null) return "No";
+                      const createdTime = new Date(shipmentDate);
+                      createdTime.setMinutes(
+                        createdTime.getMinutes() -
+                          createdTime.getTimezoneOffset()
+                      );
+                      return createdTime.toISOString().split("T")[0];
+                    })(),
+                    arrivalDate: (() => {
+                      if (arrivalDate === null) return "No";
+                      const createdTime = new Date(arrivalDate);
+                      createdTime.setMinutes(
+                        createdTime.getMinutes() -
+                          createdTime.getTimezoneOffset()
+                      );
+                      return createdTime.toISOString().split("T")[0];
+                    })(),
+                    ...restProps,
+                  })
+                )}
                 columns={accessoryColumns}
               />
             </TabPanel>
             <TabPanel value={stocksIndex} index={3}>
               <Box sx={{ m: 3 }}>
-                <Button 
-                  variant="contained" 
+                <Button
+                  variant="contained"
                   sx={{ mb: 2 }}
                   onClick={onAddService}
                 >
                   + New Service
                 </Button>
                 <Grid container spacing={2}>
-                  { 
-                    services.map((service) =>  
-                      <Grid item xs={4} key={service.id}>
-                        <Card sx={{ px: 2, pb: 2 }}>
-                          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <IconButton aria-label="settings" size="small" onClick={()=>onDeleteService(service.id)}>
-                              <CloseIcon fontSize="small"/>
-                            </IconButton>
-                          </Box>
-                          <TextField
-                            label="Description"
-                            multiline
-                            rows={5}
-                            sx={{ flexBasis: '100%', minWidth: '100%' }}
-                            value={service.description}
-                            onChange={(e) => onChangeServiceDes(e, service.id)}
-                          />
-                          <TextField
-                            type="number"
-                            sx={{ flexBasis: '100%', minWidth: '100%' }}
-                            label="Price"
-                            value={service.price}
-                            onChange={(e) => onChangeServicePrice(e, service.id)}
-                          />
-                        </Card>  
-                      </Grid>
-                    )
-                  }
+                  {services.map((service) => (
+                    <Grid item xs={4} key={service.id}>
+                      <Card sx={{ px: 2, pb: 2 }}>
+                        <Box
+                          sx={{ display: "flex", justifyContent: "flex-end" }}
+                        >
+                          <IconButton
+                            aria-label="settings"
+                            size="small"
+                            onClick={() => onDeleteService(service.id)}
+                          >
+                            <CloseIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                        <TextField
+                          label="Description"
+                          multiline
+                          rows={5}
+                          sx={{ flexBasis: "100%", minWidth: "100%" }}
+                          value={service.description}
+                          onChange={(e) => onChangeServiceDes(e, service.id)}
+                        />
+                        <TextField
+                          type="number"
+                          sx={{ flexBasis: "100%", minWidth: "100%" }}
+                          label="Price"
+                          value={service.price}
+                          onChange={(e) => onChangeServicePrice(e, service.id)}
+                        />
+                      </Card>
+                    </Grid>
+                  ))}
                 </Grid>
               </Box>
             </TabPanel>
@@ -1215,14 +1340,14 @@ export default connect(mapStateToProps)((props) => {
             Previous
           </Button>
           <Button
-            sx={{ float: 'right' }}
+            sx={{ float: "right" }}
             onClick={(e) => {
               e.preventDefault();
               if (cart.length === 0 && services.length === 0) {
                 Swal.fire({
-                  icon: 'warning',
-                  title: 'Warning',
-                  text: 'Products and services list cannot be empty',
+                  icon: "warning",
+                  title: "Warning",
+                  text: "Products and services list cannot be empty",
                   allowOutsideClick: false,
                 });
                 return;
@@ -1235,7 +1360,7 @@ export default connect(mapStateToProps)((props) => {
         </>
       )}
       <Box
-        sx={{ mx: 'auto', mt: '50px' }}
+        sx={{ mx: "auto", mt: "50px" }}
         hidden={currentStep !== 2}
         component="form"
         maxWidth="sm"
@@ -1244,52 +1369,54 @@ export default connect(mapStateToProps)((props) => {
           e.preventDefault();
           const clientData = new FormData(clientForm.current);
           const paymentData = new FormData(e.currentTarget);
-          if (componentType === 'create')
+          if (componentType === "create")
             axios
               .post(`/salesOrder/create`, {
-                name: clientData.get('name'),
-                phone: clientData.get('phone'),
-                email: clientData.get('email'),
-                district: clientData.get('district'),
-                street: clientData.get('street'),
-                block: clientData.get('block'),
-                floor: clientData.get('floor'),
-                unit: clientData.get('unit'),
+                name: clientData.get("name"),
+                phone: clientData.get("phone"),
+                email: clientData.get("email"),
+                district: clientData.get("district"),
+                street: clientData.get("street"),
+                block: clientData.get("block"),
+                floor: clientData.get("floor"),
+                unit: clientData.get("unit"),
                 timeLine:
-                  Math.max(clientData.get('timeLine'), 0) *
-                  (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
+                  Math.max(clientData.get("timeLine"), 0) *
+                  (clientData.get("timeLineFormat") === "day" ? 1 : 7),
                 remark: "",
-                products: cart.map(({ productDetail, ...restProps }) => ({
-                  productId: productDetail.id,
-                  ...restProps,
-                })).concat(services),
-                paymentTerms: paymentData.get('paymentTerms'),
-                paid: Boolean(paymentData.get('paid')),
-                dueDate: paymentData.get('dueDate') || null,
+                products: cart
+                  .map(({ productDetail, ...restProps }) => ({
+                    productId: productDetail.id,
+                    ...restProps,
+                  }))
+                  .concat(services),
+                paymentTerms: paymentData.get("paymentTerms"),
+                paid: Boolean(paymentData.get("paid")),
+                dueDate: paymentData.get("dueDate") || null,
                 discount: Math.max(
-                  paymentData.get('discountType') > 0
-                    ? paymentData.get('discount')
-                    : Math.min(paymentData.get('discount'), 100),
+                  paymentData.get("discountType") > 0
+                    ? paymentData.get("discount")
+                    : Math.min(paymentData.get("discount"), 100),
                   0
                 ),
-                discountType: paymentData.get('discountType'),
+                discountType: paymentData.get("discountType"),
                 surcharge: Math.max(
-                  paymentData.get('surchargeType') > 0
-                    ? paymentData.get('surcharge')
-                    : Math.min(paymentData.get('surcharge'), 100),
+                  paymentData.get("surchargeType") > 0
+                    ? paymentData.get("surcharge")
+                    : Math.min(paymentData.get("surcharge"), 100),
                   0
                 ),
-                surchargeType: paymentData.get('surchargeType'),
+                surchargeType: paymentData.get("surchargeType"),
               })
               .then(() => {
                 // handle success
-                props.history.push('/admin/order');
+                props.history.push("/admin/order");
               })
               .catch(function (error) {
                 // handle error
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
+                  icon: "error",
+                  title: "Error",
                   text: error.response.data.message,
                   allowOutsideClick: false,
                 }).then(() => {});
@@ -1301,49 +1428,51 @@ export default connect(mapStateToProps)((props) => {
           else {
             axios
               .put(`/salesOrder/${initialClient.id}`, {
-                name: clientData.get('name'),
-                phone: clientData.get('phone'),
-                email: clientData.get('email'),
-                district: clientData.get('district'),
-                street: clientData.get('street'),
-                block: clientData.get('block'),
-                floor: clientData.get('floor'),
-                unit: clientData.get('unit'),
+                name: clientData.get("name"),
+                phone: clientData.get("phone"),
+                email: clientData.get("email"),
+                district: clientData.get("district"),
+                street: clientData.get("street"),
+                block: clientData.get("block"),
+                floor: clientData.get("floor"),
+                unit: clientData.get("unit"),
                 timeLine:
-                  clientData.get('timeLine') *
-                  (clientData.get('timeLineFormat') === 'day' ? 1 : 7),
+                  clientData.get("timeLine") *
+                  (clientData.get("timeLineFormat") === "day" ? 1 : 7),
                 remark: "",
-                products: cart.map(({ productDetail, ...restProps }) => ({
-                  productId: productDetail.id,
-                  ...restProps,
-                })).concat(services),
-                paymentTerms: paymentData.get('paymentTerms'),
-                paid: Boolean(paymentData.get('paid')),
-                dueDate: paymentData.get('dueDate') || null,
+                products: cart
+                  .map(({ productDetail, ...restProps }) => ({
+                    productId: productDetail.id,
+                    ...restProps,
+                  }))
+                  .concat(services),
+                paymentTerms: paymentData.get("paymentTerms"),
+                paid: Boolean(paymentData.get("paid")),
+                dueDate: paymentData.get("dueDate") || null,
                 discount: Math.max(
-                  paymentData.get('discountType') > 0
-                    ? paymentData.get('discount')
-                    : Math.min(paymentData.get('discount'), 100),
+                  paymentData.get("discountType") > 0
+                    ? paymentData.get("discount")
+                    : Math.min(paymentData.get("discount"), 100),
                   0
                 ),
-                discountType: paymentData.get('discountType'),
+                discountType: paymentData.get("discountType"),
                 surcharge: Math.max(
-                  paymentData.get('surchargeType') > 0
-                    ? paymentData.get('surcharge')
-                    : Math.min(paymentData.get('surcharge'), 100),
+                  paymentData.get("surchargeType") > 0
+                    ? paymentData.get("surcharge")
+                    : Math.min(paymentData.get("surcharge"), 100),
                   0
                 ),
-                surchargeType: paymentData.get('surchargeType'),
+                surchargeType: paymentData.get("surchargeType"),
               })
               .then(() => {
                 // handle success
-                props.history.push('/admin/order');
+                props.history.push("/admin/order");
               })
               .catch(function (error) {
                 // handle error
                 Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
+                  icon: "error",
+                  title: "Error",
                   text: error.response.data.message,
                   allowOutsideClick: false,
                 }).then(() => {});
@@ -1357,32 +1486,33 @@ export default connect(mapStateToProps)((props) => {
       >
         <Paper
           sx={{
-            p: '10px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
+            p: "10px",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
           }}
         >
-          <Typography variant="h6" sx={{ flexBasis: '100%', minWidth: '100%' }}>
+          <Typography variant="h6" sx={{ flexBasis: "100%", minWidth: "100%" }}>
             Payment Details
           </Typography>
-          <Typography variant="h7" sx={{ flexBasis: '100%', minWidth: '100%' }}>
-            Sub Total: {
-              cart.reduce((p, c)=>p+c.productAmount*parseFloat(c.productPrice), 0) +
-              services.reduce((p, c)=>p+c.price, 0)
-            }
+          <Typography variant="h7" sx={{ flexBasis: "100%", minWidth: "100%" }}>
+            Sub Total:{" "}
+            {cart.reduce(
+              (p, c) => p + c.productAmount * parseFloat(c.productPrice),
+              0
+            ) + services.reduce((p, c) => p + c.price, 0)}
           </Typography>
           <TextField
             name="paymentTerms"
             size="small"
-            sx={{ flexBasis: '100%', minWidth: '100%' }}
+            sx={{ flexBasis: "100%", minWidth: "100%" }}
             defaultValue={initialClient.paymentTerms}
             label="Payment Terms"
           />
           <FormControlLabel
             sx={{
-              flexBasis: '30%',
-              minWidth: '30%',
+              flexBasis: "30%",
+              minWidth: "30%",
               marginRight: 0,
             }}
             control={
@@ -1402,17 +1532,17 @@ export default connect(mapStateToProps)((props) => {
             name="dueDate"
             label="Due Date"
             sx={{
-              flexBasis: '70%',
-              minWidth: '70%',
+              flexBasis: "70%",
+              minWidth: "70%",
             }}
             defaultValue={initialClient.dueDate}
             InputLabelProps={{ shrink: true }}
           />
           <TextField
             sx={{
-              flexBasis: ['58%', '68%'],
-              minWidth: ['58%', '68%'],
-              alignItems: 'baseline',
+              flexBasis: ["58%", "68%"],
+              minWidth: ["58%", "68%"],
+              alignItems: "baseline",
               m: 0,
             }}
             label="Discount"
@@ -1426,9 +1556,9 @@ export default connect(mapStateToProps)((props) => {
           />
           <Select
             sx={{
-              flexBasis: ['40%', '30%'],
-              minWidth: ['40%', '30%'],
-              alignItems: 'baseline',
+              flexBasis: ["40%", "30%"],
+              minWidth: ["40%", "30%"],
+              alignItems: "baseline",
               m: 0,
             }}
             name="discountType"
@@ -1439,10 +1569,10 @@ export default connect(mapStateToProps)((props) => {
           </Select>
           <TextField
             sx={{
-              flexBasis: ['58%', '68%'],
-              minWidth: ['58%', '68%'],
-              alignItems: 'baseline',
-              mt: '10px',
+              flexBasis: ["58%", "68%"],
+              minWidth: ["58%", "68%"],
+              alignItems: "baseline",
+              mt: "10px",
               mb: 0,
             }}
             label="Surcharge"
@@ -1456,10 +1586,10 @@ export default connect(mapStateToProps)((props) => {
           />
           <Select
             sx={{
-              flexBasis: ['40%', '30%'],
-              minWidth: ['40%', '30%'],
-              alignItems: 'baseline',
-              mt: '10px',
+              flexBasis: ["40%", "30%"],
+              minWidth: ["40%", "30%"],
+              alignItems: "baseline",
+              mt: "10px",
               mb: 0,
             }}
             name="surchargeType"
@@ -1470,7 +1600,7 @@ export default connect(mapStateToProps)((props) => {
           </Select>
         </Paper>
         <Button
-          sx={{ marginTop: '10px' }}
+          sx={{ marginTop: "10px" }}
           onClick={(e) => {
             e.preventDefault();
             setCurrentStep(1);
@@ -1478,7 +1608,7 @@ export default connect(mapStateToProps)((props) => {
         >
           Previous
         </Button>
-        <Button sx={{ float: 'right', marginTop: '10px' }} type="submit">
+        <Button sx={{ float: "right", marginTop: "10px" }} type="submit">
           Finish
         </Button>
       </Box>
@@ -1486,52 +1616,86 @@ export default connect(mapStateToProps)((props) => {
         open={addOpen}
         maxWidth="sm"
         fullWidth
-        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
+        fullScreen={useMediaQuery(theme.breakpoints.down("sm"))}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: (e) => {
             e.preventDefault();
             const data = new FormData(e.currentTarget);
+
+            setDeliveryChecked0(false);
+            setDeliveryChecked1(false);
+            setDeliveryChecked2(false);
+            setDeliveryChecked3(false);
+
             setAddOpen(false);
-            if (
-              cart.find(
-                (item) =>
+            if (cartItemStatus === "add") {
+              if (
+                cart.find(
+                  (item) =>
+                    item.productType === productType &&
+                    item.productDetail.id === productDetail.id
+                )
+              ) {
+                Swal.fire({
+                  icon: "warning",
+                  title: "Warning",
+                  text: "This product is already added.",
+                  allowOutsideClick: false,
+                });
+                return;
+              }
+              setCart(
+                cart.concat({
+                  productType,
+                  productDetail,
+                  productAmount,
+                  productDeliveryOption: JSON.stringify(
+                    [
+                      "Delivery Included",
+                      "Delivery and installation included",
+                      "Remote Area Surcharge",
+                      "Stairs Surcharge",
+                    ].filter((item, index) =>
+                      Boolean(data.get(`deliveryOption_${index}`))
+                    )
+                  ),
+                  productPrice: e.currentTarget.unitPrice.value,
+                  remark: productRemark,
+                })
+              );
+            } else if (cartItemStatus === "edit") {
+              const newCart = cart.map((item) => {
+                if (
                   item.productType === productType &&
                   item.productDetail.id === productDetail.id
-              )
-            ) {
-              Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'This product is already added.',
-                allowOutsideClick: false,
+                )
+                  return {
+                    productType,
+                    productDetail,
+                    productAmount,
+                    productDeliveryOption: JSON.stringify(
+                      [
+                        "Delivery Included",
+                        "Delivery and installation included",
+                        "Remote Area Surcharge",
+                        "Stairs Surcharge",
+                      ].filter((item, index) =>
+                        Boolean(data.get(`deliveryOption_${index}`))
+                      )
+                    ),
+                    productPrice: e.currentTarget.unitPrice.value,
+                    remark: productRemark,
+                  };
+                else return item;
               });
-              return;
+              setCart(newCart);
             }
-            setCart(
-              cart.concat({
-                productType,
-                productDetail,
-                productAmount,
-                productDeliveryOption: JSON.stringify(
-                  [
-                    'Delivery Included',
-                    'Delivery and installation included',
-                    'Remote Area Surcharge',
-                    'Stairs Surcharge',
-                  ].filter((item, index) =>
-                    Boolean(data.get(`deliveryOption_${index}`))
-                  )
-                ),
-                productPrice: e.currentTarget.unitPrice.value,
-                remark: productRemark
-              })
-            );
           },
         }}
       >
         <DialogTitle>Price and Amount</DialogTitle>
-        <DialogContent sx={{ textAlign: 'center' }}>
+        <DialogContent sx={{ textAlign: "center" }}>
           <TextField
             label="Unit Price"
             type="number"
@@ -1545,19 +1709,19 @@ export default connect(mapStateToProps)((props) => {
           />
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '200px',
-              border: '1px solid #0000003b',
-              borderRadius: '4px',
-              my: '10px',
-              mx: 'auto',
-              p: '5px 3px',
+              display: "flex",
+              alignItems: "center",
+              width: "200px",
+              border: "1px solid #0000003b",
+              borderRadius: "4px",
+              my: "10px",
+              mx: "auto",
+              p: "5px 3px",
             }}
           >
-            <Typography variant="span"  sx={{ flexGrow: 1 }}>
+            <Typography variant="span" sx={{ flexGrow: 1 }}>
               Amount
-            </Typography> 
+            </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
@@ -1566,7 +1730,7 @@ export default connect(mapStateToProps)((props) => {
             >
               <RemoveIcon />
             </IconButton>
-            <Typography variant="span"  sx={{ ml:"10px" }}>
+            <Typography variant="span" sx={{ ml: "10px" }}>
               {productAmount}
             </Typography>
             <IconButton
@@ -1580,47 +1744,63 @@ export default connect(mapStateToProps)((props) => {
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              my: '10px',
-              mx: 'auto',
-              p: '5px 3px',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              my: "10px",
+              mx: "auto",
+              p: "5px 3px",
             }}
           >
             <TextField
               label="Remark"
               name="remark"
-              value={ productRemark }
-              sx={{ width: 400, mx:"5px" }}
-              onChange={ handleProductRemark }
+              value={productRemark}
+              sx={{ width: 400, mx: "5px" }}
+              onChange={handleProductRemark}
             />
           </Box>
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_0" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_0"
+                checked={deliveryChecked0}
+                onChange={(e) => setDeliveryChecked0(e.target.checked)}
+              />
             }
             label="Delivery Included"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_1" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_1"
+                checked={deliveryChecked1}
+                onChange={(e) => setDeliveryChecked1(e.target.checked)}
+              />
             }
             label="Delivery and installation included"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_2" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_2"
+                checked={deliveryChecked2}
+                onChange={(e) => setDeliveryChecked2(e.target.checked)}
+              />
             }
             label="Remote Area Surcharge"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_3" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_3"
+                checked={deliveryChecked3}
+                onChange={(e) => setDeliveryChecked3(e.target.checked)}
+              />
             }
             label="Stairs Surcharge"
           />
@@ -1628,6 +1808,10 @@ export default connect(mapStateToProps)((props) => {
         <DialogActions>
           <Button
             onClick={(e) => {
+              setDeliveryChecked0(false);
+              setDeliveryChecked1(false);
+              setDeliveryChecked2(false);
+              setDeliveryChecked3(false);
               setAddOpen(false);
             }}
           >
@@ -1640,96 +1824,170 @@ export default connect(mapStateToProps)((props) => {
         open={deskAddOpen}
         maxWidth="sm"
         fullWidth
-        fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
+        fullScreen={useMediaQuery(theme.breakpoints.down("sm"))}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: async (e) => {
             e.preventDefault();
 
-            if (
-              !hasDeskTop &&
-              cart.find(
-                (item) =>
-                  item.productType === 'desk' &&
-                  item.productDetail.id === productDetail.id &&
-                  !item.hasDeskTop
-              ) 
-            ) {
-              setDeskAddOpen(false);
-              Swal.fire({
-                icon: 'warning',
-                title: 'Warning',
-                text: 'This productdd is already added.',
-                allowOutsideClick: false,
-              })
-              return;
-            }
+            setTopHoleCount(0);
+            setTopHolePosition("Left");
+            setTopHoleType("Rounded");
+            setTopMaterial("Melamine");
+            setTopColor("");
+            setTopLength(700);
+            setTopWidth(400);
+            setTopThickness(25);
+            setTopRoundedCorners(0);
+            setTopCornerRadius(50);
+            setSketchUrl("");
+
+            setDeliveryChecked0(false);
+            setDeliveryChecked1(false);
+            setDeliveryChecked2(false);
+            setDeliveryChecked3(false);
+
+            setDeskAddOpen(false);
 
             const data = new FormData(e.currentTarget);
-            let topSketchURL = '';
-            if (data.get('topSketchImg') && data.get('topSketchImg').name) {
-              const uploadData = new FormData();
-              uploadData.append('file', data.get('topSketchImg'));
-              try {
-                const response = await axios.post(`/upload`, uploadData, {
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
+
+            if (cartItemStatus === "add") {
+              if (
+                !hasDeskTop &&
+                cart.find(
+                  (item) =>
+                    item.productType === "desk" &&
+                    item.productDetail.id === productDetail.id &&
+                    !item.hasDeskTop
+                )
+              ) {
+                Swal.fire({
+                  icon: "warning",
+                  title: "Warning",
+                  text: "This product is already added.",
+                  allowOutsideClick: false,
                 });
-                topSketchURL = response.data.url;
-              } catch (err) {}
+                return;
+              }
+
+              let topSketchURL = "";
+              if (data.get("topSketchImg") && data.get("topSketchImg").name) {
+                const uploadData = new FormData();
+                uploadData.append("file", data.get("topSketchImg"));
+                try {
+                  const response = await axios.post(`/upload`, uploadData, {
+                    headers: {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                  });
+                  topSketchURL = response.data.url;
+                } catch (err) {}
+              }
+
+              setCart(
+                cart.concat({
+                  productType,
+                  productDetail,
+                  productAmount,
+                  productDeliveryOption: JSON.stringify(
+                    [
+                      "Delivery Included",
+                      "Delivery and installation included",
+                      "Remote Area Surcharge",
+                      "Stairs Surcharge",
+                    ].filter((item, index) =>
+                      Boolean(data.get(`deliveryOption_${index}`))
+                    )
+                  ),
+                  productPrice: Boolean(data.get("hasDeskTop"))
+                    ? Number(data.get("deskTotalPrice"))
+                    : Number(data.get("deskLegPrice")),
+                  hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
+                  topMaterial: data.get("topMaterial") || "",
+                  topColor: data.get("topColor") || "",
+                  topLength: data.get("topLength") || 0,
+                  topWidth: data.get("topWidth") || 0,
+                  topThickness: data.get("topThickness") || 0,
+                  topRoundedCorners: data.get("topRoundedCorners") || 0,
+                  topCornerRadius: data.get("topCornerRadius") || 50,
+                  topHoleCount: data.get("topHoleCount") || 0,
+                  topHoleType: data.get("topHoleType") || "",
+                  topHolePosition: topHolePosition || "",
+                  remark: data.get("remark") || "",
+                  topSketchURL: topSketchURL,
+                })
+              );
+            } else if (cartItemStatus === "edit") {
+              let topSketchURL = sketchUrl;
+              if (data.get("topSketchImg") && data.get("topSketchImg").name) {
+                const uploadData = new FormData();
+                uploadData.append("file", data.get("topSketchImg"));
+                try {
+                  const response = await axios.post(`/upload`, uploadData, {
+                    headers: {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                  });
+                  topSketchURL = response.data.url;
+                } catch (err) {}
+              }
+              const newCart = cart.map((item) => {
+                if (
+                  item.productType === "desk" &&
+                  item.productDetail.id === productDetail.id
+                )
+                  return {
+                    productType,
+                    productDetail,
+                    productAmount,
+                    productDeliveryOption: JSON.stringify(
+                      [
+                        "Delivery Included",
+                        "Delivery and installation included",
+                        "Remote Area Surcharge",
+                        "Stairs Surcharge",
+                      ].filter((item, index) =>
+                        Boolean(data.get(`deliveryOption_${index}`))
+                      )
+                    ),
+                    productPrice: Boolean(data.get("hasDeskTop"))
+                      ? Number(data.get("deskTotalPrice"))
+                      : Number(data.get("deskLegPrice")),
+                    hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
+                    topMaterial: data.get("topMaterial") || "",
+                    topColor: data.get("topColor") || "",
+                    topLength: data.get("topLength") || 0,
+                    topWidth: data.get("topWidth") || 0,
+                    topThickness: data.get("topThickness") || 0,
+                    topRoundedCorners: data.get("topRoundedCorners") || 0,
+                    topCornerRadius: data.get("topCornerRadius") || 50,
+                    topHoleCount: data.get("topHoleCount") || 0,
+                    topHoleType: data.get("topHoleType") || "",
+                    topHolePosition: topHolePosition || "",
+                    remark: data.get("remark") || "",
+                    topSketchURL: topSketchURL,
+                  };
+                else return item;
+              });
+              setCart(newCart);
             }
-            setDeskAddOpen(false);
-            setCart(
-              cart.concat({
-                productType,
-                productDetail,
-                productAmount,
-                productDeliveryOption: JSON.stringify(
-                  [
-                    'Delivery Included',
-                    'Delivery and installation included',
-                    'Remote Area Surcharge',
-                    'Stairs Surcharge',
-                  ].filter((item, index) =>
-                    Boolean(data.get(`deliveryOption_${index}`))
-                  )
-                ),
-                productPrice: Boolean(data.get('hasDeskTop'))
-                  ? Number(data.get('deskTotalPrice'))
-                  : Number(data.get('deskLegPrice')),
-                hasDeskTop: Boolean(data.get('hasDeskTop')) || false,
-                topMaterial: data.get('topMaterial') || '',
-                topColor: data.get('topColor') || '',
-                topLength: data.get('topLength') || 0,
-                topWidth: data.get('topWidth') || 0,
-                topThickness: data.get('topThickness') || 0,
-                topRoundedCorners: data.get('topRoundedCorners') || 0,
-                topCornerRadius: data.get('topCornerRadius') || 50,
-                topHoleCount: data.get('topHoleCount') || 0,
-                topHoleType: data.get('topHoleType') || '',
-                topHolePosition: topHolePosition || '',
-                remark: data.get('remark') || '',
-                topSketchURL: topSketchURL,
-              })
-            );
           },
         }}
       >
         <DialogTitle>Price and Amount</DialogTitle>
-        <DialogContent sx={{ textAlign: 'center' }}>
+        <DialogContent sx={{ textAlign: "center" }}>
           <TextField
             label="Desk Leg Price"
             type="number"
             name="deskLegPrice"
             value={productPrice}
-            sx={{ width: 200, visibility: hasDeskTop ? 'hidden' : 'visible' }}
+            sx={{ width: 200, visibility: hasDeskTop ? "hidden" : "visible" }}
             InputProps={{
               readOnly: true,
               endAdornment: <InputAdornment position="end">HKD</InputAdornment>,
             }}
           />
-          <Divider sx={{ my: '10px' }} />
+          <Divider sx={{ my: "10px" }} />
           <Box display="flex" flexWrap="wrap" justifyContent="space-between">
             <FormControlLabel
               control={
@@ -1742,137 +2000,169 @@ export default connect(mapStateToProps)((props) => {
                 />
               }
               label="with Table Top"
-              sx={{ flexBasis: '100%', minWidth: '100%' }}
+              sx={{ flexBasis: "100%", minWidth: "100%" }}
             />
             {[
               {
-                name: 'topMaterial',
-                label: 'Material',
-                type: 'autocomplete',
-                defaultValue: 'Melamine',
-                options: [
-                  'Melamine',
-                  'Laminate',
-                  'North American Walnut',
-                  'South American Walnut',
-                  'Red Oak',
-                  'Maple',
-                  'Bamboo',
-                  'Melamine with glass top',
-                  'Toppal Plyedge'
-                ],
-                width: '65%',
+                name: "topMaterial",
+                label: "Material",
+                type: "autocomplete",
+                value: topMaterial,
+                onChange: (e, newVal) => {
+                  e.preventDefault();
+                  setTopMaterial(newVal);
+                },
+                options: materialOptions,
+                width: "65%",
               },
               {
-                name: 'topColor',
-                label: 'Color',
-                type: 'text',
-                width: '30%',
+                name: "topColor",
+                label: "Color",
+                type: "text",
+                width: "30%",
+                value: topColor,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopColor(e.target.value);
+                },
               },
               {
-                name: 'topLength',
-                label: 'Length',
-                type: 'suffixNumber',
-                suffix: 'mm',
-                defaultValue: 700,
+                name: "topLength",
+                label: "Length",
+                type: "suffixNumber",
+                suffix: "mm",
                 inputProps: { min: 0 },
-                width: '30%',
+                width: "30%",
+                value: topLength,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopLength(e.target.value);
+                },
               },
               {
-                name: 'topWidth',
-                label: 'Width',
-                type: 'suffixNumber',
-                suffix: 'mm',
-                defaultValue: 400,
+                name: "topWidth",
+                label: "Width",
+                type: "suffixNumber",
+                suffix: "mm",
                 inputProps: { min: 0 },
-                width: '30%',
+                width: "30%",
+                value: topWidth,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopWidth(e.target.value);
+                },
               },
               {
-                name: 'topThickness',
-                label: 'Thickness',
-                type: 'suffixNumber',
-                suffix: 'mm',
-                defaultValue: 25,
+                name: "topThickness",
+                label: "Thickness",
+                type: "suffixNumber",
+                suffix: "mm",
                 inputProps: { min: 0 },
-                width: '30%',
+                width: "30%",
+                value: topThickness,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopThickness(e.target.value);
+                },
               },
               {
-                name: 'topRoundedCorners',
-                label: 'Rounded Corners',
-                type: 'select',
-                defaultValue: 0,
+                name: "topRoundedCorners",
+                label: "Rounded Corners",
+                type: "select",
                 options: [0, 1, 2, 3, 4],
-                width: '48%',
+                width: "48%",
+                value: topRoundedCorners,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopRoundedCorners(e.target.value);
+                },
               },
               {
-                name: 'topCornerRadius',
-                label: 'Corner Radius',
-                type: 'number',
-                defaultValue: 50,
+                name: "topCornerRadius",
+                label: "Corner Radius",
+                type: "number",
                 inputProps: { min: 0 },
-                width: '48%',
+                width: "48%",
+                value: topCornerRadius,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setTopCornerRadius(e.target.value);
+                },
               },
               {
-                name: 'topHoleCount',
-                label: 'Number of Holes',
-                type: 'select',
+                name: "topHoleCount",
+                label: "Number of Holes",
+                type: "select",
                 value: topHoleCount,
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHoleCount(e.target.value);
-                  if (e.target.value == 1)
-                    setTopHolePosition('Left')
+                  if (e.target.value == 1) setTopHolePosition("Left");
                   else if (e.target.value == 2)
-                    setTopHolePosition('Left_Right')
+                    setTopHolePosition("Left_Right");
                   else if (e.target.value == 3)
-                    setTopHolePosition('Left_Right_Center')
+                    setTopHolePosition("Left_Right_Center");
                 },
                 options: [0, 1, 2, 3],
-                width: '48%',
+                width: "48%",
               },
               {
-                name: 'topHoleType',
-                label: 'Type of Holes',
-                type: 'select',
+                name: "topHoleType",
+                label: "Type of Holes",
+                type: "select",
                 value: topHoleType,
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHoleType(e.target.value);
                 },
-                options: ['Rounded', 'Rectangular'],
-                width: '48%',
+                options: ["Rounded", "Rectangular"],
+                width: "48%",
               },
               {
-                name: 'topHolePosition',
-                label: 'Hole Position',
-                type: 'select',
+                name: "topHolePosition",
+                label: "Hole Position",
+                type: "select",
                 value: topHolePosition,
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHolePosition(e.target.value);
                 },
-                options: topHoleCount === 1 ? ['Left', 'Right', 'Center'] : ['Left', 'Right', 'Center', 'Left_Right', 'Left_Right_Center'],
-                disabled: topHoleCount !== 1 || topHoleType !== 'Rounded',
-                width: '48%',
+                options:
+                  topHoleCount === 1
+                    ? ["Left", "Right", "Center"]
+                    : [
+                        "Left",
+                        "Right",
+                        "Center",
+                        "Left_Right",
+                        "Left_Right_Center",
+                      ],
+                disabled: topHoleCount !== 1 || topHoleType !== "Rounded",
+                width: "48%",
               },
               {
-                name: 'remark',
-                label: 'Remark',
-                type: 'text',
-                width: '100%',
+                name: "remark",
+                label: "Remark",
+                type: "text",
+                width: "100%",
+                value: productRemark,
+                onChange: (e) => {
+                  e.preventDefault();
+                  setProductRemark(e.target.value);
+                },
               },
               {
-                name: 'topSketchImg',
-                label: 'Sketch Image (Optional)',
-                type: 'file',
+                name: "topSketchImg",
+                label: "Sketch Image (Optional)",
+                type: "file",
                 inputProps: {
-                  accept: 'image/png, image/gif, image/jpeg',
+                  accept: "image/png, image/gif, image/jpeg",
                 },
                 InputLabelProps: { shrink: true },
-                width: '100%',
+                width: "100%",
               },
             ].map(({ type, width, ...restParams }, index) => {
-              if (type === 'autocomplete') {
+              if (type === "autocomplete") {
                 const { name, label, ...autocomParams } = restParams;
                 return (
                   <Autocomplete
@@ -1885,7 +2175,7 @@ export default connect(mapStateToProps)((props) => {
                     {...autocomParams}
                   />
                 );
-              } else if (type === 'suffixNumber') {
+              } else if (type === "suffixNumber") {
                 const { suffix, ...fieldParams } = restParams;
                 return (
                   <FormControlLabel
@@ -1893,13 +2183,13 @@ export default connect(mapStateToProps)((props) => {
                     sx={{
                       flexBasis: width,
                       minWidth: width,
-                      alignItems: 'baseline',
+                      alignItems: "baseline",
                       mx: 0,
                     }}
                     control={
                       <TextField
                         fullWidth
-                        sx={{ m: '10px 5px 0 0' }}
+                        sx={{ m: "10px 5px 0 0" }}
                         type="number"
                         disabled={!hasDeskTop}
                         {...fieldParams}
@@ -1908,7 +2198,7 @@ export default connect(mapStateToProps)((props) => {
                     label={suffix}
                   />
                 );
-              } else if (type === 'select') {
+              } else if (type === "select") {
                 const { name, label, options, ...selectParams } = restParams;
                 return (
                   <FormControl
@@ -1951,7 +2241,7 @@ export default connect(mapStateToProps)((props) => {
               type="number"
               name="deskTotalPrice"
               defaultValue={productPrice}
-              sx={{ flexBasis: 200, minWidth: 200, mx: 'auto' }}
+              sx={{ flexBasis: 200, minWidth: 200, mx: "auto" }}
               disabled={!hasDeskTop}
               InputProps={{
                 endAdornment: (
@@ -1960,17 +2250,17 @@ export default connect(mapStateToProps)((props) => {
               }}
             />
           </Box>
-          <Divider sx={{ my: '10px' }} />
+          <Divider sx={{ my: "10px" }} />
           <Box
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '200px',
-              border: '1px solid #0000003b',
-              borderRadius: '4px',
-              mt: '10px',
-              mx: 'auto',
-              p: '5px 3px',
+              display: "flex",
+              alignItems: "center",
+              width: "200px",
+              border: "1px solid #0000003b",
+              borderRadius: "4px",
+              mt: "10px",
+              mx: "auto",
+              p: "5px 3px",
             }}
           >
             <Typography variant="span" sx={{ flexGrow: 1 }}>
@@ -1997,30 +2287,46 @@ export default connect(mapStateToProps)((props) => {
             </IconButton>
           </Box>
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_0" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_0"
+                checked={deliveryChecked0}
+                onChange={(e) => setDeliveryChecked0(e.target.checked)}
+              />
             }
             label="Delivery Included"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_1" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_1"
+                checked={deliveryChecked1}
+                onChange={(e) => setDeliveryChecked1(e.target.checked)}
+              />
             }
             label="Delivery and installation included"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_2" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_2"
+                checked={deliveryChecked2}
+                onChange={(e) => setDeliveryChecked2(e.target.checked)}
+              />
             }
             label="Remote Area Surcharge"
           />
           <FormControlLabel
-            sx={{ display: 'block' }}
+            sx={{ display: "block" }}
             control={
-              <Checkbox name="deliveryOption_3" defaultChecked={false} />
+              <Checkbox
+                name="deliveryOption_3"
+                checked={deliveryChecked3}
+                onChange={(e) => setDeliveryChecked3(e.target.checked)}
+              />
             }
             label="Stairs Surcharge"
           />
@@ -2029,6 +2335,23 @@ export default connect(mapStateToProps)((props) => {
           <Button
             onClick={(e) => {
               e.preventDefault();
+              setTopHoleCount(0);
+              setTopHolePosition("Left");
+              setTopHoleType("Rounded");
+              setTopMaterial("Melamine");
+              setTopColor("");
+              setTopLength(700);
+              setTopWidth(400);
+              setTopThickness(25);
+              setTopRoundedCorners(0);
+              setTopCornerRadius(50);
+              setSketchUrl("");
+
+              setDeliveryChecked0(false);
+              setDeliveryChecked1(false);
+              setDeliveryChecked2(false);
+              setDeliveryChecked3(false);
+
               setDeskAddOpen(false);
             }}
           >
