@@ -1197,6 +1197,7 @@ export default connect(mapStateToProps)((props) => {
                     <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
                     <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
                     <MenuItem value="Cabinet">Cabinet</MenuItem>
+                    <MenuItem value="Drawer">Drawer</MenuItem>
                   </Select>
                 </FormControl>
               </Paper>

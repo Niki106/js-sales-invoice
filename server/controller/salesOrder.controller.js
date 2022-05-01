@@ -1,10 +1,11 @@
-const Sequelize = require('sequelize');
-const uuid = require('uuid/v4');
+const Sequelize = require("sequelize");
+const uuid = require("uuid/v4");
+const fs = require("fs");
 
-const chairStockController = require('./chairStock.controller');
-const deskStockController = require('./deskStock.controller');
-const accessoryStockController = require('./accessoryStock.controller');
-const { drawDeskTop } = require('server/middleware/deskDrawing');
+const chairStockController = require("./chairStock.controller");
+const deskStockController = require("./deskStock.controller");
+const accessoryStockController = require("./accessoryStock.controller");
+const { drawDeskTop } = require("server/middleware/deskDrawing");
 
 module.exports = {
   getAll,
@@ -21,29 +22,29 @@ module.exports = {
 async function getAll(where) {
   return await db.SalesOrder.findAll({
     where,
-    order: [['createdAt', 'DESC']],
+    order: [["createdAt", "DESC"]],
     include: [
       {
         model: db.User,
-        as: 'Seller',
-        attributes: ['id', 'firstName', 'lastName', 'prefix'],
+        as: "Seller",
+        attributes: ["id", "firstName", "lastName", "prefix"],
       },
       {
         model: db.ChairStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToOrder,
       },
       {
         model: db.DeskStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
@@ -51,13 +52,13 @@ async function getAll(where) {
         model: db.AccessoryStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
       {
         model: db.ServiceToOrder,
-        attributes: ['id', 'description', 'price'],
+        attributes: ["id", "description", "price"],
       },
     ],
   });
@@ -69,21 +70,21 @@ async function getById(id) {
 
 async function create(req, res, next) {
   try {
-    const host = req.get('host');
+    const host = req.get("host");
     const protocol = req.protocol;
     const { products, ...restParams } = req.body;
     restParams.sellerId = req.user.id;
 
     const currentYear = new Date().getFullYear();
     const orderInvoiceNum = await getInvoiceNum(currentYear);
-    restParams.invoiceNum = orderInvoiceNum
+    restParams.invoiceNum = orderInvoiceNum;
 
     const id = (await db.SalesOrder.create({ ...restParams })).id;
 
     const salesOrder = await getSalesOrder(id);
 
     for (var index = 0; index < products.length; index++) {
-      if (products[index].productType === 'chair') {
+      if (products[index].productType === "chair") {
         const stock = await chairStockController.getById(
           products[index].productId
         );
@@ -112,7 +113,7 @@ async function create(req, res, next) {
             ...restParams,
           },
         });
-      } else if (products[index].productType === 'desk') {
+      } else if (products[index].productType === "desk") {
         const stock = await deskStockController.getById(
           products[index].productId
         );
@@ -135,27 +136,25 @@ async function create(req, res, next) {
           ...restParams
         } = products[index];
         if (restParams.hasDeskTop && !restParams.topSketchURL) {
-          // const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
-          //   salesOrder.createdAt
-          // ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
+          const drawer = products.find(
+            (item) =>
+              item.productType === "accessory" &&
+              item.productCategory === "Drawer"
+          );
+
+          const drawerAmount = drawer ? drawer.productAmount : null;
+
           const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
             salesOrder.createdAt
           ).getFullYear()}-${orderInvoiceNum}`;
-          console.log("create:--", invoiceNum)
-          restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
-            invoiceNum,
-            ...restParams,
-          })}`;
-        }                
-        // await salesOrder.addDeskStock(stock, {
-        //   through: {
-        //     unitPrice,
-        //     qty,
-        //     deliveryOption,
-        //     preOrder,
-        //     ...restParams,
-        //   },
-        // });
+          restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop(
+            {
+              invoiceNum,
+              ...restParams,
+            },
+            drawerAmount
+          )}`;
+        }
         const join1 = await db.DeskToOrder.create({
           unitPrice,
           qty,
@@ -163,9 +162,9 @@ async function create(req, res, next) {
           preOrder,
           stockId: stockId,
           ...restParams,
-        })
+        });
         await salesOrder.addDeskToOrder(join1);
-      } else if (products[index].productType === 'accessory') {
+      } else if (products[index].productType === "accessory") {
         const stock = await accessoryStockController.getById(
           products[index].productId
         );
@@ -194,16 +193,16 @@ async function create(req, res, next) {
             ...restParams,
           },
         });
-      } else if (products[index].productType === 'misc') {
+      } else if (products[index].productType === "misc") {
         await db.ServiceToOrder.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
-          orderId: id
+          orderId: id,
         });
       }
     }
-    res.json({ message: 'New SalesOrder was created successfully.' });
+    res.json({ message: "New SalesOrder was created successfully." });
   } catch (err) {
     next(err);
   }
@@ -211,7 +210,7 @@ async function create(req, res, next) {
 
 async function update(req, res, next) {
   try {
-    const host = req.get('host');
+    const host = req.get("host");
     const protocol = req.protocol;
     const id = req.params.id;
     const salesOrder = await getSalesOrder(id);
@@ -229,7 +228,7 @@ async function update(req, res, next) {
       }
       await salesOrder.removeChairStock(ChairStocks[index]);
     }
-    
+
     for (var index = 0; index < DeskStocks.length; index++) {
       if (!DeskStocks[index].DeskToOrder.preOrder) {
         const stock = await deskStockController.getById(DeskStocks[index].id);
@@ -238,7 +237,7 @@ async function update(req, res, next) {
       }
       await salesOrder.removeDeskStock(DeskStocks[index].id);
     }
-    
+
     for (var index = 0; index < AccessoryStocks.length; index++) {
       if (!AccessoryStocks[index].AccessoryToOrder.preOrder) {
         const stock = await accessoryStockController.getById(
@@ -257,12 +256,12 @@ async function update(req, res, next) {
     // Delete services for this order
     db.ServiceToOrder.destroy({
       where: {
-        orderId: id
-      }
+        orderId: id,
+      },
     });
-    
+
     for (var index = 0; index < products.length; index++) {
-      if (products[index].productType === 'chair') {
+      if (products[index].productType === "chair") {
         const stock = await chairStockController.getById(
           products[index].productId
         );
@@ -292,7 +291,7 @@ async function update(req, res, next) {
             ...restParams,
           },
         });
-      } else if (products[index].productType === 'desk') {
+      } else if (products[index].productType === "desk") {
         const stock = await deskStockController.getById(
           products[index].productId
         );
@@ -314,17 +313,33 @@ async function update(req, res, next) {
           productType,
           ...restParams
         } = products[index];
-        if (restParams.hasDeskTop && !restParams.topSketchURL) {
-          // const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
-          //   salesOrder.createdAt
-          // ).getFullYear()}-${('000' + salesOrder.id).substr(-3)}`;
+        if (restParams.hasDeskTop) {
+          if (restParams.topSketchURL) {
+            const filepath =
+              __dirname.split("controller")[0] +
+              "uploads" +
+              restParams.topSketchURL.split("uploads")[1];
+            fs.unlinkSync(filepath);
+          }
+
+          const drawer = products.find(
+            (item) =>
+              item.productType === "accessory" &&
+              item.productCategory === "Drawer"
+          );
+
+          const drawerAmount = drawer ? drawer.productAmount : null;
+
           const invoiceNum = `I-${salesOrder.Seller.prefix}${new Date(
             salesOrder.createdAt
           ).getFullYear()}-${orderInvoiceNum}`;
-          restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop({
-            invoiceNum,
-            ...restParams,
-          })}`;
+          restParams.topSketchURL = `${protocol}://${host}/${await drawDeskTop(
+            {
+              invoiceNum,
+              ...restParams,
+            },
+            drawerAmount
+          )}`;
         }
         const join1 = await db.DeskToOrder.create({
           unitPrice,
@@ -333,9 +348,9 @@ async function update(req, res, next) {
           preOrder,
           stockId: stockId,
           ...restParams,
-        })
+        });
         await salesOrder.addDeskToOrder(join1);
-      } else if (products[index].productType === 'accessory') {
+      } else if (products[index].productType === "accessory") {
         const stock = await accessoryStockController.getById(
           products[index].productId
         );
@@ -364,16 +379,16 @@ async function update(req, res, next) {
             ...restParams,
           },
         });
-      } else if (products[index].productType === 'misc') {
+      } else if (products[index].productType === "misc") {
         await db.ServiceToOrder.create({
           id: products[index].id,
           description: products[index].description,
           price: products[index].price,
-          orderId: id
-        })
+          orderId: id,
+        });
       }
     }
-    res.json({ message: 'SalesOrder was updated successfully.' });
+    res.json({ message: "SalesOrder was updated successfully." });
   } catch (err) {
     next(err);
   }
@@ -410,7 +425,7 @@ async function updateProducts(req, res, next) {
       Object.assign(accessoryToOrder, params);
       await accessoryToOrder.save();
     }
-    res.json({ message: 'Products were updated successfully.' });
+    res.json({ message: "Products were updated successfully." });
   } catch (err) {
     next(err);
   }
@@ -453,9 +468,8 @@ async function _delete(id) {
 async function _bulkDelete(where) {
   const salesOrders = await getAll(where);
   for (var orderIndex = 0; orderIndex < salesOrders.length; orderIndex++) {
-    const { ChairStocks, DeskStocks, AccessoryStocks } = salesOrders[
-      orderIndex
-    ];
+    const { ChairStocks, DeskStocks, AccessoryStocks } =
+      salesOrders[orderIndex];
     for (var index = 0; index < ChairStocks.length; index++) {
       if (!ChairStocks[index].ChairToOrder.preOrder) {
         const stock = await chairStockController.getById(ChairStocks[index].id);
@@ -489,10 +503,10 @@ async function _bulkDelete(where) {
 
 async function signDelivery(id, signature) {
   const salesOrder = await getSalesOrder(id);
-  if (salesOrder.finished) throw 'This Order is already finished!';
-  const dirpath = 'uploads/signature';
+  if (salesOrder.finished) throw "This Order is already finished!";
+  const dirpath = "uploads/signature";
   const filepath = `${dirpath}/${Date.now()}.png`;
-  fs.writeFileSync(`server/${filepath}`, signature, 'base64');
+  fs.writeFileSync(`server/${filepath}`, signature, "base64");
   Object.assign(salesOrder, { signURL: filepath, finished: true });
   await salesOrder.save();
   return salesOrder.get();
@@ -506,25 +520,25 @@ async function getSalesOrder(id) {
     include: [
       {
         model: db.User,
-        as: 'Seller',
-        attributes: ['id', 'firstName', 'lastName', 'prefix'],
+        as: "Seller",
+        attributes: ["id", "firstName", "lastName", "prefix"],
       },
       {
         model: db.ChairStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
       {
-        model: db.DeskToOrder
+        model: db.DeskToOrder,
       },
       {
         model: db.DeskStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
@@ -532,34 +546,32 @@ async function getSalesOrder(id) {
         model: db.AccessoryStock,
         through: {
           attributes: {
-            exclude: ['createdAt', 'updatedAt'],
+            exclude: ["createdAt", "updatedAt"],
           },
         },
       },
       {
         model: db.ServiceToOrder,
-        attributes: ['id', 'description', 'price'],
+        attributes: ["id", "description", "price"],
       },
     ],
   });
 
-  if (!salesOrder) throw 'ChairStock was not found.';
-  
+  if (!salesOrder) throw "ChairStock was not found.";
+
   return salesOrder;
 }
 
 async function getInvoiceNum(year) {
   const salesOrder = await db.SalesOrder.findOne({
-    attributes: [
-      [Sequelize.fn('MAX', Sequelize.col('invoiceNum')), 'max_inv']
-    ],
+    attributes: [[Sequelize.fn("MAX", Sequelize.col("invoiceNum")), "max_inv"]],
     where: {
       createdAt: {
         [Sequelize.Op.lt]: `${year + 1}-01-01`,
         [Sequelize.Op.gte]: `${year}-01-01`,
       },
     },
-    raw: true
+    raw: true,
   });
 
   return salesOrder.max_inv + 1;

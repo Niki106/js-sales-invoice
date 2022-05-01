@@ -361,6 +361,8 @@ export default connect(mapStateToProps)((props) => {
   const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
   const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
 
+  console.log("cart----", cart);
+
   const getChairFeatures = (cancelToken) => {
     axios
       .get("/chairStock/features", { cancelToken })
@@ -1198,6 +1200,7 @@ export default connect(mapStateToProps)((props) => {
                     <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
                     <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
                     <MenuItem value="Cabinet">Cabinet</MenuItem>
+                    <MenuItem value="Drawer">Drawer</MenuItem>
                   </Select>
                 </FormControl>
               </Paper>
@@ -1387,6 +1390,7 @@ export default connect(mapStateToProps)((props) => {
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
+                    productCategory: productDetail.category ?? "",
                     ...restProps,
                   }))
                   .concat(services),
@@ -1443,6 +1447,7 @@ export default connect(mapStateToProps)((props) => {
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
+                    productCategory: productDetail.category ?? "",
                     ...restProps,
                   }))
                   .concat(services),

@@ -1,48 +1,57 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import { Autocomplete, Box, Paper, TextField, MenuItem, FormControl, Select, InputLabel,  } from '@mui/material';
-import axios from 'axios';
-import Swal from 'sweetalert2';
+import React, { useEffect, useRef, useState } from "react";
+import { connect } from "react-redux";
+import {
+  Autocomplete,
+  Box,
+  Paper,
+  TextField,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
+} from "@mui/material";
+import axios from "axios";
+import Swal from "sweetalert2";
 
-import DataGrid from 'components/Common/DataGrid';
+import DataGrid from "components/Common/DataGrid";
 
 const columns = [
   {
-    id: 'thumbnail',
+    id: "thumbnail",
     sx: { width: 100 },
     nonSort: true,
   },
   {
-    id: 'name',
-    label: 'Name',
+    id: "name",
+    label: "Name",
   },
   {
-    id: 'category',
-    label: 'Category',
+    id: "category",
+    label: "Category",
   },
   {
-    id: 'remark',
-    label: 'Special Remark',
+    id: "remark",
+    label: "Special Remark",
   },
   {
-    id: 'unitPrice',
-    label: 'Price',
+    id: "unitPrice",
+    label: "Price",
   },
   {
-    id: 'balance',
-    label: 'Balance',
+    id: "balance",
+    label: "Balance",
   },
   {
-    id: 'qty',
-    label: 'QTY',
+    id: "qty",
+    label: "QTY",
   },
   {
-    id: 'shipmentDate',
-    label: 'Shipment',
+    id: "shipmentDate",
+    label: "Shipment",
   },
   {
-    id: 'arrivalDate',
-    label: 'Arrival',
+    id: "arrivalDate",
+    label: "Arrival",
   },
 ];
 
@@ -60,7 +69,7 @@ const Stock = connect(mapStateToProps)((props) => {
 
   const getFeatures = (cancelToken) => {
     axios
-      .get('/accessoryStock/features', { cancelToken })
+      .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
         setFeatures(response.data);
@@ -76,11 +85,11 @@ const Stock = connect(mapStateToProps)((props) => {
 
   const getStocks = (cancelToken) => {
     axios
-      .get('/accessoryStock', { cancelToken })
+      .get("/accessoryStock", { cancelToken })
       .then((response) => {
         // handle success
         setStocks(response.data);
-        setInitStocks(response.data)
+        setInitStocks(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -95,39 +104,41 @@ const Stock = connect(mapStateToProps)((props) => {
     const source = axios.CancelToken.source();
     getFeatures(source.token);
     getStocks(source.token);
-    return () => source.cancel('Stock Component got unmounted');
+    return () => source.cancel("Stock Component got unmounted");
   }, []);
 
   const handleFilterCategory = (e) => {
     var selected_category = e.target.value;
-    setFilterCategory(selected_category)
+    setFilterCategory(selected_category);
     if (selected_category === "All") {
-      setStocks(initStocks)
+      setStocks(initStocks);
     } else {
-      setStocks(initStocks.filter((stock)=>stock.category === selected_category));
+      setStocks(
+        initStocks.filter((stock) => stock.category === selected_category)
+      );
     }
-  }
+  };
 
   return (
     <Box
       sx={{
-        height: '100%',
-        overflow: 'auto',
-        padding: '10px 20px',
+        height: "100%",
+        overflow: "auto",
+        padding: "10px 20px",
       }}
     >
       <Paper
         sx={{
-          marginTop: '10px',
-          padding: '5px 10px',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-around',
+          marginTop: "10px",
+          padding: "5px 10px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
         }}
       >
         <FormControl
           size="small"
-          sx={{ flexBasis: '200px', maxWidth: '200px' }}
+          sx={{ flexBasis: "200px", maxWidth: "200px" }}
         >
           <InputLabel id="category_filter">Category</InputLabel>
           <Select
@@ -142,58 +153,58 @@ const Stock = connect(mapStateToProps)((props) => {
             <MenuItem value="Desk on Desk">Desk on Desk</MenuItem>
             <MenuItem value="Monitor Arms">Monitor Arms</MenuItem>
             <MenuItem value="Cabinet">Cabinet</MenuItem>
+            <MenuItem value="Drawer">Drawer</MenuItem>
           </Select>
         </FormControl>
       </Paper>
       <DataGrid
         nonSelect={true}
         title="Accessory Stocks"
-        rows={stocks
-          .map(
-            (
-              { thumbnailURL, shipmentDate, arrivalDate, ...restProps },
-              index
-            ) => ({
-              thumbnail: (
-                <a
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    Swal.fire({
-                      html: `<img alt="" width="400px" src="${thumbnailURL}" />`,
-                      showCloseButton: true,
-                      showConfirmButton: false,
-                      allowOutsideClick: false,
-                    });
-                  }}
-                >
-                  <img
-                    alt=""
-                    width="80px"
-                    src={thumbnailURL}
-                    style={{ marginTop: '5px' }}
-                  />
-                </a>
-              ),
-              shipmentDate: (() => {
-                if (shipmentDate === null) return 'No';
-                const createdTime = new Date(shipmentDate);
-                createdTime.setMinutes(
-                  createdTime.getMinutes() - createdTime.getTimezoneOffset()
-                );
-                return createdTime.toISOString().split('T')[0];
-              })(),
-              arrivalDate: (() => {
-                if (arrivalDate === null) return 'No';
-                const createdTime = new Date(arrivalDate);
-                createdTime.setMinutes(
-                  createdTime.getMinutes() - createdTime.getTimezoneOffset()
-                );
-                return createdTime.toISOString().split('T')[0];
-              })(),
-              ...restProps,
-            })
-          )}
+        rows={stocks.map(
+          (
+            { thumbnailURL, shipmentDate, arrivalDate, ...restProps },
+            index
+          ) => ({
+            thumbnail: (
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  Swal.fire({
+                    html: `<img alt="" width="400px" src="${thumbnailURL}" />`,
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                  });
+                }}
+              >
+                <img
+                  alt=""
+                  width="80px"
+                  src={thumbnailURL}
+                  style={{ marginTop: "5px" }}
+                />
+              </a>
+            ),
+            shipmentDate: (() => {
+              if (shipmentDate === null) return "No";
+              const createdTime = new Date(shipmentDate);
+              createdTime.setMinutes(
+                createdTime.getMinutes() - createdTime.getTimezoneOffset()
+              );
+              return createdTime.toISOString().split("T")[0];
+            })(),
+            arrivalDate: (() => {
+              if (arrivalDate === null) return "No";
+              const createdTime = new Date(arrivalDate);
+              createdTime.setMinutes(
+                createdTime.getMinutes() - createdTime.getTimezoneOffset()
+              );
+              return createdTime.toISOString().split("T")[0];
+            })(),
+            ...restProps,
+          })
+        )}
         columns={columns}
       />
     </Box>
