@@ -134,7 +134,6 @@ export default connect(mapStateToProps)((props) => {
   });
   const { id } = useParams();
   useEffect(() => {
-    console.log("quotation");
     const source = axios.CancelToken.source();
     getQuotation({ id, cancelToken: source.token });
     return () => source.cancel("Brand Component got unmounted");
@@ -157,7 +156,6 @@ export default connect(mapStateToProps)((props) => {
       .get(`/quotation/${id}`, { cancelToken })
       .then((response) => {
         // handle success
-        console.log(response.data);
         setSuccess(true);
         setQuotation(response.data);
       })

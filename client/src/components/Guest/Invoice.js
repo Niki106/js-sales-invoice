@@ -135,7 +135,6 @@ export default connect(mapStateToProps)((props) => {
   });
   const { id } = useParams();
   useEffect(() => {
-    console.log("invoice");
     const source = axios.CancelToken.source();
     getOrder({ id, cancelToken: source.token });
     return () => source.cancel("Brand Component got unmounted");
@@ -154,7 +153,6 @@ export default connect(mapStateToProps)((props) => {
       .then((response) => {
         // handle success
         setSuccess(true);
-        console.log(response.data);
         setOrder(response.data);
       })
       .catch(function (error) {
