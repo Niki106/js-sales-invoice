@@ -1,48 +1,71 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Joi = require('joi');
+const Joi = require("joi");
 
-const admin = require('server/middleware/admin');
-const authorize = require('server/middleware/authorize');
-const validateRequest = require('server/middleware/validate-request');
-const chairStockController = require('server/controller/chairStock.controller');
-const uploadController = require('server/controller/upload.controller');
+const admin = require("server/middleware/admin");
+const authorize = require("server/middleware/authorize");
+const validateRequest = require("server/middleware/validate-request");
+const chairStockController = require("server/controller/chairStock.controller");
+const uploadController = require("server/controller/upload.controller");
 
-router.post('/create', admin(), createSchema, chairStockController.create);
-router.post('/upload', admin(), uploadController.upload);
-router.post('/uploadCreate', admin(), uploadController.uploadCreate);
-router.get('/', authorize(), getAll);
-router.get('/features', authorize(), getFeatures);
-router.get('/:id', authorize(), getById);
-router.put('/:id', admin(), createSchema, update);
-router.delete('/:id', admin(), _delete);
-router.delete('/', admin(), bulkDeleteSchema, _bulkDelete);
+router.post("/create", admin(), createSchema, chairStockController.create);
+router.post("/upload", admin(), uploadController.upload);
+router.post("/uploadCreate", admin(), uploadController.uploadCreate);
+router.get("/", authorize(), getAll);
+router.get("/features", authorize(), getFeatures);
+router.get("/:id", authorize(), getById);
+router.put("/:id", admin(), createSchema, update);
+router.delete("/:id", admin(), _delete);
+router.delete("/", admin(), bulkDeleteSchema, _bulkDelete);
+router.post(
+  "/shipment/create",
+  admin(),
+  shipmentCreateSchema,
+  chairStockController.shipmentCreate
+);
 
 module.exports = router;
 
 function createSchema(req, res, next) {
   const schema = Joi.object({
-    brand: Joi.string().allow('').required(),
-    model: Joi.string().allow('').required(),
-    frameColor: Joi.string().allow('').required(),
-    backColor: Joi.string().allow('').required(),
-    seatColor: Joi.string().allow('').required(),
-    backMaterial: Joi.string().allow('').required(),
-    seatMaterial: Joi.string().allow('').required(),
+    brand: Joi.string().allow("").required(),
+    model: Joi.string().allow("").required(),
+    frameColor: Joi.string().allow("").required(),
+    backColor: Joi.string().allow("").required(),
+    seatColor: Joi.string().allow("").required(),
+    backMaterial: Joi.string().allow("").required(),
+    seatMaterial: Joi.string().allow("").required(),
     withHeadrest: Joi.boolean().required(),
     withAdArmrest: Joi.boolean().required(),
-    remark: Joi.string().allow('').required(),
-    thumbnailURL: Joi.string().empty(''),
+    remark: Joi.string().allow("").required(),
+    thumbnailURL: Joi.string().empty(""),
     unitPrice: Joi.number().min(0).required(),
     balance: Joi.number().integer().min(0).required(),
     qty: Joi.number().integer().min(0).required(),
     shipmentDate: Joi.date().allow(null).required().messages({
-      'any.required': `Shipment Date field is required.`,
-      'date.base': `Shipment Date should be a valid date type.`,
+      "any.required": `Shipment Date field is required.`,
+      "date.base": `Shipment Date should be a valid date type.`,
     }),
     arrivalDate: Joi.date().allow(null).required().messages({
-      'any.required': `Arrival Date field is required.`,
-      'date.base': `Arrival Date should be a valid date type.`,
+      "any.required": `Arrival Date field is required.`,
+      "date.base": `Arrival Date should be a valid date type.`,
+    }),
+  });
+  validateRequest(req, next, schema);
+}
+
+function shipmentCreateSchema(req, res, next) {
+  const schema = Joi.object({
+    client: Joi.string().allow("").required(),
+    unitPrice: Joi.number().min(0).required(),
+    qty: Joi.number().integer().min(0).required(),
+    orderDate: Joi.date().allow(null).required().messages({
+      "any.required": `Order Date field is required.`,
+      "date.base": `Order Date should be a valid date type.`,
+    }),
+    arrivalDate: Joi.date().allow(null).required().messages({
+      "any.required": `Arrival Date field is required.`,
+      "date.base": `Arrival Date should be a valid date type.`,
     }),
   });
   validateRequest(req, next, schema);
@@ -86,7 +109,7 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   chairStockController
     .delete(req.params.id)
-    .then(() => res.json({ message: 'ChairStock was deleted successfully.' }))
+    .then(() => res.json({ message: "ChairStock was deleted successfully." }))
     .catch(next);
 }
 
@@ -96,7 +119,7 @@ function _bulkDelete(req, res, next) {
     .then((affectedRows) =>
       res.json({
         message: `${affectedRows} ChairStock${
-          affectedRows === 1 ? ' was' : 's were'
+          affectedRows === 1 ? " was" : "s were"
         } deleted successfully.`,
       })
     )

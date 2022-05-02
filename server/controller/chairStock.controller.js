@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
 module.exports = {
   getFeatures,
@@ -8,20 +8,21 @@ module.exports = {
   update,
   delete: _delete,
   bulkDelete: _bulkDelete,
+  shipmentCreate,
 };
 
 async function getFeatures() {
   return await db.ChairStock.findAll({
-    attributes: ['brand', 'model'],
-    group: ['brand', 'model'],
+    attributes: ["brand", "model"],
+    group: ["brand", "model"],
   });
 }
 
 async function getAll(where) {
   return await db.ChairStock.findAll({
     where,
-    attributes: { exclude: ['createdAt', 'updatedAt'] },
-    order: ['createdAt'],
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    order: ["createdAt"],
   });
 }
 
@@ -46,7 +47,7 @@ async function create(req, res, next) {
     const registered = await db.ChairStock.findOne({
       where: { isRegistered: true, ...restParams },
     });
-    if (registered) throw 'Identical ChairStock Exists.';
+    if (registered) throw "Identical ChairStock Exists.";
     else {
       if (nonRegistered) {
         // set isRegistered as true and save
@@ -57,7 +58,7 @@ async function create(req, res, next) {
         await db.ChairStock.create({ ...params, isRegistered: true });
       }
     }
-    res.json({ message: 'New ChairStock was created successfully.' });
+    res.json({ message: "New ChairStock was created successfully." });
   } catch (err) {
     next(err);
   }
@@ -78,7 +79,7 @@ async function update(id, params) {
       where: { id: { [Sequelize.Op.ne]: id }, ...restParams },
     })
   )
-    throw 'Identical ChairStock Exists.';
+    throw "Identical ChairStock Exists.";
   Object.assign(chairStock, params);
   await chairStock.save();
   return chairStock.get();
@@ -97,6 +98,17 @@ async function _bulkDelete(where) {
 
 async function getChairStock(id) {
   const chairStock = await db.ChairStock.findByPk(id);
-  if (!chairStock) throw 'ChairStock was not found.';
+  if (!chairStock) throw "ChairStock was not found.";
   return chairStock;
+}
+
+async function shipmentCreate(req, res, next) {
+  try {
+    const params = req.body;
+    const { client, qty, unitPrice, orderDate, arrivalDate, stockId } = params;
+    await db.ChairToShipment.create({ ...params });
+    res.json({ message: "New Shipment was created successfully." });
+  } catch (err) {
+    next(err);
+  }
 }
