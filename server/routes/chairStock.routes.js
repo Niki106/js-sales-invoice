@@ -67,6 +67,7 @@ function shipmentCreateSchema(req, res, next) {
       "any.required": `Arrival Date field is required.`,
       "date.base": `Arrival Date should be a valid date type.`,
     }),
+    stockId: Joi.string().allow("").required(),
   });
   validateRequest(req, next, schema);
 }

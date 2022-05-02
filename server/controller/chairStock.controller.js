@@ -105,7 +105,7 @@ async function getChairStock(id) {
 async function shipmentCreate(req, res, next) {
   try {
     const params = req.body;
-    const { client, qty, unitPrice, orderDate, arrivalDate, stockId } = params;
+    console.log("params----", params);
     await db.ChairToShipment.create({ ...params });
     res.json({ message: "New Shipment was created successfully." });
   } catch (err) {

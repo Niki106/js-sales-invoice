@@ -31,12 +31,12 @@
         "pdf-creator-node": "^2.2.4",
         "pureimage": "^0.3.6",
         "rootpath": "^0.1.2",
-        "sequelize": "^6.3.4",
+        "sequelize": "^6.19.0",
         "whatsapp-web": "^1.0.3",
         "xlsx": "^0.17.4"
     },
     "devDependencies": {
         "nodemon": "^2.0.4",
-        "sequelize-cli": "^6.3.0"
+        "sequelize-cli": "^6.4.1"
     }
 }
