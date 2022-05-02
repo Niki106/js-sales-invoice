@@ -361,8 +361,6 @@ export default connect(mapStateToProps)((props) => {
   const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
   const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
 
-  console.log("cart----", cart);
-
   const getChairFeatures = (cancelToken) => {
     axios
       .get("/chairStock/features", { cancelToken })
@@ -2143,6 +2141,7 @@ export default connect(mapStateToProps)((props) => {
                         "Left_Right_Center",
                       ],
                 disabled: topHoleCount !== 1 || topHoleType !== "Rounded",
+                visible: topHoleType === "Rounded",
                 width: "48%",
               },
               {
@@ -2205,31 +2204,66 @@ export default connect(mapStateToProps)((props) => {
                 );
               } else if (type === "select") {
                 const { name, label, options, ...selectParams } = restParams;
-                return (
-                  <FormControl
-                    key={index}
-                    sx={{ flexBasis: width, minWidth: width }}
-                  >
-                    <InputLabel id={`desk-top-${name}-select-label`}>
-                      {label}
-                    </InputLabel>
-                    <Select
-                      labelId={`desk-top-${name}-select-label`}
-                      id={`desk-top-${name}-select`}
-                      name={name}
-                      label={label}
-                      size="small"
-                      disabled={!hasDeskTop}
-                      {...selectParams}
+                if (name === "topHolePosition")
+                  if (selectParams.visible)
+                    return (
+                      <FormControl
+                        key={index}
+                        sx={{ flexBasis: width, minWidth: width }}
+                      >
+                        <InputLabel id={`desk-top-${name}-select-label`}>
+                          {label}
+                        </InputLabel>
+                        <Select
+                          labelId={`desk-top-${name}-select-label`}
+                          id={`desk-top-${name}-select`}
+                          name={name}
+                          label={label}
+                          size="small"
+                          disabled={!hasDeskTop}
+                          {...selectParams}
+                        >
+                          {options.map((selectOption, selectOptionIndex) => (
+                            <MenuItem
+                              key={selectOptionIndex}
+                              value={selectOption}
+                            >
+                              {selectOption}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    );
+                  else return "";
+                else
+                  return (
+                    <FormControl
+                      key={index}
+                      sx={{ flexBasis: width, minWidth: width }}
                     >
-                      {options.map((selectOption, selectOptionIndex) => (
-                        <MenuItem key={selectOptionIndex} value={selectOption}>
-                          {selectOption}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                );
+                      <InputLabel id={`desk-top-${name}-select-label`}>
+                        {label}
+                      </InputLabel>
+                      <Select
+                        labelId={`desk-top-${name}-select-label`}
+                        id={`desk-top-${name}-select`}
+                        name={name}
+                        label={label}
+                        size="small"
+                        disabled={!hasDeskTop}
+                        {...selectParams}
+                      >
+                        {options.map((selectOption, selectOptionIndex) => (
+                          <MenuItem
+                            key={selectOptionIndex}
+                            value={selectOption}
+                          >
+                            {selectOption}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  );
               } else
                 return (
                   <TextField

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import {
   Document,
   Image,
@@ -10,14 +10,14 @@ import {
   StyleSheet,
   View,
   Tspan,
-} from '@react-pdf/renderer';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { Warning as WarningIcon } from '@mui/icons-material';
-import { Backdrop, CircularProgress, Typography } from '@mui/material';
+} from "@react-pdf/renderer";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Warning as WarningIcon } from "@mui/icons-material";
+import { Backdrop, CircularProgress, Typography } from "@mui/material";
 
-import microsoft_yahei from 'fonts/chinese.msyh.ttf';
-import logoTitle from 'images/logo_title.png';
+import microsoft_yahei from "fonts/chinese.msyh.ttf";
+import logoTitle from "images/logo_title.png";
 
 const styles = StyleSheet.create({
   body: {
@@ -26,94 +26,94 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   header: {
-    width: '100%',
+    width: "100%",
     fontSize: 8,
     lineHeight: 1.2,
     marginBottom: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
-    fontFamily: 'Microsoft Yahei',
+    fontFamily: "Microsoft Yahei",
     fontSize: 15,
     marginBottom: 10,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   logo: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     width: 50,
   },
   info: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
   },
   companyInfo: {
-    fontFamily: 'Microsoft Yahei',
+    fontFamily: "Microsoft Yahei",
     fontSize: 8,
     width: 200,
     paddingRight: 10,
     lineHeight: 1.2,
   },
   clientInfo: {
-    fontFamily: 'Microsoft Yahei',
+    fontFamily: "Microsoft Yahei",
     fontSize: 8,
     width: 200,
     paddingRight: 10,
     lineHeight: 1.2,
   },
   email: {
-    color: '#0000ff',
-    textDecoration: 'underline',
+    color: "#0000ff",
+    textDecoration: "underline",
   },
   subtitle: {
     fontSize: 18,
     margin: 12,
     fontWeight: 100,
-    fontFamily: 'Microsoft Yahei',
+    fontFamily: "Microsoft Yahei",
   },
   text: {
     margin: 12,
     fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'Times-Roman',
+    textAlign: "justify",
+    fontFamily: "Times-Roman",
   },
   table: {
     fontSize: 8,
     marginBottom: 10,
-    border: '0.5px solid #808080',
+    border: "0.5px solid #808080",
   },
   tableRow: {
     fontSize: 8,
-    borderBottom: '0.5px solid #808080',
-    flexDirection: 'row',
+    borderBottom: "0.5px solid #808080",
+    flexDirection: "row",
     minHeight: 15,
-    fontFamily: 'Microsoft Yahei',
+    fontFamily: "Microsoft Yahei",
   },
   tableColumn: {
     flex: 1,
-    padding: '3px 5px',
-    borderRight: '0.5px solid #808080',
+    padding: "3px 5px",
+    borderRight: "0.5px solid #808080",
   },
 });
 
 Font.register({
-  family: 'Microsoft Yahei',
+  family: "Microsoft Yahei",
   src: microsoft_yahei,
 });
 
 const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const mapStateToProps = (state) => {
@@ -130,13 +130,13 @@ export default connect(mapStateToProps)((props) => {
     DeskStocks: [],
     AccessoryStocks: [],
     ServiceToQuotations: [],
-    DeskToQuotations:[]
+    DeskToQuotations: [],
   });
   const { id } = useParams();
   useEffect(() => {
     const source = axios.CancelToken.source();
     getQuotation({ id, cancelToken: source.token });
-    return () => source.cancel('Brand Component got unmounted');
+    return () => source.cancel("Brand Component got unmounted");
   }, [id]);
 
   const getDateString = (time) => {
@@ -156,7 +156,7 @@ export default connect(mapStateToProps)((props) => {
       .get(`/quotation/${id}`, { cancelToken })
       .then((response) => {
         // handle success
-        console.log(response.data)
+        console.log(response.data);
         setSuccess(true);
         setQuotation(response.data);
       })
@@ -168,7 +168,7 @@ export default connect(mapStateToProps)((props) => {
 
   return loading ? (
     <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={true}
     >
       <CircularProgress color="inherit" />
@@ -184,7 +184,7 @@ export default connect(mapStateToProps)((props) => {
               <Text>
                 {`No: Q-${quotation.Seller.prefix}${getDateNum(
                   quotation.createdAt
-                )}${('000' + quotation.quotationNum).substr(-3)}`}
+                )}${("000" + quotation.quotationNum).substr(-3)}`}
               </Text>
             </View>
             <View style={styles.logo}>
@@ -220,38 +220,38 @@ export default connect(mapStateToProps)((props) => {
             {[
               {
                 cells: [
-                  { content: 'Salesperson', width: '15%' },
-                  { content: 'Proposed Delivery Date', width: '55%' },
-                  { content: 'Payment Terms', width: '15%' },
-                  { content: 'Valid Til', textAlign: 'right', width: '15%' },
+                  { content: "Salesperson", width: "15%" },
+                  { content: "Proposed Delivery Date", width: "55%" },
+                  { content: "Payment Terms", width: "15%" },
+                  { content: "Valid Til", textAlign: "right", width: "15%" },
                 ],
-                backgroundColor: '#dbe5f1',
-                textTransform: 'uppercase',
+                backgroundColor: "#dbe5f1",
+                textTransform: "uppercase",
               },
               {
                 cells: [
                   {
                     content: `${quotation.Seller.firstName} ${quotation.Seller.lastName}`,
-                    width: '15%',
+                    width: "15%",
                   },
                   {
                     content:
                       quotation.timeLine % 7 === 0
                         ? `Est ${quotation.timeLine / 7} working week${
-                            quotation.timeLine / 7 === 1 ? '' : 's'
+                            quotation.timeLine / 7 === 1 ? "" : "s"
                           } after payment`
                         : `Est ${quotation.timeLine} working day${
-                            quotation.timeLine === 1 ? '' : 's'
+                            quotation.timeLine === 1 ? "" : "s"
                           } after payment`,
-                    width: '55%',
+                    width: "55%",
                   },
-                  { content: quotation.paymentTerms, width: '15%' },
+                  { content: quotation.paymentTerms, width: "15%" },
                   {
                     content: `${quotation.validTil} month${
-                      quotation.validTil === 1 ? '' : 's'
+                      quotation.validTil === 1 ? "" : "s"
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               },
@@ -262,7 +262,7 @@ export default connect(mapStateToProps)((props) => {
                   styles.tableRow,
                   {
                     borderBottom:
-                      rowIndex === rowArr.length - 1 ? 'none' : null,
+                      rowIndex === rowArr.length - 1 ? "none" : null,
                     ...rowRestProps,
                   },
                 ]}
@@ -275,7 +275,7 @@ export default connect(mapStateToProps)((props) => {
                         styles.tableColumn,
                         {
                           borderRight:
-                            index === cellArr.length - 1 ? 'none' : null,
+                            index === cellArr.length - 1 ? "none" : null,
                           flexBasis: width,
                           maxWidth: width,
                           ...cellRestProps,
@@ -293,52 +293,50 @@ export default connect(mapStateToProps)((props) => {
             {[
               {
                 cells: [
-                  { content: 'QTY', width: '15%' },
-                  { content: 'Description', width: '55%' },
-                  { content: 'Unit Price', width: '15%' },
+                  { content: "QTY", width: "15%" },
+                  { content: "Description", width: "55%" },
+                  { content: "Unit Price", width: "15%" },
                   {
-                    content: 'Line Total (HKD)',
-                    textAlign: 'right',
-                    width: '15%',
+                    content: "Line Total (HKD)",
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
-                backgroundColor: '#dbe5f1',
-                textTransform: 'uppercase',
+                backgroundColor: "#dbe5f1",
+                textTransform: "uppercase",
               },
               ...quotation.ChairStocks.map((item) => ({
                 cells: [
                   {
                     content: `${item.ChairToQuotation.qty}`,
-                    width: '15%',
+                    width: "15%",
                   },
                   {
                     content: `Chair Brand: ${item.brand}\nChair Model: ${
                       item.model
                     }\n${
-                      item.withHeadrest ? 'With Headrest' : 'Without Headrest'
+                      item.withHeadrest ? "With Headrest" : "Without Headrest"
                     }\n${
                       item.withAdArmrest
-                        ? 'With Adjustable Armrest'
-                        : 'Without Adjustable Armrest'
-                    }\nRemark: ${
-                      item.ChairToQuotation.remark
-                    }\n${
-                      JSON.parse(item.ChairToQuotation.deliveryOption)
-                    }`,
-                    width: '55%',
+                        ? "With Adjustable Armrest"
+                        : "Without Adjustable Armrest"
+                    }\nRemark: ${item.ChairToQuotation.remark}\n${JSON.parse(
+                      item.ChairToQuotation.deliveryOption
+                    )}`,
+                    width: "55%",
                   },
                   {
                     content: `${item.ChairToQuotation.unitPrice}`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                   {
                     content: `${
                       item.ChairToQuotation.unitPrice *
                       item.ChairToQuotation.qty
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               })),
@@ -346,39 +344,71 @@ export default connect(mapStateToProps)((props) => {
                 cells: [
                   {
                     content: `${item.qty}`,
-                    width: '15%',
+                    width: "15%",
                   },
                   {
-                    content: 
-                    `Desk Model: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).model}
-                    Color of Legs: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).color}
-                    ArmSize: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).armSize}
-                    FeetSize: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).feetSize}
-                    Beam Size: ${quotation.DeskStocks.find(stock=>stock.id === item.stockId).beamSize}
+                    content: `Desk Model: ${
+                      quotation.DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).model
+                    }
+                    Color of Legs: ${
+                      quotation.DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).color
+                    }
+                    ArmSize: ${
+                      quotation.DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).armSize
+                    }
+                    FeetSize: ${
+                      quotation.DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).feetSize
+                    }
+                    Beam Size: ${
+                      quotation.DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).beamSize
+                    }
                     ${
                       item.hasDeskTop
                         ? `Table Top: ${item.topMaterial}
-                        Table Top Size: ${item.topLength}x${item.topWidth}x${item.topThickness}
-                        Table Top Color: ${item.topColor} ${item.topRoundedCorners === 0 ? '' : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`} ${item.topHoleCount === 0 ? '' : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`} 
+                        Table Top Size: ${item.topLength}x${item.topWidth}x${
+                            item.topThickness
+                          }
+                        Table Top Color: ${item.topColor}${
+                            item.topRoundedCorners === 0
+                              ? ""
+                              : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`
+                          }${
+                            item.topHoleCount === 0
+                              ? ""
+                              : `\nHoles Required: ${item.topHoleCount}, ${
+                                  item.topHoleType === "Rounded"
+                                    ? "Hole Position:"
+                                    : ""
+                                } ${
+                                  item.topHoleType === "Rounded" &&
+                                  item.topHolePosition
+                                }, Holes Shaped: ${item.topHoleType}`
+                          }
                         Remark: ${item.remark}`
-                        : 'Without DeskTop'
+                        : "Without DeskTop"
                     }
-                    ${
-                      JSON.parse(item.deliveryOption)
-                    }`,
-                    width: '55%',
+                    ${JSON.parse(item.deliveryOption)}`,
+                    width: "55%",
                   },
                   {
                     content: `${item.unitPrice}`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                   {
-                    content: `${
-                      item.unitPrice * item.qty
-                    }`,
-                    textAlign: 'right',
-                    width: '15%',
+                    content: `${item.unitPrice * item.qty}`,
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               })),
@@ -386,48 +416,50 @@ export default connect(mapStateToProps)((props) => {
                 cells: [
                   {
                     content: `${item.AccessoryToQuotation.qty}`,
-                    width: '15%',
+                    width: "15%",
                   },
                   {
-                    content: `${item.name}\nAccessory Category: ${item.category}\nRemark: ${item.AccessoryToQuotation.remark}\n${
-                      JSON.parse(item.AccessoryToQuotation.deliveryOption)
-                    }`,
-                    width: '55%',
+                    content: `${item.name}\nAccessory Category: ${
+                      item.category
+                    }\nRemark: ${
+                      item.AccessoryToQuotation.remark
+                    }\n${JSON.parse(item.AccessoryToQuotation.deliveryOption)}`,
+                    width: "55%",
                   },
                   {
                     content: `${item.AccessoryToQuotation.unitPrice}`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                   {
                     content: `${
                       item.AccessoryToQuotation.unitPrice *
                       item.AccessoryToQuotation.qty
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               })),
               ...quotation.ServiceToQuotations.map((item) => ({
                 cells: [
                   {
-                    content: '1',
-                    width: '15%',
+                    content: "1",
+                    width: "15%",
                   },
                   {
                     content: `${item.description}`,
-                    width: '55%',
+                    width: "55%",
                   },
                   {
                     content: `${item.price}`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                   {
                     content: `${item.price}`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               })),
@@ -442,20 +474,20 @@ export default connect(mapStateToProps)((props) => {
                 )
               ).fill({
                 cells: [
-                  { content: '', width: '15%' },
-                  { content: '', width: '55%' },
-                  { content: '', width: '15%' },
-                  { content: '', width: '15%' },
+                  { content: "", width: "15%" },
+                  { content: "", width: "55%" },
+                  { content: "", width: "15%" },
+                  { content: "", width: "15%" },
                 ],
               }),
               {
                 cells: [
                   {
                     content: ``,
-                    width: '70%',
+                    width: "70%",
                     fontSize: 12,
                   },
-                  { content: 'SUBTOTAL', width: '15%' },
+                  { content: "SUBTOTAL", width: "15%" },
                   {
                     content: `${
                       (quotation.ChairStocks.length
@@ -467,9 +499,7 @@ export default connect(mapStateToProps)((props) => {
                         : 0) +
                       (quotation.DeskToQuotations.length
                         ? quotation.DeskToQuotations.map(
-                            (item) =>
-                              item.unitPrice *
-                              item.qty
+                            (item) => item.unitPrice * item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (quotation.AccessoryStocks.length
@@ -485,21 +515,21 @@ export default connect(mapStateToProps)((props) => {
                           ).reduce((acc, cur) => acc + cur)
                         : 0)
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
-                    borderBottom: '0.5px solid #808080',
+                    textAlign: "right",
+                    width: "15%",
+                    borderBottom: "0.5px solid #808080",
                   },
                 ],
-                borderBottom: 'none',
+                borderBottom: "none",
               },
               {
                 cells: [
                   {
                     content: ``,
-                    width: '70%',
+                    width: "70%",
                     fontSize: 12,
                   },
-                  { content: 'DISCOUNT', width: '15%' },
+                  { content: "DISCOUNT", width: "15%" },
                   {
                     content: `${
                       quotation.discountType
@@ -528,21 +558,21 @@ export default connect(mapStateToProps)((props) => {
                             quotation.discount) /
                           100
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
-                    borderBottom: '0.5px solid #808080',
+                    textAlign: "right",
+                    width: "15%",
+                    borderBottom: "0.5px solid #808080",
                   },
                 ],
-                borderBottom: 'none',
+                borderBottom: "none",
               },
               {
                 cells: [
                   {
                     content: ``,
-                    width: '70%',
+                    width: "70%",
                     fontSize: 12,
                   },
-                  { content: 'SURCHARGE', width: '15%' },
+                  { content: "SURCHARGE", width: "15%" },
                   {
                     content: `${
                       quotation.surchargeType
@@ -571,21 +601,21 @@ export default connect(mapStateToProps)((props) => {
                             quotation.surcharge) /
                           100
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
-                    borderBottom: '0.5px solid #808080',
+                    textAlign: "right",
+                    width: "15%",
+                    borderBottom: "0.5px solid #808080",
                   },
                 ],
-                borderBottom: 'none',
+                borderBottom: "none",
               },
               {
                 cells: [
                   {
                     content: ``,
-                    width: '70%',
+                    width: "70%",
                     fontSize: 12,
                   },
-                  { content: 'TOTAL', width: '15%' },
+                  { content: "TOTAL", width: "15%" },
                   {
                     content: `${
                       (quotation.ChairStocks.length
@@ -597,9 +627,7 @@ export default connect(mapStateToProps)((props) => {
                         : 0) +
                       (quotation.DeskToQuotations.length
                         ? quotation.DeskToQuotations.map(
-                            (item) =>
-                              item.unitPrice *
-                              item.qty
+                            (item) => item.unitPrice * item.qty
                           ).reduce((acc, cur) => acc + cur)
                         : 0) +
                       (quotation.AccessoryStocks.length
@@ -665,8 +693,8 @@ export default connect(mapStateToProps)((props) => {
                             quotation.surcharge) /
                           100)
                     }`,
-                    textAlign: 'right',
-                    width: '15%',
+                    textAlign: "right",
+                    width: "15%",
                   },
                 ],
               },
@@ -677,7 +705,7 @@ export default connect(mapStateToProps)((props) => {
                   styles.tableRow,
                   {
                     borderBottom:
-                      rowIndex === rowArr.length - 1 ? 'none' : null,
+                      rowIndex === rowArr.length - 1 ? "none" : null,
                     ...rowRestProps,
                   },
                 ]}
@@ -690,7 +718,7 @@ export default connect(mapStateToProps)((props) => {
                         styles.tableColumn,
                         {
                           borderRight:
-                            index === cellArr.length - 1 ? 'none' : null,
+                            index === cellArr.length - 1 ? "none" : null,
                           flexBasis: width,
                           maxWidth: width,
                           ...cellRestProps,
@@ -707,8 +735,8 @@ export default connect(mapStateToProps)((props) => {
               style={{
                 fontSize: 12,
                 padding: 3,
-                position: 'absolute',
-                width: '70%',
+                position: "absolute",
+                width: "70%",
                 bottom: 0,
                 left: 0,
               }}
@@ -725,14 +753,14 @@ export default connect(mapStateToProps)((props) => {
             `Delivery date for pre-orders stated above is an estimate only. While we will try our best to deliver the products as soon as possible, the actual delivery date may be adjusted depending on actual freight schedule. We do NOT accept refund in case of delay arising from delivery delay.`,
             `You understand that pre-orders are non-refundable.  Decision to switch to another product after purchase can only be treated as store credits. `,
           ].map((text, index) => (
-            <View key={index} style={{ flexDirection: 'row', margin: '5px 0' }}>
+            <View key={index} style={{ flexDirection: "row", margin: "5px 0" }}>
               <View
                 style={{
                   width: 2,
                   fontSize: 10,
                   lineHeight: 1.2,
-                  margin: '0 10px 0 0',
-                  color: '#888888',
+                  margin: "0 10px 0 0",
+                  color: "#888888",
                 }}
               >
                 <Text>•</Text>
@@ -742,7 +770,7 @@ export default connect(mapStateToProps)((props) => {
                   flexGrow: 1,
                   fontSize: 10,
                   lineHeight: 1.2,
-                  color: '#888888',
+                  color: "#888888",
                 }}
               >
                 <Text>{text}</Text>
@@ -751,10 +779,10 @@ export default connect(mapStateToProps)((props) => {
           ))}
           <Text
             style={{
-              marginTop: '5px',
+              marginTop: "5px",
               fontSize: 10,
               lineHeight: 1.2,
-              color: '#888888',
+              color: "#888888",
             }}
           >
             The warranty is effective from the date of purchase from Blueocean
@@ -776,14 +804,14 @@ export default connect(mapStateToProps)((props) => {
           ].map((text, index) => (
             <View
               key={index}
-              style={{ flexDirection: 'row', marginLeft: '10px' }}
+              style={{ flexDirection: "row", marginLeft: "10px" }}
             >
               <View
                 style={{
                   width: 2,
                   height: 2,
-                  margin: '5px 10px 0 0',
-                  backgroundColor: '#888888',
+                  margin: "5px 10px 0 0",
+                  backgroundColor: "#888888",
                 }}
               />
               <View
@@ -791,7 +819,7 @@ export default connect(mapStateToProps)((props) => {
                   flexGrow: 1,
                   fontSize: 10,
                   lineHeight: 1.2,
-                  color: '#888888',
+                  color: "#888888",
                 }}
               >
                 <Text>{text}</Text>
@@ -802,7 +830,7 @@ export default connect(mapStateToProps)((props) => {
             style={{
               fontSize: 10,
               lineHeight: 1.2,
-              color: '#888888',
+              color: "#888888",
             }}
           >
             Claiming of any aforementioned warranties only covers replacement of
@@ -820,7 +848,7 @@ export default connect(mapStateToProps)((props) => {
               fontSize: 10,
               lineHeight: 1.2,
               marginTop: 10,
-              color: '#888888',
+              color: "#888888",
             }}
           >
             Agreement to this quotation represents that client understands our
@@ -832,7 +860,7 @@ export default connect(mapStateToProps)((props) => {
               fontSize: 10,
               lineHeight: 1.2,
               marginTop: 10,
-              color: '#888888',
+              color: "#888888",
             }}
           >
             Initials: _________________
@@ -842,8 +870,8 @@ export default connect(mapStateToProps)((props) => {
               fontSize: 12,
               lineHeight: 1.2,
               marginTop: 12,
-              fontWeight: 'bold',
-              textAlign: 'center',
+              fontWeight: "bold",
+              textAlign: "center",
             }}
           >
             Thank you for your business!
@@ -853,7 +881,7 @@ export default connect(mapStateToProps)((props) => {
     </PDFViewer>
   ) : (
     <Backdrop
-      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open={true}
     >
       <WarningIcon />

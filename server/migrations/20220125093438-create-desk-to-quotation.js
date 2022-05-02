@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('desktoquotations', {
+    await queryInterface.createTable("desktoquotations", {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
@@ -15,12 +15,12 @@ module.exports = {
       },
       topMaterial: {
         allowNull: false,
-        defaultValue: '',
+        defaultValue: "",
         type: Sequelize.STRING,
       },
       topColor: {
         allowNull: false,
-        defaultValue: '',
+        defaultValue: "",
         type: Sequelize.STRING,
       },
       topLength: {
@@ -55,12 +55,17 @@ module.exports = {
       },
       topHoleType: {
         allowNull: false,
-        defaultValue: 'Rounded',
+        defaultValue: "Rounded",
+        type: Sequelize.STRING,
+      },
+      topHolePosition: {
+        allowNull: false,
+        defaultValue: "Left",
         type: Sequelize.STRING,
       },
       topSketchURL: {
         allowNull: false,
-        defaultValue: '',
+        defaultValue: "",
         type: Sequelize.STRING,
       },
       unitPrice: {
@@ -75,7 +80,7 @@ module.exports = {
       },
       deliveryOption: {
         allowNull: false,
-        defaultValue: 'Delivery Included',
+        defaultValue: "Delivery Included",
         type: Sequelize.STRING,
       },
       remark: {
@@ -93,6 +98,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('desktoquotations');
+    await queryInterface.dropTable("desktoquotations");
   },
 };

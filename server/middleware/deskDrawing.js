@@ -22,8 +22,6 @@ function drawDeskTop(params, drawerAmount) {
       topHolePosition,
     } = params;
 
-    console.log("drawerAmount---", drawerAmount);
-
     var topHolePosition =
       topHoleCount === "1" && topHoleType === "Rounded"
         ? `${topHolePosition.toLowerCase()}-`
@@ -62,8 +60,7 @@ function drawDeskTop(params, drawerAmount) {
         ctx.textAlign = "right";
         ctx.font = "30pt 'Microsoft Sans Serif'";
         invoiceNum && ctx.fillText(`: ${invoiceNum}`, 950, 450);
-        quotationNum &&
-          ctx.fillText(`Quotation Num: ${quotationNum}`, 950, 450);
+        quotationNum && ctx.fillText(`: ${quotationNum}`, 950, 450);
         topMaterial && ctx.fillText(`Material: ${topMaterial}`, 950, 500);
         topColor && ctx.fillText(`Color: ${topColor}`, 950, 550);
 

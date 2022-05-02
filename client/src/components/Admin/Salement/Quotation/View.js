@@ -125,7 +125,7 @@ const hideColumns = [
   "TimeLine",
   "Remark",
   "Discount",
-  "SurC harge",
+  "SurCharge",
   "Products",
   "Paid",
   "Con",
