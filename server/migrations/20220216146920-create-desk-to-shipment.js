@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("chairtoshipments", {
+    await queryInterface.createTable("desktoshipments", {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
@@ -18,6 +18,21 @@ module.exports = {
         defaultValue: 1,
         type: Sequelize.INTEGER,
       },
+      hasDeskTop: {
+        allowNull: false,
+        defaultValue: false,
+        type: Sequelize.BOOLEAN,
+      },
+      topColor: {
+        allowNull: false,
+        defaultValue: "",
+        type: Sequelize.STRING,
+      },
+      topMaterial: {
+        allowNull: false,
+        defaultValue: "",
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,6 +44,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("chairtoshipments");
+    await queryInterface.dropTable("desktoshipments");
   },
 };

@@ -1,33 +1,38 @@
-import React, { useState } from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Box } from '@mui/material';
+import React, { useState } from "react";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { connect } from "react-redux";
+import { Box } from "@mui/material";
 import {
   BookOnline as BookOnlineIcon,
   DeliveryDining as DeliveryDiningIcon,
   PeopleAlt as PeopleAltIcon,
   Storefront as StorefrontIcon,
-} from '@mui/icons-material';
-import Swal from 'sweetalert2';
+} from "@mui/icons-material";
+import Swal from "sweetalert2";
 
-import AppHeader from 'components/Common/AppHeader';
-import { CollapsedSidebar, FixedSidebar } from 'components/Common/Sidebar';
-import { logout } from 'services/auth.service';
-import User from './User';
-import { ChairStock } from './Chair';
-import { DeskStock } from './Desk';
-import { AccessoryStock } from './Accessory';
+import AppHeader from "components/Common/AppHeader";
+import { CollapsedSidebar, FixedSidebar } from "components/Common/Sidebar";
+import { logout } from "services/auth.service";
+import User from "./User";
+import { ChairStock } from "./Chair";
+import { DeskStock } from "./Desk";
+import { AccessoryStock } from "./Accessory";
 import {
   SalesOrderCreate,
   SalesOrderEdit,
   SalesOrderView,
-} from './Salement/SalesOrder';
+} from "./Salement/SalesOrder";
+import {
+  ShipmentCreate,
+  ShipmentEdit,
+  ShipmentView,
+} from "./Salement/Shipment";
 import {
   QuotationCreate,
   QuotationEdit,
   QuotationView,
-} from './Salement/Quotation';
-import { ChairDelivery, DeskDelivery, AccessoryDelivery } from './Delivery';
+} from "./Salement/Quotation";
+import { ChairDelivery, DeskDelivery, AccessoryDelivery } from "./Delivery";
 
 function mapStateToProps(state) {
   const { auth } = state;
@@ -39,61 +44,62 @@ const drawerHeight = 50;
 
 const menuLists = [
   {
-    category: 'Chair',
+    category: "Chair",
     content: [
-      { to: '/admin/chair/stock', icon: <StorefrontIcon />, label: 'Stock' },
+      { to: "/admin/chair/stock", icon: <StorefrontIcon />, label: "Stock" },
     ],
   },
   {
-    category: 'Desk',
+    category: "Desk",
     content: [
-      { to: '/admin/desk/stock', icon: <StorefrontIcon />, label: 'Stock' },
+      { to: "/admin/desk/stock", icon: <StorefrontIcon />, label: "Stock" },
     ],
   },
   {
-    category: 'Accessory',
+    category: "Accessory",
     content: [
       {
-        to: '/admin/accessory/stock',
+        to: "/admin/accessory/stock",
         icon: <StorefrontIcon />,
-        label: 'Stock',
+        label: "Stock",
       },
     ],
   },
   {
-    category: 'Sales',
+    category: "Sales",
     content: [
-      { to: '/admin/order', icon: <BookOnlineIcon />, label: 'Order' },
+      { to: "/admin/order", icon: <BookOnlineIcon />, label: "Order" },
       {
-        to: '/admin/quotation',
+        to: "/admin/quotation",
         icon: <BookOnlineIcon />,
-        label: 'Quotation',
+        label: "Quotation",
       },
+      { to: "/admin/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
     ],
   },
   {
-    category: 'Delivery',
+    category: "Delivery",
     content: [
       {
-        to: '/admin/delivery/chair',
+        to: "/admin/delivery/chair",
         icon: <DeliveryDiningIcon />,
-        label: 'Chair',
+        label: "Chair",
       },
       {
-        to: '/admin/delivery/desk',
+        to: "/admin/delivery/desk",
         icon: <DeliveryDiningIcon />,
-        label: 'Desk',
+        label: "Desk",
       },
       {
-        to: '/admin/delivery/accessory',
+        to: "/admin/delivery/accessory",
         icon: <DeliveryDiningIcon />,
-        label: 'Accessory',
+        label: "Accessory",
       },
     ],
   },
   {
-    category: 'User',
-    content: [{ to: '/admin/user', icon: <PeopleAltIcon />, label: 'Users' }],
+    category: "User",
+    content: [{ to: "/admin/user", icon: <PeopleAltIcon />, label: "Users" }],
   },
 ];
 
@@ -114,12 +120,12 @@ const Admin = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'Log out will remove your session information permanently.',
-      icon: 'question',
+      title: "Are you sure?",
+      text: "Log out will remove your session information permanently.",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonText: 'Yes, Logout!',
-      cancelButtonText: 'No, Keep Login',
+      confirmButtonText: "Yes, Logout!",
+      cancelButtonText: "No, Keep Login",
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -160,7 +166,7 @@ const Admin = (props) => {
           sx={{
             flexGrow: 1,
             width: { sm: `calc(100% - ${drawerWidth}px)` },
-            maxWidth: '100%',
+            maxWidth: "100%",
           }}
         >
           <Switch>
@@ -183,6 +189,17 @@ const Admin = (props) => {
               exact
               component={SalesOrderEdit}
             />
+            <Route path={`${path}/shipment`} exact component={ShipmentView} />
+            <Route
+              path={`${path}/shipment/create`}
+              exact
+              component={ShipmentCreate}
+            />
+            {/* <Route
+              path={`${path}/shipment/edit`}
+              exact
+              component={ShipmentEdit}
+            /> */}
             <Route path={`${path}/quotation`} exact component={QuotationView} />
             <Route
               path={`${path}/quotation/create`}

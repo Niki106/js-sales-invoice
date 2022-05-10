@@ -8,7 +8,7 @@ module.exports = {
   update,
   delete: _delete,
   bulkDelete: _bulkDelete,
-  shipmentCreate,
+  // shipmentCreate,
 };
 
 async function getFeatures() {
@@ -102,13 +102,18 @@ async function getChairStock(id) {
   return chairStock;
 }
 
-async function shipmentCreate(req, res, next) {
-  try {
-    const params = req.body;
-    console.log("params----", params);
-    await db.ChairToShipment.create({ ...params });
-    res.json({ message: "New Shipment was created successfully." });
-  } catch (err) {
-    next(err);
-  }
-}
+// async function shipmentCreate(req, res, next) {
+//   try {
+//     const params = req.body;
+//     console.log("params----", params);
+
+//     await db.ChairToShipment.create({ ...params });
+
+//     const { stockId } = params;
+//     const chairStock = await db.ChairStock.findByPk(stockId);
+
+//     res.json({ message: "New Shipment was created successfully." });
+//   } catch (err) {
+//     next(err);
+//   }
+// }

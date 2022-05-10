@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("chairtoshipments", "shipmentId", {
+    await queryInterface.addColumn("accessorytoshipments", "shipmentId", {
       type: Sequelize.UUID,
       references: {
         model: "shipments",
@@ -11,10 +11,10 @@ module.exports = {
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
     });
-    await queryInterface.addColumn("chairtoshipments", "stockId", {
+    await queryInterface.addColumn("accessorytoshipments", "stockId", {
       type: Sequelize.UUID,
       references: {
-        model: "chairstocks",
+        model: "accessorystocks",
         key: "id",
       },
       onUpdate: "CASCADE",
@@ -23,7 +23,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("chairtoshipments", "stockId");
-    await queryInterface.removeColumn("chairtoshipments", "shipmentId");
+    await queryInterface.removeColumn("accessorytoshipments", "stockId");
+    await queryInterface.removeColumn("accessorytoshipments", "shipmentId");
   },
 };
