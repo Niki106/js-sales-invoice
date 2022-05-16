@@ -12,7 +12,7 @@ router.post("/create", authorize(), createSchema, shipmentController.create);
 router.get("/products", shipmentController.getProducts);
 router.get("/", admin(), getAll);
 router.get("/:id", getById);
-router.put("/:id", admin(), createSchema, shipmentController.update);
+router.put("/:id", authorize(), shipmentController.update);
 router.delete("/:id", admin(), _delete);
 
 module.exports = router;
@@ -46,6 +46,6 @@ function getById(req, res, next) {
 function _delete(req, res, next) {
   shipmentController
     .delete(req.params.id)
-    .then(() => res.json({ message: "SalesOrder was deleted successfully." }))
+    .then(() => res.json({ message: "Shipment was deleted successfully." }))
     .catch(next);
 }

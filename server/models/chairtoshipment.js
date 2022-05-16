@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       client: DataTypes.STRING,
       qty: DataTypes.INTEGER,
+      orderedQty: DataTypes.INTEGER,
     },
     {
       sequelize,

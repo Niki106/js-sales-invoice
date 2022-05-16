@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -17,7 +17,6 @@ import {
   Tabs,
   Input,
 } from "@mui/material";
-import { blue, pink, purple, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
@@ -25,21 +24,8 @@ import {
   Close as CloseIcon,
   Edit as EditIcon,
 } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import MuiPhoneNumber from "material-ui-phone-number";
 import axios from "axios";
 import Swal from "sweetalert2";
-
-import DataGrid from "components/Common/DataGrid";
-import {
-  ProductList,
-  ProductListItem,
-  ProductListItemText,
-  ProductPriceAmount,
-} from "../ProductList";
-import { v4 as uuidv4 } from "uuid";
-import CheckableMultiSelect from "components/Common/MultiSelect";
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -120,7 +106,7 @@ export default connect(mapStateToProps)((props) => {
     const qty = e.target.value;
     const newQtys = chairQtys.map((chairQty, i) => {
       if (index === i) {
-        const orderedQty = parseInt(chairs[index].totalQty);
+        const orderedQty = parseInt(chairs[index].orderedQty);
         return qty > orderedQty ? qty : orderedQty;
       } else return chairQty;
     });
@@ -131,7 +117,7 @@ export default connect(mapStateToProps)((props) => {
     const qty = e.target.value;
     const newQtys = deskQtys.map((deskQty, i) => {
       if (index === i) {
-        const orderedQty = parseInt(desks[index].totalQty);
+        const orderedQty = parseInt(desks[index].orderedQty);
         return qty > orderedQty ? qty : orderedQty;
       } else return deskQty;
     });
@@ -142,7 +128,7 @@ export default connect(mapStateToProps)((props) => {
     const qty = e.target.value;
     const newQtys = accessoryQtys.map((accessoryQty, i) => {
       if (index === i) {
-        const orderedQty = parseInt(accessories[index].totalQty);
+        const orderedQty = parseInt(accessories[index].orderedQty);
         return qty > orderedQty ? qty : orderedQty;
       } else return accessoryQty;
     });
@@ -165,11 +151,14 @@ export default connect(mapStateToProps)((props) => {
       return { ...accessory, totalQty: qty };
     });
 
+    const arrivalDates = arrivalDate.split("-");
+    const arrival_date = arrivalDates[0] !== "0000" ? arrivalDate : "";
+
     axios
       .post(`/shipment/create`, {
         ponumber,
         orderDate,
-        arrivalDate,
+        arrivalDate: arrival_date,
         chairs: chairProducts,
         desks: deskProducts,
         accessories: accessoryProducts,
@@ -317,6 +306,7 @@ export default connect(mapStateToProps)((props) => {
                   <TableRow>
                     <TableCell>Item</TableCell>
                     <TableCell>Clients' name</TableCell>
+                    <TableCell>Ordered Qty</TableCell>
                     <TableCell align="right" width={100}>
                       Qty
                     </TableCell>
@@ -339,6 +329,7 @@ export default connect(mapStateToProps)((props) => {
                           {chair.model}
                         </TableCell>
                         <TableCell>{uniqueClients.join(", ")}</TableCell>
+                        <TableCell>{chair.orderedQty}</TableCell>
                         <TableCell align="right">
                           <Input
                             type="number"
@@ -375,6 +366,7 @@ export default connect(mapStateToProps)((props) => {
                     <TableCell>HasDeskTop</TableCell>
                     <TableCell>Top Material</TableCell>
                     <TableCell>Top Color</TableCell>
+                    <TableCell>Oredered Qty</TableCell>
                     <TableCell align="right">Qty</TableCell>
                   </TableRow>
                 </TableHead>
@@ -398,6 +390,7 @@ export default connect(mapStateToProps)((props) => {
                         <TableCell>{desk.hasDeskTop}</TableCell>
                         <TableCell>{desk.topMaterial}</TableCell>
                         <TableCell>{desk.topColor}</TableCell>
+                        <TableCell>{desk.orderedQty}</TableCell>
                         <TableCell align="right" width={100}>
                           <Input
                             type="number"
@@ -431,6 +424,7 @@ export default connect(mapStateToProps)((props) => {
                   <TableRow>
                     <TableCell>Item</TableCell>
                     <TableCell>Clients' name</TableCell>
+                    <TableCell>Ordered Qty</TableCell>
                     <TableCell align="right" width={100}>
                       Qty
                     </TableCell>
@@ -453,6 +447,7 @@ export default connect(mapStateToProps)((props) => {
                           {accessory.name}
                         </TableCell>
                         <TableCell>{uniqueClients.join(", ")}</TableCell>
+                        <TableCell>{accessory.orderedQty}</TableCell>
                         <TableCell align="right">
                           <Input
                             type="number"
@@ -481,8 +476,13 @@ export default connect(mapStateToProps)((props) => {
           Create
         </Button>
         <Button
-          type="submit"
+          type="button"
           sx={{ maxHeight: "40px", marginTop: "7px", float: "right" }}
+          onClick={() => {
+            setPONumber("");
+            setOrderDate("");
+            setArrivalDate("");
+          }}
         >
           Cancel
         </Button>

@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       client: DataTypes.STRING,
       qty: DataTypes.INTEGER,
+      orderedQty: DataTypes.INTEGER,
       hasDeskTop: DataTypes.BOOLEAN,
       topColor: DataTypes.STRING,
       topMaterial: DataTypes.STRING,

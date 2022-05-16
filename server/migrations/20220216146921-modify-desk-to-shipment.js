@@ -9,7 +9,7 @@ module.exports = {
         key: "id",
       },
       onUpdate: "CASCADE",
-      onDelete: "SET NULL",
+      onDelete: "CASCADE",
     });
     await queryInterface.addColumn("desktoshipments", "stockId", {
       type: Sequelize.UUID,

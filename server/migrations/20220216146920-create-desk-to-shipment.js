@@ -18,6 +18,11 @@ module.exports = {
         defaultValue: 1,
         type: Sequelize.INTEGER,
       },
+      orderedQty: {
+        allowNull: false,
+        defaultValue: 1,
+        type: Sequelize.INTEGER,
+      },
       hasDeskTop: {
         allowNull: false,
         defaultValue: false,
