@@ -22,11 +22,7 @@ import {
   SalesOrderEdit,
   SalesOrderView,
 } from "./Salement/SalesOrder";
-import {
-  ShipmentCreate,
-  ShipmentEdit,
-  ShipmentView,
-} from "./Salement/Shipment";
+import { ShipmentCreate, ShipmentView } from "./Salement/Shipment";
 import {
   QuotationCreate,
   QuotationEdit,
