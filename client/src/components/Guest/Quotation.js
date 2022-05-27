@@ -384,14 +384,7 @@ export default connect(mapStateToProps)((props) => {
                           }${
                             item.topHoleCount === 0
                               ? ""
-                              : `\nHoles Required: ${item.topHoleCount}, ${
-                                  item.topHoleType === "Rounded"
-                                    ? "Hole Position:"
-                                    : ""
-                                } ${
-                                  item.topHoleType === "Rounded" &&
-                                  item.topHolePosition
-                                }, Holes Shaped: ${item.topHoleType}`
+                              : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
                           }
                         Remark: ${item.remark}`
                         : "Without DeskTop"
