@@ -48,7 +48,7 @@ async function getProducts(req, res, next) {
   }
 }
 
-async function getAll(where) {
+async function getAllOld(where) {
   return await db.Shipment.findAll({
     where,
     order: [["createdAt", "DESC"]],
@@ -82,6 +82,10 @@ async function getAll(where) {
       },
     ],
   });
+}
+
+async function getAll(where) {
+  return await db.Shipment.findAll();
 }
 
 async function getById(id) {

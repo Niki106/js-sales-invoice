@@ -309,17 +309,17 @@ const DataGrid = (props) => {
           onBulkEditClick={
             onBulkEditClick
               ? (event) => {
-                  event.preventDefault();
-                  onBulkEditClick(selected);
-                }
+                event.preventDefault();
+                onBulkEditClick(selected);
+              }
               : null
           }
           onBulkRemoveClick={
             onBulkRemoveClick
               ? (event) => {
-                  event.preventDefault();
-                  onBulkRemoveClick(selected);
-                }
+                event.preventDefault();
+                onBulkRemoveClick(selected);
+              }
               : null
           }
         />
@@ -356,6 +356,7 @@ const DataGrid = (props) => {
                       tabIndex={-1}
                       key={index}
                       selected={isItemSelected}
+                      style={row.bkColor === 1 ? { backgroundColor: "#cccccc"} : {}}
                     >
                       {!nonSelect && (
                         <TableCell padding="checkbox">

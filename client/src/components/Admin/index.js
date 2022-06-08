@@ -22,13 +22,16 @@ import {
   SalesOrderEdit,
   SalesOrderView,
 } from "./Salement/SalesOrder";
-import { ShipmentCreate, ShipmentView } from "./Salement/Shipment";
 import {
   QuotationCreate,
   QuotationEdit,
   QuotationView,
 } from "./Salement/Quotation";
 import { ChairDelivery, DeskDelivery, AccessoryDelivery } from "./Delivery";
+import { Shipment } from "./PurchaseOrder/Shipment";
+import { Single } from "./PurchaseOrder/Single";
+import { ShipmentCreate } from './PurchaseOrder/ShipmentCreate';
+import { SingleCreate } from './PurchaseOrder/SingleCreate';
 
 function mapStateToProps(state) {
   const { auth } = state;
@@ -70,7 +73,13 @@ const menuLists = [
         icon: <BookOnlineIcon />,
         label: "Quotation",
       },
-      { to: "/admin/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
+    ],
+  },
+  {
+    category: "P.O.",
+    content: [
+      { to: "/admin/po/single", icon: <BookOnlineIcon />, label: "Single Order" },
+      { to: "/admin/po/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
     ],
   },
   {
@@ -185,7 +194,6 @@ const Admin = (props) => {
               exact
               component={SalesOrderEdit}
             />
-            <Route path={`${path}/shipment`} exact component={ShipmentView} />
             <Route
               path={`${path}/shipment/create`}
               exact
@@ -218,9 +226,24 @@ const Admin = (props) => {
               component={DeskDelivery}
             />
             <Route
-              path={`${path}/delivery/accessory`}
+              path={`${path}/po/single`}
               exact
-              component={AccessoryDelivery}
+              component={Single}
+            />
+            <Route
+              path={`${path}/po/shipment`}
+              exact
+              component={Shipment}
+            />
+            <Route
+              path={`${path}/po/single/create`}
+              exact
+              component={SingleCreate}
+            />
+            <Route
+              path={`${path}/po/shipment/create`}
+              exact
+              component={ShipmentCreate}
             />
           </Switch>
         </Box>

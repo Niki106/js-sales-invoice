@@ -305,6 +305,7 @@ export default connect(mapStateToProps)((props) => {
       }).then((result) => {
         if (result.isConfirmed) {
           const quotation = quotations[index];
+
           const cart = quotation.ChairStocks.map(
             ({ ChairToQuotation, ...restProps }) => ({
               productType: "chair",
@@ -350,6 +351,15 @@ export default connect(mapStateToProps)((props) => {
                   productDeliveryOption: AccessoryToQuotation.deliveryOption,
                 })
               )
+            ).concat(
+              quotation.ServiceToQuotations.map(
+                ({ description, id, price }) => ({
+                  productType: "misc",
+                  id: id,
+                  price: price,
+                  description: description
+                })
+              )
             );
           axios
             .post(`/salesOrder/create`, {
@@ -365,7 +375,7 @@ export default connect(mapStateToProps)((props) => {
               remark: quotation.remark,
               products: cart
                 .map(({ productDetail, ...restProps }) => ({
-                  productId: productDetail.id,
+                  productId: productDetail?.id,
                   ...restProps,
                 }))
                 .concat(quotation.ServiceToQuotations),
@@ -388,7 +398,7 @@ export default connect(mapStateToProps)((props) => {
                 title: "Error",
                 text: error.response.data.message,
                 allowOutsideClick: false,
-              }).then(() => {});
+              }).then(() => { });
               console.log(error);
             })
             .then(function () {
@@ -686,9 +696,9 @@ export default connect(mapStateToProps)((props) => {
               multiline
               minRows={4}
               maxRows={10}
-              // onChange={(e) => {
-              //   setWhatsAppMessage(e.target.value);
-              // }}
+            // onChange={(e) => {
+            //   setWhatsAppMessage(e.target.value);
+            // }}
             />
           </Stack>
         </DialogContent>
@@ -762,9 +772,8 @@ export default connect(mapStateToProps)((props) => {
                 <ProductListItem key={index}>
                   <ProductListItemText
                     primary={`Chair: ${item.brand}, ${item.model}, ${item.frameColor}, ${item.backColor}, ${item.seatColor}`}
-                    secondary={`${item.withHeadrest ? "Headrest, " : ""}${
-                      item.withAdArmrest ? "Armrest" : ""
-                    }`}
+                    secondary={`${item.withHeadrest ? "Headrest, " : ""}${item.withAdArmrest ? "Armrest" : ""
+                      }`}
                   />
                   <ProductPriceAmount
                     unitPrice={`${item.ChairToQuotation.unitPrice} HKD`}
@@ -778,35 +787,29 @@ export default connect(mapStateToProps)((props) => {
                 <ProductListItem key={index}>
                   <ProductListItemText
                     primary={`Desk:
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).supplierCode
+                      ${quotations[quotationIndex].DeskStocks.find(
+                      (stock) => stock.id === item.stockId
+                    ).supplierCode
                       },
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).model
+                      ${quotations[quotationIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).model
                       },
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).color
+                      ${quotations[quotationIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).color
                       },
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).armSize
+                      ${quotations[quotationIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).armSize
                       },
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).feetSize
+                      ${quotations[quotationIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).feetSize
                       },
-                      ${
-                        quotations[quotationIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).beamSize
+                      ${quotations[quotationIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).beamSize
                       }`}
                     secondary={
                       item.hasDeskTop ? (
