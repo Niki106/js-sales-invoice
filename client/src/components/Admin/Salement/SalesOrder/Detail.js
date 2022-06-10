@@ -319,6 +319,7 @@ export default connect(mapStateToProps)((props) => {
   const [hasDeskTop, setHasDeskTop] = useState(false);
 
   const [productType, setProductType] = useState("chair");
+  const [productId, setProductId] = useState("");
   const [productDetail, setProductDetail] = useState("");
   const [productPrice, setProductPrice] = useState(1000);
   const [productAmount, setProductAmount] = useState(0);
@@ -353,8 +354,8 @@ export default connect(mapStateToProps)((props) => {
 
   let initServices = initialServices
     ? initialServices.map((service) =>
-        Object.assign(service, { productType: "misc" })
-      )
+      Object.assign(service, { productType: "misc" })
+    )
     : [];
   const [services, setServices] = useState(initServices);
 
@@ -548,6 +549,7 @@ export default connect(mapStateToProps)((props) => {
   const onEditCartProduct = (item) => {
     setCartItemStatus("edit");
     setProductType(item.productType);
+    setProductId(item.id);
     setProductDetail(item.productDetail);
     setProductRemark(item.remark);
     setProductPrice(item.productPrice);
@@ -775,9 +777,8 @@ export default connect(mapStateToProps)((props) => {
                     {item.productType === "chair" && (
                       <ProductListItemText
                         primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.remark}`}
-                        secondary={`${
-                          item.productDetail.withHeadrest ? "Headrest, " : ""
-                        }${item.productDetail.withAdArmrest ? "Armrest" : ""}`}
+                        secondary={`${item.productDetail.withHeadrest ? "Headrest, " : ""
+                          }${item.productDetail.withAdArmrest ? "Armrest" : ""}`}
                       />
                     )}
                     {item.productType === "desk" && (
@@ -924,7 +925,7 @@ export default connect(mapStateToProps)((props) => {
                                 (item) =>
                                   item.productType === "chair" &&
                                   item.productDetail.id ===
-                                    chairStocks[index].id
+                                  chairStocks[index].id
                               )
                             ) {
                               Swal.fire({
@@ -936,6 +937,7 @@ export default connect(mapStateToProps)((props) => {
                               return;
                             }
                             setProductType("chair");
+                            setProductId("");
                             setProductDetail(chairStocks[index]);
                             let frameColor =
                               chairStocks[index].frameColor == ""
@@ -970,7 +972,7 @@ export default connect(mapStateToProps)((props) => {
                         const createdTime = new Date(shipmentDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
+                          createdTime.getTimezoneOffset()
                         );
                         return createdTime.toISOString().split("T")[0];
                       })(),
@@ -979,7 +981,7 @@ export default connect(mapStateToProps)((props) => {
                         const createdTime = new Date(arrivalDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
+                          createdTime.getTimezoneOffset()
                         );
                         return createdTime.toISOString().split("T")[0];
                       })(),
@@ -1113,6 +1115,7 @@ export default connect(mapStateToProps)((props) => {
                         <IconButton
                           onClick={(event) => {
                             setProductType("desk");
+                            setProductId("");
                             setProductDetail(deskStocks[index]);
                             setProductPrice(deskStocks[index].unitPrice);
                             setProductAmount(1);
@@ -1128,7 +1131,7 @@ export default connect(mapStateToProps)((props) => {
                         const createdTime = new Date(shipmentDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
+                          createdTime.getTimezoneOffset()
                         );
                         return createdTime.toISOString().split("T")[0];
                       })(),
@@ -1137,7 +1140,7 @@ export default connect(mapStateToProps)((props) => {
                         const createdTime = new Date(arrivalDate);
                         createdTime.setMinutes(
                           createdTime.getMinutes() -
-                            createdTime.getTimezoneOffset()
+                          createdTime.getTimezoneOffset()
                         );
                         return createdTime.toISOString().split("T")[0];
                       })(),
@@ -1236,6 +1239,7 @@ export default connect(mapStateToProps)((props) => {
                         onClick={(event) => {
                           event.preventDefault();
                           setProductType("accessory");
+                          setProductId("");
                           setProductDetail(accessoryStocks[index]);
                           setProductRemark(accessoryStocks[index].remark);
                           setProductPrice(accessoryStocks[index].unitPrice);
@@ -1245,7 +1249,7 @@ export default connect(mapStateToProps)((props) => {
                               (item) =>
                                 item.productType === "accessory" &&
                                 item.productDetail.id ===
-                                  accessoryStocks[index].id
+                                accessoryStocks[index].id
                             )
                           ) {
                             Swal.fire({
@@ -1267,7 +1271,7 @@ export default connect(mapStateToProps)((props) => {
                       const createdTime = new Date(shipmentDate);
                       createdTime.setMinutes(
                         createdTime.getMinutes() -
-                          createdTime.getTimezoneOffset()
+                        createdTime.getTimezoneOffset()
                       );
                       return createdTime.toISOString().split("T")[0];
                     })(),
@@ -1276,7 +1280,7 @@ export default connect(mapStateToProps)((props) => {
                       const createdTime = new Date(arrivalDate);
                       createdTime.setMinutes(
                         createdTime.getMinutes() -
-                          createdTime.getTimezoneOffset()
+                        createdTime.getTimezoneOffset()
                       );
                       return createdTime.toISOString().split("T")[0];
                     })(),
@@ -1421,7 +1425,7 @@ export default connect(mapStateToProps)((props) => {
                   title: "Error",
                   text: error.response.data.message,
                   allowOutsideClick: false,
-                }).then(() => {});
+                }).then(() => { });
                 console.log(error);
               })
               .then(function () {
@@ -1478,7 +1482,7 @@ export default connect(mapStateToProps)((props) => {
                   title: "Error",
                   text: error.response.data.message,
                   allowOutsideClick: false,
-                }).then(() => {});
+                }).then(() => { });
                 console.log(error);
               })
               .then(function () {
@@ -1884,7 +1888,7 @@ export default connect(mapStateToProps)((props) => {
                     },
                   });
                   topSketchURL = response.data.url;
-                } catch (err) {}
+                } catch (err) { }
               }
 
               setCart(
@@ -1932,45 +1936,46 @@ export default connect(mapStateToProps)((props) => {
                     },
                   });
                   topSketchURL = response.data.url;
-                } catch (err) {}
+                } catch (err) { }
               }
               const newCart = cart.map((item) => {
                 if (
-                  item.productType === "desk" &&
-                  item.productDetail.id === productDetail.id
+                  item.productType !== "desk" ||
+                  item.id !== productId
                 )
-                  return {
-                    productType,
-                    productDetail,
-                    productAmount,
-                    productDeliveryOption: JSON.stringify(
-                      [
-                        "Delivery Included",
-                        "Delivery and installation included",
-                        "Remote Area Surcharge",
-                        "Stairs Surcharge",
-                      ].filter((item, index) =>
-                        Boolean(data.get(`deliveryOption_${index}`))
-                      )
-                    ),
-                    productPrice: Boolean(data.get("hasDeskTop"))
-                      ? Number(data.get("deskTotalPrice"))
-                      : Number(data.get("deskLegPrice")),
-                    hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
-                    topMaterial: data.get("topMaterial") || "",
-                    topColor: data.get("topColor") || "",
-                    topLength: data.get("topLength") || 0,
-                    topWidth: data.get("topWidth") || 0,
-                    topThickness: data.get("topThickness") || 0,
-                    topRoundedCorners: data.get("topRoundedCorners") || 0,
-                    topCornerRadius: data.get("topCornerRadius") || 50,
-                    topHoleCount: data.get("topHoleCount") || 0,
-                    topHoleType: data.get("topHoleType") || "",
-                    topHolePosition: topHolePosition || "",
-                    remark: data.get("remark") || "",
-                    topSketchURL: topSketchURL,
-                  };
-                else return item;
+                  return item;
+
+                return {
+                  productType,
+                  productDetail,
+                  productAmount,
+                  productDeliveryOption: JSON.stringify(
+                    [
+                      "Delivery Included",
+                      "Delivery and installation included",
+                      "Remote Area Surcharge",
+                      "Stairs Surcharge",
+                    ].filter((item, index) =>
+                      Boolean(data.get(`deliveryOption_${index}`))
+                    )
+                  ),
+                  productPrice: Boolean(data.get("hasDeskTop"))
+                    ? Number(data.get("deskTotalPrice"))
+                    : Number(data.get("deskLegPrice")),
+                  hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
+                  topMaterial: data.get("topMaterial") || "",
+                  topColor: data.get("topColor") || "",
+                  topLength: data.get("topLength") || 0,
+                  topWidth: data.get("topWidth") || 0,
+                  topThickness: data.get("topThickness") || 0,
+                  topRoundedCorners: data.get("topRoundedCorners") || 0,
+                  topCornerRadius: data.get("topCornerRadius") || 50,
+                  topHoleCount: data.get("topHoleCount") || 0,
+                  topHoleType: data.get("topHoleType") || "",
+                  topHolePosition: topHolePosition || "",
+                  remark: data.get("remark") || "",
+                  topSketchURL: topSketchURL,
+                };
               });
               setCart(newCart);
             }
@@ -2134,12 +2139,12 @@ export default connect(mapStateToProps)((props) => {
                   topHoleCount === 1
                     ? ["Left", "Right", "Center"]
                     : [
-                        "Left",
-                        "Right",
-                        "Center",
-                        "Left_Right",
-                        "Left_Right_Center",
-                      ],
+                      "Left",
+                      "Right",
+                      "Center",
+                      "Left_Right",
+                      "Left_Right_Center",
+                    ],
                 disabled: topHoleCount !== 1 || topHoleType !== "Rounded",
                 visible: topHoleType === "Rounded",
                 width: "48%",
@@ -2399,6 +2404,6 @@ export default connect(mapStateToProps)((props) => {
           <Button type="submit">OK</Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Box >
   );
 });
