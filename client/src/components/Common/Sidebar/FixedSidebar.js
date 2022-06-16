@@ -61,8 +61,8 @@ const FixedSidebar = ({ drawerWidth, handleLogout, lists }) => {
 
   return (
     <Box
-      className={classes.root}
-      sx={{
+      className = {classes.root}
+      sx = {{
         display: { xs: 'none', sm: 'block' },
       }}
     >

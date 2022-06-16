@@ -73,20 +73,20 @@ const FixedSidebar = ({
       }}
     >
       {lists.map((list, listIndex) => [
-        <List key={`list-${listIndex}`}>
-          {list.category ? (
+        <List key = {`list-${listIndex}`}>
+          { list.category ? (
             <Typography variant="h6" sx={{ pl: '10px' }}>
               {list.category}
             </Typography>
-          ) : null}
-          {list.content.map((listitem, itemIndex) =>
+          ) : null }
+          { list.content.map((listitem, itemIndex) =>
             listitem.children ? (
               [
                 <ListItem
-                  key={`listitem-${itemIndex}`}
+                  key = { `listitem-${itemIndex}` }
                   button
-                  className={classes.navlink}
-                  onClick={() => {
+                  className = {classes.navlink}
+                  onClick = { () => {
                     if (expIndex === itemIndex && expList === listIndex) {
                       setExpIndex(-1);
                       setExpList(-1);
@@ -111,8 +111,8 @@ const FixedSidebar = ({
                   <ListItemText primary={listitem.label} />
                 </ListItem>,
                 <Collapse
-                  key={`listcollapse-${itemIndex}`}
-                  in={expIndex === itemIndex && expList === listIndex}
+                  key = { `listcollapse-${itemIndex}` }
+                  in = { expIndex === itemIndex && expList === listIndex }
                 >
                   <List disablePadding>
                     {listitem.children.map((child, childIndex) => (
@@ -133,9 +133,9 @@ const FixedSidebar = ({
               ]
             ) : (
               <NavLink
-                key={`listitem-${itemIndex}`}
+                key = {`listitem-${itemIndex}`}
                 {...listitem}
-                activeClassName="active"
+                activeClassName = "active"
               >
                 <ListItem button className={classes.navlink}>
                   <ListItemIcon>{listitem.icon}</ListItemIcon>
@@ -150,8 +150,8 @@ const FixedSidebar = ({
       <List>
         <ListItem
           button
-          className={classes.navlink}
-          onClick={(e) => {
+          className = {classes.navlink}
+          onClick = {(e) => {
             handleDrawerClose(e);
             handleLogout(e);
           }}
@@ -159,7 +159,7 @@ const FixedSidebar = ({
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText primary="Logout" />
+          <ListItemText primary = "Logout" />
         </ListItem>
       </List>
     </Drawer>

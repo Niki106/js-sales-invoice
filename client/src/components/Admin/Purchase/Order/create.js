@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { CreatePurchaseOrder } from "./Create";
+import { CreatePurchaseOrder } from "../Create";
 
-export const SingleCreate = () => {
+const Create = () => {
     return (
         <div>
             <CreatePurchaseOrder />
         </div>
     )
 };
+
+export default Create;

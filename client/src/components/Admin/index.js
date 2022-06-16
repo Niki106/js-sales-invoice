@@ -28,10 +28,14 @@ import {
   QuotationView,
 } from "./Salement/Quotation";
 import { ChairDelivery, DeskDelivery, AccessoryDelivery } from "./Delivery";
-import { Shipment } from "./PurchaseOrder/Shipment";
-import { Single } from "./PurchaseOrder/Single";
-import { ShipmentCreate } from './PurchaseOrder/ShipmentCreate';
-import { SingleCreate } from './PurchaseOrder/SingleCreate';
+import {
+  POCreate,
+  PurchaseOrder,
+} from "./Purchase/Order";
+import {
+  ShipmentCreate,
+  Shipment,
+} from "./Purchase/Shipment";
 
 function mapStateToProps(state) {
   const { auth } = state;
@@ -68,18 +72,14 @@ const menuLists = [
     category: "Sales",
     content: [
       { to: "/admin/order", icon: <BookOnlineIcon />, label: "Order" },
-      {
-        to: "/admin/quotation",
-        icon: <BookOnlineIcon />,
-        label: "Quotation",
-      },
+      { to: "/admin/quotation", icon: <BookOnlineIcon />, label: "Quotation" },
     ],
   },
   {
-    category: "P.O.",
+    category: "Purchase",
     content: [
-      { to: "/admin/po/single", icon: <BookOnlineIcon />, label: "Single Order" },
-      { to: "/admin/po/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
+      { to: "/admin/purchase/order", icon: <BookOnlineIcon />, label: "Order" },
+      { to: "/admin/purchase/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
     ],
   },
   {
@@ -143,32 +143,32 @@ const Admin = (props) => {
   return (
     <>
       <AppHeader
-        drawerHeight={drawerHeight}
-        handleDrawerToggle={handleDrawerOpen}
-        title="Administrator"
+        drawerHeight = {drawerHeight}
+        handleDrawerToggle = {handleDrawerOpen}
+        title = "Administrator"
       />
       <Box
-        flexBasis={`calc(100% - ${drawerHeight}px)`}
-        maxHeight={`calc(100% - ${drawerHeight}px)`}
-        position="relative"
-        display="flex"
-        backgroundColor="#f4f5f7"
+        flexBasis = {`calc(100% - ${drawerHeight}px)`}
+        maxHeight = {`calc(100% - ${drawerHeight}px)`}
+        position = "relative"
+        display = "flex"
+        backgroundColor = "#f4f5f7"
       >
         <CollapsedSidebar
-          mobileOpen={mobileOpen}
-          handleDrawerClose={handleDrawerClose}
-          drawerWidth={drawerWidth}
-          handleLogout={handleLogout}
-          lists={menuLists}
+          mobileOpen = {mobileOpen}
+          handleDrawerClose = {handleDrawerClose}
+          drawerWidth = {drawerWidth}
+          handleLogout = {handleLogout}
+          lists = {menuLists}
         />
         <FixedSidebar
-          drawerWidth={drawerWidth}
-          handleLogout={handleLogout}
-          lists={menuLists}
+          drawerWidth = {drawerWidth}
+          handleLogout = {handleLogout}
+          lists = {menuLists}
         />
         <Box
-          component="main"
-          sx={{
+          component = "main"
+          sx = {{
             flexGrow: 1,
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             maxWidth: "100%",
@@ -226,24 +226,24 @@ const Admin = (props) => {
               component={DeskDelivery}
             />
             <Route
-              path={`${path}/po/single`}
+              path={`${path}/purchase/order`}
               exact
-              component={Single}
+              component={ PurchaseOrder }
             />
             <Route
-              path={`${path}/po/shipment`}
+              path={`${path}/purchase/order/create`}
               exact
-              component={Shipment}
+              component={ POCreate }
             />
             <Route
-              path={`${path}/po/single/create`}
+              path={`${path}/purchase/shipment`}
               exact
-              component={SingleCreate}
+              component={ Shipment }
             />
             <Route
-              path={`${path}/po/shipment/create`}
+              path={`${path}/purchase/shipment/create`}
               exact
-              component={ShipmentCreate}
+              component={ ShipmentCreate }
             />
           </Switch>
         </Box>

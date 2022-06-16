@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Detail from './Detail';
 import { Redirect, useLocation } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const Edit = (props) => {
             } = DeskToOrder;
   
             const stock = DeskStocks.find(function(val) {
-              return val.id == stockId
+              return val.id === stockId
             })
   
             return {

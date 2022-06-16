@@ -17,14 +17,14 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { blue, pink, red, yellow } from '@mui/material/colors';
+//import { blue, pink, red, yellow } from '@mui/material/colors';
 import {
   Add as AddIcon,
   Deck as DeckIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Email as EmailIcon,
-  PictureAsPdf as PictureAsPdfIcon,
+  // PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
   Receipt as ReceiptIcon
 } from '@mui/icons-material';
@@ -833,6 +833,7 @@ export default connect(mapStateToProps)((props) => {
                           <a
                             href={item.topSketchURL}
                             target="_blank"
+                            rel="noreferrer"
                           >
                             Sketch
                           </a>
