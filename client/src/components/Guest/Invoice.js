@@ -196,7 +196,7 @@ export default connect(mapStateToProps)((props) => {
                 </View>
                 <View style={styles.info}>
                   <View style={styles.companyInfo}>
-                    <Text>Blueocean Int’l (HK) Ltd</Text>
+                    <Text>Blueocean International (HK) Ltd.</Text>
                     <Text>19/F</Text>
                     <Text>Bel Trade Commercial Building</Text>
                     <Text>3 Burrows Street</Text>
@@ -741,6 +741,9 @@ export default connect(mapStateToProps)((props) => {
                       )}
                     </View>
                   ))}
+                  <Text>
+                    Blueocean International (HK) Ltd.
+                  </Text>
                   <Text
                     style={{
                       fontSize: 12,
@@ -922,7 +925,7 @@ export default connect(mapStateToProps)((props) => {
             </View>
             <View style={styles.info}>
               <View style={styles.companyInfo}>
-                <Text>Blueocean Int’l (HK) Ltd</Text>
+                <Text>Blueocean International (HK) Ltd.</Text>
                 <Text>19/F</Text>
                 <Text>Bel Trade Commercial Building</Text>
                 <Text>3 Burrows Street</Text>
@@ -1451,6 +1454,18 @@ export default connect(mapStateToProps)((props) => {
                   )}
                 </View>
               ))}
+              <Text
+                style={{
+                  fontSize: 12,
+                  padding: 3,
+                  position: "absolute",
+                  width: "70%",
+                  bottom: 45,
+                  left: 0,
+                }}
+              >
+                Blueocean International (HK) Ltd.
+              </Text>
               <Text
                 style={{
                   fontSize: 12,

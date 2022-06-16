@@ -2132,8 +2132,8 @@ export default connect(mapStateToProps)((props) => {
                         "Left_Right",
                         "Left_Right_Center",
                       ],
-                disabled: topHoleCount !== 1 || topHoleType !== "Rounded",
-                visible: topHoleType === "Rounded" ? "1" : "0",
+                disabled: topHoleCount !== 1, // || topHoleType !== "Rounded",
+                visible: true, //topHoleType === "Rounded" ? "1" : "0",
                 width: "48%",
               },
               {

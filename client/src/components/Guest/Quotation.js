@@ -192,7 +192,7 @@ export default connect(mapStateToProps)((props) => {
           </View>
           <View style={styles.info}>
             <View style={styles.companyInfo}>
-              <Text>Blueocean Int’l (HK) Ltd</Text>
+              <Text>Blueocean International (HK) Ltd.</Text>
               <Text>19/F</Text>
               <Text>Bel Trade Commercial Building</Text>
               <Text>3 Burrows Street</Text>
@@ -733,6 +733,7 @@ export default connect(mapStateToProps)((props) => {
                 left: 0,
               }}
             >
+              Blueocean International (HK) Ltd. \r\n
               NOTE: Please deposit to HSBC 023-472038-838 (bank code: 004, Bank
               address: 1 Queen's Road Central, Hong Kong. SWIFT code:
               HSBCHKHHHKH or FPS: info@ergoseatings.com
