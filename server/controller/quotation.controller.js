@@ -24,7 +24,7 @@ async function getAll(where) {
       {
         model: db.User,
         as: "Seller",
-        attributes: ["id", "firstName", "lastName"],
+        attributes: ["id", "firstName", "lastName", "prefix"],
       },
       {
         model: db.ChairStock,
