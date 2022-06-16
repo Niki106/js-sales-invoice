@@ -156,7 +156,6 @@ export default connect(mapStateToProps)((props) => {
       .get(`/quotation/${id}`, { cancelToken })
       .then((response) => {
         // handle success
-        console.log(response.data);
         setSuccess(true);
         setQuotation(response.data);
       })
@@ -385,14 +384,7 @@ export default connect(mapStateToProps)((props) => {
                           }${
                             item.topHoleCount === 0
                               ? ""
-                              : `\nHoles Required: ${item.topHoleCount}, ${
-                                  item.topHoleType === "Rounded"
-                                    ? "Hole Position:"
-                                    : ""
-                                } ${
-                                  item.topHoleType === "Rounded" &&
-                                  item.topHolePosition
-                                }, Holes Shaped: ${item.topHoleType}`
+                              : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
                           }
                         Remark: ${item.remark}`
                         : "Without DeskTop"
@@ -795,7 +787,7 @@ export default connect(mapStateToProps)((props) => {
             `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
             `Standing desks: 5 years by manufacturer`,
             `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
-            `Sidiz chairs: 3 years for defective parts under regular usage, by Sidiz, Inc.`,
+            `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
             `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
             `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
             `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,

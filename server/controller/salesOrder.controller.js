@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const uuid = require("uuid/v4");
 const fs = require("fs");
 
 const chairStockController = require("./chairStock.controller");
@@ -38,7 +37,13 @@ async function getAll(where) {
         },
       },
       {
+        model: db.ChairToOrder,
+      },
+      {
         model: db.DeskToOrder,
+      },
+      {
+        model: db.AccessoryToOrder,
       },
       {
         model: db.DeskStock,

@@ -7,7 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.ServiceToOrder, {
         foreignKey: 'orderId'
       });
+      this.hasMany(models.ChairToOrder, {
+        foreignKey: 'orderId'
+      });
       this.hasMany(models.DeskToOrder, {
+        foreignKey: 'orderId'
+      });
+      this.hasMany(models.AccessoryToOrder, {
         foreignKey: 'orderId'
       });
       this.belongsToMany(models.ChairStock, {

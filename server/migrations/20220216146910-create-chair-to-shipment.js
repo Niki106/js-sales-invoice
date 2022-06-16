@@ -8,21 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      unitPrice: {
+      client: {
         allowNull: false,
-        defaultValue: 0,
-        type: Sequelize.FLOAT,
+        defaultValue: "",
+        type: Sequelize.STRING,
       },
       qty: {
         allowNull: false,
         defaultValue: 1,
         type: Sequelize.INTEGER,
       },
-      orderDate: {
-        type: Sequelize.DATEONLY,
-      },
-      arrivalDate: {
-        type: Sequelize.DATEONLY,
+      orderedQty: {
+        allowNull: false,
+        defaultValue: 1,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

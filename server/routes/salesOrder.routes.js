@@ -16,6 +16,7 @@ router.post(
   salesOrderController.updateProducts
 );
 router.get('/', admin(), getAll);
+// router.get('/', getAll);
 router.get('/current', salesman(), getCurrent);
 router.get('/:id', getById);
 router.put('/withoutStock/:id', salesman(), updateSchema, updateWithoutStock);

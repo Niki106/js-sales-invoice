@@ -99,6 +99,13 @@ const columns = [
     label: "Receipt",
     sx: { maxWidth: 75, width: 45 },
   },
+  // {
+  //   id: "shipment",
+  //   label: "Shipment",
+  //   nonSort: true,
+  //   align: "center",
+  //   sx: { maxWidth: 100, width: 100 },
+  // },
   {
     id: "emailIcon",
     nonSort: true,
@@ -135,6 +142,7 @@ const hideColumns = [
   "Products",
   "Paid",
   "Receipt",
+  // "Shipment"
   "Con",
   "tact",
 ];
@@ -310,8 +318,21 @@ export default connect(mapStateToProps)((props) => {
       .get("/salesOrder", { cancelToken })
       .then((response) => {
         // handle success
-        setOrders(response.data);
-        setInitOrders(response.data);
+        let orders = [];
+        response.data.map(item => {
+          let order = item;
+          order.isSentToShipment = false;
+          if (order.AccessoryToOrders.length !== 0 && order.AccessoryToOrders[0].shipmentId != null)
+            order.isSentToShipment = true;
+          if (order.ChairToOrders.length !== 0 && order.ChairToOrders[0].shipmentId != null)
+            order.isSentToShipment = true;
+          if (order.DeskToOrders.length !== 0 && order.DeskToOrders[0].shipmentId != null)
+            order.isSentToShipment = true;
+
+          orders.push(order);
+        });
+        setOrders(orders);
+        setInitOrders(orders);
       })
       .catch(function (error) {
         // handle error
@@ -338,6 +359,12 @@ export default connect(mapStateToProps)((props) => {
       setOrders(searchedOrders);
     }
   };
+
+  const createSingleOrder = (id) => {
+    let order = orders.filter(item => item.id === id);
+    order = orders.length > 0 ? orders[0] : null;
+    console.log(order);
+  }
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -415,6 +442,7 @@ export default connect(mapStateToProps)((props) => {
               ChairStocks,
               DeskStocks,
               AccessoryStocks,
+              isSentToShipment,
               ...restProps
             },
             index
@@ -441,10 +469,10 @@ export default connect(mapStateToProps)((props) => {
                 !orders[index].ChairStocks.reduce(
                   (acc, cur) => cur.ChairToOrder.preOrder * acc
                 )) *
-              (!orders[index].DeskStocks.length ||
-                !orders[index].DeskStocks.reduce(
-                  (acc, cur) => cur.DeskToOrder.preOrder * acc
-                ))
+                (!orders[index].DeskStocks.length ||
+                  !orders[index].DeskStocks.reduce(
+                    (acc, cur) => cur.DeskToOrder.preOrder * acc
+                  ))
                 ? "No"
                 : "Yes",
             products: (
@@ -513,6 +541,9 @@ export default connect(mapStateToProps)((props) => {
                 <ReceiptIcon />
               </IconButton>
             ),
+            // shipment: (
+            //   <Button color="primary" disabled={isSentToShipment} onClick={() => createSingleOrder(id)}>Single</Button>
+            // ),
             emailIcon: (
               <IconButton
                 onClick={() => {
@@ -643,9 +674,9 @@ export default connect(mapStateToProps)((props) => {
               multiline
               minRows={4}
               maxRows={10}
-              // onChange={(e) => {
-              //   setWhatsAppMessage(e.target.value);
-              // }}
+            // onChange={(e) => {
+            //   setWhatsAppMessage(e.target.value);
+            // }}
             />
           </Stack>
         </DialogContent>
@@ -723,9 +754,8 @@ export default connect(mapStateToProps)((props) => {
                 <ProductListItem key={index}>
                   <ProductListItemText
                     primary={`Chair: ${item.brand}, ${item.model}, ${item.frameColor}, ${item.backColor}, ${item.seatColor}`}
-                    secondary={`${item.withHeadrest ? "Headrest, " : ""}${
-                      item.withAdArmrest ? "Armrest" : ""
-                    }`}
+                    secondary={`${item.withHeadrest ? "Headrest, " : ""}${item.withAdArmrest ? "Armrest" : ""
+                      }`}
                   />
                   <ProductPriceAmount
                     unitPrice={`${item.ChairToOrder.unitPrice} HKD`}
@@ -817,35 +847,29 @@ export default connect(mapStateToProps)((props) => {
                 <ProductListItem key={index}>
                   <ProductListItemText
                     primary={`Desk:
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).supplierCode
+                      ${orders[orderIndex].DeskStocks.find(
+                      (stock) => stock.id === item.stockId
+                    ).supplierCode
                       },
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).model
+                      ${orders[orderIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).model
                       },
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).color
+                      ${orders[orderIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).color
                       },
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).armSize
+                      ${orders[orderIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).armSize
                       },
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).feetSize
+                      ${orders[orderIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).feetSize
                       },
-                      ${
-                        orders[orderIndex].DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).beamSize
+                      ${orders[orderIndex].DeskStocks.find(
+                        (stock) => stock.id === item.stockId
+                      ).beamSize
                       }`}
                     secondary={
                       item.hasDeskTop ? (

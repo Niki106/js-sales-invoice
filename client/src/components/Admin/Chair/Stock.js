@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
   Autocomplete,
@@ -19,7 +19,6 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Remove as RemoveIcon,
-  Anchor as AnchorIcon,
 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -28,7 +27,6 @@ import Swal from "sweetalert2";
 
 import DataGrid from "components/Common/DataGrid";
 import CheckableMultiSelect from "components/Common/MultiSelect";
-import Shipment from "./Shipment";
 
 const columns = [
   {
@@ -97,10 +95,6 @@ const columns = [
     label: "Arrival",
   },
   {
-    id: "shipment",
-    nonSort: true,
-  },
-  {
     id: "edit",
     nonSort: true,
   },
@@ -137,8 +131,6 @@ const Stock = connect(mapStateToProps)((props) => {
   const [formOpen, setFormOpen] = useState(false);
   const [formProps, setFormProps] = useState([]);
 
-  const [shipmentFormOpen, setShipmentFormOpen] = useState(false);
-
   const [id, setID] = useState("");
 
   const [balance, setBalance] = useState(0);
@@ -151,13 +143,6 @@ const Stock = connect(mapStateToProps)((props) => {
   const [filterModel, setFilterModel] = useState(null);
 
   const [selectedHideColumns, setSelectedHideColumns] = useState([]);
-
-  const handleShipmentClick = (index) => {
-    if (index < stocks.length && index >= 0) {
-      setID(stocks[index].id);
-    }
-    setShipmentFormOpen(true);
-  };
 
   const handleEditClick = (index) => {
     if (index < stocks.length && index >= 0) {
@@ -703,16 +688,6 @@ const Stock = connect(mapStateToProps)((props) => {
               ),
               withHeadrest: withHeadrest ? "Yes" : "No",
               withAdArmrest: withAdArmrest ? "Yes" : "No",
-              shipment: (
-                <IconButton
-                  onClick={(event) => {
-                    event.preventDefault();
-                    handleShipmentClick(index);
-                  }}
-                >
-                  <AnchorIcon />
-                </IconButton>
-              ),
               edit: (
                 <IconButton
                   onClick={(event) => {
@@ -760,11 +735,6 @@ const Stock = connect(mapStateToProps)((props) => {
         onEditClick={handleEditClick}
         onRemoveClick={handleRemoveClick}
         onBulkRemoveClick={handleBulkRemoveClick}
-      />
-      <Shipment
-        isOpen={shipmentFormOpen}
-        onClose={() => setShipmentFormOpen(false)}
-        stockId={id}
       />
       <Dialog
         fullWidth

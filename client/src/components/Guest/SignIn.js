@@ -66,7 +66,7 @@ export default connect(mapStateToProps, { login })((props) => {
   return (
     <>
       <Box
-        sx={{
+        sx = {{
           mx: 2,
           mt: 8,
           display: 'flex',
@@ -74,20 +74,20 @@ export default connect(mapStateToProps, { login })((props) => {
           alignItems: 'center',
         }}
       >
-        <img src={LogoTitile} style={{ maxWidth: '100%' }} alt="Ergoseating" />
-        <Avatar sx={{ m: 2, bgcolor: 'secondary.main' }}>
+        <img src = {LogoTitile} style={{ maxWidth: '100%' }} alt="Ergoseating" />
+        <Avatar sx = {{ m: 2, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
         <Box
-          maxWidth="sm"
-          width="100%"
-          component="form"
-          onSubmit={handleSubmit}
+          maxWidth = "sm"
+          width = "100%"
+          component = "form"
+          onSubmit = {handleSubmit}
           noValidate
-          sx={{ mt: 1 }}
+          sx = {{ mt: 1 }}
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -120,10 +120,10 @@ export default connect(mapStateToProps, { login })((props) => {
             label="Remember me"
           />
           <Button
-            type="submit"
+            type = "submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx = {{ mt: 3, mb: 2 }}
           >
             Sign In
           </Button>

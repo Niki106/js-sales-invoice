@@ -101,9 +101,9 @@ const App = () => {
       <Provider store={store}>
         <CssBaseline />
         <Container
-          maxWidth={false}
+          maxWidth = {false}
           disableGutters
-          sx={{
+          sx = {{
             height: "100vh",
             overflow: "auto",
             display: "flex",
@@ -111,26 +111,26 @@ const App = () => {
           }}
         >
           <Backdrop
-            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.modal + 1 }}
-            open={loading}
+            sx = {{ color: "#fff", zIndex: (theme) => theme.zIndex.modal + 1 }}
+            open = {loading}
           >
             <CircularProgress color="inherit" />
           </Backdrop>
           <BrowserRouter>
             <Switch>
-              <Route path="/" exact>
-                <Redirect to="/signin" />
+              <Route path = "/" exact>
+                <Redirect to = "/signin" />
               </Route>
-              <Route path="/invoice/:id" exact component={Invoice} />
-              <Route path="/receipt/:id" exact component={Receipt} />
-              <Route path="/quotation/:id" exact component={Quotation} />
-              <GuestRoute path="/signin" exact component={SignIn} />
-              <GuestRoute path="/signup" exact component={SignUp} />
-              <AdminRoute path="/admin" component={Admin} />
-              <PrivateRoute path="/user" component={Standard} />
+              <Route path = "/invoice/:id" exact component = {Invoice} />
+              <Route path = "/receipt/:id" exact component = {Receipt} />
+              <Route path = "/quotation/:id" exact component = {Quotation} />
+              <GuestRoute path = "/signin" exact component = {SignIn} />
+              <GuestRoute path = "/signup" exact component = {SignUp} />
+              <AdminRoute path = "/admin" component = {Admin} />
+              <PrivateRoute path = "/user" component = {Standard} />
               <Route
-                path="/deliveryPDF/:productType/:deliveryId"
-                component={DeliveryPDF}
+                path = "/deliveryPDF/:productType/:deliveryId"
+                component = {DeliveryPDF}
               />
             </Switch>
           </BrowserRouter>

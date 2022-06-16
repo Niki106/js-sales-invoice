@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 module.exports = {
   getFeatures,
   getAll,
+  getOrderJoinedAll,
   getById,
   create,
   update,
@@ -28,6 +29,39 @@ async function getAll(where) {
     attributes: { exclude: ['createdAt', 'updatedAt'] },
     order: ['createdAt'],
   });
+}
+
+async function getOrderJoinedAll() {
+  return await db.sequelize.query(
+    `
+      SELECT 
+        deskstocks.id as id, 
+        deskstocks.thumbnailURL AS thumbnailURL, 
+        deskstocks.supplierCode AS supplierCode,
+        deskstocks.model AS model,
+        deskstocks.unitPrice AS unitPrice,
+        deskstocks.balance AS balance,
+        deskstocks.qty AS qtyToOrder,
+        pendingorders.hasDeskTop AS hasDeskTop,
+        pendingorders.topMaterial AS topMaterial,
+        pendingorders.topColor AS topColor,
+        pendingorders.topLength AS topLength,
+        pendingorders.topWidth AS topWidth,
+        pendingorders.topThickness AS topThickness,
+        pendingorders.topRoundedCorners AS topRoundedCorners,
+        pendingorders.topCornerRadius AS topCornerRadius,
+        pendingorders.topHoleCount AS topHoleCount,
+        pendingorders.topHoleType AS topHoleType,
+        pendingorders.topHolePosition AS topHolePosition,
+        pendingorders.topSketchURL AS topSketchURL,
+        pendingorders.orderId AS orderId
+      FROM deskstocks
+      LEFT JOIN (
+        SELECT * from desktoorders
+        WHERE shipmentId is NULL
+        ) AS pendingorders
+      ON deskstocks.id = pendingorders.stockId
+    `);
 }
 
 async function getById(id) {

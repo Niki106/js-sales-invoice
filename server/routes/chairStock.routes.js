@@ -17,12 +17,6 @@ router.get("/:id", authorize(), getById);
 router.put("/:id", admin(), createSchema, update);
 router.delete("/:id", admin(), _delete);
 router.delete("/", admin(), bulkDeleteSchema, _bulkDelete);
-router.post(
-  "/shipment/create",
-  admin(),
-  shipmentCreateSchema,
-  chairStockController.shipmentCreate
-);
 
 module.exports = router;
 
@@ -45,23 +39,6 @@ function createSchema(req, res, next) {
     shipmentDate: Joi.date().allow(null).required().messages({
       "any.required": `Shipment Date field is required.`,
       "date.base": `Shipment Date should be a valid date type.`,
-    }),
-    arrivalDate: Joi.date().allow(null).required().messages({
-      "any.required": `Arrival Date field is required.`,
-      "date.base": `Arrival Date should be a valid date type.`,
-    }),
-  });
-  validateRequest(req, next, schema);
-}
-
-function shipmentCreateSchema(req, res, next) {
-  const schema = Joi.object({
-    client: Joi.string().allow("").required(),
-    unitPrice: Joi.number().min(0).required(),
-    qty: Joi.number().integer().min(0).required(),
-    orderDate: Joi.date().allow(null).required().messages({
-      "any.required": `Order Date field is required.`,
-      "date.base": `Order Date should be a valid date type.`,
     }),
     arrivalDate: Joi.date().allow(null).required().messages({
       "any.required": `Arrival Date field is required.`,

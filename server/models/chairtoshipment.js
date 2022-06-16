@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      this.belongsTo(models.Shipment, {
+        foreignKey: "shipmentId",
+      });
       this.belongsTo(models.ChairStock, {
         foreignKey: "stockId",
       });
@@ -21,11 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      unitPrice: DataTypes.FLOAT,
-      qty: DataTypes.INTEGER,
       client: DataTypes.STRING,
-      orderDate: DataTypes.DATEONLY,
-      arrivalDate: DataTypes.DATEONLY,
+      qty: DataTypes.INTEGER,
+      orderedQty: DataTypes.INTEGER,
     },
     {
       sequelize,
