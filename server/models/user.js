@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       prefix: DataTypes.CHAR(2),
       isActive: DataTypes.BOOLEAN,
+      isDeleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

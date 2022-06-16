@@ -29,6 +29,7 @@ async function authenticate({ email, password }) {
 
 async function getAll() {
   return await db.User.findAll({
+    where: { isDeleted: false },
     order: ['createdAt'],
   });
 }
@@ -61,8 +62,12 @@ async function update(id, params) {
 }
 
 async function _delete(id) {
+  // const user = await getUser(id);
+  // await user.destroy();
+
   const user = await getUser(id);
-  await user.destroy();
+  user.isDeleted = true;
+  await user.save();
 }
 
 async function _bulkDelete(where) {
