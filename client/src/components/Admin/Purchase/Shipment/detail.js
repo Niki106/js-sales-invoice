@@ -459,7 +459,6 @@ export default connect(mapStateToProps)((props) => {
       return !clientForm.current.checkValidity();
     else if (
       cart.length === 0 &&
-      services.length === 0 &&
       currentStep > 1 &&
       step === 1
     )
@@ -499,13 +498,6 @@ export default connect(mapStateToProps)((props) => {
     setProductAmount(item.productAmount);
     const deliveryOptions = JSON.parse(item.productDeliveryOption);
 
-    if (deliveryOptions.includes("Delivery Included"))
-      setDeliveryChecked0(true);
-    if (deliveryOptions.includes("Delivery and installation included"))
-      setDeliveryChecked1(true);
-    if (deliveryOptions.includes("Remote Area Surcharge"))
-      setDeliveryChecked2(true);
-    if (deliveryOptions.includes("Stairs Surcharge")) setDeliveryChecked3(true);
 
     if (item.productType === "chair" || item.productType === "accessory") {
       setAddOpen(true);
@@ -1243,11 +1235,11 @@ export default connect(mapStateToProps)((props) => {
             sx={{ float: "right" }}
             onClick={(e) => {
               e.preventDefault();
-              if (cart.length === 0 && services.length === 0) {
+              if (cart.length === 0) {
                 Swal.fire({
                   icon: "warning",
                   title: "Warning",
-                  text: "Products and services list cannot be empty",
+                  text: "Products list cannot be empty",
                   allowOutsideClick: false,
                 });
                 return;
@@ -1289,8 +1281,7 @@ export default connect(mapStateToProps)((props) => {
                     productId: productDetail.id,
                     productCategory: productDetail.category ?? "",
                     ...restProps,
-                  }))
-                  .concat(services),
+                  })),
                 paymentTerms: paymentData.get("paymentTerms"),
                 paid: Boolean(paymentData.get("paid")),
                 dueDate: paymentData.get("dueDate") || null,
@@ -1346,8 +1337,7 @@ export default connect(mapStateToProps)((props) => {
                     productId: productDetail.id,
                     productCategory: productDetail.category ?? "",
                     ...restProps,
-                  }))
-                  .concat(services),
+                  })),
                 paymentTerms: paymentData.get("paymentTerms"),
                 paid: Boolean(paymentData.get("paid")),
                 dueDate: paymentData.get("dueDate") || null,
@@ -1402,7 +1392,7 @@ export default connect(mapStateToProps)((props) => {
             {cart.reduce(
               (p, c) => p + c.productAmount * parseFloat(c.productPrice),
               0
-            ) + services.reduce((p, c) => p + c.price, 0)}
+            )}
           </Typography>
           <TextField
             name="paymentTerms"
@@ -1525,11 +1515,6 @@ export default connect(mapStateToProps)((props) => {
             e.preventDefault();
             const data = new FormData(e.currentTarget);
 
-            setDeliveryChecked0(false);
-            setDeliveryChecked1(false);
-            setDeliveryChecked2(false);
-            setDeliveryChecked3(false);
-
             setAddOpen(false);
             if (cartItemStatus === "add") {
               if (
@@ -1649,10 +1634,6 @@ export default connect(mapStateToProps)((props) => {
         <DialogActions>
           <Button
             onClick={(e) => {
-              setDeliveryChecked0(false);
-              setDeliveryChecked1(false);
-              setDeliveryChecked2(false);
-              setDeliveryChecked3(false);
               setAddOpen(false);
             }}
           >
@@ -1682,11 +1663,6 @@ export default connect(mapStateToProps)((props) => {
             setTopRoundedCorners(0);
             setTopCornerRadius(50);
             setSketchUrl("");
-
-            setDeliveryChecked0(false);
-            setDeliveryChecked1(false);
-            setDeliveryChecked2(false);
-            setDeliveryChecked3(false);
 
             setDeskAddOpen(false);
 
@@ -2181,11 +2157,6 @@ export default connect(mapStateToProps)((props) => {
               setTopRoundedCorners(0);
               setTopCornerRadius(50);
               setSketchUrl("");
-
-              setDeliveryChecked0(false);
-              setDeliveryChecked1(false);
-              setDeliveryChecked2(false);
-              setDeliveryChecked3(false);
 
               setDeskAddOpen(false);
             }}
