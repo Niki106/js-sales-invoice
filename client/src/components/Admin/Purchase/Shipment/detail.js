@@ -28,8 +28,6 @@ import {
   Tabs,
   TextField,
   Typography,
-  Card,
-  Grid,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -305,9 +303,8 @@ export default connect(mapStateToProps)((props) => {
   const [sketchUrl, setSketchUrl] = useState("");
 
   const steps = [
-    "Input Client Info",
+    "Input Shipment Info",
     "Select Products",
-    "Input Payment Details",
   ];
   const clientForm = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
@@ -323,11 +320,6 @@ export default connect(mapStateToProps)((props) => {
   const [productPrice, setProductPrice] = useState(1000);
   const [productAmount, setProductAmount] = useState(0);
   const [productRemark, setProductRemark] = useState("");
-
-  const [deliveryChecked0, setDeliveryChecked0] = useState(false);
-  const [deliveryChecked1, setDeliveryChecked1] = useState(false);
-  const [deliveryChecked2, setDeliveryChecked2] = useState(false);
-  const [deliveryChecked3, setDeliveryChecked3] = useState(false);
 
   const [cart, setCart] = useState(initialCart);
   const [cartItemStatus, setCartItemStatus] = useState("add");
@@ -350,13 +342,6 @@ export default connect(mapStateToProps)((props) => {
   const [deskFilterModel, setDeskFilterModel] = useState(null);
   const [deskFilterColor, setDeskFilterColor] = useState(null);
   const [accessoryFilterCategory, setAccessoryFilterCategory] = useState("All");
-
-  let initServices = initialServices
-    ? initialServices.map((service) =>
-      Object.assign(service, { productType: "misc" })
-    )
-    : [];
-  const [services, setServices] = useState(initServices);
 
   const [selectedHideChairColumns, setSelectedHideChairColumns] = useState([]);
   const [selectedHideDeskColumns, setSelectedHideDeskColumns] = useState([]);
@@ -482,10 +467,6 @@ export default connect(mapStateToProps)((props) => {
     else return false;
   };
 
-  const handleProductRemark = (e) => {
-    setProductRemark(e.target.value);
-  };
-
   const handleAccessoryFilterCategory = (e) => {
     var selected_category = e.target.value;
     setAccessoryFilterCategory(selected_category);
@@ -498,43 +479,6 @@ export default connect(mapStateToProps)((props) => {
         )
       );
     }
-  };
-
-  const onAddService = () => {
-    const newService = {
-      id: uuidv4(),
-      description: "",
-      price: 0,
-      productType: "misc",
-    };
-    setServices([...services, newService]);
-  };
-
-  const onDeleteService = (serviceId) => {
-    const newServices = services.filter((service) => service.id !== serviceId);
-    setServices(newServices);
-  };
-
-  const onChangeServiceDes = (e, serviceId) => {
-    const newServices = services.map((service) => {
-      if (service.id === serviceId) {
-        return Object.assign({}, service, { description: e.target.value });
-      }
-      return service;
-    });
-    setServices(newServices);
-  };
-
-  const onChangeServicePrice = (e, serviceId) => {
-    const newServices = services.map((service) => {
-      if (service.id === serviceId) {
-        return Object.assign({}, service, {
-          price: parseFloat(e.target.value),
-        });
-      }
-      return service;
-    });
-    setServices(newServices);
   };
 
   const onHideChairColumnChanged = (values) => {
