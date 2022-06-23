@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -244,7 +244,6 @@ export default connect(mapStateToProps)((props) => {
             name: SalesOrder.name,
             phone: SalesOrder.phone,
             model: DeskStock === null ? "" : DeskStock.model,
-            color: DeskStock === null ? "" : DeskStock.color,
             color: DeskStock === null ? "" : DeskStock.color,
             armSize: DeskStock === null ? "" : DeskStock.armSize,
             feetSize: DeskStock === null ? "" : DeskStock.feetSize,

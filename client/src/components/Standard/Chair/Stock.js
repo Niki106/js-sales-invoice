@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Autocomplete, Box, Paper, TextField } from '@mui/material';
 import axios from 'axios';
@@ -269,9 +269,8 @@ const Stock = connect(mapStateToProps)((props) => {
             if (i > 5) {
               if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                 return column
-            } else {
-              return column
             }
+            return column
           }).filter(column=>column !== undefined)
         }
       />

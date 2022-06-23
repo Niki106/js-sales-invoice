@@ -146,7 +146,7 @@ export default connect(mapStateToProps)((props) => {
                 to={`/admin/po/${type}/create`}
                 startIcon={<AddIcon />}
             >
-                New Purchasing Order
+                New Purchase Order
             </Button>
             <Paper
                 sx={{

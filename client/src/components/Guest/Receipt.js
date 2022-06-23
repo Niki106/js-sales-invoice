@@ -157,7 +157,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getOrder = ({ id, cancelToken }) => {
     axios
-      .get(`/salesOrder/${id}`, { cancelToken })
+      .get(`/sales/${id}`, { cancelToken })
       .then((response) => {
         // handle success
         setSuccess(true);

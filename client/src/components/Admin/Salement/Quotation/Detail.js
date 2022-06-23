@@ -31,7 +31,6 @@ import {
   Card,
   Grid,
 } from "@mui/material";
-import { blue, pink, purple, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Delete as DeleteIcon,
@@ -338,7 +337,7 @@ export default connect(mapStateToProps)((props) => {
 
   const [chairFeatures, setChairFeatures] = useState([]);
   const [deskFeatures, setDeskFeatures] = useState([]);
-  const [accessoryFeatures, setAccessoryFeatures] = useState([]);
+  // const [accessoryFeatures, setAccessoryFeatures] = useState([]);
 
   const [chairFilterBrand, setChairFilterBrand] = useState(null);
   const [chairFilterModel, setChairFilterModel] = useState(null);
@@ -394,7 +393,7 @@ export default connect(mapStateToProps)((props) => {
       .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
-        setAccessoryFeatures(response.data);
+        // setAccessoryFeatures(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -936,15 +935,15 @@ export default connect(mapStateToProps)((props) => {
                             setProductType("chair");
                             setProductDetail(chairStocks[index]);
                             let frameColor =
-                              chairStocks[index].frameColor == ""
+                              chairStocks[index].frameColor === ""
                                 ? "___"
                                 : chairStocks[index].frameColor;
                             let seatColor =
-                              chairStocks[index].seatColor == ""
+                              chairStocks[index].seatColor === ""
                                 ? "___"
                                 : chairStocks[index].seatColor;
                             let backColor =
-                              chairStocks[index].backColor == ""
+                              chairStocks[index].backColor === ""
                                 ? "___"
                                 : chairStocks[index].backColor;
                             let remark =
@@ -998,9 +997,8 @@ export default connect(mapStateToProps)((props) => {
                         )
                       )
                         return column;
-                    } else {
-                      return column;
                     }
+                    return column;
                   })
                   .filter((column) => column !== undefined)}
               />
@@ -1158,9 +1156,8 @@ export default connect(mapStateToProps)((props) => {
                         )
                       )
                         return column;
-                    } else {
-                      return column;
                     }
+                    return column;
                   })
                   .filter((column) => column !== undefined)}
               />
@@ -1400,13 +1397,6 @@ export default connect(mapStateToProps)((props) => {
                   0
                 ),
                 discountType: paymentData.get("discountType"),
-                surcharge: Math.max(
-                  paymentData.get("surchargeType") > 0
-                    ? paymentData.get("surcharge")
-                    : Math.min(paymentData.get("surcharge"), 100),
-                  0
-                ),
-                surchargeType: paymentData.get("surchargeType"),
                 surcharge: Math.max(
                   paymentData.get("surchargeType") > 0
                     ? paymentData.get("surcharge")
@@ -1748,7 +1738,6 @@ export default connect(mapStateToProps)((props) => {
           </Box>
           <Box
             sx={{
-              display: "flex",
               alignItems: "center",
               justifyContent: "center",
               my: "10px",
@@ -1765,18 +1754,19 @@ export default connect(mapStateToProps)((props) => {
             />
           </Box>
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_0"
                 checked={deliveryChecked0}
                 onChange={(e) => setDeliveryChecked0(e.target.checked)}
+                sx={{ textAlign: "left" }}
               />
             }
             label="Delivery Included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_1"
@@ -1787,7 +1777,7 @@ export default connect(mapStateToProps)((props) => {
             label="Delivery and installation included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_2"
@@ -1798,7 +1788,7 @@ export default connect(mapStateToProps)((props) => {
             label="Remote Area Surcharge"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_3"
@@ -2333,6 +2323,7 @@ export default connect(mapStateToProps)((props) => {
                 name="deliveryOption_0"
                 checked={deliveryChecked0}
                 onChange={(e) => setDeliveryChecked0(e.target.checked)}
+                sx={{ textAlign: "left" }}
               />
             }
             label="Delivery Included"

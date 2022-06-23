@@ -85,7 +85,19 @@ async function getAllOld(where) {
 }
 
 async function getAll(where) {
-  return await db.Shipment.findAll();
+  const sql = `
+    SELECT s.id, s.poNum, IF(s.itemType='A', a.name, IF(s.itemType='C', c.model, d.model)) AS model,
+      s.qty, s.orderQty, s.orderDate, s.finishDate, location, client,
+      IF(s.orderId='', 0, o.invoiceNum) AS invoice 
+    FROM shipments s 
+      LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
+      LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
+      LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
+      LEFT JOIN salesorders o ON s.orderId=o.id
+    ORDER BY s.poNum
+  `;
+  const rows = await db.sequelize.query(sql, { plain: false, type: QueryTypes.SELECT });
+  return rows;
 }
 
 async function getById(id) {

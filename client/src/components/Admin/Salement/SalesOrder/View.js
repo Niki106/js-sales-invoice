@@ -17,14 +17,13 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { blue, pink, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Deck as DeckIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Email as EmailIcon,
-  PictureAsPdf as PictureAsPdfIcon,
+  // PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
   Receipt as ReceiptIcon,
 } from "@mui/icons-material";
@@ -109,14 +108,14 @@ const columns = [
   {
     id: "emailIcon",
     nonSort: true,
-    label: "Con",
+    label: "Email",
     align: "right",
     sx: { maxWidth: 45, width: 45 },
   },
   {
     id: "whatsappIcon",
     nonSort: true,
-    label: "tact",
+    label: "Phone",
     align: "left",
     sx: { maxWidth: 45, width: 45, paddingLeft: 0 },
   },
@@ -142,9 +141,8 @@ const hideColumns = [
   "Products",
   "Paid",
   "Receipt",
-  // "Shipment"
-  "Con",
-  "tact",
+  "Email",
+  "Phone",
 ];
 
 function mapStateToProps(state) {
@@ -254,7 +252,7 @@ export default connect(mapStateToProps)((props) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`/salesOrder/${orders[index].id}`)
+            .delete(`/sales/${orders[index].id}`)
             .then((response) => {
               // handle success
               getOrders();
@@ -289,7 +287,7 @@ export default connect(mapStateToProps)((props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete("/salesOrder", {
+          .delete("/sales", {
             data: { ids: selected },
           })
           .then((response) => {
@@ -315,7 +313,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getOrders = (cancelToken) => {
     axios
-      .get("/salesOrder", { cancelToken })
+      .get("/sales", { cancelToken })
       .then((response) => {
         // handle success
         let orders = [];
@@ -330,6 +328,7 @@ export default connect(mapStateToProps)((props) => {
             order.isSentToShipment = true;
 
           orders.push(order);
+          return item;
         });
         setOrders(orders);
         setInitOrders(orders);
@@ -359,12 +358,6 @@ export default connect(mapStateToProps)((props) => {
       setOrders(searchedOrders);
     }
   };
-
-  const createSingleOrder = (id) => {
-    let order = orders.filter(item => item.id === id);
-    order = orders.length > 0 ? orders[0] : null;
-    console.log(order);
-  }
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -411,15 +404,13 @@ export default connect(mapStateToProps)((props) => {
           onChange={(e) => setSearchPhoneNumber(e.target.value)}
         />
       </Paper>
-      <div>
-        <CheckableMultiSelect
-          options={hideColumns}
-          onChange={onHideColumnChanged}
-          selected={selectedHideColumns}
-        />
-      </div>
+      <CheckableMultiSelect
+        options={hideColumns}
+        onChange={onHideColumnChanged}
+        selected={selectedHideColumns}
+      />
       <DataGrid
-        title="Sales Orders"
+        title="Sales Order"
         rows={orders.map(
           (
             {
@@ -506,7 +497,7 @@ export default connect(mapStateToProps)((props) => {
                   event.stopPropagation();
                   event.preventDefault();
                   axios
-                    .put(`/salesOrder/withoutStock/${id}`, {
+                    .put(`/sales/withoutStock/${id}`, {
                       paid: !paid,
                     })
                     .then(() => {
@@ -631,15 +622,12 @@ export default connect(mapStateToProps)((props) => {
         columns={columns
           .map((column, i) => {
             if (i > 3 && i < 15) {
-              if (
-                selectedHideColumns.find(
-                  (hideColumn) => hideColumn === column.label
-                )
-              )
+              if (selectedHideColumns.find((hideColumn) => hideColumn === column.label))
                 return column;
-            } else {
-              return column;
+              else
+                return undefined;
             }
+            return column;
           })
           .filter((column) => column !== undefined)}
         onRemoveClick={handleRemoveClick}
@@ -879,7 +867,7 @@ export default connect(mapStateToProps)((props) => {
                             ${item.topLength}x${item.topWidth}x${item.topThickness},
                             ${item.topRoundedCorners}-R${item.topCornerRadius},
                             ${item.topHoleCount}-${item.topHoleType} `}
-                          <a href={item.topSketchURL} target="_blank">
+                          <a href={item.topSketchURL} target="_blank" rel="noreferrer">
                             Sketch
                           </a>
                         </span>
@@ -1102,7 +1090,7 @@ export default connect(mapStateToProps)((props) => {
                 })
               );
               axios
-                .post("/salesOrder/products", {
+                .post("/sales/products", {
                   chairToOrders,
                   deskToOrders,
                   accessoryToOrders,

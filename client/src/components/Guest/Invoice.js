@@ -149,7 +149,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getOrder = ({ id, cancelToken }) => {
     axios
-      .get(`/salesOrder/${id}`, { cancelToken })
+      .get(`/sales/${id}`, { cancelToken })
       .then((response) => {
         // handle success
         setSuccess(true);
@@ -362,47 +362,47 @@ export default connect(mapStateToProps)((props) => {
                             order.DeskStocks.find(
                               (stock) => stock.id === item.stockId
                             ).model
-                          }
-                    Color of Legs: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).color
-                    }
-                    ArmSize: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).armSize
-                    }
-                    FeetSize: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).feetSize
-                    }
-                    Beam Size: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).beamSize
-                    }
-                    ${
-                      item.hasDeskTop
-                        ? `Table Top: ${item.topMaterial}
-                          Table Top Size: ${item.topLength}x${item.topWidth}x${
-                            item.topThickness
-                          }
-                          Table Top Color: ${item.topColor} ${
-                            item.topRoundedCorners === 0
-                              ? ""
-                              : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`
-                          } ${
-                            item.topHoleCount === 0
-                              ? ""
-                              : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
-                          }
-                          Remark: ${item.remark}`
-                        : "Without DeskTop"
-                    }
-                    ${JSON.parse(item.deliveryOption)}`,
-                          width: "55%",
+                            }
+                            Color of Legs: ${
+                              order.DeskStocks.find(
+                                (stock) => stock.id === item.stockId
+                              ).color
+                            }
+                            ArmSize: ${
+                              order.DeskStocks.find(
+                                (stock) => stock.id === item.stockId
+                              ).armSize
+                            }
+                            FeetSize: ${
+                              order.DeskStocks.find(
+                                (stock) => stock.id === item.stockId
+                              ).feetSize
+                            }
+                            Beam Size: ${
+                              order.DeskStocks.find(
+                                (stock) => stock.id === item.stockId
+                              ).beamSize
+                            }
+                            ${
+                              item.hasDeskTop
+                                ? `Table Top: ${item.topMaterial}
+                                  Table Top Size: ${item.topLength}x${item.topWidth}x${
+                                    item.topThickness
+                                  }
+                                  Table Top Color: ${item.topColor} ${
+                                    item.topRoundedCorners === 0
+                                      ? ""
+                                      : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`
+                                  } ${
+                                    item.topHoleCount === 0
+                                      ? ""
+                                      : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
+                                  }
+                                  Remark: ${item.remark}`
+                                : "Without DeskTop"
+                            }
+                            ${JSON.parse(item.deliveryOption)}`,
+                                  width: "55%",
                         },
                         {
                           content: `${item.unitPrice}`,

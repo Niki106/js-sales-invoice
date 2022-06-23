@@ -13,7 +13,7 @@ import {
   tableCellClasses,
   TableSortLabel,
 } from '@mui/material';
-import { yellow, grey, teal } from '@mui/material/colors';
+import { grey, teal } from '@mui/material/colors';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';

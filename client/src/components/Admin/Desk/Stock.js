@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   Autocomplete,
@@ -524,7 +524,7 @@ const Stock = connect(mapStateToProps)((props) => {
               if (e.target.files.length > 0) {
                 const uploadData = new FormData();
                 uploadData.append('file', e.target.files[0]);
-                const response = await axios.post(
+                await axios.post(
                   `/chairStock/uploadCreate`,
                   uploadData,
                   {
@@ -689,9 +689,8 @@ const Stock = connect(mapStateToProps)((props) => {
             if (i > 5 && i < 13) {
               if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                 return column
-            } else {
-              return column
             }
+            return column
           }).filter(column=>column !== undefined)
         }
         onEditClick={handleEditClick}

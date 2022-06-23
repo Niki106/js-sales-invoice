@@ -1,12 +1,7 @@
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {
-  yellow,
-  purple,
-  pink,
   indigo,
-  orange,
-  lightGreen,
   teal,
 } from '@mui/material/colors';
 

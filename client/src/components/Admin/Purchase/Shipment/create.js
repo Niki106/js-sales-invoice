@@ -1,14 +1,23 @@
-import { CreateTwoTone } from '@mui/icons-material';
-import React from 'react';
+import React, { useState } from 'react';
+import Detail from './detail';
 
-import { CreatePurchaseOrder } from "../Create";
-
-const ShipmentCreate = () => {
-    return (
-        <div>
-            <CreatePurchaseOrder />
-        </div>
-    )
+const Create = (props) => {
+  const [phone, setPhone] = useState('');
+  return (
+    <Detail
+      componentType="create"
+      initialClient={{
+        phone,
+        setPhone,
+        paid: true,
+        discountType: 1,
+        surchargeType: 1,
+        dueDate: '',
+      }}
+      initialCart={[]}
+      {...props}
+    />
+  );
 };
 
-export default ShipmentCreate;
+export default Create;

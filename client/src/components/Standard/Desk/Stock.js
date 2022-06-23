@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Autocomplete, Box, Paper, TextField } from '@mui/material';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -279,9 +278,8 @@ const Stock = connect(mapStateToProps)((props) => {
               if (i > 5) {
                 if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                   return column
-              } else {
-                return column
               }
+              return column
             }).filter(column=>column !== undefined)
           }
       />

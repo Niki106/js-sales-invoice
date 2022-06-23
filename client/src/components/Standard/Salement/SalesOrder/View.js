@@ -102,14 +102,14 @@ const columns = [
   {
     id: 'emailIcon',
     nonSort: true,
-    label: 'Con',
+    label: 'Email',
     align: 'right',
     sx: { maxWidth: 45, width: 45 },
   },
   {
     id: 'whatsappIcon',
     nonSort: true,
-    label: 'tact',
+    label: 'Phone',
     align: 'left',
     sx: { maxWidth: 45, width: 45, paddingLeft: 0 },
   },
@@ -135,8 +135,8 @@ const hideColumns = [
   'Products',
   'Paid',
   'Receipt',
-  'Con',
-  'tact'
+  'Email',
+  'Phone'
 ];
 
 function mapStateToProps(state) {
@@ -246,7 +246,7 @@ export default connect(mapStateToProps)((props) => {
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .delete(`/salesOrder/${orders[index].id}`)
+            .delete(`/sales/${orders[index].id}`)
             .then((response) => {
               // handle success
               getOrders();
@@ -281,7 +281,7 @@ export default connect(mapStateToProps)((props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete('/salesOrder', {
+          .delete('/sales', {
             data: { ids: selected },
           })
           .then((response) => {
@@ -307,7 +307,7 @@ export default connect(mapStateToProps)((props) => {
 
   const getOrders = (cancelToken) => {
     axios
-      .get('/salesOrder/current', { cancelToken })
+      .get('/sales/current', { cancelToken })
       .then((response) => {
         // handle success
         setOrders(response.data);
@@ -478,7 +478,7 @@ export default connect(mapStateToProps)((props) => {
                   event.stopPropagation();
                   event.preventDefault();
                   axios
-                    .put(`/salesOrder/withoutStock/${id}`, {
+                    .put(`/sales/withoutStock/${id}`, {
                       paid: !paid,
                     })
                     .then(() => {
@@ -605,9 +605,10 @@ export default connect(mapStateToProps)((props) => {
             if (i > 3 && i < 15) {
               if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                 return column
-            } else {
-              return column
+              else
+                  return undefined
             }
+            return column            
           }).filter(column=>column !== undefined)
         }
         onRemoveClick={handleRemoveClick}
@@ -1061,7 +1062,7 @@ export default connect(mapStateToProps)((props) => {
                 })
               );
               axios
-                .post('/salesOrder/products', {
+                .post('/sales/products', {
                   chairToOrders,
                   deskToOrders,
                   accessoryToOrders,

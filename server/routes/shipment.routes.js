@@ -8,10 +8,9 @@ const authorize = require("server/middleware/authorize");
 const validateRequest = require("server/middleware/validate-request");
 const shipmentController = require("server/controller/shipment.controller");
 
+router.get("/", admin(), getAll);
 router.post("/create", authorize(), createSchema, shipmentController.create);
 router.get("/products", shipmentController.getProducts);
-// router.get("/", admin(), getAll);
-router.get("/", getAll);
 router.get("/:id", getById);
 router.put("/:id", authorize(), shipmentController.update);
 router.delete("/:id", admin(), _delete);

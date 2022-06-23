@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
     Box,
     Paper,
     Autocomplete,
-    IconButton,
     TextField
 } from "@mui/material";
-import {
-    Add as AddIcon,
-    Close as CloseIcon,
-    SignalCellularNull,
-} from "@mui/icons-material";
 import DataGrid from "../../../Common/DataGrid";
 import CheckableMultiSelect from "../../../Common/MultiSelect";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { columns, deskColumns, accessoryColumns, deskHideColumns } from "./columns.js";
 
@@ -234,9 +227,8 @@ export const StockTab = ({
                                 )
                             )
                                 return column;
-                        } else {
-                            return column;
                         }
+                        return column;
                     })
                     .filter((column) => column !== undefined)}
             />

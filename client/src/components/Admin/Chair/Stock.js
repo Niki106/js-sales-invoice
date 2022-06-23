@@ -451,7 +451,6 @@ const Stock = connect(mapStateToProps)((props) => {
       .get("/chairStock", { cancelToken })
       .then((response) => {
         // handle success
-        console.log(response.data);
         setStocks(response.data);
       })
       .catch(function (error) {
@@ -580,7 +579,7 @@ const Stock = connect(mapStateToProps)((props) => {
               if (e.target.files.length > 0) {
                 const uploadData = new FormData();
                 uploadData.append("file", e.target.files[0]);
-                const response = await axios.post(
+                await axios.post(
                   `/chairStock/uploadCreate`,
                   uploadData,
                   {
@@ -727,9 +726,8 @@ const Stock = connect(mapStateToProps)((props) => {
                 )
               )
                 return column;
-            } else {
-              return column;
             }
+            return column;
           })
           .filter((column) => column !== undefined)}
         onEditClick={handleEditClick}

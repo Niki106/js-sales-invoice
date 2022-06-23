@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  Autocomplete,
   Button,
   Box,
   Checkbox,
@@ -100,7 +99,7 @@ const Stock = connect(mapStateToProps)((props) => {
   const [unitPrice, setUnitPrice] = useState(1000);
   const [shipmentQty, setShipmentQty] = useState(0);
 
-  const [features, setFeatures] = useState([]);
+  // const [features, setFeatures] = useState([]);
 
   const [filterCategory, setFilterCategory] = useState("All");
 
@@ -340,7 +339,8 @@ const Stock = connect(mapStateToProps)((props) => {
       .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
-        setFeatures(response.data);
+        // setFeatures(response.data);
+        console.log("Feature commented");
       })
       .catch(function (error) {
         // handle error

@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  Autocomplete,
   Box,
   Paper,
-  TextField,
   MenuItem,
   FormControl,
   Select,
@@ -63,7 +61,7 @@ function mapStateToProps(state) {
 const Stock = connect(mapStateToProps)((props) => {
   const [stocks, setStocks] = useState([]);
   const [initStocks, setInitStocks] = useState([]);
-  const [features, setFeatures] = useState([]);
+  // const [features, setFeatures] = useState([]);
 
   const [filterCategory, setFilterCategory] = useState("All");
 
@@ -72,7 +70,7 @@ const Stock = connect(mapStateToProps)((props) => {
       .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
-        setFeatures(response.data);
+        // setFeatures(response.data);
       })
       .catch(function (error) {
         // handle error

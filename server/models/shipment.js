@@ -3,27 +3,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Shipment extends Model {
     static associate(models) {
-      this.hasMany(models.DeskToOrder, {
-        foreignKey: "shipmentId",
-      });
-      this.hasMany(models.DeskToShipment, {
-        foreignKey: "shipmentId",
-      });
-      this.belongsToMany(models.ChairStock, {
-        through: "ChairToShipment",
-        foreignKey: "shipmentId",
-        otherKey: "stockId",
-      });
-      this.belongsToMany(models.DeskStock, {
-        through: "DeskToShipment",
-        foreignKey: "shipmentId",
-        otherKey: "stockId",
-      });
-      this.belongsToMany(models.AccessoryStock, {
-        through: "AccessoryToShipment",
-        foreignKey: "shipmentId",
-        otherKey: "stockId",
-      });
+      
     }
   }
   Shipment.init(
@@ -34,9 +14,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         primaryKey: true,
       },
-      ponumber: DataTypes.STRING,
+      poNum: DataTypes.STRING,
+      itemType: DataTypes.STRING,
+      stockId: DataTypes.STRING,
+      qty: DataTypes.INTEGER,
+      orderQty: DataTypes.INTEGER,
       orderDate: DataTypes.DATEONLY,
-      arrivalDate: DataTypes.DATEONLY,
+      finishDate: DataTypes.DATEONLY,
+      location: DataTypes.STRING,
+      client: DataTypes.STRING,
+      beam: DataTypes.STRING,
+      akNum: DataTypes.STRING,
+      heworkNum: DataTypes.STRING,
+      remark: DataTypes.STRING,
     },
     {
       sequelize,

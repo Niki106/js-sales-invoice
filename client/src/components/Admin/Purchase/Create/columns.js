@@ -149,16 +149,3 @@ export const accessoryColumns = [
         label: "QTYToOrder",
     },
 ];
-
-const hideColumns = [
-    "Frame Color",
-    "Back Color",
-    "Seat Color",
-    "Back Material",
-    "Seat Material",
-    "Headrest",
-    "Adjustable Armrests",
-    "Special Remark",
-    "Shipment",
-    "Arrival",
-];

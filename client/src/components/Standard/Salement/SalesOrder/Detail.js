@@ -341,7 +341,7 @@ export default connect(mapStateToProps)((props) => {
 
   const [chairFeatures, setChairFeatures] = useState([]);
   const [deskFeatures, setDeskFeatures] = useState([]);
-  const [accessoryFeatures, setAccessoryFeatures] = useState([]);
+  // const [accessoryFeatures, setAccessoryFeatures] = useState([]);
 
   const [chairFilterBrand, setChairFilterBrand] = useState(null);
   const [chairFilterModel, setChairFilterModel] = useState(null);
@@ -397,7 +397,7 @@ export default connect(mapStateToProps)((props) => {
       .get("/accessoryStock/features", { cancelToken })
       .then((response) => {
         // handle success
-        setAccessoryFeatures(response.data);
+        //etAccessoryFeatures(response.data);
       })
       .catch(function (error) {
         // handle error
@@ -937,15 +937,15 @@ export default connect(mapStateToProps)((props) => {
                             setProductType("chair");
                             setProductDetail(chairStocks[index]);
                             let frameColor =
-                              chairStocks[index].frameColor == ""
+                              chairStocks[index].frameColor === ""
                                 ? "___"
                                 : chairStocks[index].frameColor;
                             let seatColor =
-                              chairStocks[index].seatColor == ""
+                              chairStocks[index].seatColor === ""
                                 ? "___"
                                 : chairStocks[index].seatColor;
                             let backColor =
-                              chairStocks[index].backColor == ""
+                              chairStocks[index].backColor === ""
                                 ? "___"
                                 : chairStocks[index].backColor;
                             let remark =
@@ -999,9 +999,8 @@ export default connect(mapStateToProps)((props) => {
                         )
                       )
                         return column;
-                    } else {
-                      return column;
                     }
+                    return column;
                   })
                   .filter((column) => column !== undefined)}
               />
@@ -1159,9 +1158,8 @@ export default connect(mapStateToProps)((props) => {
                         )
                       )
                         return column;
-                    } else {
-                      return column;
-                    }
+                    } 
+                    return column;
                   })
                   .filter((column) => column !== undefined)}
               />
@@ -1371,7 +1369,7 @@ export default connect(mapStateToProps)((props) => {
           const paymentData = new FormData(e.currentTarget);
           if (componentType === "create")
             axios
-              .post(`/salesOrder/create`, {
+              .post(`/sales/create`, {
                 name: clientData.get("name"),
                 phone: clientData.get("phone"),
                 email: clientData.get("email"),
@@ -1428,7 +1426,7 @@ export default connect(mapStateToProps)((props) => {
               });
           else {
             axios
-              .put(`/salesOrder/${initialClient.id}`, {
+              .put(`/sales/${initialClient.id}`, {
                 name: clientData.get("name"),
                 phone: clientData.get("phone"),
                 email: clientData.get("email"),
@@ -1746,7 +1744,6 @@ export default connect(mapStateToProps)((props) => {
           </Box>
           <Box
             sx={{
-              display: "flex",
               alignItems: "center",
               justifyContent: "center",
               my: "10px",
@@ -1763,18 +1760,19 @@ export default connect(mapStateToProps)((props) => {
             />
           </Box>
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_0"
                 checked={deliveryChecked0}
                 onChange={(e) => setDeliveryChecked0(e.target.checked)}
+                sx={{ textAlign: "left" }}
               />
             }
             label="Delivery Included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_1"
@@ -1785,7 +1783,7 @@ export default connect(mapStateToProps)((props) => {
             label="Delivery and installation included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_2"
@@ -1796,7 +1794,7 @@ export default connect(mapStateToProps)((props) => {
             label="Remote Area Surcharge"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_3"
@@ -2099,10 +2097,10 @@ export default connect(mapStateToProps)((props) => {
                 onChange: (e) => {
                   e.preventDefault();
                   setTopHoleCount(e.target.value);
-                  if (e.target.value == 1) setTopHolePosition("Left");
-                  else if (e.target.value == 2)
+                  if (e.target.value === 1) setTopHolePosition("Left");
+                  else if (e.target.value === 2)
                     setTopHolePosition("Left_Right");
-                  else if (e.target.value == 3)
+                  else if (e.target.value === 3)
                     setTopHolePosition("Left_Right_Center");
                 },
                 options: [0, 1, 2, 3],
@@ -2325,18 +2323,19 @@ export default connect(mapStateToProps)((props) => {
             </IconButton>
           </Box>
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_0"
                 checked={deliveryChecked0}
                 onChange={(e) => setDeliveryChecked0(e.target.checked)}
+                sx={{ textAlign: "left" }}
               />
             }
             label="Delivery Included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_1"
@@ -2347,7 +2346,7 @@ export default connect(mapStateToProps)((props) => {
             label="Delivery and installation included"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_2"
@@ -2358,7 +2357,7 @@ export default connect(mapStateToProps)((props) => {
             label="Remote Area Surcharge"
           />
           <FormControlLabel
-            sx={{ display: "block" }}
+            sx={{ display: "block", textAlign: "left", marginLeft: "100px" }}
             control={
               <Checkbox
                 name="deliveryOption_3"

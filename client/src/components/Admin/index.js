@@ -27,7 +27,7 @@ import {
   QuotationEdit,
   QuotationView,
 } from "./Salement/Quotation";
-import { ChairDelivery, DeskDelivery, AccessoryDelivery } from "./Delivery";
+import { ChairDelivery, DeskDelivery } from "./Delivery";
 import {
   POCreate,
   PurchaseOrder,

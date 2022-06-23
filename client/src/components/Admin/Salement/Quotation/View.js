@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ReactDOMServer from "react-dom/server";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   Badge,
@@ -15,16 +14,14 @@ import {
   IconButton,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
-import { blue, pink, red, yellow } from "@mui/material/colors";
 import {
   Add as AddIcon,
   Deck as DeckIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   Email as EmailIcon,
-  PictureAsPdf as PictureAsPdfIcon,
+  // PictureAsPdf as PictureAsPdfIcon,
   WhatsApp as WhatsAppIcon,
   DriveFolderUpload as DriveFolderUploadIcon,
 } from "@mui/icons-material";
@@ -362,7 +359,7 @@ export default connect(mapStateToProps)((props) => {
               )
             );
           axios
-            .post(`/salesOrder/create`, {
+            .post(`/sales/create`, {
               name: quotation.name,
               phone: quotation.phone,
               email: quotation.email,
@@ -652,15 +649,12 @@ export default connect(mapStateToProps)((props) => {
         columns={columns
           .map((column, i) => {
             if (i > 3 && i < 13) {
-              if (
-                selectedHideColumns.find(
-                  (hideColumn) => hideColumn === column.label
-                )
-              )
+              if (selectedHideColumns.find((hideColumn) => hideColumn === column.label)              )
                 return column;
-            } else {
-              return column;
+              else
+                return undefined;
             }
+            return column;
           })
           .filter((column) => column !== undefined)}
         onEditClick={handleEditClick}
@@ -819,7 +813,7 @@ export default connect(mapStateToProps)((props) => {
                             ${item.topLength}x${item.topWidth}x${item.topThickness},
                             ${item.topRoundedCorners}-R${item.topCornerRadius},
                             ${item.topHoleCount}-${item.topHoleType} `}
-                          <a href={item.topSketchURL} target="_blank">
+                          <a href={item.topSketchURL} target="_blank" rel="noreferrer">
                             Sketch
                           </a>
                         </span>
