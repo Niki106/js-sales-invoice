@@ -291,7 +291,7 @@ const materialOptions = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialClient, initialCart, initialServices } = props;
+  const { componentType, initialClient, initialCart, initialServices, initialRemark } = props;
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHolePosition, setTopHolePosition] = useState("Left");
   const [topHoleType, setTopHoleType] = useState("Rounded");
@@ -303,6 +303,7 @@ export default connect(mapStateToProps)((props) => {
   const [topRoundedCorners, setTopRoundedCorners] = useState(0);
   const [topCornerRadius, setTopCornerRadius] = useState(50);
   const [sketchUrl, setSketchUrl] = useState("");
+  const [remark, setRemark] = useState("");
 
   const steps = [
     "Input Client Info",
@@ -482,10 +483,6 @@ export default connect(mapStateToProps)((props) => {
     else return false;
   };
 
-  const handleProductRemark = (e) => {
-    setProductRemark(e.target.value);
-  };
-
   const handleAccessoryFilterCategory = (e) => {
     var selected_category = e.target.value;
     setAccessoryFilterCategory(selected_category);
@@ -635,64 +632,14 @@ export default connect(mapStateToProps)((props) => {
             Client Info
           </Typography>
           {[
-            {
-              name: "name",
-              label: "Name",
-              type: "text",
-              defaultValue: initialClient.name,
-              width: "100%",
-              required: true,
-            },
-            {
-              name: "phone",
-              label: "Phone",
-              type: "text",
-              value: initialClient.phone,
-              onChange: initialClient.setPhone,
-              width: "48%",
-            },
-            {
-              name: "email",
-              label: "Email",
-              type: "email",
-              defaultValue: initialClient.email,
-              width: "48%",
-            },
-            {
-              name: "district",
-              label: "District",
-              type: "text",
-              defaultValue: initialClient.district,
-              width: "55%",
-            },
-            {
-              name: "street",
-              label: "Street",
-              type: "text",
-              defaultValue: initialClient.street,
-              width: "40%",
-            },
-            {
-              name: "block",
-              label: "Block",
-              type: "text",
-              defaultValue: initialClient.block,
-              width: "30%",
-            },
-            {
-              name: "floor",
-              label: "Floor",
-              type: "text",
-              defaultValue: initialClient.floor,
-              width: "30%",
-            },
-            {
-              name: "unit",
-              label: "Unit",
-              type: "text",
-              defaultValue: initialClient.unit,
-              width: "30%",
-            },
+            { name: "name", label: "Name", type: "text", width: "100%", defaultValue: initialClient.name, required: true },
+            { name: "phone", label: "Phone", type: "text", value: initialClient.phone, onChange: initialClient.setPhone, width: "48%" },
+            { name: "email", label: "Email", type: "email", defaultValue: initialClient.email, width: "48%" },
+            { name: "district", label: "District", type: "text", defaultValue: initialClient.district, width: "55%" },
+            { name: "street", label: "Street", type: "text", defaultValue: initialClient.street, width: "40%" },
+            { name: "block", label: "Block", type: "text", defaultValue: initialClient.block, width: "30%" },
+            { name: "floor", label: "Floor", type: "text", defaultValue: initialClient.floor, width: "30%" },
+            { name: "unit", label: "Unit", type: "text", defaultValue: initialClient.unit, width: "30%" },
           ].map(({ setValue, width, ...restProps }, index) =>
             restProps.label === "Phone" ? (
               <MuiPhoneNumber
@@ -734,6 +681,11 @@ export default connect(mapStateToProps)((props) => {
             <FormControlLabel value="day" control={<Radio />} label="Days" />
             <FormControlLabel value="week" control={<Radio />} label="Weeks" />
           </RadioGroup>
+          <TextField
+            sx={{ flexBasis: ["100%", "100%"], minWidth: ["100%", "100%"] }}
+            name="remark" label="Rmark" type="text"
+            defaultValue={initialRemark || ''}
+          />
         </Paper>
         <Button type="submit" sx={{ marginTop: "10px", float: "right" }}>
           Next
@@ -1428,7 +1380,7 @@ export default connect(mapStateToProps)((props) => {
               .then(function () {
                 // always executed
               });
-          else {
+          else {  // componentType === "edit"
             axios
               .put(`/sales/${initialClient.id}`, {
                 name: clientData.get("name"),
@@ -1442,7 +1394,7 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   clientData.get("timeLine") *
                   (clientData.get("timeLineFormat") === "day" ? 1 : 7),
-                remark: "",
+                remark: clientData.get("remark"),
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
@@ -1760,7 +1712,7 @@ export default connect(mapStateToProps)((props) => {
               name="remark"
               value={productRemark}
               sx={{ width: 400, mx: "5px" }}
-              onChange={handleProductRemark}
+              onChange={(e) => setProductRemark(e.target.value)}
             />
           </Box>
           <FormControlLabel

@@ -13,6 +13,7 @@ const Edit = (props) => {
     ServiceToOrders,
     Seller,
     sellerId,
+    remark,
     ...client
   } = order || {};
 
@@ -72,7 +73,8 @@ const Edit = (props) => {
             productDeliveryOption: AccessoryToOrder.deliveryOption,
           }))
         )}
-        initialServices = {ServiceToOrders}
+      initialServices = { ServiceToOrders }
+      initialRemark = { remark }
       {...props}
     />
   ) : (

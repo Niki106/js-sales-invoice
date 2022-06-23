@@ -1381,7 +1381,7 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   Math.max(clientData.get("timeLine"), 0) *
                   (clientData.get("timeLineFormat") === "day" ? 1 : 7),
-                remark: "",
+                remark: clientData.get("remark"),
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
@@ -1424,7 +1424,7 @@ export default connect(mapStateToProps)((props) => {
               .then(function () {
                 // always executed
               });
-          else {
+          else {  // componentType === "edit"
             axios
               .put(`/sales/${initialClient.id}`, {
                 name: clientData.get("name"),
@@ -1435,10 +1435,8 @@ export default connect(mapStateToProps)((props) => {
                 block: clientData.get("block"),
                 floor: clientData.get("floor"),
                 unit: clientData.get("unit"),
-                timeLine:
-                  clientData.get("timeLine") *
-                  (clientData.get("timeLineFormat") === "day" ? 1 : 7),
-                remark: "",
+                timeLine: clientData.get("timeLine") * (clientData.get("timeLineFormat") === "day" ? 1 : 7),
+                remark: clientData.get("remark"),
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
