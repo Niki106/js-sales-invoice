@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import Detail from './detail';
 
 const Create = (props) => {
-  const [phone, setPhone] = useState('');
+  const poNum = 123
   return (
     <Detail
       componentType="create"
-      initialClient={{
-        phone,
-        setPhone,
-        paid: true,
-        discountType: 1,
-        surchargeType: 1,
-        dueDate: '',
+      initialShipment={{
+        supplier: '',
+        location: '',
+        remark: '',
       }}
       initialCart={[]}
       {...props}

@@ -28,7 +28,7 @@ const columns = [
     { id: "invoice", label: "Invoice#" },
     { id: "orderQty", label: "Order Qty" },
     { id: "location", label: "Location" },
-    { id: "client", label: "Client" },
+    { id: "supplier", label: "Supplier" },
     { id: "beam", label: "BEAM" },
     { id: "akNum", label: "AK#" },
     { id: "heworkNum", label: "Hework#" },
@@ -41,7 +41,7 @@ const defaultHiddenColumns = [
     "Invoice",
     "Order Qty",
     "Location",
-    "Client",
+    "Supplier",
     "BEAM",
     "AK#",
     "Hework#",
@@ -233,8 +233,9 @@ export default connect(mapStateToProps)((props) => {
                             orderDate,
                             finishDate,
                             location,
-                            client,
+                            supplier,
                             invoice,
+                            remark,
                             ...restProps
                         },
                         index
@@ -248,7 +249,9 @@ export default connect(mapStateToProps)((props) => {
                         orderDate: orderDate,
                         finishDate: finishDate,
                         location: location,
+                        supplier: supplier,
                         invoice: invoice,
+                        remark: remark,
                         edit: (
                             <IconButton
                                 component={RouterLink}

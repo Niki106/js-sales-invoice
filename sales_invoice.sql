@@ -12,7 +12,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table sales_invoice2.accessorystocks
+-- Dumping structure for table sales_invoice.accessorystocks
 CREATE TABLE IF NOT EXISTS `accessorystocks` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `accessorystocks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.accessorystocks: ~43 rows (approximately)
+-- Dumping data for table sales_invoice.accessorystocks: ~43 rows (approximately)
 /*!40000 ALTER TABLE `accessorystocks` DISABLE KEYS */;
 INSERT INTO `accessorystocks` (`id`, `name`, `category`, `remark`, `thumbnailURL`, `unitPrice`, `isRegistered`, `balance`, `qty`, `shipmentDate`, `arrivalDate`, `createdAt`, `updatedAt`) VALUES
 	('0073d243-6a05-47b5-b17c-f8c5c585643a', 'T-Touch Anti Collison', 'Desk Accessories', 'for ZB2 and ZB3 only', 'http://blueoceanblue.com:4000/uploads/stocks/1648195889247-Anti-Collison-Sensor.jpg', 200, 1, 0, 0, NULL, NULL, '2022-03-25 08:11:29', '2022-03-25 08:11:29'),
@@ -54,7 +54,7 @@ INSERT INTO `accessorystocks` (`id`, `name`, `category`, `remark`, `thumbnailURL
 	('55044afa-7870-49dd-9d3f-c48254b17ac4', 'Add-on Legrest', 'Chair Accessories', '', 'http://blueoceanblue.com:4000/uploads/stocks/1647830317059-legrest.jpg', 300, 0, 0, 0, NULL, NULL, '2021-12-28 06:21:04', '2022-03-21 02:38:37'),
 	('570e9e2a-547e-4439-86a4-c12f8bad6dc4', 'Modesty Panel', 'Desk Accessories', 'Put Size Here', 'http://blueoceanblue.com:4000/uploads/stocks/1640601853143-with modesty panel.JPG', 1200, 0, 0, 0, NULL, NULL, '2021-12-27 10:10:27', '2022-02-23 04:33:45'),
 	('6c911bd7-af7b-481e-80cc-ee871e9ea10a', 'Atlas Headrest (Carbon -Classic Aeron)', 'Chair Accessories', 'excluding delivery and installation', 'http://blueoceanblue.com:4000/uploads/stocks/1647757581954-Atlas Classic Aeron.jpg', 1650, 1, 0, 3, NULL, '2022-05-30', '2022-03-20 06:26:22', '2022-03-30 08:39:37'),
-	('86950b07-3868-4180-8e60-45d122710a96', 'Cable Tray (BLK)', 'Desk Accessories', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601171359-cdd10cbf-eb83-4059-92b5-9a2c2fd2157e.jpg', 330, 19, 2, 2, NULL, NULL, '2021-12-21 13:25:55', '2022-06-19 14:28:45'),
+	('86950b07-3868-4180-8e60-45d122710a96', 'Cable Tray (BLK)', 'Desk Accessories', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601171359-cdd10cbf-eb83-4059-92b5-9a2c2fd2157e.jpg', 330, 19, 2, 2, NULL, NULL, '2021-12-21 13:25:55', '2022-06-23 09:59:52'),
 	('92a62123-e484-4790-a43e-c22746ec06d1', 'Cable Tray (WH)', 'Desk Accessories', 'Size: L800xW125xH75mm', 'http://blueoceanblue.com:4000/uploads/stocks/1640601094167-Cable tray White.png', 330, 0, 0, 0, NULL, NULL, '2021-12-27 10:06:58', '2022-02-23 04:28:11'),
 	('99789fd7-0df5-4a52-8227-70d04e93d942', 'Electric Desk on Desk (Single Monitor)', 'Desk on Desk', 'Height Range : 141-571mm (lower-tray included) Supports VESA Monitors only Gross Weight : 20kg Carrying Weight : (upper tray) 15kg ; (lower tray) 2kg', 'http://blueoceanblue.com:4000/uploads/stocks/1640666268652-E-Desk-on-Desk.jpg', 2900, 0, 0, 0, NULL, NULL, '2021-12-28 04:37:48', '2022-02-23 04:51:05'),
 	('9a5aa19f-8abd-477c-a808-2a97ec8fbae0', 'Atlas Headrest (Graphite -New Aeron)', 'Chair Accessories', 'excluding delivery and installation', 'http://blueoceanblue.com:4000/uploads/stocks/1647773092449-Atlas Remastered Aeron Graphite.jpg', 1650, 1, 0, 20, NULL, '2022-05-30', '2022-03-20 10:44:52', '2022-04-02 04:28:25'),
@@ -78,7 +78,7 @@ INSERT INTO `accessorystocks` (`id`, `name`, `category`, `remark`, `thumbnailURL
 	('f39c3ee7-2c27-40b1-9337-29e4201bbf22', 'Elite Standing Desk Converter', 'Desk on Desk', 'Worksurface weight capacity: 15Kg Keyboard weight capacity: 2Kg, color: ', 'http://blueoceanblue.com:4000/uploads/stocks/1640603099978-Elite-Dimensions.jpg', 1799, 0, 0, 0, NULL, NULL, '2021-12-27 11:05:00', '2022-02-23 04:41:36');
 /*!40000 ALTER TABLE `accessorystocks` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.accessorytoorders
+-- Dumping structure for table sales_invoice.accessorytoorders
 CREATE TABLE IF NOT EXISTS `accessorytoorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `unitPrice` float NOT NULL DEFAULT 1000,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `accessorytoorders` (
   CONSTRAINT `accessorytoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `accessorystocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.accessorytoorders: ~218 rows (approximately)
+-- Dumping data for table sales_invoice.accessorytoorders: ~218 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoorders` DISABLE KEYS */;
 INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`, `shipmentId`) VALUES
 	('0171a624-3644-43c8-b99c-3ae27f5c188c', 1650, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'excluding delivery and installation, Wan Chai Self Pick Up', '2022-06-14 07:30:35', '2022-06-14 07:30:35', 'f797a2a8-92de-44d7-bc74-d77b70396b6b', '9a5aa19f-8abd-477c-a808-2a97ec8fbae0', NULL),
@@ -271,6 +271,7 @@ INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `pr
 	('b50e9463-b006-4899-9964-a99ec96df404', 650, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L700xW100xH120mm', '2022-03-04 08:35:49', '2022-03-04 08:35:49', '5602bed8-f14d-4236-aefd-ea7cb688531a', '2100665b-0f6c-447b-9db0-d95babeaeeba', NULL),
 	('b542987d-d5c4-4a77-9463-d3cb223a5765', 850, 2, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'L403 x W268 x H73mm (inner)\nL350 x W250 x H70mm (outer)', '2022-02-26 09:36:40', '2022-02-26 09:36:40', '1aeefe27-beca-4f77-bf90-a04307cb5efc', 'e3a36955-0dab-468f-a926-aca2dc8050e6', NULL),
 	('b5648c92-2e7e-4aa2-b930-53c7db05dd70', 650, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L700xW100xH120mm', '2022-03-25 06:52:24', '2022-03-25 06:52:24', '945b0773-4409-4af8-9baf-7a8f36f9f45c', 'b3a5405d-0df5-4920-bb48-795fd109c3d0', NULL),
+	('b69ea94b-cefb-42eb-85b8-77c958781bb7', 330, 1, '["Delivery Included"]', 0, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L800xW125xH75mm', '2022-06-23 09:59:52', '2022-06-23 09:59:52', '55072223-94c5-424c-8fc5-364c808cde80', '86950b07-3868-4180-8e60-45d122710a96', NULL),
 	('b86fe5f4-3bb2-45c6-89d4-a8ef99b4cdf1', 150, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'White', '2022-05-13 08:58:28', '2022-05-13 08:58:28', 'b3acdaea-269a-46c8-bbd3-12172752148d', 'd085af3d-f17b-41f7-b433-778e9c431ffa', NULL),
 	('b8d67d5a-6ed6-442c-b87e-b972ad695b36', 150, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'WHITE', '2022-04-25 12:26:06', '2022-04-25 12:26:06', 'da979023-2a56-40bf-a666-7a5817407a77', 'd085af3d-f17b-41f7-b433-778e9c431ffa', NULL),
 	('b951dd1f-5720-4c3f-bea5-b4b855cf5f79', 330, 2, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L800xW125xH75mm', '2022-05-31 04:01:32', '2022-05-31 04:01:32', '1b17d1e2-0769-463a-bdd5-396a3d91509f', '86950b07-3868-4180-8e60-45d122710a96', NULL),
@@ -298,7 +299,6 @@ INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `pr
 	('d8672208-acb2-4958-ab8c-058fb0d0d14d', 550, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'includes 3 Sockets and 2 USB', '2022-05-28 09:46:53', '2022-05-28 09:46:53', '2c4acc75-2e38-4905-8085-7a7b5e0578b0', '1293df10-60b2-4099-98d7-c51722635693', NULL),
 	('d8c2af0f-2619-4b8a-ae9b-c4edffa2e1f2', 1650, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'excluding delivery and installation', '2022-04-27 08:56:51', '2022-04-27 08:56:51', '8dc2fc95-9a67-423b-8f66-390e4e2d4add', '9a5aa19f-8abd-477c-a808-2a97ec8fbae0', NULL),
 	('dc5c7550-c114-4a3b-a03f-ce3a650ea5f2', 150, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'Black. To be delivered with desk. Invoice No. DY321', '2022-04-16 09:43:16', '2022-04-16 09:43:16', '5db26870-d6ee-4888-abc4-d4951e476332', 'd085af3d-f17b-41f7-b433-778e9c431ffa', NULL),
-	('dd1619e7-bd1f-4738-abf1-76bd269f477e', 330, 1, '["Delivery Included"]', 0, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L800xW125xH75mm', '2022-06-19 14:28:45', '2022-06-19 14:28:45', '55072223-94c5-424c-8fc5-364c808cde80', '86950b07-3868-4180-8e60-45d122710a96', NULL),
 	('deb4305c-c52c-44b2-87e7-18686ffd7e23', 1650, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, 0, '', 'excluding delivery and installation', '2022-03-21 03:39:14', '2022-03-21 03:39:14', '210785ac-d645-4ef2-b88b-1bef3f589524', '9a5aa19f-8abd-477c-a808-2a97ec8fbae0', NULL),
 	('defe406d-5d1a-4f78-8d6f-e87339ab6895', 850, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'Tray Size: 640x255mm', '2022-02-23 05:33:23', '2022-02-23 05:33:23', 'dff43e25-9b72-46ce-9a61-f62db73d8db2', 'b81f80dd-ec76-43f1-8f8a-d3a455408436', NULL),
 	('df7633f1-467a-4e8e-84e1-51c763e4e52c', 1650, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'excluding delivery and installation, SF express (Paid on Arrival) ', '2022-06-07 05:21:28', '2022-06-07 05:21:28', '04614ba8-e24e-43d7-a901-22d9abfb2414', '6c911bd7-af7b-481e-80cc-ee871e9ea10a', NULL),
@@ -330,7 +330,7 @@ INSERT INTO `accessorytoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `pr
 	('ff130a9f-a020-47eb-a3dc-4ff5abccf2bd', 330, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, 0, '', 'Size: L800xW125xH75mm', '2022-05-20 03:18:16', '2022-05-20 03:18:16', '83071b8e-b00c-4913-aea6-fb0af871fb78', '92a62123-e484-4790-a43e-c22746ec06d1', NULL);
 /*!40000 ALTER TABLE `accessorytoorders` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.accessorytoquotations
+-- Dumping structure for table sales_invoice.accessorytoquotations
 CREATE TABLE IF NOT EXISTS `accessorytoquotations` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `unitPrice` float NOT NULL DEFAULT 1000,
@@ -348,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `accessorytoquotations` (
   CONSTRAINT `accessorytoquotations_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `accessorystocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.accessorytoquotations: ~65 rows (approximately)
+-- Dumping data for table sales_invoice.accessorytoquotations: ~65 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoquotations` DISABLE KEYS */;
 INSERT INTO `accessorytoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('07c4d2c2-d7bc-490e-b809-0d954df83c33', 1300, 1, '[]', 'Size: H580*W300*D500mm, color: ', '2022-03-16 09:59:10', '2022-03-16 09:59:10', '744b1fb6-d13f-4af4-9f7c-aab6e865215e', 'ef82dfa7-55fc-4dd8-8f5f-ec59855e75c3'),
@@ -418,7 +418,7 @@ INSERT INTO `accessorytoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`,
 	('f08ccf13-117c-40ef-b07a-fe49c4eb330d', 550, 1, '["Delivery and installation included"]', 'includes 3 Sockets and 2 USB, color TBC', '2022-05-12 04:38:43', '2022-05-12 04:38:43', '23fe4d8b-09d1-463d-85e5-4458c2658619', '16ee0d27-963d-44e6-a29c-906fedaf5006');
 /*!40000 ALTER TABLE `accessorytoquotations` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.accessorytoshipments
+-- Dumping structure for table sales_invoice.accessorytoshipments
 CREATE TABLE IF NOT EXISTS `accessorytoshipments` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `client` varchar(255) NOT NULL DEFAULT '',
@@ -435,11 +435,11 @@ CREATE TABLE IF NOT EXISTS `accessorytoshipments` (
   CONSTRAINT `accessorytoshipments_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `accessorystocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.accessorytoshipments: ~0 rows (approximately)
+-- Dumping data for table sales_invoice.accessorytoshipments: ~0 rows (approximately)
 /*!40000 ALTER TABLE `accessorytoshipments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `accessorytoshipments` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.chairstocks
+-- Dumping structure for table sales_invoice.chairstocks
 CREATE TABLE IF NOT EXISTS `chairstocks` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `brand` varchar(255) NOT NULL DEFAULT '',
@@ -464,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `chairstocks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.chairstocks: ~464 rows (approximately)
+-- Dumping data for table sales_invoice.chairstocks: ~464 rows (approximately)
 /*!40000 ALTER TABLE `chairstocks` DISABLE KEYS */;
 INSERT INTO `chairstocks` (`id`, `brand`, `model`, `frameColor`, `backColor`, `seatColor`, `backMaterial`, `seatMaterial`, `withHeadrest`, `withAdArmrest`, `remark`, `thumbnailURL`, `unitPrice`, `balance`, `qty`, `shipmentDate`, `arrivalDate`, `isRegistered`, `createdAt`, `updatedAt`) VALUES
 	('00a42064-3626-4e00-8e8b-b8d5b3085159', 'Okamura ', 'Legender Extra High Back (closed arms - plain version)', 'N/A', '', '', 'Leather', 'Leather', 1, 0, '', 'http://blueoceanblue.com:4000/uploads/stocks/1640182493684-sku-395057.jpg', 36200, 0, 0, NULL, NULL, 0, '2021-12-19 16:33:15', '2021-12-22 14:14:53'),
@@ -933,7 +933,7 @@ INSERT INTO `chairstocks` (`id`, `brand`, `model`, `frameColor`, `backColor`, `s
 	('ffc6a6ca-d5a6-477f-b761-88c908e6a375', '** NO BRAND **', 'MO Chair Basic Version ', 'BLACK', 'Blue Y-04', 'Blue Y-04', 'Mesh ', 'Mesh ', 1, 1, '', '', 3600, 0, 0, NULL, NULL, 0, '2021-12-19 16:33:15', '2021-12-28 04:48:52');
 /*!40000 ALTER TABLE `chairstocks` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.chairtoorders
+-- Dumping structure for table sales_invoice.chairtoorders
 CREATE TABLE IF NOT EXISTS `chairtoorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `unitPrice` float NOT NULL DEFAULT 1000,
@@ -962,7 +962,7 @@ CREATE TABLE IF NOT EXISTS `chairtoorders` (
   CONSTRAINT `chairtoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.chairtoorders: ~320 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoorders: ~320 rows (approximately)
 /*!40000 ALTER TABLE `chairtoorders` DISABLE KEYS */;
 INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `poNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`, `shipmentId`) VALUES
 	('00654c99-a3c8-4bd6-9ed5-80510700303c', 4499, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:WHITE, SeatColor:Blue Y-04, BackColor:Blue Y-04', '2022-03-10 07:13:37', '2022-03-10 07:13:37', 'f16c4aae-9b26-4978-953a-02ac44f7b992', 'f359e44e-0777-4d68-8652-4f505040a1d4', NULL),
@@ -1045,7 +1045,6 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('3f92fb35-4b7b-4e6a-bb79-375ce53d40be', 5500, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:Black, SeatColor:Black, BackColor:Black', '2022-05-27 10:25:22', '2022-05-27 10:25:22', '5711335d-8e34-4e63-af6d-1d9ee9444aa2', '6973a8d7-c395-4aeb-bba2-9a40745902ad', NULL),
 	('3f9f6e36-8773-49fa-97e1-21e042488121', 4249, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Blue H-04, BackColor:Blue H-04', '2022-04-13 07:35:13', '2022-04-13 07:35:13', '16f4d620-a6c6-4ed7-88a8-1668322ba4f8', 'e66eebad-f53c-49fb-8190-a8466bd913aa', NULL),
 	('3fc23103-1c62-44c4-96cb-c88947003abd', 5500, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:Black, SeatColor:Black, BackColor:Black', '2022-03-24 06:48:59', '2022-03-24 06:48:59', '1a61564e-ab19-4ed0-93c1-33852730d7b0', '6973a8d7-c395-4aeb-bba2-9a40745902ad', NULL),
-	('414ca7e7-078c-454f-854d-8242a98bd584', 36200, 1, '["Delivery Included","Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:N/A, SeatColor:___, BackColor:___', '2022-06-19 14:28:45', '2022-06-19 14:28:45', '55072223-94c5-424c-8fc5-364c808cde80', '00a42064-3626-4e00-8e8b-b8d5b3085159', NULL),
 	('41d10470-7086-4d4f-bb6b-c2a599b7f99b', 2450, 1, '["Delivery and installation included","Stairs Surcharge"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-01-17 10:08:45', '2022-01-17 10:08:45', '2a7a9a81-3b87-4e88-ac77-f9e0d74fcc8e', '62dc3c25-d150-4e45-81b2-daa7240e1e72', NULL),
 	('4288d3be-04b2-48d9-bd58-53f6eeaaebbe', 13250, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:POLISHED, SeatColor:Black, BackColor:Black', '2022-06-07 04:07:00', '2022-06-07 04:07:00', '9cf27d5d-1843-40bc-9b98-a6bfcf75d604', 'f13c3abe-229b-40e7-aa26-d0b21f85175f', NULL),
 	('43a6b617-1a4d-4f5f-bf5d-eca2570252e2', 4600, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:BLACK, BackColor:BLACK', '2022-06-04 10:01:47', '2022-06-04 10:01:47', '0544b189-cf99-4534-9861-bc179411b9d3', 'f1e3d04a-6c52-4e3f-b09c-2c035988e475', NULL),
@@ -1191,6 +1190,7 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('a93af5ab-6ae5-429c-a4ee-49abe91c6721', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', '', '2022-02-16 05:19:49', '2022-02-16 05:19:49', '4fbadf51-0365-427b-8d4a-9052693d58a8', '6973a8d7-c395-4aeb-bba2-9a40745902ad', NULL),
 	('a9ba279b-5a50-4892-adfc-95976f7da2ab', 11700, 1, '["Delivery Included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:POLISHED, SeatColor:___, BackColor:___', '2022-03-12 09:18:23', '2022-03-12 09:18:23', '7beecb46-13e4-4b0a-b50c-52dd9a30d97b', '037d48ac-6997-47b1-894b-b210f4afdd8d', NULL),
 	('a9d2599e-2c68-43cf-b002-28fa3d5e0fef', 5500, 1, '["Delivery and installation included"]', 0, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:Black, SeatColor:Black, BackColor:Black', '2022-03-08 04:24:33', '2022-03-08 04:24:33', '043661c4-e791-4fda-bde8-f268c6000120', '6973a8d7-c395-4aeb-bba2-9a40745902ad', NULL),
+	('ade9ba1a-b301-4a0d-8cca-9ce83f528ed7', 36200, 1, '["Delivery Included","Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:N/A, SeatColor:___, BackColor:___', '2022-06-23 09:59:52', '2022-06-23 09:59:52', '55072223-94c5-424c-8fc5-364c808cde80', '00a42064-3626-4e00-8e8b-b8d5b3085159', NULL),
 	('ae79af06-59bf-4a59-ae8b-c27e19c7eedc', 6200, 1, '["Delivery and installation included"]', 1, '2022-01-18', NULL, NULL, NULL, 1, '', 'uploads/signature/1646128241594.png', '', '2022-01-18 04:18:02', '2022-03-01 09:50:41', 'b68bbd26-1d6f-4511-be86-661b3f88e738', '073f2919-9eb8-430a-b749-65754fae40bd', NULL),
 	('ae901dc6-7f92-458d-b0ed-076968d22070', 5500, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:Black, SeatColor:Black, BackColor:Black', '2022-04-12 12:57:29', '2022-04-12 12:57:29', '81c0abea-04e9-4918-bd2b-940c01883dab', '6973a8d7-c395-4aeb-bba2-9a40745902ad', NULL),
 	('afb6f64e-89e3-4699-849f-f8f8b3a797b7', 12750, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:SILVER/Grey, SeatColor:Sage', '2022-04-12 10:10:05', '2022-04-12 10:10:05', '8867b936-ffb9-47b5-bdb7-91a1c61b08ab', '7fbd7698-0d5a-4d64-9ac2-d2eedfdf5d6d', NULL),
@@ -1287,7 +1287,7 @@ INSERT INTO `chairtoorders` (`id`, `unitPrice`, `qty`, `deliveryOption`, `preOrd
 	('ffd13254-32c5-4432-a97d-13386ee844ab', 4100, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', 'FrameColor:BLACK, SeatColor:Blue, BackColor:Blue', '2022-04-19 06:51:24', '2022-04-19 06:51:24', 'bcc3449f-6951-4dde-9ad8-d2621a1ab811', 'c2da22fa-8ae6-44a0-b475-041dd76e139d', NULL);
 /*!40000 ALTER TABLE `chairtoorders` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.chairtoquotations
+-- Dumping structure for table sales_invoice.chairtoquotations
 CREATE TABLE IF NOT EXISTS `chairtoquotations` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `unitPrice` float NOT NULL DEFAULT 1000,
@@ -1305,7 +1305,7 @@ CREATE TABLE IF NOT EXISTS `chairtoquotations` (
   CONSTRAINT `chairtoquotations_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.chairtoquotations: ~63 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoquotations: ~63 rows (approximately)
 /*!40000 ALTER TABLE `chairtoquotations` DISABLE KEYS */;
 INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('01406964-ff56-4134-b73b-738f9c5b83e2', 11200, 1, '["Delivery and installation included"]', NULL, '2022-01-11 04:34:02', '2022-01-11 04:34:02', '8189e9e2-1cf8-463a-81c9-a8651f8da659', '037d48ac-6997-47b1-894b-b210f4afdd8d'),
@@ -1373,7 +1373,7 @@ INSERT INTO `chairtoquotations` (`id`, `unitPrice`, `qty`, `deliveryOption`, `re
 	('fc07faab-90f2-40d6-9732-06c6177e888e', 650, 40, '["Delivery and installation included"]', 'FrameColor:BLACK, SeatColor:Orange, BackColor:Black', '2022-05-04 05:29:38', '2022-05-04 05:29:38', 'ff0e87af-6688-4804-8b3c-7e75d4316b07', 'b8490dae-3215-493b-9f0b-85c3934c9c29');
 /*!40000 ALTER TABLE `chairtoquotations` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.chairtoshipments
+-- Dumping structure for table sales_invoice.chairtoshipments
 CREATE TABLE IF NOT EXISTS `chairtoshipments` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `client` varchar(255) NOT NULL DEFAULT '',
@@ -1390,13 +1390,13 @@ CREATE TABLE IF NOT EXISTS `chairtoshipments` (
   CONSTRAINT `chairtoshipments_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `chairstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.chairtoshipments: ~1 rows (approximately)
+-- Dumping data for table sales_invoice.chairtoshipments: ~0 rows (approximately)
 /*!40000 ALTER TABLE `chairtoshipments` DISABLE KEYS */;
 INSERT INTO `chairtoshipments` (`id`, `client`, `qty`, `orderedQty`, `createdAt`, `updatedAt`, `shipmentId`, `stockId`) VALUES
 	('01e59681-40ea-4d7e-bb5f-0b427ced843c', 'Mr. Terence Man', 1, 1, '2022-06-03 03:37:22', '2022-06-03 03:37:22', 'aa265f69-e009-45e4-9b2e-22fa726d3a5a', NULL);
 /*!40000 ALTER TABLE `chairtoshipments` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.deskstocks
+-- Dumping structure for table sales_invoice.deskstocks
 CREATE TABLE IF NOT EXISTS `deskstocks` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `supplierCode` varchar(255) NOT NULL DEFAULT '',
@@ -1418,7 +1418,7 @@ CREATE TABLE IF NOT EXISTS `deskstocks` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.deskstocks: ~77 rows (approximately)
+-- Dumping data for table sales_invoice.deskstocks: ~77 rows (approximately)
 /*!40000 ALTER TABLE `deskstocks` DISABLE KEYS */;
 INSERT INTO `deskstocks` (`id`, `supplierCode`, `model`, `color`, `armSize`, `feetSize`, `beamSize`, `remark`, `thumbnailURL`, `unitPrice`, `isRegistered`, `balance`, `qty`, `shipmentDate`, `arrivalDate`, `createdAt`, `updatedAt`) VALUES
 	('0085f433-95b5-4605-a307-3347edf84352', 'AK', '2 Jointed Model with Side Cabinet', 'GREY', '', '', 'Regular', '', 'http://blueoceanblue.com:4000/uploads/stocks/1645429822046-Screenshot 2022-02-21 154842.png', 8500, 0, 0, 0, NULL, NULL, '2021-12-19 16:33:15', '2022-02-21 08:30:33'),
@@ -1500,7 +1500,7 @@ INSERT INTO `deskstocks` (`id`, `supplierCode`, `model`, `color`, `armSize`, `fe
 	('fff964d4-fc2c-4fca-b046-91898db546c4', 'AK', '4 Legs Model (H:64-129cm) w/o feet', 'BLACK', '', '', 'Regular', '', 'http://blueoceanblue.com:4000/uploads/stocks/1646811697669-螢幕擷取畫面 2022-03-09 154123.png', 8500, 0, 0, 0, NULL, NULL, '2021-12-19 16:33:15', '2022-03-09 07:41:37');
 /*!40000 ALTER TABLE `deskstocks` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.desktoorders
+-- Dumping structure for table sales_invoice.desktoorders
 CREATE TABLE IF NOT EXISTS `desktoorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `hasDeskTop` tinyint(1) NOT NULL DEFAULT 0,
@@ -1542,7 +1542,7 @@ CREATE TABLE IF NOT EXISTS `desktoorders` (
   CONSTRAINT `desktoorders_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `deskstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.desktoorders: ~120 rows (approximately)
+-- Dumping data for table sales_invoice.desktoorders: ~120 rows (approximately)
 /*!40000 ALTER TABLE `desktoorders` DISABLE KEYS */;
 INSERT INTO `desktoorders` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topLength`, `topWidth`, `topThickness`, `topRoundedCorners`, `topCornerRadius`, `topHoleCount`, `topHoleType`, `topHolePosition`, `topSketchURL`, `unitPrice`, `qty`, `deliveryOption`, `preOrder`, `preDeliveryDate`, `estDeliveryDate`, `from`, `to`, `delivered`, `akNum`, `heworkNum`, `signURL`, `remark`, `createdAt`, `updatedAt`, `orderId`, `stockId`, `shipmentId`) VALUES
 	('02658f63-657e-4c90-a41a-0012059900ac', 1, 'North American Walnut', '', 1600, 800, 26, 0, 50, 1, 'Rectangular', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1648019571809.png', 13200, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', 'Dual level include', '2022-03-23 07:12:51', '2022-03-23 07:12:52', '930409e6-6e61-463e-99a9-1883363d4908', '044c483a-61b7-4f4b-af8c-53b0a02806a0', NULL),
@@ -1605,7 +1605,7 @@ INSERT INTO `desktoorders` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topL
 	('8ca8f04d-1135-4ef1-998e-b91362b9a285', 1, 'Laminate', 'CW124', 1100, 600, 25, 2, 50, 0, 'Rounded', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1653388464918.png', 5600, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-05-24 10:34:25', '2022-05-24 10:34:25', '62b26538-cdf0-4ca3-b743-553af179188e', '4b4bad6c-e1a0-4239-8bd6-bf32b4fca5cc', NULL),
 	('8ee165f1-fd7c-42ff-a7ab-e3aa895a42c0', 1, 'Laminate', 'B067', 1100, 575, 25, 4, 50, 2, 'Rounded', 'Left_Right', 'http://blueoceanblue.com:4000/uploads/sketch/1647683087121.png', 5490, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-03-19 09:44:47', '2022-03-19 09:44:47', '0efa60cc-a540-437d-89ce-6f96585658df', 'f231433c-64b8-42a3-b4e2-d7bef607ba3e', NULL),
 	('9020b424-86ad-4165-8b0a-d6af11179ddc', 1, 'Laminate', 'DH287', 1100, 700, 25, 4, 50, 1, 'Rectangular', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1651312760539.png', 5200, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-04-30 09:59:20', '2022-04-30 09:59:20', '8b2c37c2-7f7d-48de-9d64-dbb7cd44777c', '827c7da0-3325-45f6-a4e7-2f0576252764', NULL),
-	('94a7a6d3-e221-4e93-9c20-c65e40b443d4', 1, 'Melamine', '', 700, 400, 25, 0, 50, 0, 'Rounded', 'Left', 'http://localhost:4000/uploads/sketch/1655648925482.png', 8500, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', 'sdfsdf', '2022-06-19 14:28:45', '2022-06-19 14:28:45', '55072223-94c5-424c-8fc5-364c808cde80', '0085f433-95b5-4605-a307-3347edf84352', NULL),
+	('94a7a6d3-e221-4e93-9c20-c65e40b443d4', 1, 'Melamine', '', 700, 400, 25, 0, 50, 0, 'Rounded', 'Left', 'http://localhost:4000/uploads/sketch/1655978392525.png', 8500, 1, '[]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', 'sdfsdf', '2022-06-19 14:28:45', '2022-06-23 09:59:52', '55072223-94c5-424c-8fc5-364c808cde80', '0085f433-95b5-4605-a307-3347edf84352', NULL),
 	('954efc4f-ad36-47e1-a59a-67bd6b9c88d1', 1, 'Laminate', 'DH368', 1200, 600, 25, 0, 50, 0, 'Rounded', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1648447111782.png', 5600, 2, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-03-28 05:58:31', '2022-03-28 06:02:44', 'de5bc138-ed58-43d1-8a5a-b014de0bfd20', 'e7f656ad-bbba-4242-bd22-5586236f740b', NULL),
 	('96f0efb5-969d-4513-bee0-05fcc305386e', 1, 'Laminate', 'DH101', 700, 400, 25, 0, 50, 0, 'Rounded', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1648447291182.png', 7000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-03-28 06:01:31', '2022-03-28 06:02:44', 'de5bc138-ed58-43d1-8a5a-b014de0bfd20', 'ef1a266e-bd6d-476b-9df7-6443a620bc50', NULL),
 	('9704afd4-025b-4e6f-8738-599393281150', 0, '', '', 0, 0, 0, 0, 50, 0, '', 'Left', '', 3850, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-03-18 07:13:35', '2022-03-18 07:13:35', 'f8b161d7-0c9d-4931-9194-2826334b8d58', '62e7d7e7-da2a-417e-9ebb-c4da98707060', NULL),
@@ -1667,7 +1667,7 @@ INSERT INTO `desktoorders` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topL
 	('ff751090-9a1a-4355-b068-019f588f51a0', 1, 'South American Walnut', '', 1600, 800, 60, 0, 50, 0, 'Rounded', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1653877083995.png', 12000, 1, '["Delivery and installation included"]', 1, NULL, NULL, NULL, NULL, 0, '', '', '', '', '2022-05-30 02:16:29', '2022-05-30 02:18:04', '5f205937-53de-4d0a-882b-5d34e8bb34b8', '2e9c1818-88b1-45ac-954d-df9a679663ce', NULL);
 /*!40000 ALTER TABLE `desktoorders` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.desktoquotations
+-- Dumping structure for table sales_invoice.desktoquotations
 CREATE TABLE IF NOT EXISTS `desktoquotations` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `hasDeskTop` tinyint(1) NOT NULL DEFAULT 0,
@@ -1697,7 +1697,7 @@ CREATE TABLE IF NOT EXISTS `desktoquotations` (
   CONSTRAINT `desktoquotations_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `deskstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.desktoquotations: ~57 rows (approximately)
+-- Dumping data for table sales_invoice.desktoquotations: ~57 rows (approximately)
 /*!40000 ALTER TABLE `desktoquotations` DISABLE KEYS */;
 INSERT INTO `desktoquotations` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `topLength`, `topWidth`, `topThickness`, `topRoundedCorners`, `topCornerRadius`, `topHoleCount`, `topHoleType`, `topHolePosition`, `topSketchURL`, `unitPrice`, `qty`, `deliveryOption`, `remark`, `createdAt`, `updatedAt`, `quotationId`, `stockId`) VALUES
 	('002c8665-0401-490f-b84c-f23182b5a319', 1, 'Toppal Plyedge', 'C647', 1400, 700, 25, 4, 50, 1, 'Rectangular', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1654595322886.png', 6500, 6, '["Delivery and installation included"]', 'Flipper in the center, Customized edge for mon. arm on the upper left', '2022-06-07 09:48:43', '2022-06-07 09:48:43', NULL, 'b3814fe3-a28a-48e8-909b-3325f428c6fb'),
@@ -1759,7 +1759,7 @@ INSERT INTO `desktoquotations` (`id`, `hasDeskTop`, `topMaterial`, `topColor`, `
 	('ff4e65b3-2ce1-42fc-86c6-ca073713bc61', 1, 'Melamine', 'HW-M81', 1600, 750, 25, 0, 50, 2, 'Rounded', 'Left', 'http://blueoceanblue.com:4000/uploads/sketch/1653453874017.png', 4999, 1, '["Delivery and installation included"]', '', '2022-04-07 05:57:24', '2022-05-25 04:44:34', 'd0c7ec4d-004c-4b27-beaf-372abfdc324a', 'aba99624-315d-4a8d-a836-8b149b5c4f0e');
 /*!40000 ALTER TABLE `desktoquotations` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.desktoshipments
+-- Dumping structure for table sales_invoice.desktoshipments
 CREATE TABLE IF NOT EXISTS `desktoshipments` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `client` varchar(255) NOT NULL DEFAULT '',
@@ -1779,11 +1779,11 @@ CREATE TABLE IF NOT EXISTS `desktoshipments` (
   CONSTRAINT `desktoshipments_stockId_foreign_idx` FOREIGN KEY (`stockId`) REFERENCES `deskstocks` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.desktoshipments: ~0 rows (approximately)
+-- Dumping data for table sales_invoice.desktoshipments: ~0 rows (approximately)
 /*!40000 ALTER TABLE `desktoshipments` DISABLE KEYS */;
 /*!40000 ALTER TABLE `desktoshipments` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.quotations
+-- Dumping structure for table sales_invoice.quotations
 CREATE TABLE IF NOT EXISTS `quotations` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `quotationNum` int(11) NOT NULL DEFAULT 0,
@@ -1813,7 +1813,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   CONSTRAINT `quotations_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.quotations: ~96 rows (approximately)
+-- Dumping data for table sales_invoice.quotations: ~96 rows (approximately)
 /*!40000 ALTER TABLE `quotations` DISABLE KEYS */;
 INSERT INTO `quotations` (`id`, `quotationNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `paymentTerms`, `validTil`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('0322aa7f-5f2d-4b49-a057-745ffae67730', 89, 'Mr Lam', '香港薄扶林道147號展亮技能發展中心', '', '', '', '', '+852 2792 2066', '', 35, '', 'Bank Transfer', 1, 4800, 1, 0, 1, 0, 0, '2022-05-19 08:35:11', '2022-05-19 08:35:11', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
@@ -1914,7 +1914,7 @@ INSERT INTO `quotations` (`id`, `quotationNum`, `name`, `district`, `street`, `b
 	('ff0e87af-6688-4804-8b3c-7e75d4316b07', 50, 'Ms. Sandy Shun (The Chinese University of Hong Kong Human Resources Office)', '', 'Mong Man Wai Building, CUHK', '', '4', '', '+852 3943 7339', 'sandys@cuhk.edu.hk', 21, '', '100% Bank Transfer', 1, 4000, 1, 0, 1, 0, 0, '2022-04-21 07:20:26', '2022-04-28 07:40:25', '47324cff-bc23-42e2-9911-19f8e07957cf');
 /*!40000 ALTER TABLE `quotations` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.salesorders
+-- Dumping structure for table sales_invoice.salesorders
 CREATE TABLE IF NOT EXISTS `salesorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `invoiceNum` int(11) NOT NULL DEFAULT 0,
@@ -1946,7 +1946,7 @@ CREATE TABLE IF NOT EXISTS `salesorders` (
   CONSTRAINT `salesorders_sellerId_foreign_idx` FOREIGN KEY (`sellerId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.salesorders: ~470 rows (approximately)
+-- Dumping data for table sales_invoice.salesorders: ~470 rows (approximately)
 /*!40000 ALTER TABLE `salesorders` DISABLE KEYS */;
 INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `block`, `floor`, `unit`, `phone`, `email`, `timeLine`, `remark`, `signURL`, `paid`, `paymentTerms`, `dueDate`, `discount`, `discountType`, `surcharge`, `surchargeType`, `finished`, `isPreorder`, `createdAt`, `updatedAt`, `sellerId`) VALUES
 	('00c7c536-b2ee-4389-9f0a-225c950d33b9', 223, 'Mr. Pang', '', '', '', '', '', '+852 9345 0935', '', 1, '', '', 1, '100% Bank Transfer', '2022-03-28', 0, 1, 0, 1, 0, 0, '2022-03-28 04:27:53', '2022-03-28 07:00:50', '47324cff-bc23-42e2-9911-19f8e07957cf'),
@@ -2098,7 +2098,7 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('5384a2d2-9ad3-4bf3-9274-726b4d5f8304', 324, 'Ms Lai', 'Happy Valley', 'Flat D, 9/F, Winfield Garden, 34-40 Shan Kwong Road', '', '', '', '+852 6823 4514', '', 5, '', '', 1, '', NULL, 0, 1, 0, 1, 0, 0, '2022-04-16 09:15:04', '2022-04-16 09:15:04', 'a15d983b-f0c0-4d3e-bb9c-aefc4413d8cb'),
 	('53861b56-bd50-4da2-bdf9-c045d8f42519', 104, 'Miss Mak', 'Kwong Sang Hong Building ', '298 Hennessy Road, Wai Chai', '', '18', 'A', '+852 6314 5808', '', 7, '', '', 1, '100% Credit Card', NULL, 10, 0, 0, 1, 0, 0, '2022-02-19 10:04:54', '2022-02-19 10:04:54', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
 	('53b0535f-5d08-4129-867e-f38559c31942', 264, 'Mr. Christopher', 'self pick up', '', '', '', '', '+852 9664 0028', '', 0, '', '', 1, '100% Credit Card', NULL, 0, 1, 0, 1, 0, 0, '2022-04-07 05:32:17', '2022-04-07 13:43:51', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
-	('55072223-94c5-424c-8fc5-364c808cde80', 517, 'employees', '', '', '', '', '', '+852', '', 0, '', '', 1, 'PayPal', NULL, 1, 1, 2, 1, 0, 0, '2022-06-19 14:23:13', '2022-06-19 14:23:13', '1f705193-ee86-4494-9002-2acfadd1af92'),
+	('55072223-94c5-424c-8fc5-364c808cde80', 517, 'employees', '', '', '', '', '', '+852', '', 0, 'asdfs', '', 1, 'PayPal', NULL, 1, 1, 2, 1, 0, 0, '2022-06-19 14:23:13', '2022-06-23 09:59:52', '1f705193-ee86-4494-9002-2acfadd1af92'),
 	('55357b1e-cf6d-4ef3-9e57-343796fb7073', 384, 'Ms Chan', '屯門大興花園二期七座22E', '', '', '', '', '+852 9583 1232', '', 21, '', '', 1, 'C/C', NULL, 0, 1, 0, 1, 0, 0, '2022-05-03 03:52:47', '2022-05-03 04:03:38', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab'),
 	('5602bed8-f14d-4236-aefd-ea7cb688531a', 128, 'Mr. Kevin Tsang', '', 'Tower 3, The Merton, Kennedy Town', '', '51', 'K', '+852 5316 8485', '', 28, '', '', 1, '100% credit card', NULL, 0, 1, 0, 1, 0, 0, '2022-03-04 06:41:15', '2022-03-04 06:41:15', '47324cff-bc23-42e2-9911-19f8e07957cf'),
 	('56191ceb-e7d1-4bad-970a-7e7731920505', 23, 'Mr. Lee', 'Shatin', 'Greenhill Villa', '1', '31', 'i', '+852 6038 7991', 'zeyu0224@gmail.com', 5, '', '', 1, '100% credit card ', NULL, 0, 1, 0, 1, 0, 0, '2022-01-12 09:08:11', '2022-01-12 11:55:17', 'e85f6320-2be9-443c-a308-57f853a1a01c'),
@@ -2421,14 +2421,14 @@ INSERT INTO `salesorders` (`id`, `invoiceNum`, `name`, `district`, `street`, `bl
 	('ff8769cd-c395-4e7c-b2f0-db2d92a91da4', 516, 'Mr Lau', '觀塘牛頭角道300裕民中心3座8a', '', '', '', '', '+852 9516 1906', '', 35, '', '', 1, 'C/C', NULL, 0, 1, 0, 1, 0, 0, '2022-06-15 10:37:44', '2022-06-15 10:37:44', 'a09fc240-5dfb-407a-873a-9d2f2b1d61ab');
 /*!40000 ALTER TABLE `salesorders` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.sequelizemeta
+-- Dumping structure for table sales_invoice.sequelizemeta
 CREATE TABLE IF NOT EXISTS `sequelizemeta` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table sales_invoice2.sequelizemeta: ~20 rows (approximately)
+-- Dumping data for table sales_invoice.sequelizemeta: ~20 rows (approximately)
 /*!40000 ALTER TABLE `sequelizemeta` DISABLE KEYS */;
 INSERT INTO `sequelizemeta` (`name`) VALUES
 	('20220125023238-create-user.js'),
@@ -2453,7 +2453,7 @@ INSERT INTO `sequelizemeta` (`name`) VALUES
 	('20220216145852-modify-quotation.js');
 /*!40000 ALTER TABLE `sequelizemeta` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.servicetoorders
+-- Dumping structure for table sales_invoice.servicetoorders
 CREATE TABLE IF NOT EXISTS `servicetoorders` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `price` float NOT NULL DEFAULT 0,
@@ -2466,7 +2466,7 @@ CREATE TABLE IF NOT EXISTS `servicetoorders` (
   CONSTRAINT `servicetoorders_orderId_foreign_idx` FOREIGN KEY (`orderId`) REFERENCES `salesorders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.servicetoorders: ~72 rows (approximately)
+-- Dumping data for table sales_invoice.servicetoorders: ~72 rows (approximately)
 /*!40000 ALTER TABLE `servicetoorders` DISABLE KEYS */;
 INSERT INTO `servicetoorders` (`id`, `price`, `description`, `orderId`, `createdAt`, `updatedAt`) VALUES
 	('00dff22d-1498-4b92-b310-5571000fe04c', 300, 'Frame color change to WHITE', '6267baeb-4793-4427-b324-7075e204e89f', '2022-04-20 14:02:23', '2022-04-20 14:02:23'),
@@ -2543,7 +2543,7 @@ INSERT INTO `servicetoorders` (`id`, `price`, `description`, `orderId`, `created
 	('fce825fb-912d-4463-bdb8-a222db539f89', 0, 'Warranty is 2 years', 'ed05f24c-5566-44d5-af59-4861071a58d1', '2022-06-14 03:34:38', '2022-06-14 03:34:38');
 /*!40000 ALTER TABLE `servicetoorders` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.servicetoquotations
+-- Dumping structure for table sales_invoice.servicetoquotations
 CREATE TABLE IF NOT EXISTS `servicetoquotations` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `price` float NOT NULL DEFAULT 0,
@@ -2556,7 +2556,7 @@ CREATE TABLE IF NOT EXISTS `servicetoquotations` (
   CONSTRAINT `servicetoquotations_quotationId_foreign_idx` FOREIGN KEY (`quotationId`) REFERENCES `quotations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.servicetoquotations: ~30 rows (approximately)
+-- Dumping data for table sales_invoice.servicetoquotations: ~30 rows (approximately)
 /*!40000 ALTER TABLE `servicetoquotations` DISABLE KEYS */;
 INSERT INTO `servicetoquotations` (`id`, `price`, `description`, `createdAt`, `updatedAt`, `quotationId`) VALUES
 	('008cb3c3-f0fd-4bcc-84b5-bd3950dcb7f1', 4050, 'Replacement feet for 9 sets of standing desks, color: white\n\nwith delivery and installation included', '2022-05-12 03:35:32', '2022-05-12 03:35:32', '306033b7-e297-4a18-843c-66db01f5e9db'),
@@ -2591,19 +2591,18 @@ INSERT INTO `servicetoquotations` (`id`, `price`, `description`, `createdAt`, `u
 	('fff24854-1874-42b6-90b6-28dd6190105c', 400, 'Modesty Panel Heigh adjusted fee for 500mm', '2022-06-09 05:25:55', '2022-06-09 05:25:55', 'b3a68463-fc6d-4703-b0c6-78bbf4ac6155');
 /*!40000 ALTER TABLE `servicetoquotations` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.shipments
+-- Dumping structure for table sales_invoice.shipments
 CREATE TABLE IF NOT EXISTS `shipments` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `poNum` varchar(255) NOT NULL DEFAULT '',
+  `poNum` int(11) NOT NULL DEFAULT 0,
   `itemType` enum('A','C','D') NOT NULL DEFAULT 'A',
   `stockId` char(36) NOT NULL DEFAULT '',
   `qty` int(11) NOT NULL DEFAULT 0,
-  `orderId` char(36) NOT NULL DEFAULT '0',
-  `orderQty` int(11) NOT NULL DEFAULT 0,
-  `orderDate` date DEFAULT NULL,
+  `orderId` char(36) DEFAULT '0',
+  `orderQty` int(11) DEFAULT 0,
   `finishDate` date DEFAULT NULL,
   `location` varchar(127) DEFAULT NULL,
-  `client` varchar(127) DEFAULT NULL,
+  `supplier` varchar(127) DEFAULT NULL,
   `beam` varchar(127) DEFAULT NULL,
   `akNum` varchar(127) DEFAULT NULL,
   `heworkNum` varchar(127) DEFAULT NULL,
@@ -2613,15 +2612,18 @@ CREATE TABLE IF NOT EXISTS `shipments` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.shipments: ~3 rows (approximately)
+-- Dumping data for table sales_invoice.shipments: ~6 rows (approximately)
 /*!40000 ALTER TABLE `shipments` DISABLE KEYS */;
-INSERT INTO `shipments` (`id`, `poNum`, `itemType`, `stockId`, `qty`, `orderId`, `orderQty`, `orderDate`, `finishDate`, `location`, `client`, `beam`, `akNum`, `heworkNum`, `remark`, `createdAt`, `updatedAt`) VALUES
-	('aa265f69-e009-45e4-9b2e-22fa726d3a5a', 'test-1', 'C', '00a42064-3626-4e00-8e8b-b8d5b3085159', 0, '0', 0, '2022-06-02', '2022-06-30', NULL, NULL, NULL, NULL, NULL, NULL, '2022-06-03 03:37:22', '2022-06-03 03:37:22'),
-	('aa265f69-e009-45e4-9b2e-22fa726d3a5b', 'test-2', 'A', '0073d243-6a05-47b5-b17c-f8c5c585643a', 0, '0', 0, '2022-06-19', '2022-06-19', NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-	('aa265f69-e009-45e4-9b2e-22fa726d3a5c', 'test-3', 'D', '0085f433-95b5-4605-a307-3347edf84352', 0, '0', 0, '2022-06-19', '2022-06-19', NULL, NULL, NULL, NULL, NULL, NULL, '2022-06-19 23:04:21', '2022-06-19 23:04:24');
+INSERT INTO `shipments` (`id`, `poNum`, `itemType`, `stockId`, `qty`, `orderId`, `orderQty`, `finishDate`, `location`, `supplier`, `beam`, `akNum`, `heworkNum`, `remark`, `createdAt`, `updatedAt`) VALUES
+	('2c12d0e6-619b-4d0b-8b80-4b6eb9e9f6da', 2, 'A', '', 0, '0', 0, NULL, NULL, 'efefe', NULL, NULL, NULL, NULL, '2022-06-24 01:21:23', '2022-06-24 01:21:23'),
+	('36257a4e-8a19-43ac-98a4-4d3940d5f7c0', 1, 'A', '', 0, '0', 0, NULL, NULL, 'efefedf', NULL, NULL, NULL, NULL, '2022-06-24 01:15:24', '2022-06-24 01:15:24'),
+	('aa265f69-e009-45e4-9b2e-22fa726d3a5a', 0, 'C', '00a42064-3626-4e00-8e8b-b8d5b3085159', 0, '0', 0, '2022-06-30', NULL, NULL, NULL, NULL, NULL, NULL, '2022-06-03 03:37:22', '2022-06-03 03:37:22'),
+	('aa265f69-e009-45e4-9b2e-22fa726d3a5b', 0, 'A', '0073d243-6a05-47b5-b17c-f8c5c585643a', 0, '0', 0, '2022-06-19', NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+	('aa265f69-e009-45e4-9b2e-22fa726d3a5c', 0, 'D', '0085f433-95b5-4605-a307-3347edf84352', 0, '0', 0, '2022-06-19', NULL, NULL, NULL, NULL, NULL, NULL, '2022-06-19 23:04:21', '2022-06-19 23:04:24'),
+	('f1b6e7de-6699-4899-a35e-3fbc656f0cbd', 0, 'A', '', 0, '0', 0, NULL, NULL, 'efefe', NULL, NULL, NULL, NULL, '2022-06-24 00:58:42', '2022-06-24 00:58:42');
 /*!40000 ALTER TABLE `shipments` ENABLE KEYS */;
 
--- Dumping structure for table sales_invoice2.users
+-- Dumping structure for table sales_invoice.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(255) NOT NULL DEFAULT '',
@@ -2639,7 +2641,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table sales_invoice2.users: ~11 rows (approximately)
+-- Dumping data for table sales_invoice.users: ~11 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `firstName`, `lastName`, `avatarURL`, `password`, `type`, `prefix`, `isActive`, `isDeleted`, `createdAt`, `updatedAt`) VALUES
 	('1a24438b-5474-431e-ae20-22200f5da5c0', 'bjms@gmail.com', 'Bj', 'smith', '', '$2a$10$rSmBB7ZaesrzutZ7p2wInuzCQbrdHe1oCsUXRUzBOTkzQrCP2BgqK', 'driver', '1', 0, 0, '2022-05-11 19:07:54', '2022-05-11 19:07:54'),

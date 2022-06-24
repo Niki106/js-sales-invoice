@@ -16,6 +16,83 @@ module.exports = {
   delete: _delete,
 };
 
+async function getAll() {
+  const sql = `
+    SELECT s.id, s.poNum, IF(s.itemType='A', a.name, IF(s.itemType='C', c.model, d.model)) AS model,
+      s.qty, s.orderQty, s.createdAt AS orderDate, s.finishDate, location, supplier,
+      IF(s.orderId='', 0, o.invoiceNum) AS invoice, s.remark 
+    FROM shipments s 
+      LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
+      LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
+      LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
+      LEFT JOIN salesorders o ON s.orderId=o.id
+    ORDER BY s.poNum
+  `;
+  const rows = await db.sequelize.query(sql, { plain: false, type: QueryTypes.SELECT });
+  return rows;
+}
+
+async function getById(id) {
+  const shipment = await db.Shipment.findOne({
+    where: { id },
+    include: [
+      
+    ],
+  });
+
+  if (!shipment) throw "Shipment was not found.";
+
+  return shipment;
+}
+
+async function create(req, res, next) {
+  try {
+    const { products, ...restParams } = req.body;
+
+    const currentYear = new Date().getFullYear();
+    const poNumber = await getPONum(currentYear)
+    console.log('req', req.body)
+    products.forEach(product => {
+      restParams.poNum = poNumber
+      restParams.itemType = product.productType.substr(0, 1).toUpperCase()
+      restParams.stockId = product.productId
+      restParams.qty = product.productAmount
+  
+      db.Shipment.create({ ...restParams }) 
+    });
+
+    res.json({ message: "New Shipment was created successfully." });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function _delete(id) {
+  const shipment = await getById(id);
+  await shipment.destroy();
+}
+
+async function getPONum(year) {
+  const shipment = await db.Shipment.findOne({
+    attributes: [
+      [Sequelize.fn("MAX", Sequelize.col("poNum")), "max_inv"],
+    ],
+    where: {
+      createdAt: {
+        [Sequelize.Op.lt]: `${year + 1}-01-01`,
+        [Sequelize.Op.gte]: `${year}-01-01`,
+      },
+    },
+    raw: true,
+  });
+
+  return shipment.max_inv + 1;
+}
+
+
+
+
+
 async function getProducts(req, res, next) {
   try {
     const chairProducts = await db.sequelize.query(
@@ -84,135 +161,7 @@ async function getAllOld(where) {
   });
 }
 
-async function getAll(where) {
-  const sql = `
-    SELECT s.id, s.poNum, IF(s.itemType='A', a.name, IF(s.itemType='C', c.model, d.model)) AS model,
-      s.qty, s.orderQty, s.orderDate, s.finishDate, location, client,
-      IF(s.orderId='', 0, o.invoiceNum) AS invoice 
-    FROM shipments s 
-      LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
-      LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
-      LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
-      LEFT JOIN salesorders o ON s.orderId=o.id
-    ORDER BY s.poNum
-  `;
-  const rows = await db.sequelize.query(sql, { plain: false, type: QueryTypes.SELECT });
-  return rows;
-}
 
-async function getById(id) {
-  return await getSalesOrder(id);
-}
-
-async function create(req, res, next) {
-  try {
-    const { chairs, desks, accessories, ...restParams } = req.body;
-
-    const id = (await db.Shipment.create({ ...restParams })).id;
-
-    for (let chair of chairs) {
-      await db.ChairToShipment.create({
-        client: chair.clients,
-        qty: chair.totalQty,
-        orderedQty: chair.orderedQty,
-        shipmentId: id,
-        stockId: chair.stockId,
-      });
-
-      const refer_ids = chair.rids.split(",");
-      // updating the chairToOrder with shipmentId
-      for (let refer_id of refer_ids) {
-        const chairToOrder = await db.ChairToOrder.findOne({
-          where: { id: refer_id },
-        });
-        Object.assign(chairToOrder, { shipmentId: id });
-        await chairToOrder.save();
-      }
-
-      // if arrival date is set when creating the shipment, upgrade the balance of stock
-      const arrivalDate = restParams.arrivalDate;
-      if (arrivalDate !== "") {
-        const shipmentBalance =
-          parseInt(chair.totalQty) - parseInt(chair.orderedQty);
-        const stock = await db.ChairStock.findOne({
-          where: { id: chair.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-    }
-
-    for (let desk of desks) {
-      await db.DeskToShipment.create({
-        client: desk.clients,
-        qty: desk.totalQty,
-        orderedQty: desk.orderedQty,
-        hasDeskTop: desk.hasDeskTop,
-        topColor: desk.topColor,
-        topMaterial: desk.topMaterial,
-        shipmentId: id,
-        stockId: desk.stockId,
-      });
-
-      const refer_ids = desk.rids.split(",");
-      // updating the chairToOrder with shipmentId
-      for (let refer_id of refer_ids) {
-        const deskToOrder = await db.DeskToOrder.findOne({
-          where: { id: refer_id },
-        });
-        Object.assign(deskToOrder, { shipmentId: id });
-        await deskToOrder.save();
-      }
-
-      // if arrival date is set when creating the shipment, upgrade the balance of stock
-      const arrivalDate = restParams.arrivalDate;
-      if (arrivalDate !== "" && !desk.hasDeskTop) {
-        const shipmentBalance =
-          parseInt(desk.totalQty) - parseInt(desk.orderedQty);
-        const stock = await db.DeskStock.findOne({
-          where: { id: desk.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-    }
-
-    for (let accessory of accessories) {
-      await db.AccessoryToShipment.create({
-        client: accessory.clients,
-        qty: accessory.totalQty,
-        orderedQty: accessory.orderedQty,
-        shipmentId: id,
-        stockId: accessory.stockId,
-      });
-
-      const refer_ids = accessory.rids.split(",");
-      // updating the chairToOrder with shipmentId
-      for (let refer_id of refer_ids) {
-        const accessoryToOrder = await db.AccessoryToOrder.findOne({
-          where: { id: refer_id },
-        });
-        Object.assign(accessoryToOrder, { shipmentId: id });
-        await accessoryToOrder.save();
-      }
-
-      // if arrival date is set when creating the shipment, upgrade the balance of stock
-      const arrivalDate = restParams.arrivalDate;
-      if (arrivalDate !== "") {
-        const shipmentBalance =
-          parseInt(accessory.totalQty) - parseInt(accessory.orderedQty);
-        const stock = await db.AccessoryStock.findOne({
-          where: { id: accessory.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-    }
-    res.json({ message: "New Shipment was created successfully." });
-  } catch (err) {
-    next(err);
-  }
-}
 
 async function update(req, res, next) {
   try {
@@ -269,48 +218,3 @@ async function update(req, res, next) {
   }
 }
 
-async function _delete(id) {
-  const shipment = await getShipment(id);
-  await shipment.destroy();
-}
-
-//helper function
-
-async function getShipment(id) {
-  const shipment = await db.Shipment.findOne({
-    where: { id },
-    include: [
-      {
-        model: db.ChairStock,
-        through: {
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-      },
-      {
-        model: db.DeskToOrder,
-      },
-      {
-        model: db.DeskStock,
-        through: {
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-      },
-      {
-        model: db.AccessoryStock,
-        through: {
-          attributes: {
-            exclude: ["createdAt", "updatedAt"],
-          },
-        },
-      },
-    ],
-  });
-
-  if (!shipment) throw "Shipment was not found.";
-
-  return shipment;
-}

@@ -19,12 +19,10 @@ module.exports = router;
 
 function createSchema(req, res, next) {
   const schema = Joi.object({
-    ponumber: Joi.string().allow("").required(),
-    orderDate: Joi.date().allow(null).required(),
-    arrivalDate: Joi.date().allow("").required(),
-    chairs: Joi.array().required(),
-    desks: Joi.array().required(),
-    accessories: Joi.array().required(),
+    supplier: Joi.string().allow("").required(),
+    location: Joi.string().allow("").required(),
+    remark: Joi.string().allow("").required(),
+    products: Joi.array().required(),
   });
   validateRequest(req, next, schema);
 }
