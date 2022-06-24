@@ -140,12 +140,12 @@ const Standard = (props) => {
             />
             <Route path={`${path}/order`} exact component={SalesOrderView} />
             <Route
-              path={`${path}/order/create`}
+              path={`${path}/sales/create`}
               exact
               component={SalesOrderCreate}
             />
             <Route
-              path={`${path}/order/edit`}
+              path={`${path}/sales/edit`}
               exact
               component={SalesOrderEdit}
             />

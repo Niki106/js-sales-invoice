@@ -355,7 +355,7 @@ export default connect(mapStateToProps)((props) => {
     >
       <Button
         component={RouterLink}
-        to="/user/order/create"
+        to="/user/sales/create"
         startIcon={<AddIcon />}
       >
         New Order
@@ -580,7 +580,7 @@ export default connect(mapStateToProps)((props) => {
               <IconButton
                 component={RouterLink}
                 to={{
-                  pathname: '/user/order/edit',
+                  pathname: '/user/sales/edit',
                   state: { order: orders[index] },
                 }}
               >

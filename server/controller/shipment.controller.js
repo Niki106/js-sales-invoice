@@ -166,7 +166,7 @@ async function getAllOld(where) {
 async function update(req, res, next) {
   try {
     const id = req.params.id;
-    const shipment = await getShipment(id);
+    const shipment = await getById(id);
     const { ...restParams } = req.body;
     Object.assign(shipment, restParams);
     await shipment.save();

@@ -10,10 +10,8 @@ const Edit = (props) => {
     location,
     remark,
     products,
-    ...client
   } = shipment || {};
 
-  const [phone, setPhone] = useState(client.phone);
 
   return shipment ? (
     <Detail
@@ -23,7 +21,7 @@ const Edit = (props) => {
         location: location,
         remark: remark,
       }}
-      initialCart={ products }
+      initialCart={[]} //{ products }
       {...props}
     />
   ) : (

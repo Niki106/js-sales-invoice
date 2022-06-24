@@ -732,6 +732,11 @@ export default connect(mapStateToProps)((props) => {
             <FormControlLabel value="day" control={<Radio />} label="Days" />
             <FormControlLabel value="week" control={<Radio />} label="Weeks" />
           </RadioGroup>
+          <TextField
+            sx={{ flexBasis: ["100%", "100%"], minWidth: ["100%", "100%"] }}
+            name="remark" label="Rmark" type="text"
+            defaultValue={initialClient.remark || ''}
+          />
         </Paper>
         <Button type="submit" sx={{ marginTop: "10px", float: "right" }}>
           Next

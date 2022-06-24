@@ -18,23 +18,25 @@ import { ChairStock } from "./Chair";
 import { DeskStock } from "./Desk";
 import { AccessoryStock } from "./Accessory";
 import {
+  SalesOrderView,
   SalesOrderCreate,
   SalesOrderEdit,
-  SalesOrderView,
 } from "./Salement/SalesOrder";
 import {
+  QuotationView,
   QuotationCreate,
   QuotationEdit,
-  QuotationView,
 } from "./Salement/Quotation";
 import { ChairDelivery, DeskDelivery } from "./Delivery";
 import {
-  POCreate,
-  PurchaseOrder,
+  PurchaseOrderView,
+  PurchaseOrderCreate,
+  PurchaseOrderEdit,
 } from "./Purchase/Order";
 import {
+  ShipmentView,
   ShipmentCreate,
-  Shipment,
+  ShipmentEdit,
 } from "./Purchase/Shipment";
 
 function mapStateToProps(state) {
@@ -71,15 +73,15 @@ const menuLists = [
   {
     category: "Sales",
     content: [
-      { to: "/admin/order", icon: <BookOnlineIcon />, label: "Order" },
+      { to: "/admin/sales", icon: <BookOnlineIcon />, label: "Order" },
       { to: "/admin/quotation", icon: <BookOnlineIcon />, label: "Quotation" },
     ],
   },
   {
     category: "Purchase",
     content: [
-      { to: "/admin/purchase/order", icon: <BookOnlineIcon />, label: "Order" },
-      { to: "/admin/purchase/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
+      { to: "/admin/purchase", icon: <BookOnlineIcon />, label: "Order" },
+      { to: "/admin/shipment", icon: <BookOnlineIcon />, label: "Shipment" },
     ],
   },
   {
@@ -178,73 +180,21 @@ const Admin = (props) => {
             <Route path={`${path}/user`} component={User} />
             <Route path={`${path}/chair/stock`} exact component={ChairStock} />
             <Route path={`${path}/desk/stock`} exact component={DeskStock} />
-            <Route
-              path={`${path}/accessory/stock`}
-              exact
-              component={AccessoryStock}
-            />
-            <Route path={`${path}/order`} exact component={SalesOrderView} />
-            <Route
-              path={`${path}/order/create`}
-              exact
-              component={SalesOrderCreate}
-            />
-            <Route
-              path={`${path}/order/edit`}
-              exact
-              component={SalesOrderEdit}
-            />
-            <Route
-              path={`${path}/shipment/create`}
-              exact
-              component={ShipmentCreate}
-            />
-            {/* <Route
-              path={`${path}/shipment/edit`}
-              exact
-              component={ShipmentEdit}
-            /> */}
+            <Route path={`${path}/accessory/stock`} exact component={AccessoryStock} />
+            <Route path={`${path}/sales`} exact component={SalesOrderView} />
+            <Route path={`${path}/sales/create`} exact component={SalesOrderCreate} />
+            <Route path={`${path}/sales/edit`} exact component={SalesOrderEdit} />
             <Route path={`${path}/quotation`} exact component={QuotationView} />
-            <Route
-              path={`${path}/quotation/create`}
-              exact
-              component={QuotationCreate}
-            />
-            <Route
-              path={`${path}/quotation/edit`}
-              exact
-              component={QuotationEdit}
-            />
-            <Route
-              path={`${path}/delivery/chair`}
-              exact
-              component={ChairDelivery}
-            />
-            <Route
-              path={`${path}/delivery/desk`}
-              exact
-              component={DeskDelivery}
-            />
-            <Route
-              path={`${path}/purchase/order`}
-              exact
-              component={ PurchaseOrder }
-            />
-            <Route
-              path={`${path}/purchase/order/create`}
-              exact
-              component={ POCreate }
-            />
-            <Route
-              path={`${path}/purchase/shipment`}
-              exact
-              component={ Shipment }
-            />
-            <Route
-              path={`${path}/purchase/shipment/create`}
-              exact
-              component={ ShipmentCreate }
-            />
+            <Route path={`${path}/quotation/create`} exact component={QuotationCreate} />
+            <Route path={`${path}/quotation/edit`} exact component={QuotationEdit} />
+            <Route path={`${path}/delivery/chair`} exact component={ChairDelivery} />
+            <Route path={`${path}/delivery/desk`} exact component={DeskDelivery} />
+            <Route path={`${path}/purchase`} exact component={ PurchaseOrderView } />
+            <Route path={`${path}/purchase/create`} exact component={ PurchaseOrderCreate } />
+            <Route path={`${path}/purchase/edit`} exact component={ PurchaseOrderEdit } />
+            <Route path={`${path}/shipment`} exact component={ ShipmentView } />
+            <Route path={`${path}/shipment/create`} exact component={ ShipmentCreate } />
+            <Route path={`${path}/shipment/edit`} exact component={ShipmentEdit} />
           </Switch>
         </Box>
       </Box>

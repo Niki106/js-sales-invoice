@@ -291,7 +291,7 @@ const materialOptions = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialClient, initialCart, initialServices, initialRemark } = props;
+  const { componentType, initialClient, initialCart, initialServices } = props;
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHolePosition, setTopHolePosition] = useState("Left");
   const [topHoleType, setTopHoleType] = useState("Rounded");
@@ -684,7 +684,7 @@ export default connect(mapStateToProps)((props) => {
           <TextField
             sx={{ flexBasis: ["100%", "100%"], minWidth: ["100%", "100%"] }}
             name="remark" label="Rmark" type="text"
-            defaultValue={initialRemark || ''}
+            defaultValue={initialClient.remark || ''}
           />
         </Paper>
         <Button type="submit" sx={{ marginTop: "10px", float: "right" }}>
@@ -1337,7 +1337,7 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   Math.max(clientData.get("timeLine"), 0) *
                   (clientData.get("timeLineFormat") === "day" ? 1 : 7),
-                remark: "",
+                remark: clientData.get("remark"),
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,
