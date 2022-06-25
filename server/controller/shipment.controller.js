@@ -40,7 +40,7 @@ async function getById(id) {
     ],
   });
 
-  if (!shipment) throw "Shipment was not found.";
+  if (!shipment) throw ".";
 
   return shipment;
 }

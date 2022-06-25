@@ -969,13 +969,13 @@ export default connect(mapStateToProps)((props) => {
                     },
                     {
                       content:
-                        order.timeLine % 7 === 0
+                        (order.timeLine % 7 === 0
                           ? `Est ${order.timeLine / 7} working week${
                               order.timeLine / 7 === 1 ? "" : "s"
                             } after payment`
                           : `Est ${order.timeLine} working day${
                               order.timeLine === 1 ? "" : "s"
-                            } after payment`,
+                            } after payment`) + ' --- ' + `${order.remark}` ,
                       width: "55%",
                     },
                     { content: order.paymentTerms, width: "15%" },

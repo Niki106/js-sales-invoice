@@ -386,7 +386,7 @@ export default connect(mapStateToProps)((props) => {
             })
             .then(() => {
               // handle success
-              props.history.push("/admin/order");
+              props.history.push("/admin/sales");
             })
             .catch(function (error) {
               // handle error

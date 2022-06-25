@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Detail from './Detail';
 import { Redirect, useLocation } from 'react-router-dom';
 
@@ -76,7 +76,7 @@ const Edit = (props) => {
       {...props}
     />
   ) : (
-    <Redirect to="/admin/order" />
+    <Redirect to="/admin/sales" />
   );
 };
 

@@ -26,6 +26,7 @@ const Edit = (props) => {
         ...client,
         phone,
         setPhone,
+        remark,
       }}
       initialCart={ChairStocks.map(({ ChairToOrder, ...restProps }) => ({
         productType: 'chair',
@@ -78,7 +79,7 @@ const Edit = (props) => {
       {...props}
     />
   ) : (
-    <Redirect to="/admin/order" />
+    <Redirect to="/admin/sales" />
   );
 };
 

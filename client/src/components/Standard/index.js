@@ -134,32 +134,13 @@ const Standard = (props) => {
           <Switch>
             <Route path={`${path}/chair/stock`} component={ChairStock} />
             <Route path={`${path}/desk/stock`} component={DeskStock} />
-            <Route
-              path={`${path}/accessory/stock`}
-              component={AccessoryStock}
-            />
-            <Route path={`${path}/order`} exact component={SalesOrderView} />
-            <Route
-              path={`${path}/sales/create`}
-              exact
-              component={SalesOrderCreate}
-            />
-            <Route
-              path={`${path}/sales/edit`}
-              exact
-              component={SalesOrderEdit}
-            />
+            <Route path={`${path}/accessory/stock`} component={AccessoryStock} />
+            <Route path={`${path}/sales`} exact component={SalesOrderView} />
+            <Route path={`${path}/sales/create`} exact component={SalesOrderCreate} />
+            <Route path={`${path}/sales/edit`} exact component={SalesOrderEdit} />
             <Route path={`${path}/quotation`} exact component={QuotationView} />
-            <Route
-              path={`${path}/quotation/create`}
-              exact
-              component={QuotationCreate}
-            />
-            <Route
-              path={`${path}/quotation/edit`}
-              exact
-              component={QuotationEdit}
-            />
+            <Route path={`${path}/quotation/create`} exact component={QuotationCreate} />
+            <Route path={`${path}/quotation/edit`} exact component={QuotationEdit} />
           </Switch>
         </Box>
       </Box>
