@@ -140,7 +140,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -160,7 +160,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -212,7 +212,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -229,7 +229,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -265,7 +265,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -683,7 +683,7 @@ export default connect(mapStateToProps)((props) => {
           </RadioGroup>
           <TextField
             sx={{ flexBasis: ["100%", "100%"], minWidth: ["100%", "100%"] }}
-            name="remark" label="Rmark" type="text"
+            name="remark" label="Delivery Remark" type="text"
             defaultValue={initialClient.remark || ''}
           />
         </Paper>
@@ -1429,7 +1429,7 @@ export default connect(mapStateToProps)((props) => {
                 Swal.fire({
                   icon: "error",
                   title: "Error",
-                  text: error.response.data.message,
+                  text: 'error.response.data.message',
                   allowOutsideClick: false,
                 }).then(() => { });
                 console.log(error);

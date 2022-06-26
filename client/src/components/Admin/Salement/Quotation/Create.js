@@ -13,6 +13,7 @@ const Create = (props) => {
         discountType: 1,
         surchargeType: 1,
         validTil: 1,
+        remark: '',
       }}
       initialCart={[]}
       {...props}

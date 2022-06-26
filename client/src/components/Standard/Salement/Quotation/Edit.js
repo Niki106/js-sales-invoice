@@ -13,6 +13,7 @@ const Edit = (props) => {
     ServiceToQuotations,
     Seller,
     sellerId,
+    remark,
     ...client
   } = quotation || {};
 

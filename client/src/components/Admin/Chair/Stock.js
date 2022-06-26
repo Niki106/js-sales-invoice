@@ -84,7 +84,7 @@ const columns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -112,7 +112,7 @@ const hideColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -720,14 +720,12 @@ const Stock = connect(mapStateToProps)((props) => {
         columns={columns
           .map((column, i) => {
             if (i > 5 && i < 16) {
-              if (
-                selectedHideColumns.find(
-                  (hideColumn) => hideColumn === column.label
-                )
-              )
+              if (selectedHideColumns.find((hideColumn) => hideColumn === column.label)              )
                 return column;
+              else
+                return undefined;
             }
-            return column;
+            return column
           })
           .filter((column) => column !== undefined)}
         onEditClick={handleEditClick}

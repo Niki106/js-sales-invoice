@@ -58,7 +58,7 @@ const columns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",

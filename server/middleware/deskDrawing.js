@@ -26,7 +26,7 @@ function drawDeskTop(params, drawerAmount) {
       topHoleCount === "1" && topHoleType === "Rounded"
         ? `${topHolePosition.toLowerCase()}-`
         : "";
-
+    console.log('Joe', 'topHoleType')
     PImage.decodePNGFromStream(
       fs.createReadStream(
         topHoleCount == 1

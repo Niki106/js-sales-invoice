@@ -72,7 +72,7 @@ const columns = [
   },
   {
     id: 'remark',
-    label: 'Special Remark',
+    label: 'Warranty Remark',
   },
   {
     id: 'shipmentDate',
@@ -97,7 +97,7 @@ const hideColumns = [
   'Arm Size',
   'Feet Size',
   'Beam Size',
-  'Special Remark',
+  'Warranty Remark',
   'Shipment',
   'Arrival'
 ];
@@ -689,6 +689,8 @@ const Stock = connect(mapStateToProps)((props) => {
             if (i > 5 && i < 13) {
               if (selectedHideColumns.find(hideColumn=>hideColumn === column.label)) 
                 return column
+              else
+                return undefined
             }
             return column
           }).filter(column=>column !== undefined)

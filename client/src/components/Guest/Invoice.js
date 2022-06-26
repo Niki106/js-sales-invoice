@@ -975,7 +975,7 @@ export default connect(mapStateToProps)((props) => {
                             } after payment`
                           : `Est ${order.timeLine} working day${
                               order.timeLine === 1 ? "" : "s"
-                            } after payment`) + ' --- ' + `${order.remark}` ,
+                            } after payment`) + '\n' + `${order.remark}`,
                       width: "55%",
                     },
                     { content: order.paymentTerms, width: "15%" },
@@ -1043,17 +1043,14 @@ export default connect(mapStateToProps)((props) => {
                       width: "15%",
                     },
                     {
-                      content: `Chair Brand: ${item.brand}\nChair Model: ${
-                        item.model
-                      }\n${
-                        item.withHeadrest ? "With Headrest" : "Without Headrest"
-                      }\n${
-                        item.withAdArmrest
-                          ? "With Adjustable Armrest"
-                          : "Without Adjustable Armrest"
-                      }\nRemark: ${item.ChairToOrder.remark}\n${JSON.parse(
-                        item.ChairToOrder.deliveryOption
-                      )}`,
+                      content: `Chair Brand: ${item.brand}
+                        Chair Model: ${item.model}
+                        ${item.withHeadrest ? "With Headrest" : "Without Headrest"}
+                        ${item.withAdArmrest ? "With Adjustable Armrest" : "Without Adjustable Armrest"}
+                        Product Remark: ${item.ChairToOrder.remark}
+                        Warranty Remark: ${item.remark}
+                        ${JSON.parse(item.ChairToOrder.deliveryOption)}
+                        `,
                       width: "55%",
                     },
                     {
@@ -1078,48 +1075,51 @@ export default connect(mapStateToProps)((props) => {
                     },
                     {
                       content: `Desk Model: ${
-                        order.DeskStocks.find(
-                          (stock) => stock.id === item.stockId
-                        ).model
-                      }
-                    Color of Legs: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).color
-                    }
-                    ArmSize: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).armSize
-                    }
-                    FeetSize: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).feetSize
-                    }
-                    Beam Size: ${
-                      order.DeskStocks.find(
-                        (stock) => stock.id === item.stockId
-                      ).beamSize
-                    }
-                    ${
-                      item.hasDeskTop
-                        ? `Table Top: ${item.topMaterial}
-                          Table Top Size: ${item.topLength}x${item.topWidth}x${
-                            item.topThickness
+                            order.DeskStocks.find(
+                              (stock) => stock.id === item.stockId
+                            ).model
                           }
-                          Table Top Color: ${item.topColor} ${
-                            item.topRoundedCorners === 0
-                              ? ""
-                              : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`
-                          } ${
-                            item.topHoleCount === 0
-                              ? ""
-                              : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
-                          }
-                          Remark: ${item.remark}`
-                        : "Without DeskTop"
-                    }
+                        Color of Legs: ${
+                          order.DeskStocks.find(
+                            (stock) => stock.id === item.stockId
+                          ).color
+                        }
+                        ArmSize: ${
+                          order.DeskStocks.find(
+                            (stock) => stock.id === item.stockId
+                          ).armSize
+                        }
+                        FeetSize: ${
+                          order.DeskStocks.find(
+                            (stock) => stock.id === item.stockId
+                          ).feetSize
+                        }
+                        Beam Size: ${
+                          order.DeskStocks.find(
+                            (stock) => stock.id === item.stockId
+                          ).beamSize
+                        }
+                        ${
+                          item.hasDeskTop
+                            ? `Table Top: ${item.topMaterial}
+                              Table Top Size: ${item.topLength}x${item.topWidth}x${
+                                item.topThickness
+                              }
+                              Table Top Color: ${item.topColor} ${
+                                item.topRoundedCorners === 0
+                                  ? ""
+                                  : `\nRounded Corners: ${item.topRoundedCorners}, Radius: R${item.topCornerRadius}`
+                              } ${
+                                item.topHoleCount === 0
+                                  ? ""
+                                  : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
+                              }
+                              Product Remark: ${item.remark}
+                              Warranty Remark: ${order.DeskStocks.find(
+                                (stock) => stock.id === item.stockId
+                              ).remark}`
+                            : "Without DeskTop"
+                        }
                     ${JSON.parse(item.deliveryOption)}`,
                       width: "55%",
                     },
@@ -1144,7 +1144,10 @@ export default connect(mapStateToProps)((props) => {
                     {
                       content: `${item.name}\nAccessory Category: ${
                         item.category
-                      }\nRemark: ${item.AccessoryToOrder.remark}\n${JSON.parse(
+                      }
+                      Product Remark: ${item.AccessoryToOrder.remark}
+                      Warranty Remark: ${item.remark}
+                      ${JSON.parse(
                         item.AccessoryToOrder.deliveryOption
                       )}`,
                       width: "55%",

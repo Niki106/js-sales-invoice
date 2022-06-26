@@ -138,7 +138,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -158,7 +158,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -210,7 +210,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -227,7 +227,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -263,7 +263,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",

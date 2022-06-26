@@ -140,7 +140,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -160,7 +160,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -212,7 +212,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "shipmentDate",
@@ -229,7 +229,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Special Remark",
+  "Warranty Remark",
   "Shipment",
   "Arrival",
 ];
@@ -253,7 +253,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Special Remark",
+    label: "Warranty Remark",
   },
   {
     id: "unitPrice",
@@ -629,64 +629,14 @@ export default connect(mapStateToProps)((props) => {
             Client Info
           </Typography>
           {[
-            {
-              name: "name",
-              label: "Name",
-              type: "text",
-              defaultValue: initialClient.name,
-              width: "100%",
-              required: true,
-            },
-            {
-              name: "phone",
-              label: "Phone",
-              type: "text",
-              value: initialClient.phone,
-              onChange: initialClient.setPhone,
-              width: "48%",
-            },
-            {
-              name: "email",
-              label: "Email",
-              type: "email",
-              defaultValue: initialClient.email,
-              width: "48%",
-            },
-            {
-              name: "district",
-              label: "District",
-              type: "text",
-              defaultValue: initialClient.district,
-              width: "55%",
-            },
-            {
-              name: "street",
-              label: "Street",
-              type: "text",
-              defaultValue: initialClient.street,
-              width: "40%",
-            },
-            {
-              name: "block",
-              label: "Block",
-              type: "text",
-              defaultValue: initialClient.block,
-              width: "30%",
-            },
-            {
-              name: "floor",
-              label: "Floor",
-              type: "text",
-              defaultValue: initialClient.floor,
-              width: "30%",
-            },
-            {
-              name: "unit",
-              label: "Unit",
-              type: "text",
-              defaultValue: initialClient.unit,
-              width: "30%",
-            },
+            { name: "name", label: "Name", type: "text", defaultValue: initialClient.name, width: "100%", required: true, },
+            { name: "phone", label: "Phone", type: "text", value: initialClient.phone, onChange: initialClient.setPhone, width: "48%", },
+            { name: "email", label: "Email", type: "email", defaultValue: initialClient.email, width: "48%", },
+            { name: "district", label: "District", type: "text", defaultValue: initialClient.district, width: "55%", },
+            { name: "street", label: "Street", type: "text", defaultValue: initialClient.street, width: "40%", },
+            { name: "block", label: "Block", type: "text", defaultValue: initialClient.block, width: "30%", },
+            { name: "floor", label: "Floor", type: "text", defaultValue: initialClient.floor, width: "30%", },
+            { name: "unit", label: "Unit", type: "text", defaultValue: initialClient.unit, width: "30%", },
           ].map(({ setValue, width, ...restProps }, index) =>
             restProps.label === "Phone" ? (
               <MuiPhoneNumber
@@ -728,6 +678,11 @@ export default connect(mapStateToProps)((props) => {
             <FormControlLabel value="day" control={<Radio />} label="Days" />
             <FormControlLabel value="week" control={<Radio />} label="Weeks" />
           </RadioGroup>
+          <TextField
+            sx={{ flexBasis: ["100%", "100%"], minWidth: ["100%", "100%"] }}
+            name="remark" label="Delivery Remark" type="text"
+            defaultValue={initialClient.remark || ''}
+          />
         </Paper>
         <Button type="submit" sx={{ marginTop: "10px", float: "right" }}>
           Next
@@ -1434,7 +1389,7 @@ export default connect(mapStateToProps)((props) => {
                 timeLine:
                   clientData.get("timeLine") *
                   (clientData.get("timeLineFormat") === "day" ? 1 : 7),
-                remark: "",
+                remark: clientData.get("remark"),
                 products: cart
                   .map(({ productDetail, ...restProps }) => ({
                     productId: productDetail.id,

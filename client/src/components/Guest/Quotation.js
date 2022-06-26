@@ -235,13 +235,13 @@ export default connect(mapStateToProps)((props) => {
                   },
                   {
                     content:
-                      quotation.timeLine % 7 === 0
+                      (quotation.timeLine % 7 === 0
                         ? `Est ${quotation.timeLine / 7} working week${
                             quotation.timeLine / 7 === 1 ? "" : "s"
                           } after payment`
                         : `Est ${quotation.timeLine} working day${
                             quotation.timeLine === 1 ? "" : "s"
-                          } after payment`,
+                          } after payment`) + '\n' + `${quotation.remark}`,
                     width: "55%",
                   },
                   { content: quotation.paymentTerms, width: "15%" },
@@ -311,17 +311,12 @@ export default connect(mapStateToProps)((props) => {
                     width: "15%",
                   },
                   {
-                    content: `Chair Brand: ${item.brand}\nChair Model: ${
-                      item.model
-                    }\n${
-                      item.withHeadrest ? "With Headrest" : "Without Headrest"
-                    }\n${
-                      item.withAdArmrest
-                        ? "With Adjustable Armrest"
-                        : "Without Adjustable Armrest"
-                    }\nRemark: ${item.ChairToQuotation.remark}\n${JSON.parse(
-                      item.ChairToQuotation.deliveryOption
-                    )}`,
+                    content: `Chair Brand: ${item.brand}
+                      Chair Model: ${item.model}\n${item.withHeadrest ? "With Headrest" : "Without Headrest"}
+                      ${item.withAdArmrest ? "With Adjustable Armrest" : "Without Adjustable Armrest"}
+                      Product Remark: ${item.ChairToQuotation.remark}
+                      Warranty Remark: ${item.remark}
+                      ${JSON.parse(item.ChairToQuotation.deliveryOption)}`,
                     width: "55%",
                   },
                   {
@@ -386,7 +381,8 @@ export default connect(mapStateToProps)((props) => {
                               ? ""
                               : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
                           }
-                        Remark: ${item.remark}`
+                        Product Remark: ${item.remark}
+                        Warranty Remark: ${quotation.DeskStocks.find((stock) => stock.id === item.stockId).remark}`
                         : "Without DeskTop"
                     }
                     ${JSON.parse(item.deliveryOption)}`,
@@ -411,11 +407,10 @@ export default connect(mapStateToProps)((props) => {
                     width: "15%",
                   },
                   {
-                    content: `${item.name}\nAccessory Category: ${
-                      item.category
-                    }\nRemark: ${
-                      item.AccessoryToQuotation.remark
-                    }\n${JSON.parse(item.AccessoryToQuotation.deliveryOption)}`,
+                    content: `${item.name}\nAccessory Category: ${item.category }
+                      Product Remark: ${item.AccessoryToQuotation.remark}
+                      Warranty Remark: ${item.remark}
+                      ${JSON.parse(item.AccessoryToQuotation.deliveryOption)}`,
                     width: "55%",
                   },
                   {
