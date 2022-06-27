@@ -76,7 +76,7 @@ const Edit = (props) => {
       {...props}
     />
   ) : (
-    <Redirect to="/user/order" />
+    <Redirect to="/user/sales" />
   );
 };
 

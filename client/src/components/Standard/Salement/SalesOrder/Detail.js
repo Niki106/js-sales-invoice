@@ -1414,7 +1414,7 @@ export default connect(mapStateToProps)((props) => {
               })
               .then(() => {
                 // handle success
-                props.history.push("/user/order");
+                props.history.push("/user/sales");
               })
               .catch(function (error) {
                 // handle error
@@ -1469,7 +1469,7 @@ export default connect(mapStateToProps)((props) => {
               })
               .then(() => {
                 // handle success
-                props.history.push("/user/order");
+                props.history.push("/user/sales");
               })
               .catch(function (error) {
                 // handle error

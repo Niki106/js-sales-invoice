@@ -11,7 +11,7 @@ const AdminRoute = ({ component: Component, auth, ...rest }) => (
         auth.isAdmin === true ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/user/order" />
+          <Redirect to="/user/sales" />
         )
       ) : (
         <Redirect to="/signin" />

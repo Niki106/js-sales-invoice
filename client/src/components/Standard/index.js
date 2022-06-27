@@ -60,7 +60,7 @@ const menuLists = [
   {
     category: 'Sales',
     content: [
-      { to: '/user/order', icon: <BookOnlineIcon />, label: 'Order' },
+      { to: '/user/sales', icon: <BookOnlineIcon />, label: 'Order' },
       { to: '/user/quotation', icon: <BookOnlineIcon />, label: 'Quotation' },
     ],
   },
