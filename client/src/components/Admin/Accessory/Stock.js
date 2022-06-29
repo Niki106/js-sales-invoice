@@ -123,7 +123,7 @@ const Stock = connect(mapStateToProps)((props) => {
         },
         {
           name: "remark",
-          label: "Remark",
+          label: "Warranty Remark",
           multiline: true,
           type: "text",
           defaultValue: stocks[index].remark,

@@ -890,26 +890,26 @@ export default connect(mapStateToProps)((props) => {
                             setProductType("chair");
                             setProductId("");
                             setProductDetail(chairStocks[index]);
-                            let frameColor =
-                              chairStocks[index].frameColor === ""
-                                ? "___"
-                                : chairStocks[index].frameColor;
-                            let seatColor =
-                              chairStocks[index].seatColor === ""
-                                ? "___"
-                                : chairStocks[index].seatColor;
-                            let backColor =
-                              chairStocks[index].backColor === ""
-                                ? "___"
-                                : chairStocks[index].backColor;
-                            let remark =
-                              "FrameColor:" +
-                              frameColor +
-                              ", SeatColor:" +
-                              seatColor +
-                              ", BackColor:" +
-                              backColor;
-                            setProductRemark(remark);
+                            // let frameColor =
+                            //   chairStocks[index].frameColor === ""
+                            //     ? "___"
+                            //     : chairStocks[index].frameColor;
+                            // let seatColor =
+                            //   chairStocks[index].seatColor === ""
+                            //     ? "___"
+                            //     : chairStocks[index].seatColor;
+                            // let backColor =
+                            //   chairStocks[index].backColor === ""
+                            //     ? "___"
+                            //     : chairStocks[index].backColor;
+                            // let remark =
+                            //   "FrameColor:" +
+                            //   frameColor +
+                            //   ", SeatColor:" +
+                            //   seatColor +
+                            //   ", BackColor:" +
+                            //   backColor;
+                            // setProductRemark(remark);
                             setProductPrice(chairStocks[index].unitPrice);
                             setProductAmount(1);
                             setAddOpen(true);
