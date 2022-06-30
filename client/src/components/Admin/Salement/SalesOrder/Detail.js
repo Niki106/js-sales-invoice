@@ -2099,7 +2099,7 @@ export default connect(mapStateToProps)((props) => {
               },
               {
                 name: "remark",
-                label: "Remark",
+                label: "Specification",
                 type: "text",
                 width: "100%",
                 value: productRemark,
