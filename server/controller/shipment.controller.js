@@ -39,12 +39,11 @@ async function create(req, res, next) {
 
     const currentYear = new Date().getFullYear();
     const poNumber = await getPONum(currentYear)
-    console.log('req', req.body)
     products.forEach(product => {
       restParams.poNum = poNumber
       restParams.itemType = product.productType.substr(0, 1).toUpperCase()
       restParams.stockId = product.productId
-      restParams.qty = product.productAmount
+      restParams.qty = product.productQty
   
       db.Shipment.create({ ...restParams }) 
     });
@@ -69,7 +68,7 @@ async function getById(id) {
 
   const currentYear = new Date().getFullYear();
   var query = `
-  SELECT s.id, s.poNum, s.itemType,
+  SELECT s.id, s.poNum, s.itemType, s.stockId,
       IF(s.itemType='A', CONCAT(a.category, ' - ', a.name), IF(s.itemType='C', CONCAT(c.brand, ' - ', c.model), CONCAT(d.supplierCode, ' - ', d.model))) AS des,
         s.qty, s.orderQty, s.createdAt AS orderDate, s.finishDate, location, supplier,
         IF(s.orderId='', 0, o.invoiceNum) AS invoice, s.remark 
@@ -135,27 +134,48 @@ async function getPONum(year) {
 async function update(req, res, next) {
   try {
     const id = req.params.id;
-    const shipment = await getById(id);
-    const { supplier, location, remark, products } = req.body;
+
+    // Delete all in this number
+    const query = `
+      DELETE FROM shipments 
+        WHERE YEAR(createdAt)=(SELECT YEAR(createdAt) FROM shipments WHERE id='${id}') 
+          AND poNum=(SELECT poNum FROM shipments WHERE id='${id}')
+    `
+    await db.sequelize.query(query, { type: QueryTypes.DELETE });
+
+    // Create new records
+    const { products, ...restParams } = req.body;
+
+    const currentYear = new Date().getFullYear();
+    const poNumber = await getPONum(currentYear)
+    products.forEach(product => {
+      restParams.poNum = poNumber
+      restParams.itemType = product.productType.substr(0, 1).toUpperCase()
+      restParams.stockId = product.productId
+      restParams.qty = product.productQty
+  
+      db.Shipment.create({ ...restParams }) 
+    });
+
+
+    // const shipment = await getById(id);
+    // const { supplier, location, remark, products } = req.body;
     
-    shipment.supplier = supplier
-    shipment.location = location
-    shipment.remark = remark
+    // shipment.supplier = supplier
+    // shipment.location = location
+    // shipment.remark = remark
 
-    await shipment.save();
+    // await shipment.save();
 
-    console.log(shipment.createdAt)
-    console.log(shipment.createdAt.substr(0, 4))
-
-    // Update product details
-    products.forEach(element => {
-      const theYear = shipment.createdAt.substr(0, 4)
-      const query = `
-        UPDATE shipments SET qty=${element.productQty} 
-          WHERE poNum=${shipment.poNum} AND YEAR(createdAt)=${theYear} AND stockId='${element.productId}'
-      `
-      // await db.sequelize.query(query, { type: QueryTypes.UPDATE });
-    })
+    // // Update product details
+    // products.forEach(async element => {
+    //   const theYear = shipment.createdAt.getFullYear()
+    //   const query = `
+    //     UPDATE shipments SET qty=${element.productQty} 
+    //       WHERE poNum=${shipment.poNum} AND YEAR(createdAt)=${theYear} AND stockId='${element.productId}'
+    //   `
+    //   await db.sequelize.query(query, { type: QueryTypes.UPDATE });
+    // })
 
     res.json({ message: "Shipment was updated successfully." });
   } catch (err) {

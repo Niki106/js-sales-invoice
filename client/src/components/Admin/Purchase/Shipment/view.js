@@ -171,6 +171,7 @@ export default connect(mapStateToProps)((props) => {
             const searchedShipments = initShipments
             .filter((shipment) =>
                 shipment.poNum
+                    .toString()
                     .toLowerCase()
                     .includes(searchPONumber.toLowerCase())
             )

@@ -289,7 +289,17 @@ const materialOptions = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
+
   const { componentType, initialShipment, initialCart, } = props;
+
+  const [cart, setCart] = useState(initialCart);
+  const [cartItemStatus, setCartItemStatus] = useState("add");
+  const [productType, setProductType] = useState("chair");
+  const [productId, setProductId] = useState("");
+  const [productQty, setProductQty] = useState(0);
+  const [productDesc, setProductDesc] = useState("");
+  
+
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHolePosition, setTopHolePosition] = useState("Left");
   const [topHoleType, setTopHoleType] = useState("Rounded");
@@ -314,16 +324,7 @@ export default connect(mapStateToProps)((props) => {
 
   const [hasDeskTop, setHasDeskTop] = useState(false);
 
-  const [productType, setProductType] = useState("chair");
-  const [productId, setProductId] = useState("");
-  const [productDetail, setProductDetail] = useState("");
-  const [productPrice, setProductPrice] = useState(1000);
-  const [ProductQty, setProductQty] = useState(0);
-  const [productRemark, setProductRemark] = useState("");
-
-  const [cart, setCart] = useState(initialCart);
-  const [cartItemStatus, setCartItemStatus] = useState("add");
-
+  
   const [paid, setPaid] = useState(initialShipment.paid);
 
   const [chairStocks, setChairStocks] = useState([]);
@@ -453,43 +454,24 @@ export default connect(mapStateToProps)((props) => {
           productType: 'chair',
           productId: pid,
           productDesc: desc,
-          productDetail: {
-            ...restProps
-          },
-          remark: '',
-          productPrice: '',
-          ProductQty: qty,
-          productDeliveryOption: '',
+          productQty: qty,
         }))
           .concat(
             deskProducts.map(({ pid, desc, qty, ...restProps }) => ({
               productType: 'desk',
               productId: pid,
               productDesc: desc,
-              productDetail: {
-                ...restProps
-              },
-              remark: '',
-              productPrice: '',
-              ProductQty: qty,
-              productDeliveryOption: '',
+              productQty: qty,
             }))
           )
           .concat(
             accProducts.map(({ pid, desc, qty, ...restProps }) => ({
               productType: 'accessory',
               productId: pid,
+              productQty: qty,
               productDesc: desc,
-              productDetail: {
-                ...restProps
-              },
-              remark: '',
-              productPrice: '',
-              ProductQty: qty,
-              productDeliveryOption: '',
             }))
           )
-        console.log("22", products)
         setCart(products)
       })
   };
@@ -543,11 +525,9 @@ export default connect(mapStateToProps)((props) => {
   const onEditCartProduct = (item) => {
     setCartItemStatus("edit");
     setProductType(item.productType);
-    setProductId(item.id);
-    setProductDetail(item.productDetail);
-    setProductRemark(item.remark);
-    setProductPrice(item.productPrice);
-    setProductQty(item.ProductQty);
+    setProductId(item.productId);
+    setProductQty(item.productQty);
+    setProductDesc(item.productDesc);
 
     if (item.productType === "chair" || item.productType === "accessory") {
       setAddOpen(true);
@@ -596,13 +576,7 @@ export default connect(mapStateToProps)((props) => {
           supplier: basicData.get("supplier"),
           location: basicData.get("location"),
           remark: basicData.get("remark"),
-
-          products: cart
-            .map(({ productDetail, ...restProps }) => ({
-              productId: productDetail.id,
-              productCategory: productDetail.category ?? "",
-              ...restProps,
-            })),
+          products: cart,
         })
         .then(() => {
           // handle success
@@ -623,7 +597,6 @@ export default connect(mapStateToProps)((props) => {
         });
     }
     else {  // edit
-      console.log("last", cart)
       axios
         .put(`/shipment/${initialShipment.id}`, {
           supplier: basicData.get("supplier"),
@@ -648,6 +621,68 @@ export default connect(mapStateToProps)((props) => {
         .then(function () {
           // always executed
         });
+    }
+  }
+
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    setAddOpen(false);
+
+    // Add products
+    if (cartItemStatus === "add") {
+      if (cart.find((item) => item.productType === productType && item.productId === productId)) {
+        Swal.fire({icon: "warning", title: "Warning", text: "This product is already added.", allowOutsideClick: false});
+        return;
+      }
+      setCart(cart.concat({ productType, productId, productQty, productDesc }));
+    } else if (cartItemStatus === "edit") {  // Edit products
+      const newCart = cart.map((item) => {
+        if (item.productType === productType && item.productId === productId)
+          return { productId, productType, productQty, productDesc };
+        else return item;
+      });
+      setCart(newCart);
+    }
+  }
+
+  const handleSubmit3 = async (e) => {
+    e.preventDefault();
+
+    setTopHoleCount(0);
+    setTopHolePosition("Left");
+    setTopHoleType("Rounded");
+    setTopMaterial("Melamine");
+    setTopColor("");
+    setTopLength(700);
+    setTopWidth(400);
+    setTopThickness(25);
+    setTopRoundedCorners(0);
+    setTopCornerRadius(50);
+    setSketchUrl("");
+
+    setDeskAddOpen(false);
+
+    const data = new FormData(e.currentTarget);
+
+    if (cartItemStatus === "add") {
+      if (!hasDeskTop && cart.find((item) => item.productType === "desk" && item.productId === productId && !item.hasDeskTop)) {
+        Swal.fire({icon: "warning", title: "Warning", text: "This product is already added.", allowOutsideClick: false,});
+        return;
+      }
+
+      setCart(cart.concat({ productType, productId, productQty, productDesc })
+      );
+    } else if (cartItemStatus === "edit") {
+      const newCart = cart.map((item) => {
+        if (item.productType !== "desk" || item.productId !== productId)
+          return item;
+
+        return { productType, productId, productQty, productDesc };
+      });
+
+      setCart(newCart);
     }
   }
 
@@ -724,7 +759,6 @@ export default connect(mapStateToProps)((props) => {
       </Box>
       {currentStep === 1 && (
         <>
-          { console.log("44", cart.length, cart) }
           {cart.length > 0 && (
             <Paper>              
               <ProductList sx={{ px: "10px" }}>
@@ -781,7 +815,7 @@ export default connect(mapStateToProps)((props) => {
                       />
                     )}
                     <ProductPriceAmount
-                      amount={`Qty: ${item.ProductQty}`}
+                      amount={`Qty: ${item.productQty}`}
                       deliveryOption={`${item.productDeliveryOption}`}
                     />
                   </ProductListItem>
@@ -901,27 +935,14 @@ export default connect(mapStateToProps)((props) => {
                         <IconButton
                           onClick={(event) => {
                             event.preventDefault();
-                            if (
-                              cart.find(
-                                (item) =>
-                                  item.productType === "chair" &&
-                                  item.productDetail.id ===
-                                  chairStocks[index].id
-                              )
-                            ) {
-                              Swal.fire({
-                                icon: "warning",
-                                title: "Warning",
-                                text: "This product is already added.",
-                                allowOutsideClick: false,
-                              });
+                            if (cart.find((item) => item.productType === "chair" && item.productId === chairStocks[index].id)) {
+                              Swal.fire({icon: "warning", title: "Warning", text: "This product is already added.", allowOutsideClick: false});
                               return;
                             }
                             setProductType("chair");
-                            setProductId("");
-                            setProductDetail(chairStocks[index]);
-                            setProductPrice(chairStocks[index].unitPrice);
+                            setProductId(chairStocks[index].id);
                             setProductQty(1);
+                            setProductDesc(chairStocks[index].brand + " - " + chairStocks[index].model)
                             setAddOpen(true);
                           }}
                         >
@@ -1075,10 +1096,9 @@ export default connect(mapStateToProps)((props) => {
                         <IconButton
                           onClick={(event) => {
                             setProductType("desk");
-                            setProductId("");
-                            setProductDetail(deskStocks[index]);
-                            setProductPrice(deskStocks[index].unitPrice);
+                            setProductId(deskStocks[index].id);
                             setProductQty(1);
+                            setProductDesc(deskStocks[index].supplierCode + " - " + deskStocks[index].model)
                             setHasDeskTop(false);
                             setDeskAddOpen(true);
                           }}
@@ -1195,16 +1215,15 @@ export default connect(mapStateToProps)((props) => {
                         onClick={(event) => {
                           event.preventDefault();
                           setProductType("accessory");
-                          setProductId("");
-                          setProductDetail(accessoryStocks[index]);
-                          setProductRemark(accessoryStocks[index].remark);
-                          setProductPrice(accessoryStocks[index].unitPrice);
+                          setProductId(accessoryStocks[index].id);
                           setProductQty(1);
+                          setProductDesc(accessoryStocks[index].category + " - " + accessoryStocks[index].name)
+                            
                           if (
                             cart.find(
                               (item) =>
                                 item.productType === "accessory" &&
-                                item.productDetail.id ===
+                                item.productId ===
                                 accessoryStocks[index].id
                             )
                           ) {
@@ -1292,82 +1311,16 @@ export default connect(mapStateToProps)((props) => {
         PaperProps={{
           component: "form",
           onSubmit: (e) => {
-            e.preventDefault();
-            const data = new FormData(e.currentTarget);
-
-            setAddOpen(false);
-            if (cartItemStatus === "add") {
-              if (cart.find(
-                  (item) =>
-                    item.productType === productType &&
-                    item.productDetail.id === productDetail.id
-                )
-              ) {
-                Swal.fire({
-                  icon: "warning",
-                  title: "Warning",
-                  text: "This product is already added.",
-                  allowOutsideClick: false,
-                });
-                return;
-              }
-              setCart(
-                cart.concat({
-                  productType,
-                  productDetail,
-                  ProductQty,
-                  productDeliveryOption: JSON.stringify(
-                    [
-                      "Delivery Included",
-                      "Delivery and installation included",
-                      "Remote Area Surcharge",
-                      "Stairs Surcharge",
-                    ].filter((item, index) =>
-                      Boolean(data.get(`deliveryOption_${index}`))
-                    )
-                  ),
-                  productPrice: e.currentTarget.unitPrice.value,
-                  remark: productRemark,
-                })
-              );
-            } else if (cartItemStatus === "edit") {
-              console.log("33", cart)
-              const newCart = cart.map((item) => {
-                if (
-                  item.productType === productType &&
-                  item.productDetail.id === productDetail.id
-                )
-                  return {
-                    productType,
-                    productDetail,
-                    ProductQty,
-                    productDeliveryOption: JSON.stringify(
-                      [
-                        "Delivery Included",
-                        "Delivery and installation included",
-                        "Remote Area Surcharge",
-                        "Stairs Surcharge",
-                      ].filter((item, index) =>
-                        Boolean(data.get(`deliveryOption_${index}`))
-                      )
-                    ),
-                    productPrice: e.currentTarget.unitPrice.value,
-                    remark: productRemark,
-                  };
-                else return item;
-              });
-              setCart(newCart);
-            }
+            handleSubmit2(e);
           },
         }}
       >
         <DialogTitle>Price and Amount</DialogTitle>
         <DialogContent sx={{ textAlign: "center" }}>
           <TextField
-            label="Unit Price"
-            type="number"
-            name="unitPrice"
-            value={productPrice}
+            label="Description"
+            name="productDesc"
+            value={productDesc}
             sx={{ width: 200 }}
             InputProps={{
               readOnly: true,
@@ -1392,18 +1345,18 @@ export default connect(mapStateToProps)((props) => {
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductQty(Math.max(ProductQty - 1, 1));
+                setProductQty(Math.max(productQty - 1, 1));
               }}
             >
               <RemoveIcon />
             </IconButton>
             <Typography variant="span" sx={{ ml: "10px" }}>
-              {ProductQty}
+              {productQty}
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductQty(Math.min(ProductQty + 1, 99));
+                setProductQty(Math.min(productQty + 1, 99));
               }}
             >
               <AddIcon />
@@ -1430,155 +1383,16 @@ export default connect(mapStateToProps)((props) => {
         PaperProps={{
           component: "form",
           onSubmit: async (e) => {
-            e.preventDefault();
-
-            setTopHoleCount(0);
-            setTopHolePosition("Left");
-            setTopHoleType("Rounded");
-            setTopMaterial("Melamine");
-            setTopColor("");
-            setTopLength(700);
-            setTopWidth(400);
-            setTopThickness(25);
-            setTopRoundedCorners(0);
-            setTopCornerRadius(50);
-            setSketchUrl("");
-
-            setDeskAddOpen(false);
-
-            const data = new FormData(e.currentTarget);
-
-            if (cartItemStatus === "add") {
-              if (
-                !hasDeskTop &&
-                cart.find(
-                  (item) =>
-                    item.productType === "desk" &&
-                    item.productDetail.id === productDetail.id &&
-                    !item.hasDeskTop
-                )
-              ) {
-                Swal.fire({
-                  icon: "warning",
-                  title: "Warning",
-                  text: "This product is already added.",
-                  allowOutsideClick: false,
-                });
-                return;
-              }
-
-              let topSketchURL = "";
-              if (data.get("topSketchImg") && data.get("topSketchImg").name) {
-                const uploadData = new FormData();
-                uploadData.append("file", data.get("topSketchImg"));
-                try {
-                  const response = await axios.post(`/upload`, uploadData, {
-                    headers: {
-                      "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                  });
-                  topSketchURL = response.data.url;
-                } catch (err) { }
-              }
-
-              setCart(
-                cart.concat({
-                  productType,
-                  productDetail,
-                  ProductQty,
-                  productDeliveryOption: JSON.stringify(
-                    [
-                      "Delivery Included",
-                      "Delivery and installation included",
-                      "Remote Area Surcharge",
-                      "Stairs Surcharge",
-                    ].filter((item, index) =>
-                      Boolean(data.get(`deliveryOption_${index}`))
-                    )
-                  ),
-                  productPrice: Boolean(data.get("hasDeskTop"))
-                    ? Number(data.get("deskTotalPrice"))
-                    : Number(data.get("deskLegPrice")),
-                  hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
-                  topMaterial: data.get("topMaterial") || "",
-                  topColor: data.get("topColor") || "",
-                  topLength: data.get("topLength") || 0,
-                  topWidth: data.get("topWidth") || 0,
-                  topThickness: data.get("topThickness") || 0,
-                  topRoundedCorners: data.get("topRoundedCorners") || 0,
-                  topCornerRadius: data.get("topCornerRadius") || 50,
-                  topHoleCount: data.get("topHoleCount") || 0,
-                  topHoleType: data.get("topHoleType") || "",
-                  topHolePosition: topHolePosition || "",
-                  remark: data.get("remark") || "",
-                  topSketchURL: topSketchURL,
-                })
-              );
-            } else if (cartItemStatus === "edit") {
-              let topSketchURL = sketchUrl;
-              if (data.get("topSketchImg") && data.get("topSketchImg").name) {
-                const uploadData = new FormData();
-                uploadData.append("file", data.get("topSketchImg"));
-                try {
-                  const response = await axios.post(`/upload`, uploadData, {
-                    headers: {
-                      "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                  });
-                  topSketchURL = response.data.url;
-                } catch (err) { }
-              }
-              const newCart = cart.map((item) => {
-                if (
-                  item.productType !== "desk" ||
-                  item.id !== productId
-                )
-                  return item;
-
-                return {
-                  productType,
-                  productDetail,
-                  ProductQty,
-                  productDeliveryOption: JSON.stringify(
-                    [
-                      "Delivery Included",
-                      "Delivery and installation included",
-                      "Remote Area Surcharge",
-                      "Stairs Surcharge",
-                    ].filter((item, index) =>
-                      Boolean(data.get(`deliveryOption_${index}`))
-                    )
-                  ),
-                  productPrice: Boolean(data.get("hasDeskTop"))
-                    ? Number(data.get("deskTotalPrice"))
-                    : Number(data.get("deskLegPrice")),
-                  hasDeskTop: Boolean(data.get("hasDeskTop")) || false,
-                  topMaterial: data.get("topMaterial") || "",
-                  topColor: data.get("topColor") || "",
-                  topLength: data.get("topLength") || 0,
-                  topWidth: data.get("topWidth") || 0,
-                  topThickness: data.get("topThickness") || 0,
-                  topRoundedCorners: data.get("topRoundedCorners") || 0,
-                  topCornerRadius: data.get("topCornerRadius") || 50,
-                  topHoleCount: data.get("topHoleCount") || 0,
-                  topHoleType: data.get("topHoleType") || "",
-                  topHolePosition: topHolePosition || "",
-                  remark: data.get("remark") || "",
-                  topSketchURL: topSketchURL,
-                };
-              });
-              setCart(newCart);
-            }
+            handleSubmit3(e)
           },
         }}
       >
         <DialogTitle>Price and Amount</DialogTitle>
         <DialogContent sx={{ textAlign: "center" }}>
           <TextField
-            label="Desk Leg Price"
-            type="number"
-            name="deskLegPrice"
-            value={productPrice}
+            label="Description"
+            name="productDesc"
+            value={productDesc}
             sx={{ width: 200, visibility: hasDeskTop ? "hidden" : "visible" }}
             InputProps={{
               readOnly: true,
@@ -1600,281 +1414,10 @@ export default connect(mapStateToProps)((props) => {
               label="with Table Top"
               sx={{ flexBasis: "100%", minWidth: "100%" }}
             />
-            {[
-              {
-                name: "topMaterial",
-                label: "Material",
-                type: "autocomplete",
-                value: topMaterial,
-                onChange: (e, newVal) => {
-                  e.preventDefault();
-                  setTopMaterial(newVal);
-                },
-                options: materialOptions,
-                width: "65%",
-              },
-              {
-                name: "topColor",
-                label: "Color",
-                type: "text",
-                width: "30%",
-                value: topColor,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopColor(e.target.value);
-                },
-              },
-              {
-                name: "topLength",
-                label: "Length",
-                type: "suffixNumber",
-                suffix: "mm",
-                inputProps: { min: 0 },
-                width: "30%",
-                value: topLength,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopLength(e.target.value);
-                },
-              },
-              {
-                name: "topWidth",
-                label: "Width",
-                type: "suffixNumber",
-                suffix: "mm",
-                inputProps: { min: 0 },
-                width: "30%",
-                value: topWidth,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopWidth(e.target.value);
-                },
-              },
-              {
-                name: "topThickness",
-                label: "Thickness",
-                type: "suffixNumber",
-                suffix: "mm",
-                inputProps: { min: 0 },
-                width: "30%",
-                value: topThickness,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopThickness(e.target.value);
-                },
-              },
-              {
-                name: "topRoundedCorners",
-                label: "Rounded Corners",
-                type: "select",
-                options: [0, 1, 2, 3, 4],
-                width: "48%",
-                value: topRoundedCorners,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopRoundedCorners(e.target.value);
-                },
-              },
-              {
-                name: "topCornerRadius",
-                label: "Corner Radius",
-                type: "number",
-                inputProps: { min: 0 },
-                width: "48%",
-                value: topCornerRadius,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopCornerRadius(e.target.value);
-                },
-              },
-              {
-                name: "topHoleCount",
-                label: "Number of Holes",
-                type: "select",
-                value: topHoleCount,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopHoleCount(e.target.value);
-                  if (e.target.value === 1) setTopHolePosition("Left");
-                  else if (e.target.value === 2)
-                    setTopHolePosition("Left_Right");
-                  else if (e.target.value === 3)
-                    setTopHolePosition("Left_Right_Center");
-                },
-                options: [0, 1, 2, 3],
-                width: "48%",
-              },
-              {
-                name: "topHoleType",
-                label: "Type of Holes",
-                type: "select",
-                value: topHoleType,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopHoleType(e.target.value);
-                },
-                options: ["Rounded", "Rectangular"],
-                width: "48%",
-              },
-              {
-                name: "topHolePosition",
-                label: "Hole Position",
-                type: "select",
-                value: topHolePosition,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setTopHolePosition(e.target.value);
-                },
-                options:
-                  topHoleCount === 1
-                    ? ["Left", "Right", "Center"]
-                    : [
-                      "Left",
-                      "Right",
-                      "Center",
-                      "Left_Right",
-                      "Left_Right_Center",
-                    ],
-                disabled: topHoleCount !== 1, // || topHoleType !== "Rounded",
-                visible: "true", //topHoleType === "Rounded",
-                width: "48%",
-              },
-              {
-                name: "remark",
-                label: "Specification",
-                type: "text",
-                width: "100%",
-                value: productRemark,
-                onChange: (e) => {
-                  e.preventDefault();
-                  setProductRemark(e.target.value);
-                },
-              },
-              {
-                name: "topSketchImg",
-                label: "Sketch Image (Optional)",
-                type: "file",
-                inputProps: {
-                  accept: "image/png, image/gif, image/jpeg",
-                },
-                InputLabelProps: { shrink: true },
-                width: "100%",
-              },
-            ].map(({ type, width, ...restParams }, index) => {
-              if (type === "autocomplete") {
-                const { name, label, ...autocomParams } = restParams;
-                return (
-                  <Autocomplete
-                    key={index}
-                    sx={{ flexBasis: width, minWidth: width }}
-                    renderInput={(params) => (
-                      <TextField {...params} name={name} label={label} />
-                    )}
-                    disabled={!hasDeskTop}
-                    {...autocomParams}
-                  />
-                );
-              } else if (type === "suffixNumber") {
-                const { suffix, ...fieldParams } = restParams;
-                return (
-                  <FormControlLabel
-                    key={index}
-                    sx={{
-                      flexBasis: width,
-                      minWidth: width,
-                      alignItems: "baseline",
-                      mx: 0,
-                    }}
-                    control={
-                      <TextField
-                        fullWidth
-                        sx={{ m: "10px 5px 0 0" }}
-                        type="number"
-                        disabled={!hasDeskTop}
-                        {...fieldParams}
-                      />
-                    }
-                    label={suffix}
-                  />
-                );
-              } else if (type === "select") {
-                const { name, label, options, ...selectParams } = restParams;
-                if (name === "topHolePosition")
-                  if (selectParams.visible)
-                    return (
-                      <FormControl
-                        key={index}
-                        sx={{ flexBasis: width, minWidth: width }}
-                      >
-                        <InputLabel id={`desk-top-${name}-select-label`}>
-                          {label}
-                        </InputLabel>
-                        <Select
-                          labelId={`desk-top-${name}-select-label`}
-                          id={`desk-top-${name}-select`}
-                          name={name}
-                          label={label}
-                          size="small"
-                          disabled={!hasDeskTop}
-                          {...selectParams}
-                        >
-                          {options.map((selectOption, selectOptionIndex) => (
-                            <MenuItem
-                              key={selectOptionIndex}
-                              value={selectOption}
-                            >
-                              {selectOption}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    );
-                  else return "";
-                else
-                  return (
-                    <FormControl
-                      key={index}
-                      sx={{ flexBasis: width, minWidth: width }}
-                    >
-                      <InputLabel id={`desk-top-${name}-select-label`}>
-                        {label}
-                      </InputLabel>
-                      <Select
-                        labelId={`desk-top-${name}-select-label`}
-                        id={`desk-top-${name}-select`}
-                        name={name}
-                        label={label}
-                        size="small"
-                        disabled={!hasDeskTop}
-                        {...selectParams}
-                      >
-                        {options.map((selectOption, selectOptionIndex) => (
-                          <MenuItem
-                            key={selectOptionIndex}
-                            value={selectOption}
-                          >
-                            {selectOption}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  );
-              } else
-                return (
-                  <TextField
-                    key={index}
-                    type={type}
-                    sx={{ flexBasis: width, minWidth: width }}
-                    disabled={!hasDeskTop}
-                    {...restParams}
-                  />
-                );
-            })}
             <TextField
-              label="Desk Total Price"
-              type="number"
-              name="deskTotalPrice"
-              defaultValue={productPrice}
+              label="Description"
+              name="productDesc"
+              defaultValue={productDesc}
               sx={{ flexBasis: 200, minWidth: 200, mx: "auto" }}
               disabled={!hasDeskTop}
               InputProps={{
@@ -1903,18 +1446,18 @@ export default connect(mapStateToProps)((props) => {
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductQty(Math.max(ProductQty - 1, 1));
+                setProductQty(Math.max(productQty - 1, 1));
               }}
             >
               <RemoveIcon />
             </IconButton>
             <Typography variant="span" sx={{ ml: "10px", marginTop: "8px" }}>
-              {ProductQty}
+              {productQty}
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductQty(Math.min(ProductQty + 1, 99));
+                setProductQty(Math.min(productQty + 1, 99));
               }}
             >
               <AddIcon />
