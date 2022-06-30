@@ -140,7 +140,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -160,7 +160,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -212,7 +212,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -229,7 +229,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -253,7 +253,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "unitPrice",
@@ -1699,7 +1699,7 @@ export default connect(mapStateToProps)((props) => {
             }}
           >
             <TextField
-              label="Remark"
+              label="Specification"
               name="remark"
               value={productRemark}
               sx={{ width: 400, mx: "5px" }}
@@ -2085,7 +2085,7 @@ export default connect(mapStateToProps)((props) => {
                         "Left_Right_Center",
                       ],
                 disabled: topHoleCount !== 1, // || topHoleType !== "Rounded",
-                visible: true, //topHoleType === "Rounded" ? "1" : "0",
+                visible: "true", //topHoleType === "Rounded" ? "1" : "0",
                 width: "48%",
               },
               {

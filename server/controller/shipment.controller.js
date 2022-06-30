@@ -18,31 +18,19 @@ module.exports = {
 
 async function getAll() {
   const sql = `
-    SELECT s.id, s.poNum, IF(s.itemType='A', a.name, IF(s.itemType='C', c.model, d.model)) AS model,
-      s.qty, s.orderQty, s.createdAt AS orderDate, s.finishDate, location, supplier,
-      IF(s.orderId='', 0, o.invoiceNum) AS invoice, s.remark 
+  SELECT s.id, s.poNum, 
+      IF(s.itemType='A', CONCAT(a.category, ' - ', a.name), IF(s.itemType='C', CONCAT(c.brand, ' - ', c.model), CONCAT(d.supplierCode, ' - ', d.model))) AS des,
+        s.qty, s.orderQty, s.createdAt AS orderDate, s.finishDate, location, supplier,
+        IF(s.orderId='', 0, o.invoiceNum) AS invoice, s.remark 
     FROM shipments s 
-      LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
-      LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
-      LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
-      LEFT JOIN salesorders o ON s.orderId=o.id
+        LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
+        LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
+        LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
+        LEFT JOIN salesorders o ON s.orderId=o.id
     ORDER BY s.poNum
   `;
   const rows = await db.sequelize.query(sql, { plain: false, type: QueryTypes.SELECT });
   return rows;
-}
-
-async function getById(id) {
-  const shipment = await db.Shipment.findOne({
-    where: { id },
-    include: [
-      
-    ],
-  });
-
-  if (!shipment) throw ".";
-
-  return shipment;
 }
 
 async function create(req, res, next) {
@@ -72,6 +60,61 @@ async function _delete(id) {
   await shipment.destroy();
 }
 
+async function getById(id) {
+  const shipment = await db.Shipment.findOne({
+    where: { id },
+    include: [      
+    ],
+  });
+
+  const currentYear = new Date().getFullYear();
+  var query = `
+  SELECT s.id, s.poNum, s.itemType,
+      IF(s.itemType='A', CONCAT(a.category, ' - ', a.name), IF(s.itemType='C', CONCAT(c.brand, ' - ', c.model), CONCAT(d.supplierCode, ' - ', d.model))) AS des,
+        s.qty, s.orderQty, s.createdAt AS orderDate, s.finishDate, location, supplier,
+        IF(s.orderId='', 0, o.invoiceNum) AS invoice, s.remark 
+    FROM shipments s 
+        LEFT JOIN accessorystocks a ON s.stockId=a.id AND s.itemType='A'
+        LEFT JOIN chairstocks c ON s.stockId=c.id AND s.itemType='C'
+        LEFT JOIN deskstocks d ON s.stockId=d.id AND s.itemType='D'
+        LEFT JOIN salesorders o ON s.orderId=o.id
+    WHERE YEAR(s.createdAt)=${currentYear} AND s.poNum=${shipment.poNum}
+  `
+  const siblings = await db.sequelize.query(query, { type: QueryTypes.SELECT });
+
+  // Create product arrays
+  var accessoryProducts = []
+  var chairProducts = []
+  var deskProducts = []
+  
+  siblings.forEach(element => {
+    const product = {
+      pid: element.stockId,
+      desc: element.des,
+      qty: element.qty
+    }
+
+    if (element.itemType == 'A')
+      accessoryProducts.push(product)
+    
+    if (element.itemType == 'C')
+      chairProducts.push(product)
+
+    if (element.itemType == 'D')
+      deskProducts.push(product)
+  })
+
+  if (!shipment) throw "Shipment was not found.";
+
+  shipment.dataValues.accProducts = accessoryProducts
+  shipment.dataValues.chairProducts = chairProducts
+  shipment.dataValues.deskProducts = deskProducts
+
+  console.log(deskProducts)
+
+  return shipment;
+}
+
 async function getPONum(year) {
   const shipment = await db.Shipment.findOne({
     attributes: [
@@ -89,6 +132,36 @@ async function getPONum(year) {
   return shipment.max_inv + 1;
 }
 
+async function update(req, res, next) {
+  try {
+    const id = req.params.id;
+    const shipment = await getById(id);
+    const { supplier, location, remark, products } = req.body;
+    
+    shipment.supplier = supplier
+    shipment.location = location
+    shipment.remark = remark
+
+    await shipment.save();
+
+    console.log(shipment.createdAt)
+    console.log(shipment.createdAt.substr(0, 4))
+
+    // Update product details
+    products.forEach(element => {
+      const theYear = shipment.createdAt.substr(0, 4)
+      const query = `
+        UPDATE shipments SET qty=${element.productQty} 
+          WHERE poNum=${shipment.poNum} AND YEAR(createdAt)=${theYear} AND stockId='${element.productId}'
+      `
+      await db.sequelize.query(query, { type: QueryTypes.SELECT });
+    })
+
+    res.json({ message: "Shipment was updated successfully." });
+  } catch (err) {
+    next(err);
+  }
+}
 
 
 
@@ -163,58 +236,4 @@ async function getAllOld(where) {
 
 
 
-async function update(req, res, next) {
-  try {
-    const id = req.params.id;
-    const shipment = await getById(id);
-    const { ...restParams } = req.body;
-    Object.assign(shipment, restParams);
-    await shipment.save();
-
-    const arrivalDate = restParams.arrivalDate;
-    if (arrivalDate !== "") {
-      const chairToShipments = await db.ChairToShipment.findAll({
-        where: { shipmentId: id },
-      });
-      for (let shipment of chairToShipments) {
-        const shipmentBalance =
-          parseInt(shipment.qty) - parseInt(shipment.orderedQty);
-        const stock = await db.ChairStock.findOne({
-          where: { id: shipment.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-
-      const deskToShipments = await db.DeskToShipment.findAll({
-        where: { shipmentId: id, hasDeskTop: 0 },
-      });
-      for (let shipment of deskToShipments) {
-        const shipmentBalance =
-          parseInt(shipment.qty) - parseInt(shipment.orderedQty);
-        const stock = await db.DeskStock.findOne({
-          where: { id: shipment.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-
-      const accessoryToShipments = await db.AccessoryToShipment.findAll({
-        where: { shipmentId: id },
-      });
-      for (let shipment of accessoryToShipments) {
-        const shipmentBalance =
-          parseInt(shipment.qty) - parseInt(shipment.orderedQty);
-        const stock = await db.AccessoryStock.findOne({
-          where: { id: shipment.stockId },
-        });
-        Object.assign(stock, { balance: shipmentBalance });
-        await stock.save();
-      }
-    }
-    res.json({ message: "Shipment was updated successfully." });
-  } catch (err) {
-    next(err);
-  }
-}
 

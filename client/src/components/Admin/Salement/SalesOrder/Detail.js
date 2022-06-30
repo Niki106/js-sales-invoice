@@ -140,7 +140,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -160,7 +160,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -212,7 +212,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -229,7 +229,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -265,7 +265,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -1708,7 +1708,7 @@ export default connect(mapStateToProps)((props) => {
             }}
           >
             <TextField
-              label="Remark"
+              label="Specification"
               name="remark"
               value={productRemark}
               sx={{ width: 400, mx: "5px" }}
@@ -2094,7 +2094,7 @@ export default connect(mapStateToProps)((props) => {
                       "Left_Right_Center",
                     ],
                 disabled: topHoleCount !== 1, // || topHoleType !== "Rounded",
-                visible: true, //topHoleType === "Rounded",
+                visible: "true", //topHoleType === "Rounded",
                 width: "48%",
               },
               {
@@ -2255,7 +2255,7 @@ export default connect(mapStateToProps)((props) => {
               p: "5px 3px",
             }}
           >
-            <Typography variant="span" sx={{ flexGrow: 1 }}>
+            <Typography variant="span" sx={{ flexGrow: 1, marginTop: "8px"}}>
               Amount
             </Typography>
             <IconButton
@@ -2266,7 +2266,7 @@ export default connect(mapStateToProps)((props) => {
             >
               <RemoveIcon />
             </IconButton>
-            <Typography variant="span" mx="10px">
+            <Typography variant="span" sx={{ ml: "10px", marginTop: "8px" }}>
               {productAmount}
             </Typography>
             <IconButton

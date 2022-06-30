@@ -22,7 +22,7 @@ import CheckableMultiSelect from "components/Common/MultiSelect";
 const columns = [
     { id: "poNum", label: "P.O. Number" },
     { id: "orderDate", label: "Order Date" },
-    { id: "model", label: "Model" },
+    { id: "desc", label: "Description" },
     { id: "qty", label: "Qty" },
     { id: "finishDate", label: "Finish Date" },
     { id: "invoice", label: "Invoice#" },
@@ -227,7 +227,7 @@ export default connect(mapStateToProps)((props) => {
                         {
                             id,
                             poNum,
-                            model,
+                            des,
                             qty,
                             orderQty,
                             orderDate,
@@ -243,7 +243,7 @@ export default connect(mapStateToProps)((props) => {
                         id,
                         index,
                         poNum: poNum,
-                        model: model,
+                        desc: des,
                         qty: qty,
                         orderQty: orderQty,
                         orderDate: orderDate,

@@ -315,7 +315,7 @@ export default connect(mapStateToProps)((props) => {
                       Chair Model: ${item.model}\n${item.withHeadrest ? "With Headrest" : "Without Headrest"}
                       ${item.withAdArmrest ? "With Adjustable Armrest" : "Without Adjustable Armrest"}
                       Product Remark: ${item.ChairToQuotation.remark}
-                      Warranty Remark: ${item.remark}
+                      Other Remark: ${item.remark}
                       ${JSON.parse(item.ChairToQuotation.deliveryOption)}`,
                     width: "55%",
                   },
@@ -382,7 +382,7 @@ export default connect(mapStateToProps)((props) => {
                               : `\nHoles Required: ${item.topHoleCount}, Hole Position: ${item.topHolePosition}, Holes Shaped: ${item.topHoleType}`
                           }
                         Product Remark: ${item.remark}
-                        Warranty Remark: ${quotation.DeskStocks.find((stock) => stock.id === item.stockId).remark}`
+                        Other Remark: ${quotation.DeskStocks.find((stock) => stock.id === item.stockId).remark}`
                         : "Without DeskTop"
                     }
                     ${JSON.parse(item.deliveryOption)}`,
@@ -409,7 +409,7 @@ export default connect(mapStateToProps)((props) => {
                   {
                     content: `${item.name}\nAccessory Category: ${item.category }
                       Product Remark: ${item.AccessoryToQuotation.remark}
-                      Warranty Remark: ${item.remark}
+                      Other Remark: ${item.remark}
                       ${JSON.parse(item.AccessoryToQuotation.deliveryOption)}`,
                     width: "55%",
                   },

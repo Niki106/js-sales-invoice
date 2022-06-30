@@ -84,7 +84,7 @@ const columns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -112,7 +112,7 @@ const hideColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -199,7 +199,7 @@ const Stock = connect(mapStateToProps)((props) => {
         },
         {
           name: "remark",
-          label: "Warranty Remark",
+          label: "Other Remark",
           multiline: true,
           type: "text",
           defaultValue: stocks[index].remark,
@@ -529,7 +529,7 @@ const Stock = connect(mapStateToProps)((props) => {
             },
             {
               name: "remark",
-              label: "Warranty Remark",
+              label: "Other Remark",
               type: "text",
               width: "100%",
             },

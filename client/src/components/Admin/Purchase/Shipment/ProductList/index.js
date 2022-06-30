@@ -24,7 +24,7 @@ export const ProductListItemText = styled(ListItemText)(({ theme }) => ({
 export const ProductPriceAmount = ({ unitPrice, amount, deliveryOption }) => {
   return (
     <Box flexBasis="100%" display="flex" flexWrap="wrap" alignItems="center">
-      {[unitPrice, amount, deliveryOption].map((item, index) => (
+      {[amount, deliveryOption].map((item, index) => (
         <Typography
           key={index}
           variant="span"

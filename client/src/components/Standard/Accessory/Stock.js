@@ -29,7 +29,7 @@ const columns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "unitPrice",

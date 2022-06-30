@@ -52,7 +52,7 @@ const columns = [
   },
   {
     id: 'remark',
-    label: 'Warranty Remark',
+    label: 'Other Remark',
   },
   {
     id: 'shipmentDate',
@@ -69,7 +69,7 @@ const hideColumns = [
   'Arm Size',
   'Feet Size',
   'Beam Size',
-  'Warranty Remark',
+  'Other Remark',
   'Shipment',
   'Arrival'
 ];

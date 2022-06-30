@@ -8,8 +8,8 @@ const Edit = (props) => {
   const {
     ChairStocks,
     DeskStocks,
-    DeskToOrders,
     AccessoryStocks,
+    DeskToOrders,
     ServiceToOrders,
     Seller,
     sellerId,
@@ -75,7 +75,6 @@ const Edit = (props) => {
           }))
         )}
       initialServices = { ServiceToOrders }
-      initialRemark = { remark }
       {...props}
     />
   ) : (

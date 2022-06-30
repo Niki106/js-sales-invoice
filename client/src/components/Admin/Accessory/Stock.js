@@ -58,7 +58,7 @@ const columns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -123,7 +123,7 @@ const Stock = connect(mapStateToProps)((props) => {
         },
         {
           name: "remark",
-          label: "Warranty Remark",
+          label: "Other Remark",
           multiline: true,
           type: "text",
           defaultValue: stocks[index].remark,

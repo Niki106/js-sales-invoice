@@ -138,7 +138,7 @@ const chairColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -158,7 +158,7 @@ const hideChairColumns = [
   "Seat Material",
   "Headrest",
   "Adjustable Armrests",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -210,7 +210,7 @@ const deskColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -227,7 +227,7 @@ const hideDeskColumns = [
   "Arm Size",
   "Feet Size",
   "Beam Size",
-  "Warranty Remark",
+  "Other Remark",
   "Shipment",
   "Arrival",
 ];
@@ -263,7 +263,7 @@ const accessoryColumns = [
   },
   {
     id: "remark",
-    label: "Warranty Remark",
+    label: "Other Remark",
   },
   {
     id: "shipmentDate",
@@ -289,7 +289,7 @@ const materialOptions = [
 
 export default connect(mapStateToProps)((props) => {
   const theme = useTheme();
-  const { componentType, initialShipment, initialCart, initialServices } = props;
+  const { componentType, initialShipment, initialCart, } = props;
   const [topHoleCount, setTopHoleCount] = useState(0);
   const [topHolePosition, setTopHolePosition] = useState("Left");
   const [topHoleType, setTopHoleType] = useState("Rounded");
@@ -318,7 +318,7 @@ export default connect(mapStateToProps)((props) => {
   const [productId, setProductId] = useState("");
   const [productDetail, setProductDetail] = useState("");
   const [productPrice, setProductPrice] = useState(1000);
-  const [productAmount, setProductAmount] = useState(0);
+  const [ProductQty, setProductQty] = useState(0);
   const [productRemark, setProductRemark] = useState("");
 
   const [cart, setCart] = useState(initialCart);
@@ -443,6 +443,57 @@ export default connect(mapStateToProps)((props) => {
       });
   };
 
+  const getShipment = (cancelToken) => {
+    axios
+      .get("/shipment/" + initialShipment.id, { cancelToken })
+      .then((response) => {
+        const { chairProducts, deskProducts, accProducts } = response.data
+        
+        const products = chairProducts.map(({ pid, desc, qty, ...restProps }) => ({
+          productType: 'chair',
+          productId: pid,
+          productDesc: desc,
+          productDetail: {
+            ...restProps
+          },
+          remark: '',
+          productPrice: '',
+          ProductQty: qty,
+          productDeliveryOption: '',
+        }))
+          .concat(
+            deskProducts.map(({ pid, desc, qty, ...restProps }) => ({
+              productType: 'desk',
+              productId: pid,
+              productDesc: desc,
+              productDetail: {
+                ...restProps
+              },
+              remark: '',
+              productPrice: '',
+              ProductQty: qty,
+              productDeliveryOption: '',
+            }))
+          )
+          .concat(
+            accProducts.map(({ pid, desc, qty, ...restProps }) => ({
+              productType: 'accessory',
+              productId: pid,
+              productDesc: desc,
+              productDetail: {
+                ...restProps
+              },
+              remark: '',
+              productPrice: '',
+              ProductQty: qty,
+              productDeliveryOption: '',
+            }))
+          )
+        console.log("22", products)
+        setCart(products)
+      })
+  };
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     getChairFeatures(source.token);
@@ -451,6 +502,7 @@ export default connect(mapStateToProps)((props) => {
     getChairStocks(source.token);
     getDeskStocks(source.token);
     getAccessoryStocks(source.token);
+    getShipment(source.token);
     return () => source.cancel("Stock Component got unmounted");
   }, []);
 
@@ -495,9 +547,7 @@ export default connect(mapStateToProps)((props) => {
     setProductDetail(item.productDetail);
     setProductRemark(item.remark);
     setProductPrice(item.productPrice);
-    setProductAmount(item.productAmount);
-    const deliveryOptions = JSON.parse(item.productDeliveryOption);
-
+    setProductQty(item.ProductQty);
 
     if (item.productType === "chair" || item.productType === "accessory") {
       setAddOpen(true);
@@ -573,18 +623,13 @@ export default connect(mapStateToProps)((props) => {
         });
     }
     else {  // edit
+      console.log("last", cart)
       axios
         .put(`/shipment/${initialShipment.id}`, {
           supplier: basicData.get("supplier"),
           location: basicData.get("location"),
           remark: basicData.get("remark"),
-          products: cart
-            .map(({ productDetail, ...restProps }) => ({
-              productId: productDetail.id,
-              productCategory: productDetail.category ?? "",
-              ...restProps,
-            })),
-          
+          products: cart,          
         })
         .then(() => {
           // handle success
@@ -679,8 +724,9 @@ export default connect(mapStateToProps)((props) => {
       </Box>
       {currentStep === 1 && (
         <>
+          { console.log("44", cart.length, cart) }
           {cart.length > 0 && (
-            <Paper>
+            <Paper>              
               <ProductList sx={{ px: "10px" }}>
                 {cart.map((item, index) => (
                   <ProductListItem
@@ -713,14 +759,14 @@ export default connect(mapStateToProps)((props) => {
                   >
                     {item.productType === "chair" && (
                       <ProductListItemText
-                        primary={`Chair: ${item.productDetail.brand}, ${item.productDetail.model}, ${item.remark}`}
-                        secondary={`${item.productDetail.withHeadrest ? "Headrest, " : ""
-                          }${item.productDetail.withAdArmrest ? "Armrest" : ""}`}
+                        primary={`Chair: ${item.productDesc}`}
+                        secondary={`${item.withHeadrest ? "Headrest, " : ""
+                          }${item.withAdArmrest ? "Armrest" : ""}`}
                       />
                     )}
                     {item.productType === "desk" && (
                       <ProductListItemText
-                        primary={`Desk: ${item.productDetail.supplierCode}, ${item.productDetail.model}, ${item.productDetail.color}, ${item.productDetail.armSize}, ${item.productDetail.feetSize}, ${item.productDetail.beamSize}`}
+                        primary={`Desk: ${item.productDesc}}`}
                         secondary={
                           item.hasDeskTop
                             ? `${item.topMaterial}, ${item.topColor}, ${item.topLength}x${item.topWidth}x${item.topThickness}, ${item.topRoundedCorners}-R${item.topCornerRadius}, ${item.topHoleCount}-${item.topHoleType}`
@@ -730,13 +776,12 @@ export default connect(mapStateToProps)((props) => {
                     )}
                     {item.productType === "accessory" && (
                       <ProductListItemText
-                        primary={`Accessory: ${item.productDetail.category}`}
+                        primary={`Accessory: ${item.productDesc}`}
                         secondary={`${item.remark}`}
                       />
                     )}
                     <ProductPriceAmount
-                      unitPrice={`${item.productPrice} HKD`}
-                      amount={`Amount: ${item.productAmount}`}
+                      amount={`Qty: ${item.ProductQty}`}
                       deliveryOption={`${item.productDeliveryOption}`}
                     />
                   </ProductListItem>
@@ -875,28 +920,8 @@ export default connect(mapStateToProps)((props) => {
                             setProductType("chair");
                             setProductId("");
                             setProductDetail(chairStocks[index]);
-                            let frameColor =
-                              chairStocks[index].frameColor === ""
-                                ? "___"
-                                : chairStocks[index].frameColor;
-                            let seatColor =
-                              chairStocks[index].seatColor === ""
-                                ? "___"
-                                : chairStocks[index].seatColor;
-                            let backColor =
-                              chairStocks[index].backColor === ""
-                                ? "___"
-                                : chairStocks[index].backColor;
-                            let remark =
-                              "FrameColor:" +
-                              frameColor +
-                              ", SeatColor:" +
-                              seatColor +
-                              ", BackColor:" +
-                              backColor;
-                            setProductRemark(remark);
                             setProductPrice(chairStocks[index].unitPrice);
-                            setProductAmount(1);
+                            setProductQty(1);
                             setAddOpen(true);
                           }}
                         >
@@ -1053,7 +1078,7 @@ export default connect(mapStateToProps)((props) => {
                             setProductId("");
                             setProductDetail(deskStocks[index]);
                             setProductPrice(deskStocks[index].unitPrice);
-                            setProductAmount(1);
+                            setProductQty(1);
                             setHasDeskTop(false);
                             setDeskAddOpen(true);
                           }}
@@ -1174,7 +1199,7 @@ export default connect(mapStateToProps)((props) => {
                           setProductDetail(accessoryStocks[index]);
                           setProductRemark(accessoryStocks[index].remark);
                           setProductPrice(accessoryStocks[index].unitPrice);
-                          setProductAmount(1);
+                          setProductQty(1);
                           if (
                             cart.find(
                               (item) =>
@@ -1290,7 +1315,7 @@ export default connect(mapStateToProps)((props) => {
                 cart.concat({
                   productType,
                   productDetail,
-                  productAmount,
+                  ProductQty,
                   productDeliveryOption: JSON.stringify(
                     [
                       "Delivery Included",
@@ -1306,6 +1331,7 @@ export default connect(mapStateToProps)((props) => {
                 })
               );
             } else if (cartItemStatus === "edit") {
+              console.log("33", cart)
               const newCart = cart.map((item) => {
                 if (
                   item.productType === productType &&
@@ -1314,7 +1340,7 @@ export default connect(mapStateToProps)((props) => {
                   return {
                     productType,
                     productDetail,
-                    productAmount,
+                    ProductQty,
                     productDeliveryOption: JSON.stringify(
                       [
                         "Delivery Included",
@@ -1361,23 +1387,23 @@ export default connect(mapStateToProps)((props) => {
             }}
           >
             <Typography variant="span" sx={{ flexGrow: 1 }}>
-              Amount
+              Quantity
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductAmount(Math.max(productAmount - 1, 1));
+                setProductQty(Math.max(ProductQty - 1, 1));
               }}
             >
               <RemoveIcon />
             </IconButton>
             <Typography variant="span" sx={{ ml: "10px" }}>
-              {productAmount}
+              {ProductQty}
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductAmount(Math.min(productAmount + 1, 99));
+                setProductQty(Math.min(ProductQty + 1, 99));
               }}
             >
               <AddIcon />
@@ -1459,7 +1485,7 @@ export default connect(mapStateToProps)((props) => {
                 cart.concat({
                   productType,
                   productDetail,
-                  productAmount,
+                  ProductQty,
                   productDeliveryOption: JSON.stringify(
                     [
                       "Delivery Included",
@@ -1512,7 +1538,7 @@ export default connect(mapStateToProps)((props) => {
                 return {
                   productType,
                   productDetail,
-                  productAmount,
+                  ProductQty,
                   productDeliveryOption: JSON.stringify(
                     [
                       "Delivery Included",
@@ -1710,7 +1736,7 @@ export default connect(mapStateToProps)((props) => {
                       "Left_Right_Center",
                     ],
                 disabled: topHoleCount !== 1, // || topHoleType !== "Rounded",
-                visible: true, //topHoleType === "Rounded",
+                visible: "true", //topHoleType === "Rounded",
                 width: "48%",
               },
               {
@@ -1871,24 +1897,24 @@ export default connect(mapStateToProps)((props) => {
               p: "5px 3px",
             }}
           >
-            <Typography variant="span" sx={{ flexGrow: 1 }}>
-              Amount
+            <Typography variant="span" sx={{ flexGrow: 1, marginTop: "8px" }}>
+              Quantity
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductAmount(Math.max(productAmount - 1, 1));
+                setProductQty(Math.max(ProductQty - 1, 1));
               }}
             >
               <RemoveIcon />
             </IconButton>
-            <Typography variant="span" mx="10px">
-              {productAmount}
+            <Typography variant="span" sx={{ ml: "10px", marginTop: "8px" }}>
+              {ProductQty}
             </Typography>
             <IconButton
               onClick={(e) => {
                 e.preventDefault();
-                setProductAmount(Math.min(productAmount + 1, 99));
+                setProductQty(Math.min(ProductQty + 1, 99));
               }}
             >
               <AddIcon />
