@@ -154,7 +154,7 @@ async function update(req, res, next) {
         UPDATE shipments SET qty=${element.productQty} 
           WHERE poNum=${shipment.poNum} AND YEAR(createdAt)=${theYear} AND stockId='${element.productId}'
       `
-      await db.sequelize.query(query, { type: QueryTypes.SELECT });
+      // await db.sequelize.query(query, { type: QueryTypes.UPDATE });
     })
 
     res.json({ message: "Shipment was updated successfully." });
