@@ -782,7 +782,7 @@ export default connect(mapStateToProps)((props) => {
             `Nightingale chairs: 5 years for defective parts under regular usage, by Nightingale Corp.`,
             `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
             `Standing desks: 5 years by manufacturer`,
-            `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+            // `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
             `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
             `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
             `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
