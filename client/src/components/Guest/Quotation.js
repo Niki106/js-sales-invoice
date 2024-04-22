@@ -193,9 +193,9 @@ export default connect(mapStateToProps)((props) => {
           <View style={styles.info}>
             <View style={styles.companyInfo}>
               <Text>Blueocean International (HK) Ltd.</Text>
-              <Text>19/F</Text>
-              <Text>Bel Trade Commercial Building</Text>
-              <Text>3 Burrows Street</Text>
+              <Text>23/F</Text>
+              <Text>Lockhart Centre</Text>
+              <Text>301-307 Locakhart Rd</Text>
               <Text>Wanchai, Hong Kong</Text>
               <Text>Tel: 2169 3337</Text>
               <Text>

@@ -197,9 +197,9 @@ export default connect(mapStateToProps)((props) => {
                 <View style={styles.info}>
                   <View style={styles.companyInfo}>
                     <Text>Blueocean International (HK) Ltd.</Text>
-                    <Text>19/F</Text>
-                    <Text>Bel Trade Commercial Building</Text>
-                    <Text>3 Burrows Street</Text>
+                    <Text>23/F</Text>
+                    <Text>Locakhart Centre</Text>
+                    <Text>301-307 Lockhart Rd</Text>
                     <Text>Wanchai, Hong Kong</Text>
                     <Text>Tel: 2169 3337</Text>
                     <Text>
@@ -765,6 +765,7 @@ export default connect(mapStateToProps)((props) => {
                   `If the delivery address is located in a remote area within Hong Kong, we reserve the rights to charge the client extra for delivery charges.  In such cases, we will provide a quotation upon investigation of the detailed address.  Client will be notified of such extra cost prior to delivery.`,
                   `Delivery date for pre-orders stated above is an estimate only. While we will try our best to deliver the products as soon as possible, the actual delivery date may be adjusted depending on actual freight schedule. We do NOT accept refund in case of delay arising from delivery delay.`,
                   `You understand that pre-orders are non-refundable.  Decision to switch to another product after purchase can only be treated as store credits. `,
+                  `You understand that a late payment penalty of 2% Interest Rate per month maybe charged for overdue payment`
                 ].map((text, index) => (
                   <View
                     key={index}
@@ -811,12 +812,14 @@ export default connect(mapStateToProps)((props) => {
                   `Nightingale chairs: 5 years for defective parts under regular usage, by Nightingale Corp.`,
                   `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
                   `Standing desks: 5 years by manufacturer`,
-                  `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+                  //`Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+                  `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
                   `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
                   `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
                   `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
                   `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,
-                  `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
+                  // `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
+                  `Atlas Headrest, 3 years for defective parts under regular usage, by Back Foley LLC`,
                   `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
                 ].map((text, index) => (
                   <View
@@ -926,9 +929,9 @@ export default connect(mapStateToProps)((props) => {
             <View style={styles.info}>
               <View style={styles.companyInfo}>
                 <Text>Blueocean International (HK) Ltd.</Text>
-                <Text>19/F</Text>
-                <Text>Bel Trade Commercial Building</Text>
-                <Text>3 Burrows Street</Text>
+                <Text>23/F</Text>
+                <Text>Lockhart Centre</Text>
+                <Text>301-307 Lockhart Rd</Text>
                 <Text>Wanchai, Hong Kong</Text>
                 <Text>Tel: 2169 3337</Text>
                 <Text>
@@ -1535,12 +1538,14 @@ export default connect(mapStateToProps)((props) => {
               `Nightingale chairs: 5 years for defective parts under regular usage, by Nightingale Corp.`,
               `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
               `Standing desks: 5 years by manufacturer`,
-              `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+              // `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+              `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
               `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
               `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
               `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
               `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,
-              `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
+              // `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
+              `Atlas Headrest, 3 years for defective parts under regular usage, by Back Foley LLC`,
               `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
             ].map((text, index) => (
               <View
