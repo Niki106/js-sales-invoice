@@ -812,8 +812,12 @@ export default connect(mapStateToProps)((props) => {
                   `Nightingale chairs: 5 years for defective parts under regular usage, by Nightingale Corp.`,
                   `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
                   `Standing desks: 5 years by manufacturer`,
+<<<<<<< HEAD
                   //`Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
                   `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
+=======
+                  // `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+>>>>>>> b02ea7ec37d11ded4e8202b9812ce973d3db9022
                   `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
                   `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
                   `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
@@ -1539,7 +1543,10 @@ export default connect(mapStateToProps)((props) => {
               `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
               `Standing desks: 5 years by manufacturer`,
               // `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
+<<<<<<< HEAD
               `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
+=======
+>>>>>>> b02ea7ec37d11ded4e8202b9812ce973d3db9022
               `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
               `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
               `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
