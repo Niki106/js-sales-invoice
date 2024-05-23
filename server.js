@@ -7,7 +7,7 @@ const router = express.Router();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("server/middleware/error-handler");
-require("server/whatsapp/main.js");
+// require("server/whatsapp/main.js");
 
 const authorize = require("server/middleware/authorize");
 const uploadController = require("server/controller/upload.controller");

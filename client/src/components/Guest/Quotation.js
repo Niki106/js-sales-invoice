@@ -787,8 +787,10 @@ export default connect(mapStateToProps)((props) => {
             `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
             `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
             `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,
-            `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
-            `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
+            // `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
+            `Atlas Headrest, 3 years for defective parts under regular usage, by Back Foley LLC`,
+            `Okamura Chairs: 10 years for structural defective parts, under regular usage by Okamura (China) Co. Ltd, for details please refer to our website FAQ section.`,
+            // `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
           ].map((text, index) => (
             <View
               key={index}

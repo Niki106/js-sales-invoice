@@ -9,7 +9,8 @@
     "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.0.4",
     "@mui/styles": "^5.0.1",
-    "@react-pdf/renderer": "^2.0.21",
+    "@react-pdf/renderer":" 2.1.0",
+    "@react-pdf/font": "2.2.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -24,7 +25,8 @@
     "react-scripts": "4.0.3",
     "sweetalert2": "^11.1.9",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yoga-layout": "^3.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

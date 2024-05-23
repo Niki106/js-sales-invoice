@@ -813,14 +813,14 @@ export default connect(mapStateToProps)((props) => {
                   `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
                   `Standing desks: 5 years by manufacturer`,
                   //`Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
-                  `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
                   `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
                   `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
                   `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
                   `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,
                   // `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
                   `Atlas Headrest, 3 years for defective parts under regular usage, by Back Foley LLC`,
-                  `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
+                  `Okamura Chairs: 10 years for structural defective parts, under regular usage by Okamura (China) Co. Ltd, for details please refer to our website FAQ section.`,
+                  // `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
                 ].map((text, index) => (
                   <View
                     key={index}
@@ -1539,14 +1539,14 @@ export default connect(mapStateToProps)((props) => {
               `Allseating chairs:  5 years for defective parts under regular usage, by Allseating Corp.`,
               `Standing desks: 5 years by manufacturer`,
               // `Okamura chairs:  5 years for defective parts under regular usage, by Okamura Salotto HK Ltd.`,
-              `10 years for structural defective parts, under regular usage by Okamura Salotto HK Ltd, for details please refer to our website FAQ section.`,
               `Bestuhl chairs: 3 years for defective parts under regular usage, by Bestuhl Co. Ltd.`,
               `Duorest chairs: 3 years for defective parts under regular usage, by Duoback Co. Ltd.`,
               `Wagner chairs: 5 years for defective parts under regular usage, by Topstar GMBH`,
               `Topstar chairs: 3 years for defective parts under regular usage, by Topstar GMBH`,
               // `Ergohuman chairs: 2 years for defective parts under regular usage, by manufacturer`,
               `Atlas Headrest, 3 years for defective parts under regular usage, by Back Foley LLC`,
-              `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
+              `Okamura Chairs: 10 years for structural defective parts, under regular usage by Okamura (China) Co. Ltd, for details please refer to our website FAQ section.`,
+              // `HAG chairs: 2 years for defective parts under regular usage, by manufacturer`,
             ].map((text, index) => (
               <View
                 key={index}
